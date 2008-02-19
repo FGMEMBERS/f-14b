@@ -1,0 +1,12 @@
+<PropertyList>
+
+ <name>f-14b main panel</name>
+ <background>Aircraft/f-14b/Panels/bg.rgb</background>
+ <w>1024</w>
+ <h>1024</h>
+ <y-offset>256</y-offset>
+ <view-height>768</view-height>
+
+ 
+    
+</PropertyList>

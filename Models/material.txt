@@ -1,0 +1,35 @@
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0.5 0.5 0.5  shi 64  trans 0
+MATERIAL "Side2.1" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.2 0.2 0.2 shi 32 trans 0
+MATERIAL "Glass" rgb 0.8 0.8 0.8 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 59 trans 0.850892
+MATERIAL "White" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 16 trans 0
+MATERIAL "Chrome" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 72 trans 0
+MATERIAL "Hole" rgb 0 0 0 amb 0.5 0.5 0.5 emis 0 0 0 spec 0 0 0 shi 0 trans 0
+MATERIAL "canvas" rgb 0.343958 0.343958 0.343958 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.60146 0.599655 0.599655 shi 14 trans 0
+MATERIAL "HUDtint" rgb 0 0.76691 0.114196 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 59 trans 0.719603
+MATERIAL "Radome" rgb 0.811111 0.784552 0.556068 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 32 trans 0
+MATERIAL "CommonDull" rgb 0.672639 0.480836 0.480836 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 1 trans 0
+MATERIAL "Red" rgb 1 0 0 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 59 trans 0.0
+MATERIAL "alu" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 45 trans 0
+MATERIAL "Side1.2" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.2 0.2 0.2 shi 32 trans 0
+MATERIAL "CommonTexture" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 8 trans 0
+MATERIAL "RedGlass" rgb 1 0 0 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 59 trans 0.41863
+MATERIAL "Rubber" rgb 0.100649 0.100347 0.100347 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 43 trans 0
+MATERIAL "Side2.2" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.2 0.2 0.2 shi 32 trans 0
+MATERIAL "Side1.1" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.2 0.2 0.2 shi 32 trans 0
+MATERIAL "TopBottom2" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.2 0.2 0.2 shi 32 trans 0
+MATERIAL "TopBottom1.2" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.2 0.2 0.21 shi 32 trans 0
+MATERIAL "TopBottom1.3" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.2 0.2 0.2 shi 32 trans 0
+MATERIAL "TopBottom1.1" rgb1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.2 0.2 0.2 shi 32 trans 0
+MATERIAL "GlossyCommon" rgb 0.96659 0.999771 0.637732 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 59 trans 0
+MATERIAL "Flame" rgb 1 1 1 amb 0 0 0 emis 1 1 1 spec 0 0 0 shi 0 trans 0.5
+MATERIAL "Slimer" rgb 1 1 0.633491 amb 0.5 0.5 0.5 emis 0.319228 0.319228 0.319228 spec 1 1 1 shi 43 trans 0.745658
+MATERIAL "Darkmetal" rgb 0.588889 0.588889 0.588889 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 59 trans 0
+MATERIAL "visor" rgb 0.335886 0.315995 0.227181 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 87 trans 0.2
+MATERIAL "Aluminium.002" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 64 trans 0
+MATERIAL "Helmet" rgb 0.862806 0.816708 0.816708 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 18 trans 0
+MATERIAL "Blur" rgb 1 1 1 amb 1 1 1 emis 0 0 0 spec 1 1 1 shi 0 trans 0.5
+MATERIAL "Flame2" 1 1 1 amb 0 0 0 emis 1 1 1 spec 0 0 0 shi 0 trans 0.5
+MATERIAL "Mist" rgb 1 1 1 amb 1 1 1 emis 0 0 0 spec 0 0 0 shi 1 trans 0
+MATERIAL "NozzleBlack" rgb 0 0 0 amb 0.5 0.5 0.5 emis 0 0 0 spec 0.60146 0.599655 0.599655 shi 59 trans 0
+MATERIAL "SeatGreen" rgb 0 0.333229 0.136109 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 12 trans 0
+MATERIAL "Yellow" rgb 1 1 0 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 43 trans 0
