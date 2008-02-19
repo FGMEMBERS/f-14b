@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <sim>
+  <description>Grumman F-14B </description>
+  <author>Enrique Laso</author>
+  <status>early-production</status>
+ 
+  <flight-model>yasim</flight-model>
+  <aero>f-14b-yasim</aero>
+  <fuel-fraction>1.0</fuel-fraction>
+
+  <systems>
+   <autopilot>
+    <path>Aircraft/f-14b/f-14-AFCS.xml</path>
+   </autopilot>
+  </systems> 
+
+  <startup>
+   <splash-texture>Aircraft/f-14b/f-14b-splash.rgb</splash-texture>
+  </startup>
+
+  <gui>
+   <style>
+    <colors>
+     <splash-screen>
+      <red>0.57</red>
+      <green>0.60</green>
+      <blue>0.60</blue>
+     </splash-screen>
+    </colors>
+   </style>
+  </gui>
+  
+  
+  <sound>
+   <path>Aircraft/f-14b/f-14b-sound.xml</path>
+  </sound>
+
+	
+  <hud>
+	<path n="1">Aircraft/f-14b/Hud/F-14.xml</path>
+	<visibility n="1">true</visibility>
+	<color>
+		<transparent type="bool">true</transparent>
+		<antialiased type="bool">true</antialiased>
+		<brightness type="float">0.85</brightness>
+		<alpha type="float">0.85</alpha>
+	</color>
+	<palette>
+		<color n="0">
+			<red type="float">0.38</red>
+			<green type="float">1.0</green>
+			<blue type="float">0.22</blue>
+		</color>
+		<color n="1">
+			<red type="float">0.0</red>
+			<green type="float">1.0</green>
+			<blue type="float">0.0</blue>
+		</color>
+	</palette>
+   </hud>
+
+  <model>
+   <path>Aircraft/f-14b/Models/f-14b.xml</path>
+  </model>
+
+  <panel>
+   <path>Aircraft/f-14b/Panels/2D.xml</path>
+   <visibility archive="y">true</visibility>
+  </panel>   
+
+  <submodels>
+   <serviceable>true</serviceable>
+   <path>Aircraft/f-14b/submodels.xml</path>
+  </submodels>
+
+
+  <chase-distance-m type="double" archive="y">-35.0</chase-distance-m>
+  <view>
+   <config>
+     <pitch-offset-deg>0.0</pitch-offset-deg>
+     <default-field-of-view-deg>45</default-field-of-view-deg>
+   </config>
+  </view>
+
+ </sim>
+
+ <input>
+   <keyboard include="../../Input/Keyboard/carrier-bindings.xml">
+     
+
+     <key n="117">
+      <name>u</name>
+      <desc>Toggle refuelling probe</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.toggleProbe();</script>
+      </binding>
+     </key>
+
+     <key n="101">
+      <name>e</name>
+      <desc>Open canopy and access ladder</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.toggleAccess();</script>
+      </binding>
+     </key>
+
+     <key n="102">
+      <name>f</name>
+      <desc>Lower flaps</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.lowerFlaps();</script>
+      </binding>
+    </key>
+    
+    <key n="70">
+      <name>F</name>
+      <desc>Raise flaps</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.raiseFlaps();</script>
+      </binding>
+    </key>
+
+    <key n="15">
+      <name>Ctrl-o</name>
+      <desc>toggle oversweep</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.toggleOversweep();</script>
+      </binding>
+   </key>
+
+
+    <key n="4">
+      <name>CTRL-d</name>
+      <desc>DLC toggle</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.toggleDLC();</script>
+      </binding>
+    </key>
+
+    <key n="100">
+      <name>d</name>
+      <desc>DLC increase</desc>
+      <binding>
+       <command>property-adjust</command>
+       <property>/controls/flight/DLC</property>
+       <step>0.1</step>
+       <max>1.0</max>
+      </binding>
+    </key>
+
+    <key n="68">
+      <name>d</name>
+      <desc>DLC decrease</desc>
+      <binding>
+       <command>property-adjust</command>
+       <property>/controls/flight/DLC</property>
+       <step>-0.1</step>
+       <min>0</min>
+      </binding>
+    </key>
+
+    <key n="115">
+      <name>s</name>
+      <desc>Increase speed brakes</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.speedBrakesOut();</script>
+      </binding>
+    </key>
+
+    <key n="83">
+      <name>S</name>
+      <desc>Decrease speed brakes</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.speedBrakesIn();</script>
+      </binding>
+    </key>
+
+    <key n="19">
+      <name>Ctrl-s</name>
+      <desc>Toggle ground spoilers armed</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.toggleGroundSpoilers();</script>
+      </binding>
+    </key>
+
+    <key n="362">
+      <name>Home</name>
+      <desc>Increase elevator trim</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.trimUp();</script>
+      </binding>
+    </key>
+
+    <key n="363">
+      <name>End</name>
+      <desc>Decrease elevator trim</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.trimDown();</script>
+      </binding>
+    </key>
+
+
+   </keyboard>
+  </input>
+
+ <controls>
+  <lighting>
+   <strobe type="bool">false</strobe>
+   <nav-lights type="bool">true</nav-lights>
+  </lighting>
+  <flight>
+	  <ground-spoilers-armed type="bool"> false </ground-spoilers-armed>
+	  <fake>0.0</fake>
+  </flight>
+ </controls>
+
+ <engines>
+  <engine n="0">
+   <running>true</running>
+  </engine>
+ </engines>
+
+ <f-14>
+	 <SAS>
+		 <engaged>true</engaged>
+		 <pitch-bias type="float">
+			 0.0
+		 </pitch-bias>	 
+		 <yaw-bias type="float">
+			 0.0
+		 </yaw-bias>	
+	</SAS>
+ </f-14>
+
+ <consumables>
+  <fuel>
+   <tank n="0">
+    <level-lbs archive="y">4700</level-lbs>
+   </tank>
+   <tank n="1">
+    <level-lbs archive="y">4400</level-lbs>
+   </tank>
+   <tank n="2">
+    <level-lbs archive="y">1550</level-lbs>
+   </tank>
+   <tank n="3">
+    <level-lbs archive="y">1550</level-lbs>
+   </tank>
+   <tank n="4">
+    <level-lbs archive="y">2000</level-lbs>
+   </tank>
+   <tank n="5">
+    <level-lbs archive="y">2000</level-lbs>
+   </tank>
+  </fuel>
+ </consumables>
+
+ <nasal>
+  <f14>
+   <file>Aircraft/f-14b/Nasal/globals.nas</file>
+   <file>Aircraft/f-14b/Nasal/flaps_computer.nas</file>
+   <file>Aircraft/f-14b/Nasal/drag_computer.nas</file>   
+   <file>Aircraft/f-14b/Nasal/engines.nas</file>
+   <file>Aircraft/f-14b/Nasal/sweep_computer.nas</file>
+   <file>Aircraft/f-14b/Nasal/gear.nas</file>
+   <file>Aircraft/f-14b/Nasal/engines.nas</file>
+   <file>Aircraft/f-14b/Nasal/spoilers.nas</file>
+   <file>Aircraft/f-14b/Nasal/SAS.nas</file>
+   <file>Aircraft/f-14b/Nasal/adverse.nas</file>
+   <file>Aircraft/f-14b/Nasal/f-14b.nas</file>
+  </f14>
+ </nasal>
+
+</PropertyList>
