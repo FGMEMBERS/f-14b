@@ -13,7 +13,7 @@
 
   <systems>
    <autopilot>
-    <path>Aircraft/f-14b/f-14-AFCS.xml</path>
+    <path>Aircraft/f-14b/f-14b-AFCS.xml</path>
    </autopilot>
   </systems> 
 
@@ -79,9 +79,12 @@
 
   <chase-distance-m type="double" archive="y">-35.0</chase-distance-m>
   <view>
+   <internal>true</internal>
    <config>
      <pitch-offset-deg>0.0</pitch-offset-deg>
      <default-field-of-view-deg>45</default-field-of-view-deg>
+	 <y-offset-m>0.3</y-offset-m>
+	 <z-offset-m>-6</z-offset-m>
    </config>
   </view>
 
@@ -213,6 +216,14 @@
       </binding>
     </key>
 
+    <key n="97">
+      <name>a</name>
+      <desc>toggle APC</desc>
+      <binding>
+       <command>nasal</command>
+       <script>f14.toggleAPC();</script>
+      </binding>
+    </key>
 
    </keyboard>
   </input>
@@ -243,6 +254,9 @@
 		 <yaw-bias type="float">
 			 0.0
 		 </yaw-bias>	
+		 <roll-bias type="float">
+			 0.0
+		 </roll-bias>	
 	</SAS>
  </f-14>
 
