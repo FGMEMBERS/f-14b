@@ -16,6 +16,46 @@ TrimIncrement = 0.015;
 PreviousHeading = 0.0;
 PreviousSlip = 0.0;
 
+#Pid constants
+var PitchVarTarget = 0.0;
+var PitchKp = -0.05;
+var PitchKi = 0.0;
+var PitchKd = 0.0;
+
+var RollVarTarget = 0.0;
+var RollKp = 0.005;
+var RollKi = 0.0;
+var RollKd = 0.0;
+
+var YawVarTarget = 0.0;
+var YawKp = 0.01;
+var YawKi = 0.0;
+var YawKd = 0.0;
+
+
+var PreviousPitchBias = 0.0;
+var PreviousRollBias = 0.0;
+var PreviousYawBias = 0.0;
+
+#derivative
+var PitchPIDpreviousError = 0.0;
+var PitchPIDppError = 0.0;
+var RollPIDpreviousError = 0.0;
+var RollPIDppError = 0.0;
+var YawPIDpreviousError = 0.0;
+var YawPIDppError = 0.0;
+
+#Limiters
+PitchMaxOutput = 0.2;
+PitchMinOutput = -0.2;
+
+RollMaxOutput = 0.01;
+RollMinOutput = -0.01;
+
+YawMaxOutput = 0.3;
+YawMinOutput = -0.3;
+
+
 # Functions
 
 CurrentTrim = 0.0;
@@ -49,10 +89,27 @@ computeSAS = func
    airspeed = getprop ("/velocities/airspeed-kt");
    squaredAirspeed = airspeed * airspeed;
 
+
    ########################################################################3
    #roll channel
+   
+   # Roll PID computation
+   RollVarError = RollVarTarget - getprop ("/orientation/roll-deg");
+   
+   rollBias = PreviousRollBias 
+              + RollKp * (RollVarError - RollPIDpreviousError)
+			  + RollKi * deltaT * RollVarError
+			  + RollKd * (RollVarError - 2* RollPIDpreviousError + RollPIDppError) / deltaT;
 
-   SASroll = getprop ("/controls/flight/aileron");    
+   RollPIDpreviousError = RollVarError;
+   RollPIDppError = RollPIDpreviousError;
+   PreviousRollBias = rollBias;
+
+   if (rollBias > RollMaxOutput) rollBias = RollMaxOutput;
+   if (rollBias < RollMinOutput) rollBias = RollMinOutput;
+
+
+   SASroll = getprop ("/controls/flight/aileron") + rollBias;   
    if (airspeed > RollLoSpeed)
      SASroll = SASroll * ( (RollLoSpeed * RollLoSpeed) / squaredAirspeed );
 
@@ -70,19 +127,34 @@ computeSAS = func
    {
      headingRate = (currentHeading - PreviousHeading) / deltaT;
      PreviousHeading = currentHeading;
-     phiDotZ = fakePitchRate * math.cos (roll*0.01745);
-     phiDotX = headingRate * math.sin (roll*0.01745);
+     phiDot = fakePitchRate * math.cos (roll*0.01745) + headingRate * math.sin (roll*0.01745);
    }
    else 
    {
-     phiDotZ = 0.0;
-     phiDotX = 0.0;
+     phiDot = 0.0;     
    }
    
    
-   setprop ("/orientation/phi-dot", phiDotZ  + phiDotX );
+   #setprop ("/orientation/phi-dot", phiDot);
+
    
-   pitchInput = getprop ("/controls/flight/elevator") + getprop ("/f-14/SAS/pitch-bias");
+   #pitchInput = getprop ("/controls/flight/elevator") + getprop ("/f-14/SAS/pitch-bias");
+
+   # Pitch PID computation
+   PitchVarError = PitchVarTarget - phiDot; 
+   pitchBias = PreviousPitchBias 
+              + PitchKp * (PitchVarError - PitchPIDpreviousError)
+			  + PitchKi * deltaT * PitchVarError
+			  + PitchKd * (PitchVarError - 2* PitchPIDpreviousError + PitchPIDppError) / deltaT;
+
+   PitchPIDpreviousError = PitchVarError;
+   PitchPIDppError = PitchPIDpreviousError;
+   PreviousPitchBias = pitchBias;
+
+   if (pitchBias > PitchMaxOutput) pitchBias = PitchMaxOutput;
+   if (pitchBias < PitchMinOutput) pitchBias = PitchMinOutput;
+
+   pitchInput = getprop ("/controls/flight/elevator") + pitchBias;
 
    #adapt trim rate to speed
    if (airspeed < 120.0) 
@@ -117,16 +189,30 @@ computeSAS = func
       
    setprop ("/controls/flight/SAS-pitch", SASpitch);
 
-   ########################################################################3
+   ########################################################################
    #yaw channel
 
+   # Yaw PID computation
+   YawVarError = YawVarTarget - getprop ("/orientation/side-slip-deg");
+   yawBias = PreviousYawBias 
+             + YawKp * (YawVarError - YawPIDpreviousError)
+			 + YawKi * deltaT * YawVarError
+			 + YawKd * (YawVarError - 2* YawPIDpreviousError + YawPIDppError) / deltaT;
+
+   YawPIDpreviousError = YawVarError;
+   YawPIDppError = YawPIDpreviousError;
+   PreviousYawBias = yawBias;
+
+   if (yawBias > YawMaxOutput) yawBias = YawMaxOutput;
+   if (yawBias < YawMinOutput) yawBias = YawMinOutput;
 
    yawInput = getprop ("/controls/flight/rudder");
+   radalt =  getprop ("position/ground-elev-ft");
 
-    if (yawInput < 0.1 and yawInput > -0.1)
-         yawInput += getprop ("/f-14/SAS/yaw-bias");
-
+    if (yawInput < 0.1 and yawInput > -0.1 and radalt > 50.0)
+		 yawInput += yawBias;
 
      setprop ("/controls/flight/SAS-yaw", yawInput);
+
 
  } #end computeSAS

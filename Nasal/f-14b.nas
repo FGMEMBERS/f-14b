@@ -215,11 +215,12 @@ updateFCS = func
 	computeAdverse ();
 	computeNWS ();
     computeAICS ();
+	computeAPC ();
     timedMotions ();
     registerFCS ();
   }
 
-updateFCS ();
+
 
 registerBurner = func {settimer (updateBurner, 0.04);}
 
@@ -236,6 +237,12 @@ updateBurner = func
 
  } #end updateBurner
 
+startProcess = func 
 
+ {
+  updateFCS ();
+  updateBurner ();
+ }
 
- updateBurner ();
+settimer (startProcess, 1.0);
+

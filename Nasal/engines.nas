@@ -88,3 +88,48 @@ computeNozzles = func
        }
 
   } # end computeNozzles
+
+#----------------------------------------------------------------------------
+# Approach Power Compensator
+#----------------------------------------------------------------------------
+
+
+ APCengaged = false;
+
+
+ SpeedSlope = (146 - 118) / 18000.0;
+
+  toggleAPC = func
+
+  
+   {
+     
+	 APCengaged = !APCengaged;
+	 if (APCengaged == true) 
+	   {
+		 setprop ("/autopilot/locks/speed", "speed-with-throttle");
+		 speedtarget = (getprop ("/yasim/gross-weight-lbs") - 40000.0) * SpeedSlope + 118.0;
+		 setprop ("/autopilot/settings/target-speed-kt", speedtarget);
+
+	   }
+	   else
+	   {
+
+		 setprop ("/autopilot/locks/speed", "");
+		 setprop ("/autopilot/settings/target-speed-kt", 0.0);
+
+	   } # end if
+
+   } # end toggleAPC
+
+  computeAPC = func 
+
+   {
+
+     if (WOW and APCengaged)
+	  {
+	    toggleAPC ();
+        setprop ("/autopilot/locks/speed", "");
+	 } # end if 
+
+   } # end computAPC
