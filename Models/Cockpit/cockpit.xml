@@ -5,17 +5,7 @@
 
 	<path>group-cockpit.ac</path>
 
-	<!-- select for modeling purpose only -->
-	<animation>
-		<type>select</type>
-		<object-name>mCanopy</object-name>
-		<object-name>mWindshield</object-name>
-		<object-name>m-stby-adi</object-name>
-		<object-name>m-asi</object-name>
-		<condition>
-			<property>sim/model/f-14b/modeling/show-canopy</property>
-		</condition>
-	</animation>
+
 
 <!-- De-select Pilot when in Cockpit View -->
 	<animation>
