@@ -12,7 +12,6 @@
 		<object-name>mWindshield</object-name>
 		<object-name>m-stby-adi</object-name>
 		<object-name>m-asi</object-name>
-		<object-name>front-panel-man-capture</object-name>
 		<condition>
 			<property>sim/model/f-14b/modeling/show-canopy</property>
 		</condition>
