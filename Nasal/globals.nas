@@ -1,8 +1,8 @@
 ## Global constants ##
-true = 1;
-false = 0;
+var true = 1;
+var false = 0;
 
-deltaT = 1.0;
+var deltaT = 1.0;
 
 #----------------------------------------------------------------------------
 # sweep computer
@@ -10,9 +10,9 @@ deltaT = 1.0;
 
 #Variables
 
-AutoSweep = true;
-OverSweep = false;
-WingSweep = 0.0; #Normalised wing sweep
+var AutoSweep = true;
+var OverSweep = false;
+var WingSweep = 0.0; #Normalised wing sweep
 
 #----------------------------------------------------------------------------
 # flap computer
@@ -20,39 +20,39 @@ WingSweep = 0.0; #Normalised wing sweep
 
 # Variables
 
-FlapsCommand = 0;
+var FlapsCommand = 0;
 
 #----------------------------------------------------------------------------
 # Nozzle opening
 #----------------------------------------------------------------------------
 
 # Variables
-Nozzle1Target = 0.0;
-Nozzle2Target = 0.0;
-Nozzle1 = 0.0;
-Nozzle2 = 0.0;
+var Nozzle1Target = 0.0;
+var Nozzle2Target = 0.0;
+var Nozzle1 = 0.0;
+var Nozzle2 = 0.0;
 
 #----------------------------------------------------------------------------
 # Spoilers
 #----------------------------------------------------------------------------
 
 # Variables
-LeftSpoilersTarget = 0.0;
-RightSpoilersTarget = 0.0;
-InnerLeftSpoilersTarget = 0.0;
-InnerRightSpoilersTarget = 0.0;
+var LeftSpoilersTarget = 0.0;
+var RightSpoilersTarget = 0.0;
+var InnerLeftSpoilersTarget = 0.0;
+var InnerRightSpoilersTarget = 0.0;
 
 # create a property for direct lift control (DLC)
 setprop ("/controls/flight/DLC", 0.0);
-DLCactive = false;
+var DLCactive = false;
 
 # create properties for ground spoilers 
 #setprop ("/controls/flight/ground-spoilers-armed", false);
-GroundSpoilersDeployed = false;
+var GroundSpoilersDeployed = false;
 
 # Latching mechanism in order not to deploy ground spoilers if the aircraft
 # is on ground and the spoilers are armed
-GroundSpoilersLatchedClosed = true;
+var GroundSpoilersLatchedClosed = true;
 
 # create a property to control spoilers in the YaSim flight model
 setprop ("/controls/flight/yasim-spoilers", 0.0);
@@ -63,30 +63,31 @@ setprop ("/controls/flight/yasim-spoilers", 0.0);
 
 # Variables
 
-SpeedBrakes = 0.0;
+var SpeedBrakes = 0.0;
 
 #----------------------------------------------------------------------------
 # SAS
 #----------------------------------------------------------------------------
 
-OldPitchInput = 0.0;
-SASpitch = 0.0;
-SASroll = 0.0;
+var OldPitchInput = 0.0;
+var SASpitch = 0.0;
+var SASroll = 0.0;
 
 #----------------------------------------------------------------------------
 # General aircraft values
 #----------------------------------------------------------------------------
 
 # Constants
-ThrottleIdle = 0.05;
+var ThrottleIdle = 0.05;
 
 # Variables
-CurrentMach = 0.0;
-CurrentAlt = 0.0;
-WOW = true;
-Alpha = 0.0;
-Throttle = 0.0;
-ElevatorTrim = 0.0;
+var CurrentMach = 0.0;
+var CurrentAlt = 0.0;
+var CurrentIAS = 0.0;
+var WOW = true;
+var Alpha = 0.0;
+var Throttle = 0.0;
+var ElevatorTrim = 0.0;
 
 # Set properties
 

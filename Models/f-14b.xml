@@ -2,25 +2,38 @@
 
 <PropertyList>
 
- <path>f14.ac</path>
+	<path>f14.ac</path>
 
 
- <!-- sort transparent objects -->
- 
- <!-- group all position lights -->
- 
- 
+<!-- sort transparent objects -->
+
+<!-- group all position lights -->
+
+
 <!-- disable shadows for these objects -->
- <animation>
-  <type>noshadow</type>
-  <object-name>outerFlame</object-name>
-  <object-name>InnerFlameR</object-name>
-  <object-name>outerFlame.001</object-name>
-  <object-name>InnerFlameL</object-name>
-  <object-name>HeatBlurR</object-name>
-  <object-name>HeatBlurL</object-name>
-  <object-name>ShockWave</object-name>
- </animation> 
+	<animation>
+		<type>noshadow</type>
+		<object-name>outerFlame</object-name>
+		<object-name>InnerFlameR</object-name>
+		<object-name>outerFlame.001</object-name>
+		<object-name>InnerFlameL</object-name>
+		<object-name>HeatBlurR</object-name>
+		<object-name>HeatBlurL</object-name>
+		<object-name>ShockWave</object-name>
+	</animation>
+
+<!-- ******************************************************************* -->
+<!-- Cockpit                                                             -->
+<!-- ******************************************************************* -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/cockpit.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+			<pitch-deg>0</pitch-deg>
+		</offsets>
+	</model>
 
  <animation>
   <type>alpha-test</type>
@@ -38,18 +51,6 @@
 <!-- Lighting                                                            -->
 <!-- ******************************************************************* -->
 
-<!-- Panel light -->
-
-<animation>
-  <type>material</type>
-  <object-name>Panels</object-name>
-  <emission>
-    <red>1.0</red>
-    <green>0.2</green>
-    <blue>0.0</blue>
-    <factor-prop>/controls/lighting/instruments-norm</factor-prop>
-  </emission>
-</animation>
 
 <!-- Billboard lights -->
 
@@ -164,7 +165,7 @@
 
 
 <!-- ******************************************************************* -->
-<!-- Wing sweep animation                                                -->
+<!-- Wing sweep and bend animation                                       -->
 <!-- ******************************************************************* -->
 
 <!-- Left wing -->
@@ -208,6 +209,69 @@
 	</axis>
 </animation> -->
 
+<animation>
+	<type>rotate</type>
+	<object-name>Wing</object-name>  
+    <object-name>Slat1</object-name>
+    <object-name>Slat2</object-name>
+    <object-name>Flap1</object-name>
+    <object-name>Flap2</object-name>
+    <object-name>Flap3</object-name>
+    <object-name>Flap1Brow</object-name>
+    <object-name>Flap2Brow</object-name>
+    <object-name>Flap3Brow</object-name>
+    <object-name>FlapSeal1</object-name>
+    <object-name>FlapSeal2</object-name>
+    <object-name>FlapSeal3</object-name>
+    <object-name>Spoiler1</object-name>
+    <object-name>Spoiler2</object-name>
+    <object-name>Spoiler3</object-name>
+	<object-name>Spoiler4</object-name>  
+	<object-name>LeftWingLight</object-name>
+    <object-name>LWingSlimmer</object-name>
+	<object-name>ManeuverVortexL</object-name>
+	<property>/f-14/wing-bend</property>
+	<factor>-7.0</factor>
+	<center>
+		<x-m>1.247</x-m>
+		<y-m>-2.615</y-m>
+		<z-m>-0.636</z-m>
+	</center>
+	<axis>
+		<x>1.0</x>
+		<y>0.0</y>
+		<z>0.0</z>
+	</axis>
+</animation> 
+
+<animation>
+	<type>select</type>
+	<object-name>Wing</object-name>  
+    <object-name>Slat1</object-name>
+    <object-name>Slat2</object-name>
+    <object-name>Flap1</object-name>
+    <object-name>Flap2</object-name>
+    <object-name>Flap3</object-name>
+    <object-name>Flap1Brow</object-name>
+    <object-name>Flap2Brow</object-name>
+    <object-name>Flap3Brow</object-name>
+    <object-name>FlapSeal1</object-name>
+    <object-name>FlapSeal2</object-name>
+    <object-name>FlapSeal3</object-name>
+    <object-name>Spoiler1</object-name>
+    <object-name>Spoiler2</object-name>
+    <object-name>Spoiler3</object-name>
+	<object-name>Spoiler4</object-name>  
+	<object-name>LeftWingLight</object-name>
+    <object-name>LWingSlimmer</object-name>
+	<object-name>ManeuverVortexL</object-name>
+    <condition>
+     <not>
+      <property>/f-14/left-wing-torn</property>    
+     </not>
+    </condition>
+</animation> 
+
 <!-- Right wing -->
 
 <animation>
@@ -247,6 +311,70 @@
 		<y>0.0</y>
 		<z>1.0</z>
 	</axis>
+</animation> 
+
+<animation>
+	<type>rotate</type>
+	<object-name>Wing.001</object-name>
+    <object-name>Slat1.001</object-name>
+    <object-name>Slat2.001</object-name>
+    <object-name>Flap1.001</object-name>
+    <object-name>Flap2.001</object-name>
+    <object-name>Flap3.001</object-name>
+    <object-name>Flap1Brow.001</object-name>
+    <object-name>Flap2Brow.001</object-name>
+    <object-name>Flap3Brow.001</object-name>
+    <object-name>FlapSeal1.001</object-name>
+    <object-name>FlapSeal2.001</object-name>
+    <object-name>FlapSeal3.001</object-name>
+    <object-name>Spoiler1.001</object-name>
+    <object-name>Spoiler2.001</object-name>
+    <object-name>Spoiler3.001</object-name>
+	<object-name>Spoiler4.001</object-name> 
+    <object-name>RightWingLight</object-name>
+    <object-name>RWingSlimmer</object-name>
+    <object-name>ManeuverVortexR</object-name>
+	<property>/f-14/wing-bend</property>
+    <factor>7.0</factor>
+	<center>
+		<x-m>1.247</x-m>
+		<y-m>2.615</y-m>
+		<z-m>-0.636</z-m>
+	</center>
+	<axis>
+		<x>1.0</x>
+		<y>0.0</y>
+		<z>0.0</z>
+	</axis>
+</animation> 
+
+
+<animation>
+	<type>select</type>
+	<object-name>Wing.001</object-name>
+    <object-name>Slat1.001</object-name>
+    <object-name>Slat2.001</object-name>
+    <object-name>Flap1.001</object-name>
+    <object-name>Flap2.001</object-name>
+    <object-name>Flap3.001</object-name>
+    <object-name>Flap1Brow.001</object-name>
+    <object-name>Flap2Brow.001</object-name>
+    <object-name>Flap3Brow.001</object-name>
+    <object-name>FlapSeal1.001</object-name>
+    <object-name>FlapSeal2.001</object-name>
+    <object-name>FlapSeal3.001</object-name>
+    <object-name>Spoiler1.001</object-name>
+    <object-name>Spoiler2.001</object-name>
+    <object-name>Spoiler3.001</object-name>
+	<object-name>Spoiler4.001</object-name> 
+    <object-name>RightWingLight</object-name>
+    <object-name>RWingSlimmer</object-name>
+    <object-name>ManeuverVortexR</object-name>
+    <condition>
+     <not>
+      <property>/f-14/right-wing-torn</property>    
+     </not>
+    </condition>
 </animation> 
 
 <!-- canvas sweep seals -->
@@ -1077,7 +1205,7 @@
 	<interpolation>
 		<entry><ind>0.0</ind><dep>1.30</dep></entry>
 		<entry><ind>1</ind><dep>0</dep></entry>
-	</interpolation>	
+	</interpolation>
 	<axis>
 		<x>-0.927</x>
 		<y>0.0</y>
@@ -1098,9 +1226,9 @@
 	<object-name>NsShock</object-name>
 	<property>gear/gear[0]/position-norm</property>
 	<interpolation>
-		<entry><ind>0</ind><dep>110</dep></entry>
+		<entry><ind>0</ind><dep>100</dep></entry>
 		<entry><ind>1</ind><dep>0</dep></entry>
-	</interpolation>			
+	</interpolation>
 	<center>
 		<x-m>-4.628</x-m>
 		<y-m>0.0</y-m>

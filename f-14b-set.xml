@@ -2,93 +2,187 @@
 
 <PropertyList>
 
- <sim>
-  <description>Grumman F-14B </description>
-  <author>Enrique Laso</author>
-  <status>early-production</status>
- 
-  <flight-model>yasim</flight-model>
-  <aero>f-14b-yasim</aero>
-  <fuel-fraction>1.0</fuel-fraction>
+	<sim>
+		<description>Grumman F-14B </description>
+		<author>Enrique Laso</author>
+		<status>early-production</status>
 
-  <systems>
-   <autopilot>
-    <path>Aircraft/f-14b/f-14b-AFCS.xml</path>
-   </autopilot>
-  </systems> 
+		<flight-model>yasim</flight-model>
+		<aero>f-14b-yasim</aero>
+		<fuel-fraction>1.0</fuel-fraction>
 
-  <startup>
-   <splash-texture>Aircraft/f-14b/f-14b-splash.rgb</splash-texture>
-  </startup>
+		<systems>
+			<autopilot>
+			<path>Aircraft/f-14b/f-14b-AFCS.xml</path>
+			</autopilot>
+		</systems>
 
-  <gui>
-   <style>
-    <colors>
-     <splash-screen>
-      <red>0.57</red>
-      <green>0.60</green>
-      <blue>0.60</blue>
-     </splash-screen>
-    </colors>
-   </style>
-  </gui>
-  
-  
-  <sound>
-   <path>Aircraft/f-14b/f-14b-sound.xml</path>
-  </sound>
+		<startup>
+			<splash-texture>Aircraft/f-14b/f-14b-splash.rgb</splash-texture>
+		</startup>
 
-	
-  <hud>
-	<path n="1">Aircraft/f-14b/Hud/F-14.xml</path>
-	<visibility n="1">true</visibility>
-	<color>
-		<transparent type="bool">true</transparent>
-		<antialiased type="bool">true</antialiased>
-		<brightness type="float">0.85</brightness>
-		<alpha type="float">0.85</alpha>
-	</color>
-	<palette>
-		<color n="0">
-			<red type="float">0.38</red>
-			<green type="float">1.0</green>
-			<blue type="float">0.22</blue>
-		</color>
-		<color n="1">
-			<red type="float">0.0</red>
-			<green type="float">1.0</green>
-			<blue type="float">0.0</blue>
-		</color>
-	</palette>
-   </hud>
+		<gui>
+			<style>
+			<colors>
+				<splash-screen>
+					<red>0.57</red>
+					<green>0.60</green>
+					<blue>0.60</blue>
+				</splash-screen>
+			</colors>
+			</style>
+		</gui>
 
-  <model>
-   <path>Aircraft/f-14b/Models/f-14b.xml</path>
-  </model>
+		<sound>
+			<path>Aircraft/f-14b/f-14b-sound.xml</path>
+		</sound>
 
-  <panel>
-   <path>Aircraft/f-14b/Panels/2D.xml</path>
-   <visibility archive="y">true</visibility>
-  </panel>   
+		<hud>
+			<path n="1">Aircraft/f-14b/Hud/F-14.xml</path>
+			<visibility n="1">true</visibility>
+			<color>
+				<transparent type="bool">true</transparent>
+				<antialiased type="bool">true</antialiased>
+				<brightness type="float">0.85</brightness>
+				<alpha type="float">0.85</alpha>
+			</color>
+			<palette>
+				<color n="0">
+					<red type="float">0.38</red>
+					<green type="float">1.0</green>
+					<blue type="float">0.22</blue>
+				</color>
+				<color n="1">
+					<red type="float">0.0</red>
+					<green type="float">1.0</green>
+					<blue type="float">0.0</blue>
+				</color>
+			</palette>
+		</hud>
 
-  <submodels>
-   <serviceable>true</serviceable>
-   <path>Aircraft/f-14b/submodels.xml</path>
-  </submodels>
+		<model>
+			<path>Aircraft/f-14b/Models/f-14b.xml</path>
+			<f-14b>
+				<controls>
+					<fuel>
+						<bingo type="int">11500</bingo>
+					</fuel>
+					<lighting>
+						<index-norm type="double">1</index-norm>
+					</lighting>
+					<VDI>
+						<brightness type="double">1</brightness>
+					</VDI>
+				</controls>
+				<instrumentation>
+					<aoa-indexer>
+						<!-- target = 15.3 deg AoA -->
+						<too-slow-deg>17.7</too-slow-deg>	<!-- target +2.4 deg -->
+						<slow-deg>16.1</slow-deg>			<!-- target +0.8 deg -->
+						<fast-deg>14.5</fast-deg>			<!-- target -0.8 deg -->
+						<too-fast-deg>12.9</too-fast-deg>	<!-- target -2.4 deg -->
+					</aoa-indexer>
+					<acls>
+						<engaged type="bool">false</engaged>
+					</acls>
+					<g-meter>
+						<g-max archive="y" type="double">1</g-max>
+						<g-min archive="y" type="double">1</g-min>
+					</g-meter>
+				</instrumentation>
+				<modeling>
+					<show-canopy type="bool">false</show-canopy>
+				</modeling>
+				<systems>
+					<afcs>
+						<engaged type="bool">false</engaged>
+					</afcs>
+					<apc>
+						<self-disengaged type="bool">false</self-disengaged>
+					</apc>
+					<wing-sweep>
+						<mode>
+							<off type="bool">false</off>
+							<auto type="bool">true</auto>
+							<man type="bool">false</man>
+							<emer type="bool">false</emer>
+							<over type="bool">false</over>
+						</mode>
+					</wing-sweep>
+				</systems>
+			</f-14b>
+		</model>
+
+		<panel>
+			<path>Aircraft/f-14b/Panels/2D.xml</path>
+			<visibility archive="y">false</visibility>
+		</panel>
+
+		<rendering>
+			<redout>
+				<parameters>
+					<blackout-complete-g>6</blackout-complete-g>
+					<blackout-onset-g>4.5</blackout-onset-g>
+					<!-- We are Tomcat drivers !! -->
+				</parameters>
+			</redout>
+		</rendering>
+		
+		<submodels>
+			<serviceable>true</serviceable>
+			<path>Aircraft/f-14b/submodels.xml</path>
+		</submodels>
 
 
-  <chase-distance-m type="double" archive="y">-35.0</chase-distance-m>
-  <view>
-   <internal>true</internal>
-   <config>
-     <pitch-offset-deg>0.0</pitch-offset-deg>
-     <default-field-of-view-deg>45</default-field-of-view-deg>
-	 <y-offset-m>0.3</y-offset-m>
-	 <z-offset-m>-6</z-offset-m>
-   </config>
-  </view>
+		<!--<chase-distance-m type="double" archive="y">-35.0</chase-distance-m>-->
 
- </sim>
+		<view n="0">
+			<name>Cockpit View</name>
+			<type>lookfrom</type>
+			<internal archive="y">true</internal>
+			<config>
+				<x-offset-m archive="y">0.0</x-offset-m>
+				<y-offset-m archive="y">0.32</y-offset-m>
+				<z-offset-m archive="y">-5.1708</z-offset-m>
+				<pitch-offset-deg>-13.0</pitch-offset-deg>
+				<default-field-of-view-deg>55</default-field-of-view-deg>
+			</config>
+		</view>
+
+		<view n="1">
+			<config>
+				<target-z-offset-m archive="y" type="double">8.0</target-z-offset-m>
+				<pitch-offset-deg>0</pitch-offset-deg>
+			</config>
+		</view>
+		<view n="2">
+			<config>
+				<y-offset-m archive="y" type="double">6.0</y-offset-m>
+				<z-offset-m archive="y">-19.7</z-offset-m>
+				<target-z-offset-m archive="y" type="double">8.0</target-z-offset-m>
+			</config>
+		</view>
+		<view n="3">
+			<config>
+				<target-z-offset-m archive="y" type="double">8.0</target-z-offset-m>
+			</config>
+		</view>
+		<view n="4">
+			<config>
+				<target-z-offset-m archive="y" type="double">8.0</target-z-offset-m>
+			</config>
+		</view>
+		<view n="5">
+			<config>
+				<target-z-offset-m archive="y" type="double">8.0</target-z-offset-m>
+			</config>
+		</view>
+		<view n="6">
+			<config>
+				<target-z-offset-m archive="y" type="double">8.0</target-z-offset-m>
+			</config>
+		</view>
+	</sim>
 
  <input>
    <keyboard include="../../Input/Keyboard/carrier-bindings.xml">
@@ -161,7 +255,7 @@
     </key>
 
     <key n="68">
-      <name>d</name>
+      <name>D</name>
       <desc>DLC decrease</desc>
       <binding>
        <command>property-adjust</command>
@@ -228,22 +322,26 @@
    </keyboard>
   </input>
 
- <controls>
-  <lighting>
-   <strobe type="bool">false</strobe>
-   <nav-lights type="bool">true</nav-lights>
-  </lighting>
-  <flight>
-	  <ground-spoilers-armed type="bool"> false </ground-spoilers-armed>
-	  <fake>0.0</fake>
-  </flight>
- </controls>
+	<controls>
+		<lighting>
+			<strobe type="bool">false</strobe>
+			<nav-lights type="bool">true</nav-lights>
+		</lighting>
+		<flight>
+			<ground-spoilers-armed type="bool"> false </ground-spoilers-armed>
+			<fake>0.0</fake>
+		</flight>
+		<gear>
+			<!-- Start with the Parking Brake on -->
+			<brake-parking type="double">1.0</brake-parking>
+		</gear>
+	</controls>
 
- <engines>
-  <engine n="0">
-   <running>true</running>
-  </engine>
- </engines>
+	<engines>
+		<engine n="0">
+			<running>true</running>
+		</engine>
+	</engines>
 
  <f-14>
 	 <SAS>
@@ -260,43 +358,49 @@
 	</SAS>
  </f-14>
 
- <consumables>
-  <fuel>
-   <tank n="0">
-    <level-lbs archive="y">4700</level-lbs>
-   </tank>
-   <tank n="1">
-    <level-lbs archive="y">4400</level-lbs>
-   </tank>
-   <tank n="2">
-    <level-lbs archive="y">1550</level-lbs>
-   </tank>
-   <tank n="3">
-    <level-lbs archive="y">1550</level-lbs>
-   </tank>
-   <tank n="4">
-    <level-lbs archive="y">2000</level-lbs>
-   </tank>
-   <tank n="5">
-    <level-lbs archive="y">2000</level-lbs>
-   </tank>
-  </fuel>
- </consumables>
+	<consumables>
+		<fuel>
+			<tank n="0">
+				<level-lbs archive="y">4700</level-lbs>
+			</tank>
+			<tank n="1">
+				<level-lbs archive="y">4400</level-lbs>
+			</tank>
+			<tank n="2">
+				<level-lbs archive="y">1550</level-lbs>
+			</tank>
+			<tank n="3">
+				<level-lbs archive="y">1550</level-lbs>
+			</tank>
+			<tank n="4">
+				<level-lbs archive="y">2000</level-lbs>
+			</tank>
+			<tank n="5">
+				<level-lbs archive="y">2000</level-lbs>
+			</tank>
+		</fuel>
+	</consumables>
 
- <nasal>
-  <f14>
-   <file>Aircraft/f-14b/Nasal/globals.nas</file>
-   <file>Aircraft/f-14b/Nasal/flaps_computer.nas</file>
-   <file>Aircraft/f-14b/Nasal/drag_computer.nas</file>   
-   <file>Aircraft/f-14b/Nasal/engines.nas</file>
-   <file>Aircraft/f-14b/Nasal/sweep_computer.nas</file>
-   <file>Aircraft/f-14b/Nasal/gear.nas</file>
-   <file>Aircraft/f-14b/Nasal/engines.nas</file>
-   <file>Aircraft/f-14b/Nasal/spoilers.nas</file>
-   <file>Aircraft/f-14b/Nasal/SAS.nas</file>
-   <file>Aircraft/f-14b/Nasal/adverse.nas</file>
-   <file>Aircraft/f-14b/Nasal/f-14b.nas</file>
-  </f14>
- </nasal>
+	<nasal>
+		<f14>
+			<file>Aircraft/f-14b/Nasal/globals.nas</file>
+			<file>Aircraft/f-14b/Nasal/flaps_computer.nas</file>
+			<file>Aircraft/f-14b/Nasal/drag_computer.nas</file>   
+			<file>Aircraft/f-14b/Nasal/engines.nas</file>
+			<file>Aircraft/f-14b/Nasal/sweep_computer.nas</file>
+			<file>Aircraft/f-14b/Nasal/gear.nas</file>
+			<file>Aircraft/f-14b/Nasal/engines.nas</file>
+			<file>Aircraft/f-14b/Nasal/spoilers.nas</file>
+			<file>Aircraft/f-14b/Nasal/SAS.nas</file>
+			<file>Aircraft/f-14b/Nasal/adverse.nas</file>
+			<file>Aircraft/f-14b/Nasal/f-14b.nas</file>
+		</f14>
+		<f14_instruments>
+			<file>Aircraft/f-14b/Nasal/instruments.nas</file>
+		</f14_instruments>
+		<f14_hud>
+			<file>Aircraft/f-14b/Nasal/hud.nas</file>
+		</f14_hud>
+	</nasal>
 
 </PropertyList>

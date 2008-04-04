@@ -185,6 +185,7 @@ timedMotions = func
    setprop ("/f-14/doors-position", DoorsPosition);
    setprop ("/f-14/refuelling-probe-position", RefuelProbePosition);
    setprop ("/surface-positions/wing-sweep", currentSweep);
+   setprop ("/controls/flight/wing-sweep", WingSweep);
  }
 
 #----------------------------------------------------------------------------
@@ -197,6 +198,7 @@ updateFCS = func
   {
 
     #Fectch most commonly used values
+	CurrentIAS = getprop ("/velocities/airspeed-kt");
     CurrentMach = getprop ("/velocities/mach");
     CurrentAlt = getprop ("/position/altitude-ft");
     WOW = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
@@ -206,7 +208,7 @@ updateFCS = func
 	deltaT = getprop ("sim/time/delta-sec");
     
     #update functions
-    computeSweep ();
+    f14.computeSweep ();
 	computeDrag ();
     computeFlaps ();
     computeSpoilers ();
