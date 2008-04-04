@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<!--Radar Altimeter -->
+
+<PropertyList>
+	<path>radar-alti.ac</path>
+	<animation>
+		<name>needle</name>
+		<type>rotate</type>
+		<object-name>needle</object-name>
+		<property>position/altitude-agl-ft</property>
+		<min>0</min>
+		<max>6000</max>
+		<offset>-5</offset>
+		<interpolation>
+			<entry><ind>0</ind><dep>180</dep></entry>
+			<entry><ind>10</ind><dep>171</dep></entry>
+			<entry><ind>50</ind><dep>138</dep></entry>
+			<entry><ind>100</ind><dep>100</dep></entry>
+			<entry><ind>150</ind><dep>78</dep></entry>
+			<entry><ind>250</ind><dep>55</dep></entry>
+			<entry><ind>400</ind><dep>24</dep></entry>
+			<entry><ind>500</ind><dep>3</dep></entry>
+			<entry><ind>600</ind><dep>-11</dep></entry>
+			<entry><ind>1000</ind><dep>-40</dep></entry>
+			<entry><ind>2000</ind><dep>-81</dep></entry> 
+			<entry><ind>3000</ind><dep>-101</dep></entry>
+			<entry><ind>5000</ind><dep>-138</dep></entry>
+			<entry><ind>6000</ind><dep>-150</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- radar altitude out of range lights -->
+    <animation> 
+        <type>select</type>
+        <object-name>ra-lts</object-name>
+		<condition>
+			<or>
+				<less-than>
+					<property>position/altitude-agl-ft</property>
+					<value>20</value>
+				</less-than>
+				<greater-than>
+					<property>position/altitude-agl-ft</property>
+					<value>5000</value>
+				</greater-than>
+			</or>
+		</condition>
+    </animation>
+
+
+<!-- lighting -->
+	<animation> 
+		<object-name>mount</object-name>
+		<type>material</type>
+		 <emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.45</red>
+			<green>0.34</green>
+			<blue>0.18</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>face</object-name> 
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.50</red>
+			<green>0.25</green>
+			<blue>0.18</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>needle</object-name> 
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.75</red>
+			<green>0.55</green>
+			<blue>0.35</blue>
+		</emission>
+	</animation>
+
+
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>50</max-m>
+	</animation>
+
+</PropertyList>

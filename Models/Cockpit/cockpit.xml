@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+
+	<path>group-cockpit.ac</path>
+
+	<!-- select for modeling purpose only -->
+	<animation>
+		<type>select</type>
+		<object-name>mCanopy</object-name>
+		<object-name>mWindshield</object-name>
+		<object-name>m-stby-adi</object-name>
+		<object-name>m-asi</object-name>
+		<object-name>front-panel-man-capture</object-name>
+		<condition>
+			<property>sim/model/f-14b/modeling/show-canopy</property>
+		</condition>
+	</animation>
+
+<!-- De-select Pilot when in Cockpit View -->
+	<animation>
+		<type>select</type>
+		<object-name>Pilot</object-name>
+		<object-name>RIO</object-name>
+		<condition>
+			<not>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>Cockpit View</value>
+				</equals>
+			</not>
+		</condition>
+	</animation>
+
+<!-- ******************************************************************* -->
+<!-- Instruments                                                         -->
+<!-- ******************************************************************* -->
+
+<!-- Windshield Indicators -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/aoa-indexer.xml</path>
+		<offsets>
+			<x-m>-5.9288</x-m>
+			<y-m>-0.1551</y-m>
+			<z-m>0.2363</z-m>
+			<heading-deg>12</heading-deg>
+		</offsets>
+	</model>
+
+
+
+<!-- Left Instrument Panel -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/aoa-gauge.xml</path>
+		<offsets>
+			<x-m>-5.8804</x-m>
+			<y-m>-0.1476</y-m>
+			<z-m>0.1076</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/asi.xml</path>
+		<offsets>
+			<x-m>-5.8380</x-m>
+			<y-m>-0.1670</y-m>
+			<z-m>0.0143</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/altimeter.xml</path>
+		<offsets>
+			<x-m>-5.8260</x-m>
+			<y-m>-0.1710</y-m>
+			<z-m>-0.0780</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/radar-alti.xml</path>
+		<offsets>
+			<x-m>-5.8214</x-m>
+			<y-m>-0.2630</y-m>
+			<z-m>-0.0767</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/vsi.xml</path>
+		<offsets>
+			<x-m>-5.8380</x-m>
+			<y-m>-0.2514</y-m>
+			<z-m>0.0063</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+<!-- Left Knee Panel -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/engine-gauges.xml</path>
+		<offsets>
+			<x-m>-5.8355</x-m>
+			<y-m>-0.1888</y-m>
+			<z-m>-0.2458</z-m>
+			<pitch-deg>-5</pitch-deg>
+		</offsets>
+	</model>
+
+<!-- Center Instrument Panel -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/vdi.xml</path>
+		<offsets>
+			<x-m>-5.8510</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.0320</z-m>
+			<pitch-deg>-27.5</pitch-deg>
+		</offsets>
+	</model>
+
+<!-- Right Instrument Panel -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/sweep-indicator.xml</path>
+		<offsets>
+			<x-m>-5.8804</x-m>
+			<y-m>0.1476</y-m>
+			<z-m>0.1076</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/stdby-adi.xml</path>
+		<offsets>
+			<x-m>-5.8380</x-m>
+			<y-m>0.1604</y-m>
+			<z-m>0.0063</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/accel.xml</path>
+		<offsets>
+			<x-m>-5.8410</x-m>
+			<y-m>0.2310</y-m>
+			<z-m>0.0281</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/bdhi.xml</path>
+		<offsets>
+			<x-m>-5.8170</x-m>
+			<y-m>0.1706</y-m>
+			<z-m>-0.0780</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+<!-- Right Knee Panel -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/fuel-gauge.xml</path>
+		<offsets>
+			<x-m>-5.8405</x-m>
+			<y-m>0.1750</y-m>
+			<z-m>-0.2288</z-m>
+			<pitch-deg>-5</pitch-deg>
+		</offsets>
+	</model>
+
+
+</PropertyList>

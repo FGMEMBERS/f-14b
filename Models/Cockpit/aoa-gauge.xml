@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>aoa-gauge.ac</path>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>tape</object-name>
+		<property>orientation/alpha-deg</property>
+		<interpolation>
+				<!-- AoA at Sea Level, Gross weight 50000lbs, slats, flaps, gear
+				down, speed brakes extended, without DLC -->
+				<entry><ind>1</ind><dep>0</dep></entry> <!--clamp -->
+				<entry><ind>3.6</ind><dep>0.083</dep></entry> <!--200.0 kts -->
+				<entry><ind>6.33</ind><dep>0.167</dep></entry> <!--174.0 kts -->
+			 	<entry><ind>10.5</ind><dep>0.333</dep></entry> <!--142.0 kts -->
+				<entry><ind>15.3</ind><dep>0.500</dep></entry> <!--123.0 kts -->
+				<entry><ind>18.0</ind><dep>0.667</dep></entry> <!--114.0 kts -->
+				<entry><ind>20.0</ind><dep>0.833</dep></entry> <!--110.0 kts -->
+				<entry><ind>29.0</ind><dep>1</dep></entry> <!--clamp -->
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>35</max-m>
+	</animation>
+
+</PropertyList>
