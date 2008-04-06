@@ -3,7 +3,7 @@
 
 
 var hud_alpha    = props.globals.getNode("sim[0]/hud/color/alpha");
-var redout_alpha = props.globals.getNode("/sim/rendering/redout/alpha");
+var redout_alpha = props.globals.getNode("sim[0]/rendering/redout/alpha");
 var h_alpha      = 0.0;
 
 # Dumps the hud by a function of redout #######
