@@ -5,13 +5,6 @@
 # Constants
 var NWScutoffSpeed = 80.0; #knots
 
-
-var rudder = props.globals.getNode("controls/flight/rudder");
-var nw_steering = props.globals.getNode("controls/flight/NWS", 1);
-var nw_steering_warnlight = props.globals.getNode(
-	"sim/model/f-14b/instrumentation/gears/nose-wheel-steering-warnlight", 1);
-var GroundSpeed = props.globals.getNode("velocities/groundspeed-kt");
-
 # Functions
 
 var computeNWS = func {
@@ -21,10 +14,10 @@ var computeNWS = func {
 
 	if ( WOW ) {
 
-		var gs = GroundSpeed.getValue();
+		var gs = getprop("velocities/groundspeed-kt");
 		if (gs == nil) gs = 0.0;
 
-		var rudderInput = rudder.getValue();
+		var rudderInput = getprop("controls/flight/rudder");
 
 		if ( gs < NWScutoffSpeed ) {
 			NWS = rudderInput * (NWScutoffSpeed - gs) / NWScutoffSpeed;
@@ -33,7 +26,7 @@ var computeNWS = func {
 
 	}
 
-	nw_steering.setDoubleValue( NWS );
-	nw_steering_warnlight.setBoolValue( NWS_light );
+setprop("controls/flight/NWS", NWS);
+setprop("sim/model/f-14b/instrumentation/gears/nose-wheel-steering-warnlight", NWS_light);
 
 } # end computeNWS
