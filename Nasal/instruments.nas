@@ -21,7 +21,11 @@ var tacan_mag_bearing_deg = props.globals.getNode("sim/model/f-14b/instrumentati
 var tacan_update = func {
 	var tcn_true_bearing = tacan_true_bearing_deg.getValue();
 	var tcn_mag_bearing = geo.normdeg( tcn_true_bearing + mag_dev );
-	tacan_mag_bearing_deg.setDoubleValue( tcn_mag_bearing );
+	if ( tcn_true_bearing != 0 ) {
+		tacan_mag_bearing_deg.setDoubleValue( tcn_mag_bearing );
+	} else {
+		tacan_mag_bearing_deg.setDoubleValue( 0.0 );
+	}
 }
 
 # fuel gauges ###############
@@ -37,6 +41,7 @@ var Lfg_lvl    = props.globals.getNode("consumables/fuel/tank[2]/level-lbs"); # 
 var Rfg_lvl    = props.globals.getNode("consumables/fuel/tank[3]/level-lbs"); # right feed group
 var Lw_lvl     = props.globals.getNode("consumables/fuel/tank[4]/level-lbs"); # left wing tank 2000 lbs
 var Rw_lvl     = props.globals.getNode("consumables/fuel/tank[5]/level-lbs"); # right wing tank 2000 lbs
+aircraft.data.add( bingo );
 
 var fuel_gauge = func {
 	var fwd = fwd_lvl.getValue();
@@ -57,6 +62,7 @@ var fuel_gauge = func {
 var g_curr = props.globals.getNode("accelerations/pilot-g");
 var g_max  = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-max");
 var g_min  = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-min");
+aircraft.data.add( g_min, g_max );
 
 var g_min_max = func {
 	# records g min and max values
@@ -70,15 +76,25 @@ var g_min_max = func {
 	}
 }
 
-# VDI ticker ###########
+# VDI #####################
 var ticker = props.globals.getNode("sim/model/f-14b/instrumentation/ticker", 1);
+aircraft.data.add("sim/model/f-14b/controls/VDI/brightness");
 
 inc_ticker = func {
-	# used for VDI background continuous translation animation
+	# ticker used for VDI background continuous translation animation
 	var tick = ticker.getValue();
 	tick += 1 ;
 	ticker.setDoubleValue(tick);
 }
+
+# Air Speed Indicator #####
+aircraft.data.add("sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed-limit-bug");
+
+# Radar Altimeter #########
+aircraft.data.add("sim/model/f-14b/instrumentation/radar-altimeter/limit-bug");
+
+# Lighting ################
+aircraft.data.add("sim/model/f-14b/controls/lighting/hook-bypass");
 
 # Main loop ###############
 var cnt = 0;
@@ -109,6 +125,7 @@ var init = func {
 	print("Initializing F-14B Instruments System");
 	ticker.setDoubleValue(0);
 	f14_hud.init_hud();
+	aircraft.data.save();
 	settimer(main_loop, 0.5);
 }
 
@@ -119,6 +136,6 @@ setlistener("/sim/signals/fdm-initialized", init);
 
 # warning lights medium speed flasher
 # -----------------------------------
-aircraft.light.new("sim/model/f-14b/lighting/warn-medium-lights-switch", [0.4, 0.3]);
+aircraft.light.new("sim/model/f-14b/lighting/warn-medium-lights-switch", [0.3, 0.2]);
 setprop("sim/model/f-14b/lighting/warn-medium-lights-switch/enabled", 1);
 
