@@ -39,7 +39,7 @@ setprop ("/f-14/refuelling-probe-position", RefuelProbePosition);
 currentSweep = 0.0;
 SweepSpeed = 0.3;
 
-toggleAccess = func 
+var toggleAccess = func 
 
   {
 
@@ -48,7 +48,7 @@ toggleAccess = func
     
   }
 
-toggleProbe = func 
+var toggleProbe = func 
 
   {
 
@@ -57,7 +57,7 @@ toggleProbe = func
 
   }
 
-timedMotions = func
+var timedMotions = func
 
  {
    
@@ -192,9 +192,9 @@ timedMotions = func
 # FCS update
 #----------------------------------------------------------------------------
 
-registerFCS = func {settimer (updateFCS, 0);}
+var registerFCS = func {settimer (updateFCS, 0);}
 
-updateFCS = func
+var updateFCS = func
   {
 
     #Fectch most commonly used values
@@ -224,12 +224,12 @@ updateFCS = func
 
 
 
-registerBurner = func {settimer (updateBurner, 0.04);}
+var registerBurner = func {settimer (updateBurner, 0.04);}
 
-Burner = 0;
+var Burner = 0;
 setprop ("f-14/burner", Burner);
 
-updateBurner = func 
+var updateBurner = func 
   {
 
     Burner +=1;
@@ -239,12 +239,11 @@ updateBurner = func
 
  } #end updateBurner
 
-startProcess = func 
+var startProcess = func 
 
  {
-  updateFCS ();
-  updateBurner ();
+  settimer (updateFCS, 1.0);
+  settimer (updateBurner, 1.0);
  }
 
-settimer (startProcess, 1.0);
-
+setlistener("/sim/signals/fdm-initialized", startProcess);
