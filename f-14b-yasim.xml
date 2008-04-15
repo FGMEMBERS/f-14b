@@ -80,8 +80,8 @@
 
   <control-output control="SPOILER" prop="/surface-positions/spoiler-pos-norm" invert="true" />
 
-  <control-speed control="FLAP0" transition-time="5.0"/>
-  <control-speed control="FLAP1" transition-time="5.0"/>
+  <control-speed control="FLAP0" transition-time="15.0"/>
+  <control-speed control="FLAP1" transition-time="15.0"/>
   <control-speed control="SLAT" transition-time="2.5"/>
   <control-speed control="SPOILER" transition-time="0.5"/>
   
@@ -224,7 +224,7 @@
 <!-- Landing gear +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
 <!-- Nose -->
- <gear x="4.581" y="0.00" z="-3.140" compression="0.430" spring="0.5">
+ <gear x="4.581" y="0.00" z="-3.140" compression="0.6" spring="1.0" damp="2">
   <control-input axis="/controls/flight/NWS" control="STEER" square="true"/>
   <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
   <control-output control="EXTEND" prop="/gear/gear[0]/position-norm"/>
@@ -235,8 +235,7 @@
 
 <!-- Left main -->
  <gear x="-2.357" y="2.444" z="-3.398" 
-       upx="-0.098" upy="0" upz="1.13"
-       compression="0.688" spring="0.5">
+       compression="0.9" spring="0.45" damp="2">
   <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
   <control-input axis="/controls/gear/brake-left" control="BRAKE"/>
   <control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
@@ -244,10 +243,10 @@
   <control-speed control="EXTEND" transition-time="4"/>
  </gear>
 
+
 <!-- Right main -->
  <gear x="-2.357" y="-2.444" z="-3.398"  
-       upx="-0.098" upy="0" upz="1.13"
-       compression="0.688" spring="0.5">
+       compression="0.9" spring="0.45" damp="2">
   <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
   <control-input axis="/controls/gear/brake-right" control="BRAKE"/>
   <control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
@@ -279,8 +278,8 @@
 <!-- Pilot -->
  <ballast x="4.990" y="0" z="-0.516" mass="400"/> 
 
-<!-- Trim ballast -->
- <ballast x="-2" y="0" z="-1.4" mass="1000"/> 
+<!-- Trim ballast --><!-- (-2 => -1.892, +7 => -1.737) -->
+ <ballast x="7" y="0" z="-1.4" mass="1000"/> 
  
  
 <!-- Carrier ops ++++++++++++++++++++++++++++++++++++++++++++++++ --> 
