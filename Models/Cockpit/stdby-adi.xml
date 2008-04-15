@@ -76,9 +76,20 @@
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.45</red>
-			<green>0.34</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<object-name>button</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.44</red>
+			<green>0.192</green>
+			<blue>0.08</blue>
 		</emission>
 	</animation>
 
@@ -87,9 +98,9 @@
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.45</red>
-			<green>0.34</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
@@ -98,9 +109,9 @@
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.35</green>
-			<blue>0.20</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
@@ -109,22 +120,22 @@
 		<type>material</type>
 		<emission> 
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.45</red>
-			<green>0.34</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
-<animation>
-	<object-name>bkg</object-name>
-	<type>material</type>
-	<emission>
-	<factor-prop>controls/lighting/instruments-norm</factor-prop>
-		<red>0.55</red>
-		<green>0.44</green>
-		<blue>0.28</blue>
-	</emission>
-</animation>
+	<animation>
+		<object-name>bkg</object-name>
+		<type>material</type>
+		<emission>
+		<factor-prop>controls/lighting/instruments-norm</factor-prop>
+				<red>0.55</red>
+				<green>0.24</green>
+				<blue>0.10</blue>
+		</emission>
+	</animation>
 
 	<animation>
 		<object-name>drum</object-name>
@@ -132,8 +143,8 @@
 		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>
-			<green>0.30</green>
-			<blue>0.12</blue>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
@@ -143,8 +154,8 @@
 		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>
-			<green>0.44</green>
-			<blue>0.28</blue>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 

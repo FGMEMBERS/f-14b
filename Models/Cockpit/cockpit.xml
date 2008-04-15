@@ -23,10 +23,10 @@
 	</animation>
 
 <!-- ******************************************************************* -->
-<!-- Instruments                                                         -->
+<!-- Pilot's Instruments                                                 -->
 <!-- ******************************************************************* -->
 
-<!-- Windshield Indicators -->
+	<!-- Windshield Indicators -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/aoa-indexer.xml</path>
 		<offsets>
@@ -39,7 +39,7 @@
 
 
 
-<!-- Left Instrument Panel -->
+	<!-- Left Instrument Panel -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/aoa-gauge.xml</path>
 		<offsets>
@@ -90,7 +90,7 @@
 		</offsets>
 	</model>
 
-<!-- Left Knee Panel -->
+	<!-- Left Knee Panel -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/engine-gauges.xml</path>
 		<offsets>
@@ -101,7 +101,41 @@
 		</offsets>
 	</model>
 
-<!-- Center Instrument Panel -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/nozzles-gauges-L.xml</path>
+		<offsets>
+			<x-m>-5.8295</x-m>
+			<y-m>-0.3160</y-m>
+			<z-m>-0.1965</z-m>
+			<pitch-deg>-5.5</pitch-deg>
+			<heading-deg>10</heading-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/nozzles-gauges-R.xml</path>
+		<offsets>
+			<x-m>-5.8361</x-m>
+			<y-m>-0.2812</y-m>
+			<z-m>-0.1965</z-m>
+			<pitch-deg>-5.5</pitch-deg>
+			<heading-deg>10</heading-deg>
+		</offsets>
+	</model>
+
+	<!-- Left Vertical Console -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/slats-flaps-gear-indicator.xml</path>
+		<offsets>
+			<x-m>-5.7487</x-m>
+			<y-m>-0.3917</y-m>
+			<z-m>-0.1816</z-m>
+			<pitch-deg>-19</pitch-deg>
+			<heading-deg>19</heading-deg>
+			<roll-deg>-7</roll-deg>
+		</offsets>
+	</model>
+
+	<!-- Center Instrument Panel -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/vdi.xml</path>
 		<offsets>
@@ -112,7 +146,7 @@
 		</offsets>
 	</model>
 
-<!-- Right Instrument Panel -->
+	<!-- Right Instrument Panel -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/sweep-indicator.xml</path>
 		<offsets>
@@ -153,7 +187,7 @@
 		</offsets>
 	</model>
 
-<!-- Right Knee Panel -->
+	<!-- Right Knee Panel -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/fuel-gauge.xml</path>
 		<offsets>
@@ -161,6 +195,29 @@
 			<y-m>0.1750</y-m>
 			<z-m>-0.2288</z-m>
 			<pitch-deg>-5</pitch-deg>
+		</offsets>
+	</model>
+
+	<!-- Right Pilot Console -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/master-light-panel.xml</path>
+		<offsets>
+			<x-m>-5.3103</x-m>
+			<y-m>0.5441</y-m>
+			<z-m>-0.4270</z-m>
+			<roll-deg>28</roll-deg>
+		</offsets>
+	</model>
+
+
+	<!-- black-out/red-out -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/blackout.xml</path>
+		<name>Blackout</name>
+		<offsets>
+			<x-m>-5.0759</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>0.3553</z-m>
 		</offsets>
 	</model>
 

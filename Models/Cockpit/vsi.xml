@@ -23,11 +23,6 @@
 			<entry><ind>66.667</ind><dep>34.8</dep></entry>
 			<entry><ind>100.0</ind><dep>75.0</dep></entry>
 		</interpolation>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0</z-m>
-		</center> 
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -39,21 +34,21 @@
 	<animation>
 		<object-name>mount</object-name>
 		<type>material</type>
-		 <emission>
+		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.45</red>
-			<green>0.34</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 	 <animation>
 		<object-name>face</object-name> 
 		<type>material</type>
-		<emission> 
+		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 	<animation>
@@ -61,9 +56,9 @@
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.75</red>
-			<green>0.55</green>
-			<blue>0.35</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 

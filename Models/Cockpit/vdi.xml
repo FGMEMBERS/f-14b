@@ -203,8 +203,6 @@
 		</axis>
 	</animation>
  
-
-
 	<!-- bank-index -->
 	<animation>
 		<name>bank-index-rotation</name>
@@ -222,9 +220,6 @@
 			<z>0</z>
 		</axis>
 	</animation>
-
-
-
 
 	<animation>
 		<type>translate</type>
@@ -244,19 +239,78 @@
 		<y-max>0.0756</y-max>
 	</animation>
 
+	<!-- hud red filter knob -->
+	<animation>
+		<name>hud-filer-knob-rotation</name>
+		<type>rotate</type>
+		<object-name>filter-knob</object-name>
+		<property>sim/hud/current-color</property>
+		<factor>85</factor>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0.1086</y-m>
+			<z-m>0.0008</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+
+	<!-- warnings -->
+	<animation>
+		<type>select</type>
+		<object-name>reduce-speed</object-name>
+		<condition>
+			<or>
+				<greater-than>
+					<property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+					<property>sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed-limit-bug</property>
+				</greater-than>
+				<and>
+					<greater-than>
+						<property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+						<value>225</value>
+					</greater-than>
+					<greater-than>
+						<property>surface-positions/main-flap-pos-norm</property>
+						<value>0.5</value>
+					</greater-than>
+				</and>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>alt-low</object-name>
+		<condition>
+			<less-than>
+				<property>orientation/roll-deg</property>
+				<value>45</value>
+			</less-than>
+			<greater-than>
+				<property>orientation/roll-deg</property>
+				<value>-45</value>
+			</greater-than>
+			<less-than>
+				<property>orientation/pitch-deg</property>
+				<value>45</value>
+			</less-than>
+			<greater-than>
+				<property>orientation/pitch-deg</property>
+				<value>-45</value>
+			</greater-than>
+			<less-than>
+				<property>position/altitude-agl-ft</property>
+				<property>sim/model/f-14b/instrumentation/radar-altimeter/limit-bug</property>
+			</less-than>
+		</condition>
+	</animation>
+
 
 	<!-- lighting -->
-
-	<animation>
-		<object-name>mount</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.45</red>
-			<green>0.34</green>
-			<blue>0.18</blue>
-		</emission>
-	</animation>
 
 	<animation>
 		<object-name>sky</object-name>
@@ -278,7 +332,16 @@
 			<blue>0.0</blue>
 		</emission>
 	</animation>
-
+	<animation>
+		<object-name>compas</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>0.7</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
 	<animation>
 		<object-name>reticle</object-name>
 		<type>material</type>
@@ -299,7 +362,6 @@
 			<blue>0.0</blue>
 		</emission>
 	</animation>
-
 	<animation>
 		<object-name>rudder-index</object-name>
 		<type>material</type>
@@ -311,7 +373,51 @@
 		</emission>
 	</animation>
 
+	<animation>
+		<object-name>mount</object-name>
+		<object-name>mount2</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
 
+
+	<animation>
+		<object-name>filter-knob</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.132</red>
+			<green>0.057</green>
+			<blue>0.024</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<object-name>knobs</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.44</red>
+			<green>0.192</green>
+			<blue>0.08</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<object-name>warnings</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/lighting/index-norm</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</emission>
+	</animation>
 
 
 

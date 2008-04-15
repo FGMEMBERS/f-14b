@@ -357,66 +357,57 @@
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.45</red>
-			<green>0.34</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
 	<animation>
-		<object-name>bingo-1</object-name>
+		<object-name>drums</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
 	<animation>
-		<object-name>bingo-2</object-name>
+		<object-name>face</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
 	<animation>
-		<object-name>bingo-3</object-name>
+		<object-name>white-stripes-bkg</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
 	<animation>
-		<object-name>bingo-4</object-name>
+		<object-name>bingo-knob</object-name>
 		<type>material</type>
 		<emission>
-		<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
-	<animation>
-		<object-name>bingo-5</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
-		</emission>
-	</animation>
+
 
 
 

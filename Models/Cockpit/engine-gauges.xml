@@ -149,70 +149,89 @@
 
 	<animation> 
 		<object-name>mount</object-name>
-		<object-name>mount2</object-name>
 		<type>material</type>
-		<emission> 
+		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.45</red>
-			<green>0.34</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
 	<animation>
 		<object-name>bkg</object-name>
-		<object-name>bkg2</object-name>
-		<object-name>markers</object-name>
 		<type>material</type>
-		<emission> 
+		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
 	<animation>
 		<object-name>L-rpm-tape</object-name>
 		<type>material</type>
-		<emission> 
+		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
 	<animation>
 		<object-name>R-rpm-tape</object-name>
 		<type>material</type>
-		<emission> 
+		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
 	<animation>
 		<object-name>L-egt-tape</object-name>
 		<type>material</type>
-		<emission> 
+		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
 	<animation>
 		<object-name>R-egt-tape</object-name>
 		<type>material</type>
-		<emission> 
+		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.50</red>
-			<green>0.25</green>
-			<blue>0.18</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<object-name>L-ff-tape</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<object-name>R-ff-tape</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
