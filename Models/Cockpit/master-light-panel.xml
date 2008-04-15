@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+
+	<PropertyList>
+
+	<path>master-light-panel.ac</path>
+
+	<!-- Hook Bypass Switch -->
+	<animation>
+		<type>rotate</type>
+		<object-name>hook-bypass-switch</object-name>
+		<property>sim/model/f-14b/controls/lighting/hook-bypass</property>
+		<factor>33</factor>
+		<center>
+			<x-m>-0.0507</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0038</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- taxi/probe-switch -->
+	<!--<animation>
+		<object-name>taxi-probe-switch</object-name>
+		<type>rotate</type>
+		<property>controls/lighting/taxi-light</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>-10</dep></entry>
+			<entry><ind>1</ind><dep>25</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>-0.0146</x-m>
+			<y-m>-0.0423</y-m>
+			<z-m>-0.0010</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>-->
+
+
+
+	<!-- instrument-wheel -->
+	<animation>
+		<type>rotate</type>
+		<object-name>instrument-wheel</object-name>
+		<property>controls/lighting/instruments-norm</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>1</ind><dep>336</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0.0002</y-m>
+			<z-m>-0.0100</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>console-wheel</object-name>
+		<property>controls/lighting/panel-norm</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>1</ind><dep>336</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0.0002</y-m>
+			<z-m>-0.0100</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	
+
+	<!-- tail-switch -->
+	<!--<animation>
+		<object-name>tail-switch</object-name>
+		<type>rotate</type>
+		<property>sim/model/f-14b/controls/lighting/tail-lt</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>-30</dep></entry>
+			<entry><ind>1</ind><dep>0</dep></entry>
+			<entry><ind>2</ind><dep>30</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>-0.0540</x-m>
+			<y-m>0.0373</y-m>
+			<z-m>-0.0011</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>-->
+
+	<!-- wing-switch -->
+	<!--<animation>
+		<object-name>wing-switch</object-name>
+		<type>rotate</type>
+		<property>sim/model/f-14b/controls/lighting/wings-lts</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>-30</dep></entry>
+			<entry><ind>1</ind><dep>0</dep></entry>
+			<entry><ind>2</ind><dep>30</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>-0.0188</x-m>
+			<y-m>0.0373</y-m>
+			<z-m>-0.0011</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>-->
+
+	<!-- formation-switch -->
+	<!--<animation>
+		<object-name>formation-switch</object-name>
+		<type>rotate</type>
+		<property>sim/model/f-14b/controls/lighting/formation-lts</property>
+		<interpolation>
+			<entry><ind>1</ind><dep>-30</dep></entry>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>2</ind><dep>30</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>0.0194</x-m>
+			<y-m>0.0373</y-m>
+			<z-m>-0.0011</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>-->
+
+	<!-- flood-switch -->
+	<!--<animation>
+		<object-name>flood-switch</object-name>
+		<type>rotate</type>
+		<property>sim/model/f-14b/controls/lighting/flood-lts</property>
+		<interpolation>
+			<entry><ind>0.25</ind><dep>-25</dep></entry>
+			<entry><ind>0.5</ind><dep>0</dep></entry>
+			<entry><ind>1</ind><dep>30</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>0.0549</x-m>
+			<y-m>0.0373</y-m>
+			<z-m>-0.0011</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>-->
+
+	<!-- lighting -->
+	<animation> 
+		<object-name>mount</object-name>
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<object-name>switches</object-name>
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<object-name>wheels</object-name>
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+
+
+	<!-- LoD -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>35</max-m>
+	</animation>
+
+</PropertyList>

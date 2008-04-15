@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!DOCTYPE PropertyList SYSTEM "panel.dtd">
+
+<PropertyList>
+	<name>hotspot-pilot-main-panel-up-L</name>
+	<background>Aircraft/f-14b/Models/Cockpit/transparent-bg.rgb</background>
+	<w>1024</w>
+	<h>768</h>
+	<y-offset>0</y-offset>
+
+	<instruments>
+		<instrument>
+			<name>hotspot-pilot-main-panel-up-L</name>
+			<w>1024</w>
+			<h>768</h>
+			<w-base>1024</w-base>
+			<h-base>1024</h-base>
+			<x>512</x>
+			<y>384</y>
+			<layers>
+				<layer>
+					<name>background</name>
+					<texture>
+						<path>Aircraft/f-14b/Models/Cockpit/transparent-bg.rgb</path>
+						<!--<path>Aircraft/f-14b/Models/Cockpit/hotspotgrid.rgb</path>-->
+						<x1>0.0</x1>
+						<y1>0.0</y1>
+						<x2>1.0</x2>
+						<y2>1.0</y2>
+					</texture>
+				</layer>
+			</layers>
+			<actions>
+
+
+				<!-- Air Speed Indicator's Bug Setting -->
+				<action>
+					<name>asi-bug-left-fine</name>
+					<button>0</button>
+					<x>120</x>
+					<y>-95</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed-limit-bug</property>
+						<step>-20</step>
+						<min>225</min>
+					</binding>
+				</action>
+				<action>
+					<name>asi-bug-right-fine</name>
+					<button>0</button>
+					<x>205</x>
+					<y>-95</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed-limit-bug</property>
+						<step>20</step>
+						<max>850</max>
+					</binding>
+				</action>
+
+				<!-- Radar Altimeter Low Altitude Setting Knob -->
+				<action>
+					<name>low-knob-left-fine</name>
+					<button>0</button>
+					<x>-295</x>
+					<y>-460</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/instrumentation/radar-altimeter/limit-bug</property>
+						<step>-20</step>
+						<min>50</min>
+					</binding>
+				</action>
+				<action>
+					<name>low-knob-left-coarse</name>
+					<button>1</button>
+					<x>-295</x>
+					<y>-460</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/instrumentation/radar-altimeter/limit-bug</property>
+						<step>-100</step>
+						<min>50</min>
+					</binding>
+				</action>
+				<action>
+					<name>low-knob-right-fine</name>
+					<button>0</button>
+					<x>-210</x>
+					<y>-460</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/instrumentation/radar-altimeter/limit-bug</property>
+						<step>20</step>
+						<max>5000</max>
+					</binding>
+				</action>
+				<action>
+					<name>low-knob-right-coarse</name>
+					<button>1</button>
+					<x>-210</x>
+					<y>-460</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/instrumentation/radar-altimeter/limit-bug</property>
+						<step>100</step>
+						<max>5000</max>
+					</binding>
+				</action>
+
+				<!-- Altimeter Ingh Setting Knob -->
+				<action>
+					<name>ingh-knob-left-fine</name>
+					<button>0</button>
+					<x>100</x>
+					<y>-440</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>instrumentation/altimeter/setting-inhg</property>
+						<step>-0.005</step>
+						<min>26.0</min>
+						<max>33.0</max>
+						<wrap>false</wrap>
+					</binding>
+				</action>
+				<action>
+					<name>ingh-knob-left-coarse</name>
+					<button>1</button>
+					<x>100</x>
+					<y>-440</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>instrumentation/altimeter/setting-inhg</property>
+						<step>-0.025</step>
+						<min>26.0</min>
+						<max>33.0</max>
+						<wrap>false</wrap>
+					</binding>
+				</action>
+				<action>
+					<name>ingh-knob-right-fine</name>
+					<button>0</button>
+					<x>185</x>
+					<y>-440</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>instrumentation/altimeter/setting-inhg</property>
+						<step>0.005</step>
+						<min>26.0</min>
+						<max>33.0</max>
+						<wrap>false</wrap>
+					</binding>
+				</action>
+				<action>
+					<name>ingh-knob-right-coarse</name>
+					<button>1</button>
+					<x>185</x>
+					<y>-440</y>
+					<w>75</w>
+					<h>70</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>instrumentation/altimeter/setting-inhg</property>
+						<step>0.025</step>
+						<min>26.0</min>
+						<max>33.0</max>
+						<wrap>false</wrap>
+					</binding>
+				</action>
+
+
+			</actions>
+		</instrument>
+	</instruments>
+</PropertyList>
