@@ -6,6 +6,8 @@
 
 
 <!-- sort transparent objects -->
+	
+
 
 <!-- group all position lights -->
 
@@ -35,10 +37,117 @@
 		</offsets>
 	</model>
 
- <animation>
+<!-- Hotspots-Pilot's Main Panel Up Left -->
+	<panel>
+		<name>hotspot-pilot-main-panel-up-L</name>
+		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-main-panel-up-L.xml</path>
+		<top-left>
+			<x-m>-5.8567</x-m>
+			<y-m>-0.3715</y-m>
+			<z-m>0.1278</z-m>
+		</top-left>
+		<bottom-left>
+			<x-m>-5.7897</x-m>
+			<y-m>-0.3715</y-m>
+			<z-m>-0.1282</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-5.7897</x-m>
+			<y-m>-0.1211</y-m>
+			<z-m>-0.1282</z-m>
+		</bottom-right>
+	</panel>
+
+
+	<!-- Hotspots-Pilot's Main Panel Up Center -->
+	<panel>
+		<name>hotspot-pilot-main-panel-up-C</name>
+		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-main-panel-up-C.xml</path>
+		<top-left>
+			<x-m>-5.8099</x-m>
+			<y-m>-0.1277</y-m>
+			<z-m>0.1278</z-m>
+		</top-left>
+		<bottom-left>
+			<x-m>-5.7539</x-m>
+			<y-m>-0.1277</y-m>
+			<z-m>-0.1110</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-5.7539</x-m>
+			<y-m>0.1227</y-m>
+			<z-m>-0.1110</z-m>
+		</bottom-right>
+	</panel>
+
+	<!-- Hotspots-Pilot's Main Panel Up Right -->
+	<panel>
+		<name>hotspot-pilot-main-panel-up-R</name>
+		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-main-panel-up-R.xml</path>
+		<top-left>
+			<x-m>-5.8567</x-m>
+			<y-m>0.1211</y-m>
+			<z-m>0.1278</z-m>
+		</top-left>
+		<bottom-left>
+			<x-m>-5.7897</x-m>
+			<y-m>0.1211</y-m>
+			<z-m>-0.1282</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-5.7897</x-m>
+			<y-m>0.3715</y-m>
+			<z-m>-0.1282</z-m>
+		</bottom-right>
+	</panel>
+
+	<!-- Hotspots-Pilot's Main Panel Down Right -->
+	<panel>
+		<name>hotspot-pilot-main-panel-up-R</name>
+		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-main-panel-down-R.xml</path>
+		<top-left>
+			<x-m>-5.8361</x-m>
+			<y-m>0.1208</y-m>
+			<z-m>-0.1305</z-m>
+		</top-left>
+		<bottom-left>
+			<x-m>-5.8185</x-m>
+			<y-m>0.1208</y-m>
+			<z-m>-0.3124</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-5.8185</x-m>
+			<y-m>0.3483</y-m>
+			<z-m>-0.3124</z-m>
+		</bottom-right>
+	</panel>
+
+	<!-- Hotspots-Pilot's Console Right -->
+	<panel>
+		<name>hotspot-pilot-main-panel-up-R</name>
+		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-console-R.xml</path>
+		<top-left>
+			<x-m>-5.6815</x-m>
+			<y-m>0.3427</y-m>
+			<z-m>-0.5241</z-m>
+		</top-left>
+		<bottom-left>
+			<x-m>-4.8768</x-m>
+			<y-m>0.3427</y-m>
+			<z-m>-0.5241</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-4.8768</x-m>
+			<y-m>0.6254</y-m>
+			<z-m>-0.3698</z-m>
+		</bottom-right>
+	</panel>
+
+
+ <!--<animation>
   <type>alpha-test</type>
   <alpha-factor>0.01</alpha-factor>
- </animation>
+ </animation>-->
 
 
  <model>
