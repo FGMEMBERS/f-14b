@@ -144,7 +144,7 @@
  
  <!-- Vertical fin ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
 
- <!-- left fin -->
+ <!-- left fin stall aoa="22" -->
  <vstab x="-6.682" y="1.496" z="-0.470" length="2.581" chord="3.011" 
           taper="0.5" sweep="35" dihedral="70" camber="0.00" effectiveness="3.0">
   <stall aoa="22" width="2" peak="1.3"/>
@@ -162,7 +162,7 @@
 			  <control-input axis="/controls/flight/adverse/yaw" control="FLAP1"/>
 
   <control-output control="FLAP0" side="right" prop="/surface-positions/rudder-pos-norm"/>
-  <control-speed control="FLAP0" transition-time="0.5"/>
+  <control-speed control="FLAP0" transition-time="5.5"/>
  </vstab>
 
  <!-- right fin -->
@@ -184,7 +184,7 @@
 
   <control-output control="FLAP0" side="right" prop="/surface-positions/rudder-pos-norm"/>
 
-  <control-speed control="FLAP0" transition-time="0.5"/>
+  <control-speed control="FLAP0" transition-time="5.5"/>
  </vstab>
  
   <!-- Left ventral -->
@@ -203,8 +203,8 @@
 
 <!-- General Electric F110-GE-100 -->
 
-<!-- left engine -->
- <jet x="-6.281" y="1.480" z="-1.254" mass="3300" thrust="16100" afterburner="27800" tsfc="0.6" spool-time="3.0">
+<!-- left engine tsfc="0.6"-->
+ <jet x="-6.281" y="1.480" z="-1.254" mass="3300" thrust="16100" afterburner="27800" tsfc="0.55" spool-time="3.0">
   <actionpt x="-7.141" y="1.480" z="-1.254"/>
   <control-input axis="/controls/engines/engine[0]/throttle" src0="0.0" dst0="0.0" src1="0.86" dst1="1.0" control="THROTTLE"/>
   <control-input axis="/controls/engines/engine[0]/throttle" src0="0.88" dst0="0.0" src1="1.0" dst1="1.0" control="REHEAT"/>
@@ -213,7 +213,7 @@
 
 <!-- right engine --> 
 
- <jet x="-6.281" y="-1.480" z="-1.254" mass="3300" thrust="16100" afterburner="27800" tsfc="0.6" spool-time="3.0">
+ <jet x="-6.281" y="-1.480" z="-1.254" mass="3300" thrust="16100" afterburner="27800" tsfc="0.55" spool-time="3.0">
   <actionpt x="-7.141" y="-1.480" z="-1.254"/>
   <control-input axis="/controls/engines/engine[1]/throttle" src0="0.0" dst0="0.0" src1="0.86" dst1="1.0" control="THROTTLE"/>
   <control-input axis="/controls/engines/engine[1]/throttle" src0="0.88" dst0="0.0" src1="1.0" dst1="1.0" control="REHEAT"/>
