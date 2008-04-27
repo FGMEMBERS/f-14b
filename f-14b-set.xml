@@ -13,7 +13,7 @@
 
 		<systems>
 			<autopilot>
-			<path>Aircraft/f-14b/f-14b-AFCS.xml</path>
+				<path>Aircraft/f-14b/f-14b-AFCS.xml</path>
 			</autopilot>
 		</systems>
 
@@ -108,6 +108,7 @@
 				<systems>
 					<afcs>
 						<engaged type="bool">false</engaged>
+						<target-roll-deg type="double">0</target-roll-deg>
 					</afcs>
 					<apc>
 						<self-disengaged type="bool">false</self-disengaged>
@@ -192,6 +193,12 @@
 		</view>
 	</sim>
 
+	<systems>
+		<electrical>
+			<path>Aircraft/f-14b/Systems/f-14b-electrical.xml</path>
+		</electrical>
+	</systems>
+
 	<consumables>
 		<fuel>
 			<tank n="0">
@@ -250,12 +257,79 @@
 	<input>
 		<keyboard include="../../Input/Keyboard/carrier-bindings.xml">
 
-			<key n="117">
-				<name>u</name>
-				<desc>Toggle refuelling probe</desc>
+			<key n="4">
+				<name>CTRL-d</name>
+				<desc>DLC toggle</desc>
 				<binding>
 					<command>nasal</command>
-					<script>f14.toggleProbe();</script>
+					<script>f14.toggleDLC();</script>
+				</binding>
+			</key>
+
+			<key n="15">
+				<name>Ctrl-o</name>
+				<desc>toggle oversweep</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14.toggleOversweep();</script>
+				</binding>
+			</key>
+
+			<key n="19">
+				<name>Ctrl-s</name>
+				<desc>Toggle ground spoilers armed</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14.toggleGroundSpoilers();</script>
+				</binding>
+			</key>
+
+			<key n="68">
+				<name>D</name>
+				<desc>DLC decrease</desc>
+				<binding>
+					<command>property-adjust</command>
+					<property>/controls/flight/DLC</property>
+					<step>-0.1</step>
+					<min>0</min>
+				</binding>
+			</key>
+
+			<key n="70">
+				<name>F</name>
+				<desc>Raise flaps</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14.raiseFlaps();</script>
+				</binding>
+			</key>
+
+			<key n="83">
+				<name>S</name>
+				<desc>Decrease speed brakes</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14.speedBrakesIn();</script>
+				</binding>
+			</key>
+
+			<key n="97">
+				<name>a</name>
+				<desc>toggle APC</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14.toggleAPC();</script>
+				</binding>
+			</key>
+
+			<key n="100">
+				<name>d</name>
+				<desc>DLC increase</desc>
+				<binding>
+					<command>property-adjust</command>
+					<property>/controls/flight/DLC</property>
+					<step>0.1</step>
+					<max>1.0</max>
 				</binding>
 			</key>
 
@@ -272,57 +346,8 @@
 				<name>f</name>
 				<desc>Lower flaps</desc>
 				<binding>
-				<command>nasal</command>
+					<command>nasal</command>
 					<script>f14.lowerFlaps();</script>
-				</binding>
-			</key>
-
-			<key n="70">
-				<name>F</name>
-				<desc>Raise flaps</desc>
-				<binding>
-					<command>nasal</command>
-					<script>f14.raiseFlaps();</script>
-				</binding>
-			</key>
-
-			<key n="15">
-				<name>Ctrl-o</name>
-				<desc>toggle oversweep</desc>
-				<binding>
-					<command>nasal</command>
-					<script>f14.toggleOversweep();</script>
-				</binding>
-			</key>
-
-			<key n="4">
-				<name>CTRL-d</name>
-				<desc>DLC toggle</desc>
-				<binding>
-					<command>nasal</command>
-					<script>f14.toggleDLC();</script>
-				</binding>
-			</key>
-
-			<key n="100">
-				<name>d</name>
-				<desc>DLC increase</desc>
-				<binding>
-					<command>property-adjust</command>
-					<property>/controls/flight/DLC</property>
-					<step>0.1</step>
-					<max>1.0</max>
-				</binding>
-			</key>
-
-			<key n="68">
-				<name>D</name>
-				<desc>DLC decrease</desc>
-				<binding>
-					<command>property-adjust</command>
-					<property>/controls/flight/DLC</property>
-					<step>-0.1</step>
-					<min>0</min>
 				</binding>
 			</key>
 
@@ -335,21 +360,12 @@
 				</binding>
 			</key>
 
-			<key n="83">
-				<name>S</name>
-				<desc>Decrease speed brakes</desc>
+			<key n="117">
+				<name>u</name>
+				<desc>Toggle refuelling probe</desc>
 				<binding>
 					<command>nasal</command>
-					<script>f14.speedBrakesIn();</script>
-				</binding>
-			</key>
-
-			<key n="19">
-				<name>Ctrl-s</name>
-				<desc>Toggle ground spoilers armed</desc>
-				<binding>
-					<command>nasal</command>
-					<script>f14.toggleGroundSpoilers();</script>
+					<script>f14.toggleProbe();</script>
 				</binding>
 			</key>
 
@@ -371,14 +387,6 @@
 				</binding>
 			</key>
 
-			<key n="97">
-			<name>a</name>
-				<desc>toggle APC</desc>
-				<binding>
-					<command>nasal</command>
-					<script>f14.toggleAPC();</script>
-				</binding>
-			</key>
 
 		</keyboard>
 	</input>
@@ -403,6 +411,12 @@
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>
 		</f14_hud>
+		<f14_chronograph>
+			<file>Aircraft/f-14b/Nasal/chronograph.nas</file>
+		</f14_chronograph>
+		<aar>
+			<file>Aircraft/Generic/aar.nas</file>
+		</aar>
 	</nasal>
 
 </PropertyList>
