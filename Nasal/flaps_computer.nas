@@ -18,6 +18,19 @@ LinearManeuverSlatExtensionCoeff = MaxManeuverSlatExtension
 
 # Functions
 
+# Hijack the generic flaps command so everybody's joystick flap command works
+# for the F-14 too. 
+controls.flapsDown = func(step) {
+	if (step == 1) {
+		lowerFlaps();
+	} elsif (step == -1) {
+		raiseFlaps();
+	} else {
+		return;
+	}
+}
+
+
 lowerFlaps = func 
 
 {
