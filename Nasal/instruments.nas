@@ -2,7 +2,7 @@ var UPDATE_PERIOD = 0.1;
 
 # compute the local magnetic deviation #######
 var true_hdg_deg  = props.globals.getNode("orientation/heading-deg");
-var mag_hdg_deg   = props.globals.getNode("instrumentation/heading-indicator/indicated-heading-deg");
+var mag_hdg_deg   = props.globals.getNode("orientation/heading-magnetic-deg");
 var local_mag_dev = props.globals.getNode("sim/model/f-14b/instrumentation/orientation/local-mag-dev", 1);
 var mag_dev = 0;
 
@@ -80,7 +80,7 @@ var g_min_max = func {
 var ticker = props.globals.getNode("sim/model/f-14b/instrumentation/ticker", 1);
 aircraft.data.add("sim/model/f-14b/controls/VDI/brightness");
 
-inc_ticker = func {
+var inc_ticker = func {
 	# ticker used for VDI background continuous translation animation
 	var tick = ticker.getValue();
 	tick += 1 ;
@@ -94,7 +94,23 @@ aircraft.data.add("sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed
 aircraft.data.add("sim/model/f-14b/instrumentation/radar-altimeter/limit-bug");
 
 # Lighting ################
-aircraft.data.add("sim/model/f-14b/controls/lighting/hook-bypass");
+aircraft.data.add("sim/model/f-14b/controls/lighting/hook-bypass",
+	"controls/lighting/instruments-norm",
+	"controls/lighting/panel-norm");
+
+# AFCS Filters ############
+var pitch_pid_pgain = props.globals.getNode("sim/model/f-14b/systems/afcs/pitch-pid-pgain", 1);
+var vs_pid_pgain = props.globals.getNode("sim/model/f-14b/systems/afcs/vs-pid-pgain", 1);
+var p_pgain = 0;
+var mach = 0;
+
+var afcs_filters = func {
+	mach = f14.CurrentMach + 0.01;
+	p_pgain = -0.01 / ( mach * mach * mach * mach );
+	if ( p_pgain < -0.05 ) { p_pgain = -0.05 }
+	pitch_pid_pgain.setDoubleValue(p_pgain);
+	vs_pid_pgain.setDoubleValue(p_pgain/10);
+}
 
 # Main loop ###############
 var cnt = 0;
@@ -107,12 +123,14 @@ var main_loop = func {
 	tacan_update();
 	f14_hud.update_hud();
 	g_min_max();
+	f14_chronograph.update_chrono();
+	afcs_filters();
 	if (( cnt == 3 ) or ( cnt == 6 )) {
 		# done each 0.3 sec.
 		fuel_gauge();
 		if ( cnt == 6 ) {
 			# done each 0.6 sec.
-			setprop("instrumentation/heading-indicator/spin", 1);
+			
 			cnt = 0;
 		}
 	}
