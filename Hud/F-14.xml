@@ -42,7 +42,7 @@
 		<width>100</width>
 		<height>10</height>
 		<input>
-			<property>orientation/heading-deg</property>
+			<property>orientation/heading-magnetic-deg</property>
 			<factor>0.1</factor>
 			<max>85</max>
 			<min>0</min>
