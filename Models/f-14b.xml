@@ -144,16 +144,10 @@
 	</panel>
 
 
- <!--<animation>
-  <type>alpha-test</type>
-  <alpha-factor>0.01</alpha-factor>
- </animation>-->
-
-
- <model>
-  <name>strobe</name>
-  <path>Models/Aircraft/strobe.xml</path>
- </model>
+	<model>
+		<name>strobe</name>
+		<path>Models/Aircraft/strobe.xml</path>
+	</model>
 
 
 <!-- ******************************************************************* -->
