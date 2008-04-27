@@ -109,7 +109,7 @@ computeSAS = func
    if (rollBias < RollMinOutput) rollBias = RollMinOutput;
 
 
-   SASroll = getprop ("/controls/flight/aileron") + rollBias;   
+   SASroll = getprop ("/controls/flight/aileron") + rollBias + getprop ("/controls/flight/aileron-trim");   
    if (airspeed > RollLoSpeed)
      SASroll = SASroll * ( (RollLoSpeed * RollLoSpeed) / squaredAirspeed );
 
