@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<PropertyList> 
+	<path>acm.ac</path>
+
+	<!-- slip-ball-->
+	<animation>
+		<type>rotate</type>
+		<object-name>slip-skid-ball</object-name>
+		<property>instrumentation/slip-skid-ball/indicated-slip-skid</property>
+		<factor>10</factor>
+		<min-deg>-11</min-deg>
+		<max-deg>11</max-deg>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0.0244</z-m> 
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>turn-needle</object-name>
+		<property>/instrumentation/turn-indicator/indicated-turn-rate</property>
+		<!-- based on 1.08 indicated-turn-rate corresponding to a standard
+			360° turn in 2 minutes at cruise configuration (FL 320 M0.72)-->
+		<factor>26.4</factor>
+		<min-deg>-50</min-deg>
+		<max-deg>50</max-deg>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.0359</z-m> 
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+
+	<!-- lighting -->
+	<animation> 
+		<object-name>mount</object-name>
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+
+	<animation> 
+		<object-name>instruments</object-name>
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+
+
+
+
+	<!--  LoD  -->
+	<animation> 
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>35</max-m>
+	</animation>
+</PropertyList>
