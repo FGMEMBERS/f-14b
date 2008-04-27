@@ -153,7 +153,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>compas</object-name>
-		<property>instrumentation/heading-indicator/indicated-heading-deg</property>
+		<property>orientation/heading-magnetic-deg</property>
 		<factor>0.002777778</factor>
 		<step>1</step>
 		<scroll>1</scroll>

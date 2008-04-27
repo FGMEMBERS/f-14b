@@ -137,6 +137,16 @@
 
 	<!-- Center Instrument Panel -->
 	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/acm.xml</path>
+		<offsets>
+			<x-m>-5.8371</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.1110</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/vdi.xml</path>
 		<offsets>
 			<x-m>-5.8510</x-m>
@@ -195,6 +205,17 @@
 			<y-m>0.1750</y-m>
 			<z-m>-0.2288</z-m>
 			<pitch-deg>-5</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/chronograph.xml</path>
+		<offsets>
+			<x-m>-5.8360</x-m>
+			<y-m>0.2794</y-m>
+			<z-m>-0.2666</z-m>
+			<pitch-deg>-5</pitch-deg>
+			<heading-deg>-10</heading-deg>
 		</offsets>
 	</model>
 

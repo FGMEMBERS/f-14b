@@ -7,7 +7,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>compass-card</object-name>
-		<property>instrumentation/heading-indicator/indicated-heading-deg</property>
+		<property>orientation/heading-magnetic-deg</property>
 		<center>
 			<x-m>0.0</x-m>
 			<y-m>0.0</y-m>
@@ -23,7 +23,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>needle-1</object-name>
-		<property>instrumentation/heading-indicator/indicated-heading-deg</property>
+		<property>orientation/heading-magnetic-deg</property>
 		<center>
 			<x-m>0.0</x-m>
 			<y-m>0.0</y-m>
@@ -39,7 +39,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>needle-2</object-name>
-		<property>instrumentation/heading-indicator/indicated-heading-deg</property>
+		<property>orientation/heading-magnetic-deg</property>
 		<center>
 			<x-m>0.0</x-m>
 			<y-m>0.0</y-m>
