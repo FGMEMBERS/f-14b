@@ -10,7 +10,6 @@
 <!-- De-select Pilot when in Cockpit View -->
 	<animation>
 		<type>select</type>
-		<object-name>Pilot</object-name>
 		<object-name>RIO</object-name>
 		<condition>
 			<not>
@@ -21,6 +20,43 @@
 			</not>
 		</condition>
 	</animation>
+
+
+	<!-- Pilot and Seat -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/mkgru-7.xml</path>
+		<offsets>
+			<x-m>-5.0505</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>-0.1471</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/pilot.xml</path>
+		<offsets>
+			<x-m>-5.4464</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>-0.1210</z-m>
+		</offsets>
+	</model>
+
+	<!-- RIO and Seat -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/mkgru-7.xml</path>
+		<offsets>
+			<x-m>-3.5591</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>-0.1262</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/rio.xml</path>
+		<offsets>
+			<x-m>-3.9639</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>-0.1172</z-m>
+		</offsets>
+	</model>
 
 <!-- ******************************************************************* -->
 <!-- Pilot's Instruments                                                 -->
