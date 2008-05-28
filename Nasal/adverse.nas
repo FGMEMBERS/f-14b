@@ -28,6 +28,21 @@ var LeftWingTorn = false;
 var RightWingTorn = false;
 var FailureAileron = 0.0;
 
+fixAirframe = func 
+
+ {
+
+   LeftWingTorn = false;
+   RightWingTorn = false;
+   MaxGreached = 0.0;
+   MinGreached = 0.0;
+   ResidualBend = 0.0;
+   FailureAileron =0.0;
+   setprop ("f-14/left-wing-torn", LeftWingTorn);
+   setprop ("f-14/right-wing-torn", RightWingTorn);
+
+ }
+
 computeWingBend = func
 
  {

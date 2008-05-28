@@ -55,6 +55,11 @@ RollMinOutput = -0.01;
 YawMaxOutput = 0.3;
 YawMinOutput = -0.3;
 
+var raw_elev      = props.globals.getNode("controls/flight/elevator");
+var smooth_elev   = props.globals.getNode("sim/model/f-14b/controls/flight/sas-elevator", 1);
+var last_elev = 0;
+var elev_smooth_factor = 0.1;
+
 
 # Functions
 
@@ -137,7 +142,13 @@ computeSAS = func
    
    #setprop ("/orientation/phi-dot", phiDot);
 
-   
+	# - Filter that smooths the elevator input (helps in case of bad joystick).
+	var raw_e = raw_elev.getValue();
+	var filtered_move = (raw_e - last_elev) * elev_smooth_factor;
+	var new_smooth_elev = last_elev + filtered_move;
+	last_elev = new_smooth_elev;
+	smooth_elev.setDoubleValue(new_smooth_elev);
+
    #pitchInput = getprop ("/controls/flight/elevator") + getprop ("/f-14/SAS/pitch-bias");
 
    # Pitch PID computation
@@ -154,7 +165,8 @@ computeSAS = func
    if (pitchBias > PitchMaxOutput) pitchBias = PitchMaxOutput;
    if (pitchBias < PitchMinOutput) pitchBias = PitchMinOutput;
 
-   pitchInput = getprop ("/controls/flight/elevator") + pitchBias;
+   # pitchInput = getprop ("/controls/flight/elevator") + pitchBias;
+   pitchInput = getprop ("sim/model/f-14b/controls/flight/sas-elevator") + pitchBias;
 
    #adapt trim rate to speed
    if (airspeed < 120.0) 
@@ -207,7 +219,7 @@ computeSAS = func
    if (yawBias < YawMinOutput) yawBias = YawMinOutput;
 
    yawInput = getprop ("/controls/flight/rudder");
-   radalt =  getprop ("position/ground-elev-ft");
+   radalt =  getprop ("position/altitude-agl-ft");
 
     if (yawInput < 0.1 and yawInput > -0.1 and radalt > 50.0)
 		 yawInput += yawBias;

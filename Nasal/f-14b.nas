@@ -17,27 +17,44 @@ aircraft.light.new("sim/model/lighting/strobe", [0.03, 1.9+rand()/5], strobe_swi
 # timedMotions
 #----------------------------------------------------------------------------
 
-CurrentLeftSpoiler = 0.0;
-CurrentRightSpoiler = 0.0;
-CurrentInnerLeftSpoiler = 0.0;
-CurrentInnerRightSpoiler = 0.0;
+var CurrentLeftSpoiler = 0.0;
+var CurrentRightSpoiler = 0.0;
+var CurrentInnerLeftSpoiler = 0.0;
+var CurrentInnerRightSpoiler = 0.0;
 
 
-SpoilerSpeed = 1.0; # full extension in 1 second
+var SpoilerSpeed = 1.0; # full extension in 1 second
 
-DoorsTargetPosition = 0.0;
-DoorsPosition = 0.0;
-DoorsSpeed = 0.2;
-setprop ("/f-14/doors-position", DoorsPosition);
+var DoorsTargetPosition = 0.0;
+var DoorsPosition = 0.0;
+var DoorsSpeed = 0.2;
+setprop ("canopy/position-norm", DoorsPosition);
 
 
-RefuelProbeTargetPosition = 0.0;
-RefuelProbePosition = 0.0;
-RefuelProbeSpeed = 0.5;
-setprop ("/f-14/refuelling-probe-position", RefuelProbePosition);
+var RefuelProbeTargetPosition = 0.0;
+var RefuelProbePosition = 0.0;
+var RefuelProbeSpeed = 0.5;
+setprop ("sim/model/f-14b/refuel/probe-position", RefuelProbePosition);
 
-currentSweep = 0.0;
-SweepSpeed = 0.3;
+var currentSweep = 0.0;
+var SweepSpeed = 0.3;
+
+
+# Properties used for multiplayer syncronization.
+var main_flap_output   = props.globals.getNode("surface-positions/main-flap-pos-norm", 1);
+var aux_flap_output    = props.globals.getNode("surface-positions/aux-flap-pos-norm", 1);
+var slat_output        = props.globals.getNode("surface-positions/slats-pos-norm", 1);
+var left_elev_output   = props.globals.getNode("surface-positions/left-elevator-pos-norm", 1);
+var right_elev_output  = props.globals.getNode("surface-positions/right-elevator-pos-norm", 1);
+var refuel_output      = props.globals.getNode("sim/model/f-14b/refuel/probe-position", 1);
+var sweep_generic      = props.globals.getNode("sim/multiplay/generic/float[0]");
+var main_flap_generic  = props.globals.getNode("sim/multiplay/generic/float[1]");
+var aux_flap_generic   = props.globals.getNode("sim/multiplay/generic/float[2]");
+var slat_generic       = props.globals.getNode("sim/multiplay/generic/float[3]");		
+var left_elev_generic  = props.globals.getNode("sim/multiplay/generic/float[4]");		
+var right_elev_generic = props.globals.getNode("sim/multiplay/generic/float[5]");		
+var refuel_generic     = props.globals.getNode("sim/multiplay/generic/float[6]");		
+
 
 var toggleAccess = func 
 
@@ -56,6 +73,25 @@ var toggleProbe = func
     else RefuelProbeTargetPosition = 0.0;
 
   }
+
+
+#var switchLivery = func
+
+	#{
+	#texture_index = getprop ("f-14/livery-number");
+	#if (texture_index == 2) texture_index = 0;
+	#else texture_index = texture_index + 1;
+	#setprop ("f-14/livery-number", texture_index);
+	#} #end switchLivery
+
+var switchHeatBlur = func
+
+	{
+	if (getprop ("f-14/heat-blur-on")) setprop ("f-14/heat-blur-on", false);
+	else setprop ("f-14/heat-blur-on", true);
+	} #end switchHeatBlur
+
+
 
 var timedMotions = func
 
@@ -176,17 +212,29 @@ var timedMotions = func
 
     } #end if (Nozzle2 > Nozzle2Target)
 
-   setprop ("/surface-positions/left-spoilers", CurrentLeftSpoiler);
-   setprop ("/surface-positions/right-spoilers", CurrentRightSpoiler);
-   setprop ("/surface-positions/inner-left-spoilers", CurrentInnerLeftSpoiler);
-   setprop ("/surface-positions/inner-right-spoilers", CurrentInnerRightSpoiler);
-   setprop ("engines/engine[0]/nozzle-pos-norm", Nozzle1);
-   setprop ("engines/engine[1]/nozzle-pos-norm", Nozzle2);
-   setprop ("/f-14/doors-position", DoorsPosition);
-   setprop ("/f-14/refuelling-probe-position", RefuelProbePosition);
-   setprop ("/surface-positions/wing-sweep", currentSweep);
-   setprop ("/controls/flight/wing-sweep", WingSweep);
- }
+	setprop ("surface-positions/left-spoilers", CurrentLeftSpoiler);
+	setprop ("surface-positions/right-spoilers", CurrentRightSpoiler);
+	setprop ("surface-positions/inner-left-spoilers", CurrentInnerLeftSpoiler);
+	setprop ("surface-positions/inner-right-spoilers", CurrentInnerRightSpoiler);
+	setprop ("engines/engine[0]/nozzle-pos-norm", Nozzle1);
+	setprop ("engines/engine[1]/nozzle-pos-norm", Nozzle2);
+	setprop ("canopy/position-norm", DoorsPosition);
+	setprop ("sim/model/f-14b/refuel/probe-position", RefuelProbePosition);
+	setprop ("surface-positions/wing-sweep", currentSweep);
+	setprop ("controls/flight/wing-sweep", WingSweep);
+
+	# Copy surfaces animations properties so they are transmited via multiplayer.
+	sweep_generic.setDoubleValue(currentSweep);
+	main_flap_generic.setDoubleValue(main_flap_output.getValue());
+	aux_flap_generic.setDoubleValue(aux_flap_output.getValue());
+	slat_generic.setDoubleValue(slat_output.getValue());
+	left_elev_generic.setDoubleValue(left_elev_output.getValue());
+	right_elev_generic.setDoubleValue(right_elev_output.getValue());
+	refuel_generic.setDoubleValue(refuel_output.getValue());
+
+}
+
+
 
 #----------------------------------------------------------------------------
 # FCS update
@@ -195,32 +243,32 @@ var timedMotions = func
 var registerFCS = func {settimer (updateFCS, 0);}
 
 var updateFCS = func
-  {
 
-    #Fectch most commonly used values
+	{
+	#Fectch most commonly used values
 	CurrentIAS = getprop ("/velocities/airspeed-kt");
-    CurrentMach = getprop ("/velocities/mach");
-    CurrentAlt = getprop ("/position/altitude-ft");
-    WOW = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
-    Alpha = getprop ("/orientation/alpha-deg");
-    Throttle = getprop ("/controls/engines/engine/throttle");
+	CurrentMach = getprop ("/velocities/mach");
+	CurrentAlt = getprop ("/position/altitude-ft");
+	WOW = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
+	Alpha = getprop ("/orientation/alpha-deg");
+	Throttle = getprop ("/controls/engines/engine/throttle");
 	ElevatorTrim = getprop ("/controls/flight/elevator-trim");
 	deltaT = getprop ("sim/time/delta-sec");
-    
-    #update functions
-    f14.computeSweep ();
-	computeDrag ();
-    computeFlaps ();
-    computeSpoilers ();
-    computeNozzles ();
-    computeSAS ();
-	computeAdverse ();
-	computeNWS ();
-    computeAICS ();
-	computeAPC ();
-    timedMotions ();
-    registerFCS ();
-  }
+
+	#update functions
+	f14.computeSweep ();
+	f14.computeDrag ();
+	f14.computeFlaps ();
+	f14.computeSpoilers ();
+	f14.computeNozzles ();
+	f14.computeSAS ();
+	f14.computeAdverse ();
+	f14.computeNWS ();
+	f14.computeAICS ();
+	f14.computeAPC ();
+	f14.timedMotions ();
+	f14.registerFCS ();
+	}
 
 
 
@@ -230,20 +278,20 @@ var Burner = 0;
 setprop ("f-14/burner", Burner);
 
 var updateBurner = func 
-  {
 
-    Burner +=1;
-    if (Burner == 3) Burner = 0;
-    setprop ("f-14/burner", Burner); 
-    registerBurner ();
-
- } #end updateBurner
+	{
+	Burner +=1;
+	if (Burner == 3) Burner = 0;
+	setprop ("f-14/burner", Burner); 
+	registerBurner ();
+	} #end updateBurner
 
 var startProcess = func 
 
- {
-  settimer (updateFCS, 1.0);
-  settimer (updateBurner, 1.0);
- }
+	{
+	settimer (updateFCS, 1.0);
+	settimer (updateBurner, 1.0);
+	aircraft.livery.init("Aircraft/f-14b/Models/Liveries", "sim/model/livery/name", "sim/model/livery/index");
+	}
 
 setlistener("/sim/signals/fdm-initialized", startProcess);

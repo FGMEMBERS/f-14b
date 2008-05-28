@@ -1,7 +1,7 @@
 var pilot_g            = props.globals.getNode("accelerations/pilot-g", 1);
 var timeratio          = props.globals.getNode("accelerations/timeratio", 1);
 var pilot_g_damped     = props.globals.getNode("accelerations/pilot-g-damped", 1);
-var hud_intens_control = props.globals.getNode("sim/model/f-14b/controls/hud/intens", 1);
+var hud_intens_control = props.globals.getNode("sim/model/f-14b/controls/hud/intens");
 var hud_alpha          = props.globals.getNode("sim[0]/hud/color/alpha", 1);
 #var hud_volts          = props.globals.getNode("systems/electrical/outputs/hud", 1);
 aircraft.data.add("sim/model/f-14b/controls/hud/intens", "sim/hud/current-color");
@@ -42,21 +42,6 @@ var update_hud = func {
 	# print(sprintf("pilot_g_damped in=%0.5f, out=%0.5f, h_offset=%0.5f", g, damp ,h_offset));
 
 }
-
-
-
-#var h_alpha      = 0.0;
-#
-# Dumps the hud by a function of redout #######
-#var update_hud = func {
-#	var hud_intens_control = getprop("sim/model/f-14b/controls/hud/intens");
-#	var r_alpha  = getprop("sim[0]/rendering/redout/alpha");
-#
-#	var h_alpha_new = ( h_alpha - ( h_alpha * r_alpha) )  * hud_intens_control;
-#
-#	setprop("sim[0]/hud/color/alpha", h_alpha_new);
-#
-#}
 
 var init_hud = func {
 	h_alpha  = getprop("sim[0]/hud/color/alpha");

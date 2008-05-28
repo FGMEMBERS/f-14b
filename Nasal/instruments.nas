@@ -1,5 +1,26 @@
 var UPDATE_PERIOD = 0.1;
 
+# TACAN: nav[1]
+# ------------- 
+var nav1_back = 0;
+setlistener( "instrumentation/tacan/switch-position", func {nav1_freq_update();} );
+
+var tc              = props.globals.getNode("instrumentation/tacan/");
+var tc_sw_pos       = tc.getNode("switch-position");
+var tc_freq         = tc.getNode("frequencies");
+var tc_true_hdg     = props.globals.getNode("instrumentation/tacan/indicated-bearing-true-deg");
+var tc_mag_hdg      = props.globals.getNode("sim/model/f-14b/instrumentation/tacan/indicated-mag-bearing-deg", 1);
+var heading_offset  = props.globals.getNode("instrumentation/heading-indicator-fg/offset-deg");
+var tcn_ident       = props.globals.getNode("instrumentation/tacan/ident");
+var vtc_ident       = props.globals.getNode("instrumentation/nav[1]/nav-id");
+var from_flag       = props.globals.getNode("sim/model/f-14b/instrumentation/hsd/from-flag", 1);
+var to_flag         = props.globals.getNode("sim/model/f-14b/instrumentation/hsd/to-flag", 1);
+var cdi_deflection  = props.globals.getNode("sim/model/f-14b/instrumentation/hsd/needle-deflection", 1);
+var vtc_from_flag   = props.globals.getNode("instrumentation/nav[1]/from-flag");
+var vtc_to_flag     = props.globals.getNode("instrumentation/nav[1]/to-flag");
+var vtc_deflection  = props.globals.getNode("instrumentation/nav[1]/heading-needle-deflection");
+var course_radial   = props.globals.getNode("instrumentation/nav[1]/radials/selected-deg");
+
 # compute the local magnetic deviation #######
 var true_hdg_deg  = props.globals.getNode("orientation/heading-deg");
 var mag_hdg_deg   = props.globals.getNode("orientation/heading-magnetic-deg");
@@ -15,18 +36,74 @@ var local_mag_deviation = func {
 }
 
 # get a magnetic tacan bearing ###############
-var tacan_true_bearing_deg = props.globals.getNode("instrumentation/tacan/indicated-bearing-true-deg");
-var tacan_mag_bearing_deg = props.globals.getNode("sim/model/f-14b/instrumentation/tacan/indicated-mag-bearing-deg", 1);
 
 var tacan_update = func {
-	var tcn_true_bearing = tacan_true_bearing_deg.getValue();
-	var tcn_mag_bearing = geo.normdeg( tcn_true_bearing + mag_dev );
-	if ( tcn_true_bearing != 0 ) {
-		tacan_mag_bearing_deg.setDoubleValue( tcn_mag_bearing );
+	var tc_true_bearing = tc_true_hdg.getValue();
+	var tc_mag_bearing = geo.normdeg( tc_true_bearing + mag_dev );
+	if ( tc_true_bearing != 0 ) {
+		tc_mag_hdg.setDoubleValue( tc_mag_bearing );
 	} else {
-		tacan_mag_bearing_deg.setDoubleValue( 0.0 );
+		tc_mag_hdg.setDoubleValue( 0.0 );
 	}
 }
+
+# set nav[1] so we can use radials from a TACAN station #######
+var nav1_freq_update = func {
+	if ( tc_sw_pos.getValue() == 1 ) {
+		#print("nav1_freq_updat etc_sw_pos = 1");
+		var tacan_freq = getprop( "instrumentation/tacan/frequencies/selected-mhz" );
+		var nav1_freq = getprop( "instrumentation/nav[1]/frequencies/selected-mhz" );
+		var nav1_back = nav1_freq;
+		setprop("instrumentation/nav[1]/frequencies/selected-mhz", tacan_freq);
+	} else {
+	setprop("instrumentation/nav[1]/frequencies/selected-mhz", nav1_back);
+	}
+}
+
+# get TACAN radials on HSD's Course Deviation Indicator ########
+# CDI works with ils OR tacan OR vortac (which freq is tuned from the tacan panel)
+var tacan_dev_indicator = func {
+	var tcn = tc_sw_pos.getValue();
+	if ( tcn ) {
+		var tcnid = tcn_ident.getValue();
+		var vtcid = vtc_ident.getValue();
+		if ( tcnid == vtcid ) {
+			# we have a VORTAC
+			from_flag.setBoolValue(vtc_from_flag.getBoolValue());
+			to_flag.setBoolValue(vtc_to_flag.getBoolValue());
+			cdi_deflection.setValue(vtc_deflection.getValue());
+		} else {
+			# we have a legacy TACAN
+			var tcn_toflag = 1;
+			var tcn_fromflag = 0;
+			var tcn_bearing = tc_mag_hdg.getValue();
+			var radial = course_radial.getValue();
+			var delt = tcn_bearing - radial;
+			if ( delt > 180 ) {
+				delt -= 360;
+			} elsif ( delt < -180 ) {
+				delt += 360;
+			}
+			if ( delt > 90 ) {
+				delt -= 180;
+				tcn_toflag = 0;
+				tcn_fromflag = 1;
+			} elsif ( delt < - 90 ) {
+				delt += 180;
+				tcn_toflag = 0;
+				tcn_fromflag = 1;
+			}
+			if ( delt > 10 ) { delt = 10 };
+			if ( delt < -10 ) { delt = -10 };
+			from_flag.setBoolValue(tcn_fromflag);
+			to_flag.setBoolValue(tcn_toflag);
+			cdi_deflection.setValue(delt);
+		}
+	}
+}
+
+# Radios
+var com_0 = props.globals.getNode("instrumentation/comm/frequencies/selected-mhz");
 
 # fuel gauges ###############
 var bingo      = props.globals.getNode("sim/model/f-14b/controls/fuel/bingo");
@@ -98,6 +175,10 @@ aircraft.data.add("sim/model/f-14b/controls/lighting/hook-bypass",
 	"controls/lighting/instruments-norm",
 	"controls/lighting/panel-norm");
 
+# HSD #####################
+var hsd_mode_node = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/hsd-mode-nav");
+
+
 # AFCS Filters ############
 var pitch_pid_pgain = props.globals.getNode("sim/model/f-14b/systems/afcs/pitch-pid-pgain", 1);
 var vs_pid_pgain = props.globals.getNode("sim/model/f-14b/systems/afcs/vs-pid-pgain", 1);
@@ -121,16 +202,19 @@ var main_loop = func {
 	inc_ticker();
 	local_mag_deviation();
 	tacan_update();
+	tacan_dev_indicator();
 	f14_hud.update_hud();
 	g_min_max();
 	f14_chronograph.update_chrono();
 	afcs_filters();
+	var hsd_mode = hsd_mode_node.getValue();
+	if ( hsd_mode == 0 ) { f14_radar.display() }
 	if (( cnt == 3 ) or ( cnt == 6 )) {
 		# done each 0.3 sec.
 		fuel_gauge();
 		if ( cnt == 6 ) {
 			# done each 0.6 sec.
-			
+			nav1_freq_update();
 			cnt = 0;
 		}
 	}
@@ -143,7 +227,13 @@ var init = func {
 	print("Initializing F-14B Instruments System");
 	ticker.setDoubleValue(0);
 	f14_hud.init_hud();
-	aircraft.data.save();
+	setprop("controls/switches/radar_init", 0);
+	# properties to be stored
+	aircraft.data.add(com_0);
+	foreach (var f_tc; tc_freq.getChildren()) {
+		aircraft.data.add(f_tc);
+	}
+	# launch
 	settimer(main_loop, 0.5);
 }
 
@@ -157,3 +247,13 @@ setlistener("/sim/signals/fdm-initialized", init);
 aircraft.light.new("sim/model/f-14b/lighting/warn-medium-lights-switch", [0.3, 0.2]);
 setprop("sim/model/f-14b/lighting/warn-medium-lights-switch/enabled", 1);
 
+# Old Fashioned Radio Button Selector
+# -----------------------------------
+# Where group is the parent node that contains the radio state nodes as children.
+
+radio_bt_sel = func(group, which) {
+	foreach (var n; props.globals.getNode(group).getChildren()) {
+		n.setBoolValue(n.getName() == which);
+		#var toto = n.getName();print(toto);
+	}
+}
