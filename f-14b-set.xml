@@ -37,6 +37,81 @@
 			<path>Aircraft/f-14b/f-14b-sound.xml</path>
 		</sound>
 
+		<help>
+			<title>Grumman F-14B</title>
+			<key>
+				<name>Home</name>
+				<desc>Increase elevator trim</desc>
+			</key>
+			<key>
+				<name>End</name>
+				<desc>Decrease elevator trim</desc>
+			</key>
+
+			<key>
+				<name>f</name>
+				<desc>Lower flaps</desc>
+			</key>
+			<key>
+				<name>F</name>
+				<desc>Raise flaps</desc>
+			</key>
+			<key>
+				<name>E</name>
+				<desc>Decrease Radar Range</desc>
+			</key>
+			<key>
+				<name>R</name>
+				<desc>Increase Radar Range</desc>
+			</key>
+
+			<key>
+				<name>s</name>
+				<desc>Increase speed brakes</desc>
+			</key>
+			<key>
+				<name>S</name>
+				<desc>Decrease speed brakes</desc>
+			</key>
+			<key>
+				<name>a</name>
+				<desc>Toggle APC</desc>
+			</key>
+			<key>
+				<name>Ctrl-d</name>
+				<desc>Toggle DLC</desc>
+			</key>
+			<key>
+				<name>d</name>
+				<desc>DLC increase</desc>
+			</key>
+			<key>
+				<name>D</name>
+				<desc>DLC decrease</desc>
+			</key>
+			<key>
+				<name>Ctrl-s</name>
+				<desc>Toggle ground spoilers armed</desc>
+			</key>
+			<key>
+				<name>e</name>
+				<desc>Toggle canopy and access ladder</desc>
+			</key>
+			<key>
+				<name>u</name>
+				<desc>Toggle refuelling probe</desc>
+			</key>
+			<key>
+				<name>Ctrl-o</name>
+				<desc>Toggle oversweep</desc>
+			</key>
+
+			<!--<line>External fuel tanks ?</line>
+			<line>  Menu > Equipment > Fuel and Payload</line>
+			<line>__________________________________________________</line>-->
+
+		</help>
+
 		<hud>
 			<path n="1">Aircraft/f-14b/Hud/F-14.xml</path>
 			<visibility n="1">true</visibility>
@@ -79,17 +154,34 @@
 					<VDI>
 						<brightness type="double">1</brightness>
 					</VDI>
+					<pilots-displays>
+						<mode>
+							<to-bt type="bool">false</to-bt>
+							<cruise-bt type="bool">true</cruise-bt>
+							<aa-bt type="bool">false</aa-bt>
+							<ag-bt type="bool">false</ag-bt>
+							<ldg-bt type="bool">false</ldg-bt>
+						</mode>
+						<steer>
+							<man-bt type="bool">false</man-bt>
+							<tacan-bt type="bool">true</tacan-bt>
+							<awl-bt type="bool">false</awl-bt>
+							<dest-bt type="bool">false</dest-bt>
+							<vec-bt type="bool">false</vec-bt>
+						</steer>
+						<hsd-mode-nav type="int">1</hsd-mode-nav><!-- 1=NAV, 0=TID, -1=ECM -->
+					</pilots-displays>
 				</controls>
 				<instrumentation>
 					<airspeed-indicator>
 						<safe-speed-limit-bug type="double">830</safe-speed-limit-bug>
 					</airspeed-indicator>
 					<aoa-indexer>
-						<!-- target = 14.8 deg AoA -->
-						<too-slow-deg>17.2</too-slow-deg>	<!-- target +2.4 deg -->
-						<slow-deg>15.6</slow-deg>			<!-- target +0.8 deg -->
-						<fast-deg>14.0</fast-deg>			<!-- target -0.8 deg -->
-						<too-fast-deg>12.4</too-fast-deg>	<!-- target -2.4 deg -->
+						<!-- target = 10 deg AoA -->
+						<too-slow-deg>15.9</too-slow-deg>	<!-- target +2.4 deg -->
+						<slow-deg>14.3</slow-deg>			<!-- target +0.8 deg -->
+						<fast-deg>12.7</fast-deg>			<!-- target -0.8 deg -->
+						<too-fast-deg>11.1</too-fast-deg>	<!-- target -2.4 deg -->
 					</aoa-indexer>
 					<acls>
 						<engaged type="bool">false</engaged>
@@ -102,6 +194,9 @@
 						<limit-bug type="double">250</limit-bug>
 					</radar-altimeter>
 				</instrumentation>
+				<livery>
+					<path type="string">RedRippers1</path>
+				</livery>
 				<modeling>
 					<show-canopy type="bool">false</show-canopy>
 				</modeling>
@@ -113,6 +208,9 @@
 					<apc>
 						<self-disengaged type="bool">false</self-disengaged>
 					</apc>
+					<gun>
+						<rounds type="int">200</rounds>
+					</gun>
 					<wing-sweep>
 						<mode>
 							<off type="bool">false</off>
@@ -126,11 +224,25 @@
 			</f-14b>
 		</model>
 
+		<multiplay>
+			<generic>
+				<float n="0">0</float><!-- wing-sweep -->
+				<float n="1">0</float><!-- main flaps -->
+				<float n="2">0</float><!-- aux flaps  -->
+				<float n="3">0</float><!-- slats      -->
+				<float n="4">0</float><!-- left elevator  -->
+				<float n="5">0</float><!-- right elevator -->
+				<float n="6">0</float><!-- refuel probe -->
+			</generic>
+		</multiplay>
+
 		<panel>
 			<path>Aircraft/f-14b/Panels/2D.xml</path>
 			<visibility archive="y">false</visibility>
 		</panel>
 
+		<!-- f-14b is currently mostly used by v1.0 users
+		so let's disable CVS version builtin and instead use some good old stuff -->
 		<!--<rendering>
 			<redout>
 				<parameters>
@@ -139,11 +251,40 @@
 				</parameters>
 			</redout>
 		</rendering>-->
-		
+
 		<submodels>
 			<serviceable>true</serviceable>
 			<path>Aircraft/f-14b/submodels.xml</path>
 		</submodels>
+
+		<menubar>
+			<default>
+				<menu n="50">
+					<label>Tomcat controls</label>
+					<item n="0">
+						<label>Repair Airframe</label>
+						<binding>
+							<command>nasal</command>
+							<script>f14.fixAirframe();</script>
+						</binding>
+					</item>
+					<item n="1">
+						<label>Select Livery</label>
+						<binding>
+							<command>nasal</command>
+							<script>aircraft.livery.dialog.toggle()</script>
+						</binding>
+					</item>
+					<item n="2">
+						<label>Toggle Heat Blur</label>
+						<binding>
+							<command>nasal</command>
+							<script>f14.switchHeatBlur();</script>
+						</binding>
+					</item>
+				</menu>
+			</default>
+		</menubar>
 
 		<view n="0">
 			<name>Cockpit View</name>
@@ -191,6 +332,7 @@
 				<target-z-offset-m archive="y" type="double">8.0</target-z-offset-m>
 			</config>
 		</view>
+
 	</sim>
 
 	<systems>
@@ -252,6 +394,8 @@
 			<yaw-bias type="float">0.0</yaw-bias>
 			<roll-bias type="float">0.0</roll-bias>
 		</SAS>
+		<livery-number type="int">0</livery-number>
+		<heat-blur-on type="bool">false</heat-blur-on>
 	</f-14>
 
 	<input>
@@ -295,12 +439,30 @@
 				</binding>
 			</key>
 
+			<key n="69">
+				<name>E</name>
+				<desc>Decrease Radar Range</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14_radar.range_control(-1);</script>
+				</binding>
+			</key>
+
 			<key n="70">
 				<name>F</name>
 				<desc>Raise flaps</desc>
 				<binding>
 					<command>nasal</command>
 					<script>f14.raiseFlaps();</script>
+				</binding>
+			</key>
+
+			<key n="82">
+				<name>R</name>
+				<desc>Increase Radar Range</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14_radar.range_control(1);</script>
 				</binding>
 			</key>
 
@@ -391,6 +553,15 @@
 		</keyboard>
 	</input>
 
+	<instrumentation>
+		<tacan>
+			<switch-position type="int">1</switch-position>
+		</tacan>
+		<radar>
+			<range type="double">50</range>
+		</radar>
+	</instrumentation>
+
 	<nasal>
 		<f14>
 			<file>Aircraft/f-14b/Nasal/f14_globals.nas</file>
@@ -405,15 +576,18 @@
 			<file>Aircraft/f-14b/Nasal/adverse.nas</file>
 			<file>Aircraft/f-14b/Nasal/f-14b.nas</file>
 		</f14>
-		<f14_instruments>
-			<file>Aircraft/f-14b/Nasal/instruments.nas</file>
-		</f14_instruments>
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>
 		</f14_hud>
+		<f14_radar>
+			<file>Aircraft/f-14b/Nasal/radar.nas</file>
+		</f14_radar>
 		<f14_chronograph>
 			<file>Aircraft/f-14b/Nasal/chronograph.nas</file>
 		</f14_chronograph>
+		<f14_instruments>
+			<file>Aircraft/f-14b/Nasal/instruments.nas</file>
+		</f14_instruments>
 		<aar>
 			<file>Aircraft/Generic/aar.nas</file>
 		</aar>
