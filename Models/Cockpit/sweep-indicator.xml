@@ -5,6 +5,17 @@
 	<path>sweep-indicator.ac</path>
 
 	<animation>
+		<type>select</type>
+		<object-name>sweep-indicator</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>textranslate</type>
 		<object-name>program-tape</object-name>
 		<property>velocities/mach</property>

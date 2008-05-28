@@ -6,6 +6,17 @@
 	<path>accel.ac</path>
 
 	<animation>
+		<type>select</type>
+		<object-name>accel</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>rotate</type>
 		<object-name>needle</object-name>
 		<property>accelerations/pilot-g</property>

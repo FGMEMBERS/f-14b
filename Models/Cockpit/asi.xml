@@ -6,6 +6,17 @@
 	<path>asi.ac</path>
 
 	<animation>
+		<type>select</type>
+		<object-name>asi</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>rotate</type>
 		<object-name>face</object-name>
 		<property>instrumentation/airspeed-indicator/indicated-speed-kt</property>

@@ -6,22 +6,6 @@
 	<path>group-cockpit.ac</path>
 
 
-
-<!-- De-select Pilot when in Cockpit View -->
-	<animation>
-		<type>select</type>
-		<object-name>RIO</object-name>
-		<condition>
-			<not>
-				<equals>
-					<property>sim/current-view/name</property>
-					<value>Cockpit View</value>
-				</equals>
-			</not>
-		</condition>
-	</animation>
-
-
 	<!-- Pilot and Seat -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/mkgru-7.xml</path>
@@ -58,9 +42,40 @@
 		</offsets>
 	</model>
 
+	<!-- coarse cockpit -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/coarse-inside-front.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<!-- detailed cockpit -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/detail-inside-front.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
 <!-- ******************************************************************* -->
 <!-- Pilot's Instruments                                                 -->
 <!-- ******************************************************************* -->
+
+	<!-- Stick -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/stick.xml</path>
+		<offsets>
+			<x-m>-5.6170</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>-0.5898</z-m>
+		</offsets>
+			<pitch-deg>-5</pitch-deg>
+	</model>
 
 	<!-- Windshield Indicators -->
 	<model>
@@ -192,6 +207,25 @@
 		</offsets>
 	</model>
 
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/hsd.xml</path>
+		<offsets>
+			<x-m>-5.8345</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.2747</z-m>
+			<pitch-deg>-29</pitch-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/hsd-radar.xml</path>
+		<offsets>
+			<x-m>-5.8345</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.2747</z-m>
+			<pitch-deg>-29</pitch-deg>
+		</offsets>
+	</model>
+
 	<!-- Right Instrument Panel -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/sweep-indicator.xml</path>
@@ -256,6 +290,18 @@
 	</model>
 
 	<!-- Right Pilot Console -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/right-vertical-console.xml</path>
+		<offsets>
+			<x-m>-5.6800</x-m>
+			<y-m>0.456</y-m>
+			<z-m>-0.3220</z-m>
+			<pitch-deg>-17</pitch-deg>
+			<heading-deg>-23</heading-deg>
+			<roll-deg>8</roll-deg>
+		</offsets>
+	</model>
+
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/master-light-panel.xml</path>
 		<offsets>

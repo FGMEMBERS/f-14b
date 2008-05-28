@@ -6,6 +6,17 @@
 	<path>altimeter.ac</path>
 
 	<animation>
+		<type>select</type>
+		<object-name>altimeter</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>rotate</type>
 		<object-name>needle</object-name>
 		<property>instrumentation/altimeter/indicated-altitude-ft</property>

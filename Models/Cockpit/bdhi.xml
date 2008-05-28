@@ -5,6 +5,17 @@
 	<path>bdhi.ac</path>
 
 	<animation>
+		<type>select</type>
+		<object-name>bdhi</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>rotate</type>
 		<object-name>compass-card</object-name>
 		<property>orientation/heading-magnetic-deg</property>

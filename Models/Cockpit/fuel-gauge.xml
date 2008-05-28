@@ -5,6 +5,17 @@
 	<name>uhf-display</name>
 	<path>fuel-gauge.ac</path>
 
+	<animation>
+		<type>select</type>
+		<object-name>fuel-gauge</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
 	<!-- Bingo -->
 	<animation>
 		<type>textranslate</type>
