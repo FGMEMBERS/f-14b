@@ -4,6 +4,18 @@
 
 <PropertyList>
 	<path>flaps-slats-indicator.ac</path>
+
+	<animation>
+		<type>select</type>
+		<object-name>flaps-slats-indicator</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
 	<!-- Flaps -->
 	<animation>
 		<name>flaps</name>
@@ -115,7 +127,7 @@
 		<object-name>sp-in</object-name>
 		<condition>
 			<equals>
-				<property>surface-positions/speedbrake-norm</property>
+				<property>surface-positions/speedbrake-pos-norm</property>
 				<value>0</value>
 			</equals>
 		</condition>
@@ -125,7 +137,7 @@
 		<object-name>sp-full</object-name>
 		<condition>
 			<equals>
-				<property>surface-positions/speedbrake-norm</property>
+				<property>surface-positions/speedbrake-pos-norm</property>
 				<value>1</value>
 			</equals>
 		</condition>
@@ -135,11 +147,11 @@
 		<object-name>sp-partial</object-name>
 		<condition>
 			<greater-than>
-				<property>surface-positions/speedbrake-norm</property>
+				<property>surface-positions/speedbrake-pos-norm</property>
 				<value>0</value>
 			</greater-than>
 			<less-than>
-				<property>surface-positions/speedbrake-norm</property>
+				<property>surface-positions/speedbrake-pos-norm</property>
 				<value>1</value>
 			</less-than>
 		</condition>

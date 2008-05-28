@@ -2,6 +2,17 @@
 <PropertyList> 
 	<path>chronograph.ac</path>
 
+	<animation>
+		<type>select</type>
+		<object-name>clock</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
 	<animation> 
 		<type>rotate</type>
 		<object-name>HourHand</object-name>

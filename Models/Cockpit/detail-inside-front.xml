@@ -1,0 +1,26 @@
+<PropertyList>
+
+	<!-- Détailled Cockpit Consoles and Panels -->
+	<name>Detail-Inside-Front</name>
+	<path>detail-inside-front.ac</path>
+
+	<animation>
+		<type>select</type>
+		<object-name>inside-front</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>70</max-m>
+	</animation>
+
+</PropertyList>

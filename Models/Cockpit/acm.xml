@@ -2,6 +2,17 @@
 <PropertyList> 
 	<path>acm.ac</path>
 
+	<animation>
+		<type>select</type>
+		<object-name>acm-panel</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
 	<!-- slip-ball-->
 	<animation>
 		<type>rotate</type>

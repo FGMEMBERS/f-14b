@@ -6,6 +6,17 @@
 	<path>nozzles-gauge.ac</path>
 
 	<animation>
+		<type>select</type>
+		<object-name>nozle</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>rotate</type>
 		<object-name>needle</object-name>
 		<property>engines/engine[1]/nozzle-pos-norm</property>

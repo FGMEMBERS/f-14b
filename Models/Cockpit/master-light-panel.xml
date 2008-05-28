@@ -4,6 +4,17 @@
 
 	<path>master-light-panel.ac</path>
 
+	<animation>
+		<type>select</type>
+		<object-name>master-light-panel</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+	</animation>
+
 	<!-- Hook Bypass Switch -->
 	<animation>
 		<type>rotate</type>
