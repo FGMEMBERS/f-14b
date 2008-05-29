@@ -291,7 +291,7 @@ var startProcess = func
 	{
 	settimer (updateFCS, 1.0);
 	settimer (updateBurner, 1.0);
-	aircraft.livery.init("Aircraft/f-14b/Models/Liveries", "sim/model/livery/name", "sim/model/livery/index");
+	#aircraft.livery.init("Aircraft/f-14b/Models/Liveries", "sim/model/livery/name", "sim/model/livery/index");
 	}
 
 setlistener("/sim/signals/fdm-initialized", startProcess);
