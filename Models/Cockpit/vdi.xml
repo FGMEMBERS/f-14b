@@ -16,25 +16,23 @@
 		</condition>
 	</animation>
 
-	<!-- vdi on-off 
+	<!-- vdi on-off -->
 	<animation>
 		<type>select</type>
-		<object-name>video</object-name>
+		<object-name>display</object-name>
 		<condition>
-			<not>
-				<property>sim/model/f-14b/controls/VDI/display/off</property>
-				<value>off</value>
-			</not>
+			<property>sim/model/f-14b/controls/VDI/on-off</property>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>off-screen</object-name>
+		<object-name>screen-bkg-off</object-name>
 		<condition>
-			<property>sim/model/f-14b/controls/VDI/display/off</property>
-			<value>off</value>
+			<not>
+				<property>sim/model/f-14b/controls/VDI/on-off</property>
+			</not>
 		</condition>
-	</animation> -->
+	</animation>
 
 	<!-- sky -->
 	<animation>
@@ -317,6 +315,14 @@
 				<property>position/altitude-agl-ft</property>
 				<property>sim/model/f-14b/instrumentation/radar-altimeter/limit-bug</property>
 			</less-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>ap-ref</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/AFCS/altitude-enable</property>
 		</condition>
 	</animation>
 

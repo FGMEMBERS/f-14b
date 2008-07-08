@@ -18,6 +18,13 @@
 	</predict-simple>
 
 	<predict-simple>
+		<input>/velocities/airspeed-kt</input>
+		<output>/autopilot/internal/lookahead-5-sec-airspeed-kt</output>
+		<seconds>5.0</seconds>
+		<filter-gain>0.0</filter-gain>
+	</predict-simple>
+
+	<predict-simple>
 		<input>/autopilot/internal/nav1-track-error-deg</input>
 		<output>/autopilot/internal/nav1-track-error-lookahead-deg</output>
 		<seconds>8.0</seconds>
@@ -40,19 +47,18 @@
 			<prop>orientation/roll-deg</prop>
 		</input>
 		<reference>
-			<!-- will be drived by nasal afcs logic -->
-			<prop>sim/model/f-14b/systems/afcs/target-roll-deg</prop>
+			<prop>autopilot/settings/target-roll-deg</prop>
 		</reference>
 		<output>
-			<prop>controls/flight/aileron-trim</prop>
-		</output>/
+			<prop>/controls/flight/SAS-roll</prop>
+		</output>
 		<config>
 			<Kp>0.05</Kp>
-			<beta>0.000001</beta>
+			<beta>1</beta>
 			<Ti>10</Ti>
 			<Td>0.00000000001</Td>
-			<u_min>-0.1</u_min>
-			<u_max>0.1</u_max>
+			<u_min>-0.3</u_min>
+			<u_max>0.3</u_max>
 		</config>
 	</pid-controller>
 
@@ -116,10 +122,10 @@
 			<value>true-heading-hold</value>
 		</enable>
 		<input>
-			<prop>autopilot/internal/true-heading-error-deg</prop>
+			<prop>orientation/heading-deg</prop>
 		</input>
 		<reference>
-			<value>0.0</value>
+			<prop>autopilot/settings/heading-deg</prop>
 		</reference>
 		<output>
 			<prop>autopilot/internal/target-roll-deg</prop>
@@ -146,7 +152,7 @@
 			<prop>autopilot/internal/target-roll-deg</prop>
 		</reference>
 		<output>
-			<prop>controls/flight/aileron</prop>
+			<prop>controls/flight/SAS-roll</prop>
 		</output>
 		<config>
 			<Kp>0.05</Kp>
@@ -169,7 +175,7 @@
 	<!--Pitch Hold -->
 	<pid-controller>
 		<name>Pitch hold</name>
-		<debug>true</debug>
+		<debug>false</debug>
 		<enable>
 			<prop>/autopilot/locks/altitude</prop>
 			<value>pitch-hold</value>
@@ -278,7 +284,7 @@
 	<!-- vertical speed with throttle (autoland) -->
 	<pid-controller>
 		<name>Vertical Speed with Throttle</name>
-		<debug>true</debug>
+		<debug>false</debug>
 		<enable>
 			<prop>/autopilot/locks/speed</prop>
 			g<value>vertical-speed-with-throttle</value>
@@ -312,16 +318,17 @@
 	<!-- Velocity Modes                                                  -->
 	<!-- =============================================================== -->
 
-	<!-- Auto throttle --> 
+
+	<!-- Speed Auto throttle --> 
 	<pid-controller>
-		<name>Auto Throttle (5 sec lookahead)</name>
+		<name>Speed Auto Throttle</name>
 		<debug>false</debug>
 		<enable>
 			<prop>/autopilot/locks/speed</prop>
 			<value>speed-with-throttle</value>
 		</enable>
 		<input>
-			<prop>/autopilot/internal/lookahead-5-sec-airspeed-kt</prop>
+			<prop>/velocities/airspeed-kt</prop>
 		</input>
 		<reference>
 			<prop>/autopilot/settings/target-speed-kt</prop>
@@ -460,7 +467,7 @@
 
 	<pid-controller>
 		<name>Mach hold (vary pitch) Stage #2</name>
-		<debug>true</debug>
+		<debug>false</debug>
 		<enable>
 			<prop>/autopilot/locks/altitude</prop>
 			<value>mach-with-pitch</value>

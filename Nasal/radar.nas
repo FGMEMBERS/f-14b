@@ -1,7 +1,22 @@
 ##### Radar properties for display of multiplayer aircraft
 
-var SPEED   = 5; # Number of targets worked without pause. 
+var SPEED         = 3;   # Number of targets worked without pause.
+# Pause duration is defined in f14_instruments.main_loop().
+
 var counter = 0;
+
+# Displayed range node.
+var range_radar_node = props.globals.getNode("instrumentation/radar/range");
+
+# Get our radar max range.
+var my_radarcorr = 0;
+var init = func { 
+	my_radarcorr = radardist.my_maxrange("f-14b"); # in kilometers
+	#print("my_radarcorr = "~ my_radarcorr);
+}
+
+
+
 
 var display = func {
 	var r_init = getprop("controls/switches/radar_init");
@@ -9,18 +24,17 @@ var display = func {
 	if (r_init == 0) {
 		setprop("controls/switches/radar_init", 1);
 		setprop("controls/switches/radar_i", 0);
-		setprop("controls/switches/radar_t", 0);
 	}
 
 	if (r_init == 1) {
 		var i = getprop("controls/switches/radar_i");
 		if ( i <= 12 ) {
-			var target = "ai/models/multiplayer[" ~ i ~ "]/";
+			var target = "ai/models/multiplayer[" ~ i ~ "]";
 		} else {
-			var target = "ai/models/tanker[" ~ ( i - 13 ) ~ "]/";
+			var target = "ai/models/tanker[" ~ ( i - 13 ) ~ "]";
 		}
-		if ( props.globals.getNode( target ) != nil ) {
-			target_draw(target);
+		if ( props.globals.getNode( target ) != nil) {			
+			target_draw(target, i);
 		}
 		var i = i + 1;
 		if (i == 17) {
@@ -36,7 +50,7 @@ var display = func {
 	}
 }
 
-var target_draw = func (target) {
+var target_draw = func (target, i) {
 	var t_node          = props.globals.getNode(target);
 	var t_radar_node    = t_node.getNode("radar");
 	var t_in_range_node = t_radar_node.getNode("in-range");
@@ -55,26 +69,27 @@ var target_draw = func (target) {
 		var t_alt                = t_alt_node.getValue();
 		var t_draw_range_nm_node = t_radar_node.getNode("draw-range-nm", 1);
 		var t_rounded_alt_node   = t_radar_node.getNode("rounded-alt-ft", 1);
-		var range_radar          = getprop("instrumentation/radar/range");
-		# Last sanity check.
+		var range_radar = range_radar_node.getValue();
+		# Last sanity and raw range check.
 		if ((t_bearing == nil) or (t_alt == nil) or (t_range > range_radar)) {
 			t_display_node.setBoolValue(0);
 		} else {
-			# Checks if mp within radar field (74°).
+			# Checks if mp within radar field (74°) and if detectable (radardist.nas).
 			var true_heading = getprop("orientation/heading-deg");
 			var deviation_deg = true_heading - t_bearing;
 			while (deviation_deg < -180)
 				deviation_deg += 360;
 			while (deviation_deg > 180)
 				deviation_deg -= 360;
-			if (( deviation_deg < -37 ) or ( deviation_deg > 37 )) {
+			if (( deviation_deg < -37 ) or ( deviation_deg > 37 ) or ! radardist.radis(target, my_radarcorr)) {
+				#print(target);
 				t_display_node.setBoolValue(0);
 			} else {
 				# Computes mp position in display
 				var factor_range_radar = 0.15 / range_radar;
 				var draw_radar = factor_range_radar * t_range;
 				t_draw_range_nm_node.setValue(draw_radar);
-				# Computes mp altitude divided by 1000 rounded to units.
+				# Computes first digit of mp altitude rounded to nearest thousand
 				var rounded_alt = rounding1000(t_alt) / 1000;			
 				t_rounded_alt_node.setValue(rounded_alt);
 				t_display_node.setBoolValue(1);
@@ -93,7 +108,7 @@ var rounding1000 = func(n) {
 
 var range_control = func(n) {
 	# 2.5, 5, 10, 25, 50, 100, 150, 200
-	var range_radar = getprop("instrumentation/radar/range");
+	var range_radar = range_radar_node.getValue();
 	if ( n == 1 ) {
 		if ( range_radar == 2.5 ) {
 			range_radar = 5;
@@ -127,5 +142,5 @@ var range_control = func(n) {
 			range_radar = 2.5;
 		}
 	}
-	setprop("instrumentation/radar/range", range_radar);
+	range_radar_node.setValue(range_radar);
 }

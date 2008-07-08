@@ -261,7 +261,7 @@
 				<property>systems/electrical/outputs/aoa-indexer</property>
 				<value>23</value>
 			</greater-than>-->
-			<property>sim/model/f-14b/systems/apc/self-disengaged</property>
+			<property>sim/model/f-14b/systems/apc/self-disengaged-light</property>
 		</condition>
 	</animation>
 

@@ -2,7 +2,7 @@
 
 <PropertyList>
 
-	<name>uhf-display</name>
+	<name>fuel-gauge</name>
 	<path>fuel-gauge.ac</path>
 
 	<animation>

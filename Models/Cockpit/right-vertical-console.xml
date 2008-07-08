@@ -166,6 +166,57 @@
 		</axis>
 	</animation>
 
+	<!-- VDI on/off Switch -->
+	<animation>
+		<type>rotate</type>
+		<object-name>power-vdi-switch</object-name>
+		<property>sim/model/f-14b/controls/VDI/on-off</property>
+		<factor>33</factor>
+		<center>
+			<x-m>0.0</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.0357</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<!-- HUD on/off Switch -->
+	<animation>
+		<type>rotate</type>
+		<object-name>power-hud-switch</object-name>
+		<property>sim/hud/visibility[1]</property>
+		<factor>33</factor>
+		<center>
+			<x-m>-0.0</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.0357</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<!-- HSD on/off Switch -->
+	<animation>
+		<type>rotate</type>
+		<object-name>power-hsd-switch</object-name>
+		<property>sim/model/f-14b/controls/HSD/on-off</property>
+		<factor>33</factor>
+		<center>
+			<x-m>-0.0</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.0357</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
 
 	<animation>
 		<object-name>hook-lamp-off</object-name> 
@@ -185,6 +236,17 @@
 			<red>0.8</red>
 			<green>0.8</green>
 			<blue>0.8</blue>
+		</emission>
+	</animation>
+
+	<animation> 
+		<object-name>right-vertical-console</object-name>
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 

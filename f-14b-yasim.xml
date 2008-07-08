@@ -199,73 +199,85 @@
      <stall aoa="22" width="2" peak="1.3"/>
  </vstab>
 
-<!-- Engines +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<!-- Engines +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<!-- General Electric F110-GE-100 -->
 
-<!-- General Electric F110-GE-100 -->
+	<!-- left engine tsfc="0.6"-->
+	<jet x="-6.281" y="1.480" z="-1.254" mass="3300" thrust="16100" afterburner="27800" tsfc="0.55">
+		<actionpt x="-7.141" y="1.480" z="-1.254"/>
+		<control-input axis="/controls/engines/engine[0]/throttle" src0="0.0" dst0="0.0" src1="0.86" dst1="1.0" control="THROTTLE"/>
+		<control-input axis="/controls/engines/engine[0]/throttle" src0="0.88" dst0="0.0" src1="1.0" dst1="1.0" control="REHEAT"/>
+		<control-output control="REHEAT" prop="engines/engine[0]/afterburner" />
+		<control-speed control="THROTTLE" transition-time="3.0"/>
+		<control-speed control="REHEAT" transition-time="8.0"/>
+	</jet>
 
-<!-- left engine tsfc="0.6"-->
- <jet x="-6.281" y="1.480" z="-1.254" mass="3300" thrust="16100" afterburner="27800" tsfc="0.55" spool-time="3.0">
-  <actionpt x="-7.141" y="1.480" z="-1.254"/>
-  <control-input axis="/controls/engines/engine[0]/throttle" src0="0.0" dst0="0.0" src1="0.86" dst1="1.0" control="THROTTLE"/>
-  <control-input axis="/controls/engines/engine[0]/throttle" src0="0.88" dst0="0.0" src1="1.0" dst1="1.0" control="REHEAT"/>
-  <control-output control="REHEAT" prop="engines/engine[0]/afterburner" />
- </jet>
-
-<!-- right engine --> 
-
- <jet x="-6.281" y="-1.480" z="-1.254" mass="3300" thrust="16100" afterburner="27800" tsfc="0.55" spool-time="3.0">
-  <actionpt x="-7.141" y="-1.480" z="-1.254"/>
-  <control-input axis="/controls/engines/engine[1]/throttle" src0="0.0" dst0="0.0" src1="0.86" dst1="1.0" control="THROTTLE"/>
-  <control-input axis="/controls/engines/engine[1]/throttle" src0="0.88" dst0="0.0" src1="1.0" dst1="1.0" control="REHEAT"/>
-  <control-output control="REHEAT" prop="engines/engine[1]/afterburner" />
- </jet>
+	<!-- right engine -->
+	<jet x="-6.281" y="-1.480" z="-1.254" mass="3300" thrust="16100" afterburner="27800" tsfc="0.55">
+		<actionpt x="-7.141" y="-1.480" z="-1.254"/>
+		<control-input axis="/controls/engines/engine[1]/throttle" src0="0.0" dst0="0.0" src1="0.86" dst1="1.0" control="THROTTLE"/>
+		<control-input axis="/controls/engines/engine[1]/throttle" src0="0.88" dst0="0.0" src1="1.0" dst1="1.0" control="REHEAT"/>
+		<control-output control="REHEAT" prop="engines/engine[1]/afterburner" />
+		<control-speed control="THROTTLE" transition-time="3.0"/>
+		<control-speed control="REHEAT" transition-time="8.0"/>
+	</jet>
 
 
 <!-- Landing gear +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
-<!-- Nose -->
- <gear x="4.581" y="0.00" z="-3.140" compression="0.6" spring="1.0" damp="2">
-  <control-input axis="/controls/flight/NWS" control="STEER" square="true"/>
-  <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
-  <control-output control="EXTEND" prop="/gear/gear[0]/position-norm"/>
-  <control-output control="STEER" prop="/gear/gear[0]/steering-norm"/>
-  <control-speed control="EXTEND" transition-time="4"/>
-  <control-speed control="STEER" transition-time="1.0"/>
- </gear>
+	<!-- Nose --><!-- sfric=0 40sec sfric=2.0 100sec -->
+	<!-- <gear x="4.581" y="0.00" z="-3.140" compression="0.430" spring="0.5"> -->
+	<!-- <gear x="4.581" y="0.00" z="-3.136" compression="0.6" spring="1.0" damp="2"> -->
+	<gear x="4.581" y="0.00" z="-3.17" compression="0.7" spring="1.0" damp="2">
+		<control-input axis="/controls/flight/NWS" control="STEER" square="true"/>
+		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+		<control-output control="EXTEND" prop="/gear/gear[0]/position-norm"/>
+		<control-output control="STEER" prop="/gear/gear[0]/steering-norm"/>
+		<control-speed control="EXTEND" transition-time="4"/>
+		<control-speed control="STEER" transition-time="1.0"/>
+	</gear>
 
-<!-- Left main -->
- <gear x="-2.357" y="2.444" z="-3.398" 
-       compression="0.9" spring="0.45" damp="2">
-  <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
-  <control-input axis="/controls/gear/brake-left" control="BRAKE"/>
-  <control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
-  <control-output control="EXTEND" prop="/gear/gear[1]/position-norm"/>
-  <control-speed control="EXTEND" transition-time="4"/>
- </gear>
+	<!-- Left main  sfric="4" dfric="2" -->
+	<!-- <gear x="-2.357" y="2.444" z="-3.398" compression="0.688" spring="0.5"> -->
+	<!-- <gear x="-2.357" y="2.444" z="-3.46" compression="0.9" spring="0.45" damp="2"> -->
+	<gear x="-2.357" y="2.444" z="-3.53" compression="1" spring="0.45" damp="2">
+		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+		<control-input axis="/controls/gear/brake-left" control="BRAKE"/>
+		<control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
+		<control-output control="EXTEND" prop="/gear/gear[1]/position-norm"/>
+		<control-speed control="EXTEND" transition-time="4"/>
+	</gear>
 
 
-<!-- Right main -->
- <gear x="-2.357" y="-2.444" z="-3.398"  
-       compression="0.9" spring="0.45" damp="2">
-  <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
-  <control-input axis="/controls/gear/brake-right" control="BRAKE"/>
-  <control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
-  <control-output control="EXTEND" prop="/gear/gear[2]/position-norm"/>
-  <control-speed control="EXTEND" transition-time="4"/>
- </gear>
+	<!-- Right main -->
+	<!-- <gear x="-2.357" y="-2.444" z="-3.398" compression="0.688" spring="0.5"> -->
+	<!-- <gear x="-2.357" y="-2.444" z="-3.46" compression="0.9" spring="0.45" damp="2"> -->
+	<gear x="-2.357" y="-2.444" z="-3.53" compression="1" spring="0.45" damp="2">
+		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+		<control-input axis="/controls/gear/brake-right" control="BRAKE"/>
+		<control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
+		<control-output control="EXTEND" prop="/gear/gear[2]/position-norm"/>
+		<control-speed control="EXTEND" transition-time="4"/>
+	</gear>
 
 <!-- Fuel tanks +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-<!-- Fuselage tank -->
-<tank x="1.291" y="0" z="-0.68" jet="true" capacity="4700"/>
-<tank x="-1.291" y="0" z="-0.585" jet="true" capacity="4400"/>
-<tank x="-1.291" y="0.98" z="-0.585" jet="true" capacity="1550"/>
-<tank x="-1.291" y="-0.98" z="-0.585" jet="true" capacity="1550"/>
-<!-- Left wing tank -->
- <tank x="-1.979" y="1.721" z="-0.516" jet="true" capacity="2000"/>
-<!-- Right wing tank -->
-<tank x="-1.979" y="-1.721" z="-0.516" jet="true" capacity="2000"/>
+	<!-- Fuselage tank -->
+	<tank x="1.291" y="0" z="-0.68" jet="true" capacity="4700"/>
+	<tank x="-1.291" y="0" z="-0.585" jet="true" capacity="4400"/>
+	<tank x="-1.291" y="0.98" z="-0.585" jet="true" capacity="1550"/>
+	<tank x="-1.291" y="-0.98" z="-0.585" jet="true" capacity="1550"/>
+	<!-- Left wing tank -->
+	<tank x="-1.979" y="1.721" z="-0.516" jet="true" capacity="2000"/>
+	<!-- Right wing tank -->
+	<tank x="-1.979" y="-1.721" z="-0.516" jet="true" capacity="2000"/>
+	<!-- Left External Tank -->
+	<tank x="1.05" y="1.41" z="-2.18" jet="true" capacity="2000"/>
+	<!-- Right External Tank -->
+	<tank x="1.05" y="-1.41" z="-2.18" jet="true" capacity="2000"/>
 
+    <weight x="1.05" y="1.41" z="-2.18" size="0.28" mass-prop="sim/weight[0]/weight-lb"/>
+    <weight x="1.05" y="-1.41" z="-2.18" size="0.28" mass-prop="sim/weight[1]/weight-lb"/>
 
 <!-- Weight distribution ++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
@@ -278,8 +290,11 @@
 <!-- Pilot -->
  <ballast x="4.990" y="0" z="-0.516" mass="400"/> 
 
-<!-- Trim ballast --><!-- (-2 => -1.892, +7 => -1.737) -->
- <ballast x="7" y="0" z="-1.4" mass="1000"/> 
+<!-- Trim ballast -->
+<!--x = -2m -> CG = -1.892m
+		+3m -> CG = -1.806m cruise AoA = 0.632° landing AoA 10° a minimal speed
+		+7m -> CG = -1.737m cruise AoA = 0.632° -->
+ <ballast x="3" y="0" z="-1.4" mass="1000"/> 
  
  
 <!-- Carrier ops ++++++++++++++++++++++++++++++++++++++++++++++++ --> 
@@ -290,10 +305,11 @@
    <control-speed control="HEXTEND" transition-time="4"/>
  </hook>
     
-<!-- Launch-bar --> 
+<!-- Launch-bar 
  <launchbar x="4.811" y="0.0" z="-2.080" length="1.463" 
            down-angle="-60" up-angle="20"
-           holdback-x="4.811" holdback-y="0.0" holdback-z="-2.080" holdback-length="1.032">
+           holdback-x="4.811" holdback-y="0.0" holdback-z="-2.080" holdback-length="1.032"> -->
+ <launchbar x="10.36" y="0.0" z="-2.096" length="1.463">
     <control-input axis="/controls/gear/launchbar" control="LEXTEND"/>
     <control-speed control="LEXTEND" transition-time="1"/>
  </launchbar>

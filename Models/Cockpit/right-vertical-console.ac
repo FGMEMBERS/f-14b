@@ -2986,7 +2986,7 @@ loc 0.00728658 -0.00793094 -0.00599217
 kids 9
 OBJECT poly
 name "power-vdi-switch"
-loc -9.31323e-10 -0.0449992 0.0555376
+loc -0.00157876 -0.0449992 0.0553743
 texture "displays-control-panel.rgb"
 crease 45.000000
 numvert 17
@@ -3115,7 +3115,7 @@ refs 3
 kids 0
 OBJECT poly
 name "power-hud-switch"
-loc -9.31323e-10 -0.0449992 0.0133311
+loc -0.00157876 -0.0449992 0.0131678
 texture "displays-control-panel.rgb"
 crease 45.000000
 numvert 17
@@ -3244,7 +3244,7 @@ refs 4
 kids 0
 OBJECT poly
 name "power-hsd-switch"
-loc -9.31323e-10 -0.0449992 -0.0272155
+loc -0.00157876 -0.0449992 -0.0273788
 texture "displays-control-panel.rgb"
 crease 45.000000
 numvert 17
@@ -3373,7 +3373,7 @@ refs 3
 kids 0
 OBJECT poly
 name "hsd-ecm-switch"
-loc -9.31323e-10 -0.00872057 -0.0272155
+loc -0.00157876 -0.00872057 -0.0273788
 texture "displays-control-panel.rgb"
 crease 45.000000
 numvert 17
@@ -3502,7 +3502,7 @@ refs 4
 kids 0
 OBJECT poly
 name "hsd-mode-switch"
-loc -9.31323e-10 -0.00872057 0.0133311
+loc -0.00157876 -0.00872057 0.0131678
 texture "displays-control-panel.rgb"
 crease 45.000000
 numvert 17
@@ -3631,7 +3631,7 @@ refs 3
 kids 0
 OBJECT poly
 name "vdi-mode-switch"
-loc -9.31323e-10 0.0221044 0.0133311
+loc -0.00157876 0.0221044 0.0131678
 texture "displays-control-panel.rgb"
 crease 45.000000
 numvert 17
@@ -3760,7 +3760,7 @@ refs 4
 kids 0
 OBJECT poly
 name "vdi-awl-switch"
-loc -9.31323e-10 0.0221044 -0.0272155
+loc -0.00157876 0.0221044 -0.0273788
 texture "displays-control-panel.rgb"
 crease 45.000000
 numvert 17
@@ -3889,7 +3889,7 @@ refs 3
 kids 0
 OBJECT poly
 name "hud-awl-switch"
-loc -9.31323e-10 0.0541149 -0.0272155
+loc -0.00157876 0.0541149 -0.0273788
 texture "displays-control-panel.rgb"
 crease 45.000000
 numvert 17
@@ -4018,7 +4018,7 @@ refs 4
 kids 0
 OBJECT poly
 name "hud-decutter-switch"
-loc -9.31323e-10 0.0541149 0.0133311
+loc -0.00157876 0.0541149 0.0131678
 texture "displays-control-panel.rgb"
 crease 45.000000
 numvert 17

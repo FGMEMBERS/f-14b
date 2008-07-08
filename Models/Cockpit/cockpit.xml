@@ -30,7 +30,7 @@
 		<offsets>
 			<x-m>-3.5591</x-m>
 			<y-m>0.0000</y-m>
-			<z-m>-0.1262</z-m>
+			<z-m>-0.0962</z-m>
 		</offsets>
 	</model>
 	<model>
@@ -38,7 +38,7 @@
 		<offsets>
 			<x-m>-3.9639</x-m>
 			<y-m>0.0000</y-m>
-			<z-m>-0.1172</z-m>
+			<z-m>-0.0572</z-m>
 		</offsets>
 	</model>
 
@@ -61,6 +61,14 @@
 			<z-m>0</z-m>
 		</offsets>
 	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/detail-inside-back.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
 
 <!-- ******************************************************************* -->
 <!-- Pilot's Instruments                                                 -->
@@ -74,7 +82,7 @@
 			<y-m>0.0000</y-m>
 			<z-m>-0.5898</z-m>
 		</offsets>
-			<pitch-deg>-5</pitch-deg>
+		<pitch-deg>-5</pitch-deg>
 	</model>
 
 	<!-- Windshield Indicators -->
@@ -173,16 +181,48 @@
 		</offsets>
 	</model>
 
-	<!-- Left Vertical Console -->
+	<!-- Left Pilot Console -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/slats-flaps-gear-indicator.xml</path>
 		<offsets>
-			<x-m>-5.7487</x-m>
-			<y-m>-0.3917</y-m>
+			<x-m>-5.7537</x-m>
+			<y-m>-0.3887</y-m>
 			<z-m>-0.1816</z-m>
 			<pitch-deg>-19</pitch-deg>
-			<heading-deg>19</heading-deg>
+			<heading-deg>21</heading-deg>
 			<roll-deg>-7</roll-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/ldg-control-panel.xml</path>
+		<offsets>
+			<x-m>-5.7132</x-m>
+			<y-m>-0.4321</y-m>
+			<z-m>-0.2343</z-m>
+			<pitch-deg>-19</pitch-deg>
+			<heading-deg>21</heading-deg>
+			<roll-deg>-8</roll-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/afcs.xml</path>
+		<offsets>
+			<x-m>-5.2939</x-m>
+			<y-m>-0.5499</y-m>
+			<z-m>-0.4166</z-m>
+			<roll-deg>-28</roll-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/tacan.xml</path>
+		<offsets>
+			<x-m>-5.1750</x-m>
+			<y-m>-0.4125</y-m>
+			<z-m>-0.4910</z-m>
+			<roll-deg>-28</roll-deg>
 		</offsets>
 	</model>
 
@@ -267,6 +307,26 @@
 		</offsets>
 	</model>
 
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/frequency-display-1.xml</path>
+		<offsets>
+			<x-m>-5.8278</x-m>
+			<y-m>0.2619</y-m>
+			<z-m>-0.0260</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/frequency-display-2.xml</path>
+		<offsets>
+			<x-m>-5.8094</x-m>
+			<y-m>0.2619</y-m>
+			<z-m>-0.0991</z-m>
+			<pitch-deg>-15</pitch-deg>
+		</offsets>
+	</model>
+
 	<!-- Right Knee Panel -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/fuel-gauge.xml</path>
@@ -325,4 +385,26 @@
 	</model>
 
 
+	<!-- Lighting -->
+	<animation> 
+		<object-name>pilots-canopy-jett</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.1375</red>
+			<green>0.06</green>
+			<blue>0.025</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>panel-front-cover-protection</object-name>
+		<object-name>bathtub-top-front</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.0687</red>
+			<green>0.03</green>
+			<blue>0.0125</blue>
+		</emission>
+	</animation>
 </PropertyList>

@@ -42,48 +42,91 @@
  
 <PropertyList>
 
-  <submodel>
-    <name>left engine contrail</name>
-    <model>Models/Geometry/contrail.xml</model>
-	<trigger>/ai/submodels/contrails</trigger>
-    <speed>10</speed>
-    <repeat>true</repeat>
-    <delay>0.1</delay>
-	<count>-1</count>
-    <x-offset>-100.0</x-offset>
-    <y-offset>5.656</y-offset>
-    <z-offset>-4.781</z-offset>
-		<yaw-offset>180</yaw-offset>
-    <life>12</life>
-    <buoyancy>32.0</buoyancy>
-    <aero-stabilised>0</aero-stabilised>
-    <wind>true</wind>
-		<eda>10</eda>
-		<cd>0.5</cd>
-		<weight>10</weight>
-		<random>1</random>
-  </submodel>
+	<submodel>
+		<name>ExtTank-L</name>
+		<model>Aircraft/f-14b/Models/Stores/Ext-Tanks/exttank-submodel.xml</model>
+		<trigger>controls/armament/station[2]/jettison-all</trigger>
+		<speed>0</speed>
+		<repeat>false</repeat>
+		<count>1</count>
+		<x-offset>1.1421</x-offset>
+		<y-offset>-1.4341</y-offset>
+		<z-offset>-2.1752</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset>3.2</pitch-offset>
+		<wind>false</wind>
+		<eda>2.8</eda>
+		<weight>250</weight>
+		<cd>0.035</cd>
+		<contents>consumables/fuel/tank[8]</contents>
+		<impact>true</impact>
+		<impact-reports>sim/ai/aircraft/impact/droptank</impact-reports>
+	</submodel>
 
-  <submodel>
-    <name>right engine contrail</name>
-    <model>Models/Geometry/contrail.xml</model>
-    <trigger>/ai/submodels/contrails</trigger>
-    <speed>10</speed>
-    <repeat>true</repeat>
-    <delay>0.1</delay>
-    <count>-1</count>
-    <x-offset>-100.0</x-offset>
-    <y-offset>-5.656</y-offset>
-    <z-offset>-4.781</z-offset>
+	<submodel>
+		<name>ExtTank-R</name>
+		<model>Aircraft/f-14b/Models/Stores/Ext-Tanks/exttank-submodel.xml</model>
+		<trigger>controls/armament/station[7]/jettison-all</trigger>
+		<speed>0</speed>
+		<repeat>false</repeat>
+		<count>1</count>
+		<x-offset>1.1421</x-offset>
+		<y-offset>1.4341</y-offset>
+		<z-offset>-2.1752</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset>3.2</pitch-offset>
+		<wind>false</wind>
+		<eda>2.8</eda>
+		<weight>250</weight>
+		<cd>0.035</cd>
+		<contents>consumables/fuel/tank[9]</contents>
+		<impact>true</impact>
+		<impact-reports>sim/ai/aircraft/impact/droptank</impact-reports>
+	</submodel>
+
+
+	<submodel>
+		<name>left engine contrail</name>
+		<model>Models/Geometry/contrail.xml</model>
+		<trigger>/ai/submodels/contrails</trigger>
+		<speed>10</speed>
+		<repeat>true</repeat>
+		<delay>0.1</delay>
+		<count>-1</count>
+		<x-offset>-100.0</x-offset>
+		<y-offset>5.656</y-offset>
+		<z-offset>-4.781</z-offset>
 		<yaw-offset>180</yaw-offset>
-    <life>12</life>
-    <buoyancy>32</buoyancy>
-    <aero-stabilised>0</aero-stabilised>
-    <wind>true</wind>
+		<life>12</life>
+		<buoyancy>32.0</buoyancy>
+		<aero-stabilised>0</aero-stabilised>
+		<wind>true</wind>
 		<eda>10</eda>
 		<cd>0.5</cd>
 		<weight>10</weight>
 		<random>1</random>
-  </submodel>
+	</submodel>
+
+	<submodel>
+		<name>right engine contrail</name>
+		<model>Models/Geometry/contrail.xml</model>
+		<trigger>/ai/submodels/contrails</trigger>
+		<speed>10</speed>
+		<repeat>true</repeat>
+		<delay>0.1</delay>
+		<count>-1</count>
+		<x-offset>-100.0</x-offset>
+		<y-offset>-5.656</y-offset>
+		<z-offset>-4.781</z-offset>
+		<yaw-offset>180</yaw-offset>
+		<life>12</life>
+		<buoyancy>32</buoyancy>
+		<aero-stabilised>0</aero-stabilised>
+		<wind>true</wind>
+		<eda>10</eda>
+		<cd>0.5</cd>
+		<weight>10</weight>
+		<random>1</random>
+	</submodel>
 
 </PropertyList>

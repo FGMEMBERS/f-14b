@@ -13,7 +13,7 @@
 			<not>
 				<equals>
 					<property>sim/current-view/name</property>
-					<value>Cockpit View</value>
+					<value>RIO View</value>
 				</equals>
 			</not>
 		</condition>

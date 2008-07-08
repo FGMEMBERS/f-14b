@@ -65,7 +65,16 @@
 		<object-name>stick</object-name>
 		<type>noshadow</type>
 	</animation>
-
+	<animation> 
+		<object-name>stick</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.275</red>
+			<green>0.12</green>
+			<blue>0.05</blue>
+		</emission>
+	</animation>
 
 
 	<animation>

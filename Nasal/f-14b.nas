@@ -50,29 +50,21 @@ var refuel_output      = props.globals.getNode("sim/model/f-14b/refuel/probe-pos
 var sweep_generic      = props.globals.getNode("sim/multiplay/generic/float[0]");
 var main_flap_generic  = props.globals.getNode("sim/multiplay/generic/float[1]");
 var aux_flap_generic   = props.globals.getNode("sim/multiplay/generic/float[2]");
-var slat_generic       = props.globals.getNode("sim/multiplay/generic/float[3]");		
-var left_elev_generic  = props.globals.getNode("sim/multiplay/generic/float[4]");		
-var right_elev_generic = props.globals.getNode("sim/multiplay/generic/float[5]");		
-var refuel_generic     = props.globals.getNode("sim/multiplay/generic/float[6]");		
+var slat_generic       = props.globals.getNode("sim/multiplay/generic/float[3]");
+var left_elev_generic  = props.globals.getNode("sim/multiplay/generic/float[4]");
+var right_elev_generic = props.globals.getNode("sim/multiplay/generic/float[5]");
+var refuel_generic     = props.globals.getNode("sim/multiplay/generic/float[6]");
 
 
-var toggleAccess = func 
+var toggleAccess = func {
+	if (DoorsTargetPosition == 0.0) DoorsTargetPosition = 1.0;
+	else DoorsTargetPosition = 0.0;
+	}
 
-  {
-
-    if (DoorsTargetPosition == 0.0) DoorsTargetPosition = 1.0;
-    else DoorsTargetPosition = 0.0;
-    
-  }
-
-var toggleProbe = func 
-
-  {
-
-    if (RefuelProbeTargetPosition == 0.0) RefuelProbeTargetPosition = 1.0;
-    else RefuelProbeTargetPosition = 0.0;
-
-  }
+var toggleProbe = func {
+	if (RefuelProbeTargetPosition == 0.0) RefuelProbeTargetPosition = 1.0;
+	else RefuelProbeTargetPosition = 0.0;
+}
 
 
 #var switchLivery = func
@@ -82,84 +74,81 @@ var toggleProbe = func
 	#if (texture_index == 2) texture_index = 0;
 	#else texture_index = texture_index + 1;
 	#setprop ("f-14/livery-number", texture_index);
-	#} #end switchLivery
+	#}
 
-var switchHeatBlur = func
-
-	{
+var switchHeatBlur = func {
 	if (getprop ("f-14/heat-blur-on")) setprop ("f-14/heat-blur-on", false);
 	else setprop ("f-14/heat-blur-on", true);
-	} #end switchHeatBlur
+}
 
 
 
-var timedMotions = func
+var timedMotions = func {
 
- {
-   
-  
-   if (deltaT == nil) deltaT = 0.0;
-   
-   
-   #---------------------------------
-   if (CurrentLeftSpoiler > LeftSpoilersTarget )
-    {
-     CurrentLeftSpoiler -= SpoilerSpeed * deltaT;
-     if (CurrentLeftSpoiler < LeftSpoilersTarget) CurrentLeftSpoiler = LeftSpoilersTarget;
-    }
-    elsif (CurrentLeftSpoiler < LeftSpoilersTarget)
-    {
-     CurrentLeftSpoiler += SpoilerSpeed * deltaT;
-     if (CurrentLeftSpoiler > LeftSpoilersTarget) CurrentLeftSpoiler = LeftSpoilersTarget;
-    } #end if (CurrentLeftSpoiler > LeftSpoilersTarget )
+	if (deltaT == nil) deltaT = 0.0;
 
-    #---------------------------------
-    if (CurrentRightSpoiler > RightSpoilersTarget )
-    {
-     CurrentRightSpoiler -= SpoilerSpeed * deltaT;
-     if (CurrentRightSpoiler < RightSpoilersTarget) CurrentRightSpoiler = RightSpoilersTarget;
-    }
-    elsif (CurrentRightSpoiler < RightSpoilersTarget)
-    {
-     CurrentRightSpoiler += SpoilerSpeed * deltaT;
-     if (CurrentRightSpoiler > RightSpoilersTarget) CurrentRightSpoiler = RightSpoilersTarget;
-    } #end if (CurrentRightSpoiler > RightSpoilersTarget )
-   
-   #---------------------------------
-   if (CurrentInnerLeftSpoiler > InnerLeftSpoilersTarget )
-    {
-     CurrentInnerLeftSpoiler -= SpoilerSpeed * deltaT;
-     if (CurrentInnerLeftSpoiler < InnerLeftSpoilersTarget) CurrentInnerLeftSpoiler = InnerLeftSpoilersTarget;
-    }
-   elsif (CurrentInnerLeftSpoiler < InnerLeftSpoilersTarget)
-    {
-     CurrentInnerLeftSpoiler += SpoilerSpeed * deltaT;
-     if (CurrentInnerLeftSpoiler > InnerLeftSpoilersTarget) CurrentInnerLeftSpoiler = InnerLeftSpoilersTarget;
-    } #end if (CurrentInnerLeftSpoiler > LeftInnerSpoilersTarget )
+	# Outboard Spoilers
+	if (CurrentLeftSpoiler > LeftSpoilersTarget ) {
+		CurrentLeftSpoiler -= SpoilerSpeed * deltaT;
+		if (CurrentLeftSpoiler < LeftSpoilersTarget) {
+			CurrentLeftSpoiler = LeftSpoilersTarget;
+		}
+	} elsif (CurrentLeftSpoiler < LeftSpoilersTarget) {
+		CurrentLeftSpoiler += SpoilerSpeed * deltaT;
+		if (CurrentLeftSpoiler > LeftSpoilersTarget) {
+			CurrentLeftSpoiler = LeftSpoilersTarget;
+		}
+	}
 
-    #---------------------------------
-    if (CurrentInnerRightSpoiler > InnerRightSpoilersTarget )
-    {
-     CurrentInnerRightSpoiler -= SpoilerSpeed * deltaT;
-     if (CurrentInnerRightSpoiler < InnerRightSpoilersTarget) CurrentInnerRightSpoiler = InnerRightSpoilersTarget;
-    }
-    elsif (CurrentInnerRightSpoiler < InnerRightSpoilersTarget)
-    {
-     CurrentInnerRightSpoiler += SpoilerSpeed * deltaT;
-     if (CurrentInnerRightSpoiler > InnerRightSpoilersTarget) CurrentInnerRightSpoiler = InnerRightSpoilersTarget;
-    } #end if (CurrentInnerRightSpoiler > InnerRightSpoilersTarget )
+	if (CurrentRightSpoiler > RightSpoilersTarget ) {
+		CurrentRightSpoiler -= SpoilerSpeed * deltaT;
+		if (CurrentRightSpoiler < RightSpoilersTarget) {
+			CurrentRightSpoiler = RightSpoilersTarget;
+		}
+	} elsif (CurrentRightSpoiler < RightSpoilersTarget) {
+		CurrentRightSpoiler += SpoilerSpeed * deltaT;
+		if (CurrentRightSpoiler > RightSpoilersTarget) {
+			CurrentRightSpoiler = RightSpoilersTarget;
+		}
+	}
 
-    #---------------------------------
-    if (RefuelProbePosition > RefuelProbeTargetPosition)
-    {
-     RefuelProbePosition -= RefuelProbeSpeed * deltaT;
-     if (RefuelProbePosition < RefuelProbeTargetPosition) RefuelProbePosition = RefuelProbeTargetPosition;
-    }
-    elsif (RefuelProbePosition < RefuelProbeTargetPosition)
-    {
-     RefuelProbePosition += RefuelProbeSpeed * deltaT;
-     if (RefuelProbePosition > RefuelProbeTargetPosition) RefuelProbePosition = RefuelProbeTargetPosition;
-    } #end if (RefuelProbePosition > RefuelProbeTargetPosition )
+	# Inboard Spoilers
+	if (CurrentInnerLeftSpoiler > InnerLeftSpoilersTarget ) {
+		CurrentInnerLeftSpoiler -= SpoilerSpeed * deltaT;
+		if (CurrentInnerLeftSpoiler < InnerLeftSpoilersTarget) {
+			CurrentInnerLeftSpoiler = InnerLeftSpoilersTarget;
+		}
+	} elsif (CurrentInnerLeftSpoiler < InnerLeftSpoilersTarget) {
+		CurrentInnerLeftSpoiler += SpoilerSpeed * deltaT;
+		if (CurrentInnerLeftSpoiler > InnerLeftSpoilersTarget) {
+			CurrentInnerLeftSpoiler = InnerLeftSpoilersTarget;
+		}
+	}
+
+	if (CurrentInnerRightSpoiler > InnerRightSpoilersTarget ) {
+		CurrentInnerRightSpoiler -= SpoilerSpeed * deltaT;
+		if (CurrentInnerRightSpoiler < InnerRightSpoilersTarget) {
+			CurrentInnerRightSpoiler = InnerRightSpoilersTarget;
+		}
+	} elsif (CurrentInnerRightSpoiler < InnerRightSpoilersTarget) {
+		CurrentInnerRightSpoiler += SpoilerSpeed * deltaT;
+		if (CurrentInnerRightSpoiler > InnerRightSpoilersTarget) {
+			CurrentInnerRightSpoiler = InnerRightSpoilersTarget;
+		}
+	}
+
+	# Refuel Probe
+	if (RefuelProbePosition > RefuelProbeTargetPosition) {
+		RefuelProbePosition -= RefuelProbeSpeed * deltaT;
+		if (RefuelProbePosition < RefuelProbeTargetPosition) {
+			RefuelProbePosition = RefuelProbeTargetPosition;
+		}
+	} elsif (RefuelProbePosition < RefuelProbeTargetPosition) {
+		RefuelProbePosition += RefuelProbeSpeed * deltaT;
+		if (RefuelProbePosition > RefuelProbeTargetPosition) {
+			RefuelProbePosition = RefuelProbeTargetPosition;
+		}
+	}
 
 
     #---------------------------------
@@ -242,9 +231,7 @@ var timedMotions = func
 
 var registerFCS = func {settimer (updateFCS, 0);}
 
-var updateFCS = func
-
-	{
+var updateFCS = func {
 	#Fectch most commonly used values
 	CurrentIAS = getprop ("/velocities/airspeed-kt");
 	CurrentMach = getprop ("/velocities/mach");
@@ -268,7 +255,7 @@ var updateFCS = func
 	f14.computeAPC ();
 	f14.timedMotions ();
 	f14.registerFCS ();
-	}
+}
 
 
 
@@ -277,21 +264,17 @@ var registerBurner = func {settimer (updateBurner, 0.04);}
 var Burner = 0;
 setprop ("f-14/burner", Burner);
 
-var updateBurner = func 
-
-	{
+var updateBurner = func {
 	Burner +=1;
 	if (Burner == 3) Burner = 0;
 	setprop ("f-14/burner", Burner); 
 	registerBurner ();
-	} #end updateBurner
+}
 
-var startProcess = func 
-
-	{
+var startProcess = func {
 	settimer (updateFCS, 1.0);
 	settimer (updateBurner, 1.0);
 	#aircraft.livery.init("Aircraft/f-14b/Models/Liveries", "sim/model/livery/name", "sim/model/livery/index");
-	}
+}
 
 setlistener("/sim/signals/fdm-initialized", startProcess);

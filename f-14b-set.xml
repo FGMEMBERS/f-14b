@@ -114,7 +114,7 @@
 
 		<hud>
 			<path n="1">Aircraft/f-14b/Hud/F-14.xml</path>
-			<visibility n="1">true</visibility>
+			<visibility n="1">false</visibility>
 			<palette>
 				<color n="0">
 					<alpha type="float">1</alpha>
@@ -141,9 +141,23 @@
 			<path>Aircraft/f-14b/Models/f-14b.xml</path>
 			<f-14b>
 				<controls>
+					<AFCS>
+						<engage type="bool">false</engage>
+						<vec-acl type="int">0</vec-acl><!-- 1=VEC/PCD, 0=OFF, -1=ACL -->
+						<altitude type="bool">false</altitude>
+						<heading-gt type="int">0</heading-gt><!-- 1=HDG, 0=OFF, -1=GT -->
+						<altitude-enable type="bool">0</altitude-enable>
+					</AFCS>
+					<armament>
+						<emerg-jettison-switch type="bool">0</emerg-jettison-switch>
+						<tanks-ground-sound type="bool">0</tanks-ground-sound>
+					</armament>
 					<fuel>
 						<bingo type="int">11500</bingo>
 					</fuel>
+					<gear>
+						<ld-gear-handle-anim type="double">0</ld-gear-handle-anim>
+					</gear>
 					<hud>
 						<intens type="double">1</intens>
 					</hud>
@@ -151,9 +165,10 @@
 						<index-norm type="double">1</index-norm>
 						<hook-bypass type="bool">false</hook-bypass><!-- false = carrier -->
 					</lighting>
-					<VDI>
+					<HSD>
 						<brightness type="double">1</brightness>
-					</VDI>
+						<on-off type="bool">0</on-off>
+					</HSD>
 					<pilots-displays>
 						<mode>
 							<to-bt type="bool">false</to-bt>
@@ -171,17 +186,29 @@
 						</steer>
 						<hsd-mode-nav type="int">1</hsd-mode-nav><!-- 1=NAV, 0=TID, -1=ECM -->
 					</pilots-displays>
+					<SAS>
+						<pitch type="bool">true</pitch>
+						<roll type="bool">true</roll>
+						<yaw type="bool">true</yaw>
+					</SAS>
+					<tacan>
+						<xy-switch type="bool">0</xy-switch>
+					</tacan>
+					<VDI>
+						<brightness type="double">1</brightness>
+						<on-off type="bool">0</on-off>
+					</VDI>
 				</controls>
 				<instrumentation>
 					<airspeed-indicator>
 						<safe-speed-limit-bug type="double">830</safe-speed-limit-bug>
 					</airspeed-indicator>
 					<aoa-indexer>
-						<!-- target = 10 deg AoA -->
-						<too-slow-deg>15.9</too-slow-deg>	<!-- target +2.4 deg -->
-						<slow-deg>14.3</slow-deg>			<!-- target +0.8 deg -->
-						<fast-deg>12.7</fast-deg>			<!-- target -0.8 deg -->
-						<too-fast-deg>11.1</too-fast-deg>	<!-- target -2.4 deg -->
+						<!-- target = 11.3 deg AoA -->
+						<too-slow-deg>13.7</too-slow-deg>	<!-- target +2.4 deg -->
+						<slow-deg>12.1</slow-deg>			<!-- target +0.8 deg -->
+						<fast-deg>10.5</fast-deg>			<!-- target -0.8 deg -->
+						<too-fast-deg>8.9</too-fast-deg>	<!-- target -2.4 deg -->
 					</aoa-indexer>
 					<acls>
 						<engaged type="bool">false</engaged>
@@ -193,10 +220,15 @@
 					<radar-altimeter>
 						<limit-bug type="double">250</limit-bug>
 					</radar-altimeter>
+					<tacan>
+						<nogo-lamp type="bool">false</nogo-lamp>
+						<go-lamp type="bool">false</go-lamp>
+						<mode type="int">0</mode>
+					</tacan>
+					<warnings>
+						<master-caution type="bool">0</master-caution>
+					</warnings>
 				</instrumentation>
-				<livery>
-					<path type="string">RedRippers1</path>
-				</livery>
 				<modeling>
 					<show-canopy type="bool">false</show-canopy>
 				</modeling>
@@ -206,7 +238,8 @@
 						<target-roll-deg type="double">0</target-roll-deg>
 					</afcs>
 					<apc>
-						<self-disengaged type="bool">false</self-disengaged>
+						<engaged type="bool">false</engaged>
+						<self-disengaged-light type="bool">0</self-disengaged-light>
 					</apc>
 					<gun>
 						<rounds type="int">200</rounds>
@@ -222,6 +255,9 @@
 					</wing-sweep>
 				</systems>
 			</f-14b>
+			<livery>
+				<path type="string">RedRippers1</path>
+			</livery>
 		</model>
 
 		<multiplay>
@@ -324,7 +360,7 @@
 		</view>
 		<view n="5">
 			<config>
-				<target-z-offset-m archive="y" type="double">8.0</target-z-offset-m>
+				<target-z-offset-m archive="y" type="double">0.0</target-z-offset-m>
 			</config>
 		</view>
 		<view n="6">
@@ -332,6 +368,101 @@
 				<target-z-offset-m archive="y" type="double">8.0</target-z-offset-m>
 			</config>
 		</view>
+		<view n="100">
+			<name>RIO View</name>
+			<type>lookfrom</type>
+			<internal archive="y">true</internal>
+			<config>
+				<from-model type="bool">true</from-model>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m archive="y">0.0</x-offset-m>
+				<y-offset-m archive="y">0.43</y-offset-m>
+				<z-offset-m archive="y">-3.58</z-offset-m>
+				<pitch-offset-deg>-12</pitch-offset-deg>
+				<default-field-of-view-deg>55</default-field-of-view-deg>
+			</config>
+		</view>
+
+		<weight n="0">
+			<name>Station 1A</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+		</weight>
+		<weight n="1">
+			<name>Station 1B</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+		</weight>
+		<weight n="2">
+			<name>Station 2</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>2000 lbs Fuel Tank</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+			<opt><name>2000 lbs Fuel Tank</name><lbs>250</lbs><gals>300</gals></opt>
+		</weight>
+		<weight n="3">
+			<name>Station 3</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+		</weight>
+		<weight n="4">
+			<name>Station 4</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+		</weight>
+		<weight n="5">
+			<name>Station 5</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+		</weight>
+		<weight n="6">
+			<name>Station 6</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+		</weight>
+		<weight n="7">
+			<name>Station 7</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>2000 lbs Fuel Tank</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+			<opt><name>2000 lbs Fuel Tank</name><lbs>250</lbs><gals>300</gals></opt>
+		</weight>
+		<weight n="8">
+			<name>Station 8B</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+		</weight>
+		<weight n="9">
+			<name>Pylon 8A</name>
+			<weight-lb type="float">0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+		</weight>
+
+		<!--<weight n="0">
+			<name>Left external tank</name>
+			<tank>6</tank>
+			<weight-lb>0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+			<opt><name>2000 lbs Fuel Tank</name><lbs>250</lbs><gals>300</gals></opt>
+		</weight>
+
+		<weight n="1">
+			<name>Right external tank</name>
+			<tank>7</tank>
+			<weight-lb>0</weight-lb>
+			<selected>none</selected>
+			<opt><name>none</name><lbs>0</lbs></opt>
+			<opt><name>2000 lbs Fuel Tank</name><lbs>250</lbs><gals>300</gals></opt>
+		</weight>-->
 
 	</sim>
 
@@ -345,21 +476,35 @@
 		<fuel>
 			<tank n="0">
 				<level-lbs archive="y">4700</level-lbs>
+				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="1">
 				<level-lbs archive="y">4400</level-lbs>
+				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="2">
 				<level-lbs archive="y">1550</level-lbs>
+				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="3">
 				<level-lbs archive="y">1550</level-lbs>
+				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="4">
 				<level-lbs archive="y">2000</level-lbs>
+				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="5">
 				<level-lbs archive="y">2000</level-lbs>
+				<kill-when-empty type="bool">false</kill-when-empty>
+			</tank>
+			<tank n="6">
+				<level-lbs archive="y">2000</level-lbs>
+				<kill-when-empty type="bool">false</kill-when-empty>
+			</tank>
+			<tank n="7">
+				<level-lbs archive="y">2000</level-lbs>
+				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 		</fuel>
 	</consumables>
@@ -401,12 +546,30 @@
 	<input>
 		<keyboard include="../../Input/Keyboard/carrier-bindings.xml">
 
+			<key n="1">
+				<name>CTRL-a</name>
+				<desc>Toggle autopilot altitude mode.</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14_afcs.afcs_altitude_engage_toggle();</script>
+				</binding>
+			</key>
+
 			<key n="4">
 				<name>CTRL-d</name>
 				<desc>DLC toggle</desc>
 				<binding>
 					<command>nasal</command>
 					<script>f14.toggleDLC();</script>
+				</binding>
+			</key>
+
+			<key n="8">
+				<name>CTRL-h</name>
+				<desc>Toggle autopilot heading mode.</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14_afcs.afcs_heading_switch(0);</script>
 				</binding>
 			</key>
 
@@ -425,6 +588,30 @@
 				<binding>
 					<command>nasal</command>
 					<script>f14.toggleGroundSpoilers();</script>
+				</binding>
+			</key>
+
+			<key n="20">
+				<name>CTRL-t</name>
+				<desc>Toggle autopilot attitude mode.</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14_afcs.afcs_engage_toggle()</script>
+				</binding>
+			</key>
+
+			<key n="42">
+				<name>*</name>
+				<desc>Nose wheel steering or Autopilot selected mode</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+					var wow = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
+					if (! wow) {
+						print("select");
+						f14_afcs.afcs_engage_selected_mode()
+					}
+					</script>
 				</binding>
 			</key>
 
@@ -563,6 +750,9 @@
 	</instrumentation>
 
 	<nasal>
+		<radardist>
+			<file>Aircraft/Generic/radardist.nas</file>
+		</radardist>
 		<f14>
 			<file>Aircraft/f-14b/Nasal/f14_globals.nas</file>
 			<file>Aircraft/f-14b/Nasal/flaps_computer.nas</file>
@@ -575,6 +765,7 @@
 			<file>Aircraft/f-14b/Nasal/SAS.nas</file>
 			<file>Aircraft/f-14b/Nasal/adverse.nas</file>
 			<file>Aircraft/f-14b/Nasal/f-14b.nas</file>
+			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
 		</f14>
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>
@@ -588,6 +779,9 @@
 		<f14_instruments>
 			<file>Aircraft/f-14b/Nasal/instruments.nas</file>
 		</f14_instruments>
+		<f14_afcs>
+			<file>Aircraft/f-14b/Nasal/afcs.nas</file>
+		</f14_afcs>
 		<aar>
 			<file>Aircraft/Generic/aar.nas</file>
 		</aar>

@@ -90,46 +90,62 @@ computeNozzles = func
   } # end computeNozzles
 
 #----------------------------------------------------------------------------
-# Approach Power Compensator
+# APC - Approach Power Compensator
 #----------------------------------------------------------------------------
+# 123 kts 10,3 deg AoA
+# engaged by:    - Throttle Mode Lever
+#                - keystroke "a" (toggle)
+# disengaged by: - Throttle Mode Lever
+#                - keystroke "a" (toggle)
+#                - WoW
+#                - throttle levers at ~ idle or MIL
+#                - autopilot emer disengage padle
+
+var APCengaged = props.globals.getNode("sim/model/f-14b/systems/apc/engaged");
+var engaded = 0;
+var SpeedSlope = (146 - 114) / 16000.0; # 0.001555556 
+
+var gear_down = props.globals.getNode("controls/gear/gear-down");
+var disengaged_light = props.globals.getNode("sim/model/f-14b/systems/apc/self-disengaged-light");
+
+var computeAPC = func {
+	if (APCengaged.getBoolValue()) { 
+		# override throttles
+		if ( WOW or ! gear_down.getBoolValue()) {
+			# test throttles in range
+			APC_off()
+		}
+	} else {
+		# duplicate throttles
+	}
+}
+
+var toggleAPC = func {
+	engaged = APCengaged.getBoolValue();
+	if ( ! engaged ) APC_on() else APC_off();
+}
+
+var APC_on = func {
+	if ( ! WOW and gear_down.getBoolValue()) {
+		setprop ("/autopilot/locks/speed", "speed-with-throttle");
+		speedtarget = (getprop ("/yasim/gross-weight-lbs") - 41780.0) * SpeedSlope + 114.0;
+		setprop ("/autopilot/settings/target-speed-kt", speedtarget);
+		APCengaged.setBoolValue(1);
+		disengaged_light.setBoolValue(0);
+		print ("APC on()");
+	}
+}
+
+var APC_off = func {
+	setprop ("/autopilot/locks/speed", "");
+	setprop ("/autopilot/settings/target-speed-kt", 0.0);
+	APCengaged.setBoolValue(0);
+	disengaged_light.setBoolValue(1);
+	settimer(func { disengaged_light.setBoolValue(0); }, 10);	
+	print ("APC off()");
+}
 
 
- APCengaged = false;
 
 
- SpeedSlope = (146 - 118) / 18000.0;
 
-  toggleAPC = func
-
-  
-   {
-     
-	 APCengaged = !APCengaged;
-	 if (APCengaged == true) 
-	   {
-		 setprop ("/autopilot/locks/speed", "speed-with-throttle");
-		 speedtarget = (getprop ("/yasim/gross-weight-lbs") - 40000.0) * SpeedSlope + 118.0;
-		 setprop ("/autopilot/settings/target-speed-kt", speedtarget);
-
-	   }
-	   else
-	   {
-
-		 setprop ("/autopilot/locks/speed", "");
-		 setprop ("/autopilot/settings/target-speed-kt", 0.0);
-
-	   } # end if
-
-   } # end toggleAPC
-
-  computeAPC = func 
-
-   {
-
-     if (WOW and APCengaged)
-	  {
-	    toggleAPC ();
-        setprop ("/autopilot/locks/speed", "");
-	 } # end if 
-
-   } # end computAPC

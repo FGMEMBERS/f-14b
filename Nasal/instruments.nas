@@ -60,7 +60,7 @@ var nav1_freq_update = func {
 	}
 }
 
-# get TACAN radials on HSD's Course Deviation Indicator ########
+# Get TACAN radials on HSD's Course Deviation Indicator ########
 # CDI works with ils OR tacan OR vortac (which freq is tuned from the tacan panel)
 var tacan_dev_indicator = func {
 	var tcn = tc_sw_pos.getValue();
@@ -102,8 +102,30 @@ var tacan_dev_indicator = func {
 	}
 }
 
+# TACAN XY Switch
+var xy_sign = props.globals.getNode("instrumentation/tacan/frequencies/selected-channel[4]");
+var xy_switch = props.globals.getNode("sim/model/f-14b/controls/instrumentation/tacan/xy-switch", 1);
+
+tacan_switch_init = func {
+	var s = xy_sign.getValue();
+	if (s == "X") { xy_switch.setValue( 0 ) } else { xy_switch.setValue( 1 ) }
+}
+
+var tacan_XYtoggle = func {
+	var s = xy_sign.getValue();
+	if ( s == "X" ) {
+		xy_sign.setValue( "Y" );
+		xy_switch.setValue( 1 );
+	} else {
+		xy_sign.setValue( "X" );
+		xy_switch.setValue( 0 );
+	}
+}
+
+
 # Radios
 var com_0 = props.globals.getNode("instrumentation/comm/frequencies/selected-mhz");
+var com_1 = props.globals.getNode("instrumentation/comm[1]/frequencies/selected-mhz");
 
 # fuel gauges ###############
 var bingo      = props.globals.getNode("sim/model/f-14b/controls/fuel/bingo");
@@ -118,6 +140,8 @@ var Lfg_lvl    = props.globals.getNode("consumables/fuel/tank[2]/level-lbs"); # 
 var Rfg_lvl    = props.globals.getNode("consumables/fuel/tank[3]/level-lbs"); # right feed group
 var Lw_lvl     = props.globals.getNode("consumables/fuel/tank[4]/level-lbs"); # left wing tank 2000 lbs
 var Rw_lvl     = props.globals.getNode("consumables/fuel/tank[5]/level-lbs"); # right wing tank 2000 lbs
+var Le_lvl     = props.globals.getNode("consumables/fuel/tank[6]/level-lbs"); # left external tank 2000 lbs
+var Re_lvl     = props.globals.getNode("consumables/fuel/tank[7]/level-lbs"); # right external tank 2000 lbs
 aircraft.data.add( bingo );
 
 var fuel_gauge = func {
@@ -127,7 +151,9 @@ var fuel_gauge = func {
 	var Rg = Rfg_lvl.getValue();
 	var Lw = Lw_lvl.getValue();
 	var Rw = Rw_lvl.getValue();
-	var total = fwd + aft + Lw + Rw + Lg + Rg;
+	var Le = Le_lvl.getValue();
+	var Re = Re_lvl.getValue();
+	var total = fwd + aft + Lw + Rw + Lg + Rg + Le + Re;
 	fuel_tolal.setDoubleValue( total );
 	fuel_WL.setDoubleValue( Lw );
 	fuel_WR.setDoubleValue( Rw );
@@ -155,7 +181,12 @@ var g_min_max = func {
 
 # VDI #####################
 var ticker = props.globals.getNode("sim/model/f-14b/instrumentation/ticker", 1);
-aircraft.data.add("sim/model/f-14b/controls/VDI/brightness");
+aircraft.data.add("sim/model/f-14b/controls/VDI/brightness",
+	"sim/model/f-14b/controls/VDI/on-off",
+	"sim/hud/visibility[0]",
+	"sim/hud/visibility[1]",
+	"sim/model/f-14b/controls/HSD/on-off",
+	"sim/model/f-14b/controls/pilots-displays/hsd-mode-nav");
 
 var inc_ticker = func {
 	# ticker used for VDI background continuous translation animation
@@ -227,9 +258,12 @@ var init = func {
 	print("Initializing F-14B Instruments System");
 	ticker.setDoubleValue(0);
 	f14_hud.init_hud();
+	tacan_switch_init();
+	radardist.init();
+	f14_radar.init();
 	setprop("controls/switches/radar_init", 0);
 	# properties to be stored
-	aircraft.data.add(com_0);
+	aircraft.data.add(com_0, com_1);
 	foreach (var f_tc; tc_freq.getChildren()) {
 		aircraft.data.add(f_tc);
 	}
@@ -257,3 +291,4 @@ radio_bt_sel = func(group, which) {
 		#var toto = n.getName();print(toto);
 	}
 }
+

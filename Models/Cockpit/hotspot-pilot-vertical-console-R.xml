@@ -68,9 +68,9 @@
 				<name>to-toggle</name>
 				<button>0</button>
 				<x>-450</x>
-				<y>100</y>
+				<y>103</y>
 				<w>160</w>
-				<h>45</h>
+				<h>42</h>
 				<binding>
 					<command>nasal</command>
 					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "to-bt")</script>
@@ -81,9 +81,9 @@
 				<name>cruise-toggle</name>
 				<button>0</button>
 				<x>-450</x>
-				<y>50</y>
+				<y>56</y>
 				<w>160</w>
-				<h>45</h>
+				<h>42</h>
 				<binding>
 					<command>nasal</command>
 					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "cruise-bt")</script>
@@ -94,9 +94,9 @@
 				<name>aa-toggle</name>
 				<button>0</button>
 				<x>-450</x>
-				<y>0</y>
+				<y>9</y>
 				<w>160</w>
-				<h>45</h>
+				<h>42</h>
 				<binding>
 					<command>nasal</command>
 					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "aa-bt")</script>
@@ -107,9 +107,9 @@
 				<name>ag-toggle</name>
 				<button>0</button>
 				<x>-450</x>
-				<y>-50</y>
+				<y>-38</y>
 				<w>160</w>
-				<h>45</h>
+				<h>42</h>
 				<binding>
 					<command>nasal</command>
 					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "ag-bt")</script>
@@ -120,12 +120,60 @@
 				<name>ldg-toggle</name>
 				<button>0</button>
 				<x>-450</x>
-				<y>-100</y>
+				<y>-85</y>
 				<w>160</w>
-				<h>45</h>
+				<h>42</h>
 				<binding>
 					<command>nasal</command>
 					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "ldg-bt")</script>
+				</binding>
+			</action>
+
+
+			<!-- VDI on/off Switch -->
+			<action>
+				<name>vdi-onoff-toggle</name>
+				<button>0</button>
+				<x>-415</x>
+				<y>-148</y>
+				<w>125</w>
+				<h>55</h>
+				<binding>
+					<command>property-toggle</command>
+					<property>sim/model/f-14b/controls/VDI/on-off</property>
+				</binding>
+			</action>
+
+			<!-- HUD on/off Switch -->
+			<action>
+				<name>hud-onoff-toggle</name>
+				<button>0</button>
+				<x>-230</x>
+				<y>-148</y>
+				<w>125</w>
+				<h>55</h>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/hud/visibility[0]</property>
+					<value>0</value>
+				</binding>
+				<binding>
+					<command>property-toggle</command>
+					<property>sim/hud/visibility[1]</property>
+				</binding>
+			</action>
+
+			<!-- HSD on/off Switch -->
+			<action>
+				<name>hsd-onoff-toggle</name>
+				<button>0</button>
+				<x>-50</x>
+				<y>-148</y>
+				<w>125</w>
+				<h>55</h>
+				<binding>
+					<command>property-toggle</command>
+					<property>sim/model/f-14b/controls/HSD/on-off</property>
 				</binding>
 			</action>
 
@@ -134,9 +182,9 @@
 			<action>
 				<name>HSD-mode-up</name>
 				<button>0</button>
-				<x>-200</x>
+				<x>-230</x>
 				<y>-30</y>
-				<w>90</w>
+				<w>125</w>
 				<h>30</h>
 				<binding>
 					<command>property-adjust</command>
@@ -149,9 +197,9 @@
 			<action>
 				<name>HSD-mode-down</name>
 				<button>0</button>
-				<x>-200</x>
+				<x>-230</x>
 				<y>-65</y>
-				<w>90</w>
+				<w>125</w>
 				<h>30</h>
 				<binding>
 					<command>property-adjust</command>

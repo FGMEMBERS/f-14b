@@ -3,6 +3,7 @@ MATERIAL "ac3dmat0" rgb 0 0 0  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.2 0.2 0.2  sh
 MATERIAL "ac3dmat1" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.2 0.2 0.2  shi 128  trans 0
 MATERIAL "ac3dmat0" rgb 0 0 0  amb 0 0 0  emis 0 0 0  spec 0 0 0  shi 128  trans 0
 MATERIAL "ac3dmat1" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.396 0.396 0.396  shi 79  trans 0
+MATERIAL "ac3dmat0" rgb 0 0 0  amb 0 0 0  emis 0 0 0  spec 0.129 0.137 0.137  shi 60  trans 0
 OBJECT world
 kids 1
 OBJECT group
@@ -10,7 +11,7 @@ name "hsd"
 loc 0.0629432 0.0479823 0.0155532
 kids 6
 OBJECT poly
-name "screen-bkg"
+name "screen-bkg-off"
 loc 0.000805609 -0.0469107 -0.0152854
 texture "hsd-bkg.rgb"
 crease 45.000000
@@ -21,12 +22,31 @@ numvert 4
 0 0.0884009 -0.0758104
 numsurf 1
 SURF 0x30
-mat 2
+mat 4
 refs 4
 3 1 1
 2 0 1
 1 0 0
 0 1 0
+kids 0
+OBJECT poly
+name "screen-bkg"
+loc 0.000805609 -0.0469107 -0.0152854
+texture "hsd-bkg.rgb"
+crease 45.000000
+numvert 4
+0 0.0884009 -0.0758104
+0 0.0884009 0.0758104
+0 -0.0884009 0.0758104
+0 -0.0884009 -0.0758104
+numsurf 1
+SURF 0x30
+mat 2
+refs 4
+0 1 1
+1 0 1
+2 0 0
+3 1 0
 kids 0
 OBJECT group
 name "casing"
@@ -2103,7 +2123,7 @@ kids 0
 OBJECT group
 name "video"
 loc 0.00158466 -0.0474465 -0.0154193
-kids 14
+kids 15
 OBJECT poly
 name "rng-label"
 loc 0.00284978 0.0709708 0.0513665
@@ -2480,7 +2500,7 @@ refs 4
 kids 0
 OBJECT poly
 name "compass-rose"
-loc 0.0023637 -0.0479823 -0.0155532
+loc 0.00077904 -0.000535801 -0.0001339
 texture "hsd-compas-rose.rgb"
 crease 45.000000
 numvert 4

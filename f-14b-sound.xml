@@ -217,30 +217,30 @@
 			</volume>
 		</flap-in-transit>
 
-		<!--<wind>
-			<name>wind</name>
-			<mode>looped</mode>
-			<path>Sounds/wind.wav</path>
-			<property>velocities/airspeed-kt</property>
+		<canopy>
+			<name>canopy</name>
+			<mode>in-transit</mode>
+			<path>Aircraft/A-10/Sounds/canopy-trans.wav</path>
+			<property>canopy/position-norm</property>
 			<volume>
-				<property>position/altitude-ft</property>
-				<factor>-0.000015</factor>
-				<offset>1.0</offset>
-				<min>0.1</min>
-				<max>1.0</max>
+				<factor>0.04</factor>
 			</volume>
+		</canopy>
+
+		<canopy-close>
+			<name>canopy-close2</name>
+			<mode>once</mode>
+			<path>Aircraft/A-10/Sounds/canopy-close2.wav</path>
+			<condition>
+				<less-than-equals>
+					<property>canopy/position-norm</property>
+					<value>0</value>
+				</less-than-equals>
+			</condition>
 			<volume>
-				<property>velocities/airspeed-kt</property>
-				<factor>0.0015</factor>
-				<min>0.03</min>
-				<max>0.25</max>
+				<factor>0.09</factor>
 			</volume>
-			<pitch>
-				<property>velocities/airspeed-kt</property>
-				<factor>0.01</factor>
-				<offset>1.25</offset>
-			</pitch>
-		</wind> -->
+		</canopy-close>
 
 		<!--<stall-warning>
 			<name>stall-warning</name>
@@ -282,7 +282,7 @@
 				</equals>
 			</condition>
 			<volume> 
-				<factor>0.15</factor>
+				<factor>0.25</factor>
 			</volume>
 		</hook-bypass-switch-on>
 		<hook-bypass-switch-off> 
@@ -296,9 +296,169 @@
 				</equals>
 			</condition>
 			<volume> 
-				<factor>0.15</factor>
+				<factor>0.25</factor>
 			</volume>
 		</hook-bypass-switch-off>
+
+		<!-- Right Verical console -->
+		<hsd-mode-switch-up>
+			<name>hsd-mode-switch-up</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
+					<value>-1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</hsd-mode-switch-up>
+		<hsd-mode-switch-mid> 
+			<name>hsd-mode-switch-mid</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</hsd-mode-switch-mid>
+		<hsd-mode-switch-down> 
+			<name>hsd-mode-switch-down</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</hsd-mode-switch-down>
+
+		<vdi-power-switch-on> 
+			<name>vdi-power-switch-on</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition>  
+					<property>sim/model/f-14b/controls/VDI/on-off</property>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</vdi-power-switch-on>
+		<vdi-power-switch-off> 
+			<name>vdi-power-switch-off</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<not> 
+					<property>sim/model/f-14b/controls/VDI/on-off</property>
+				</not>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</vdi-power-switch-off>
+
+		<hud-power-switch-on> 
+			<name>hud-power-switch-on</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition>  
+					<property>sim/hud/visibility[1]</property>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</hud-power-switch-on>
+		<hud-power-switch-off> 
+			<name>hud-power-switch-off</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<not> 
+					<property>sim/hud/visibility[1]</property>
+				</not>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</hud-power-switch-off>
+
+		<hsd-power-switch-on> 
+			<name>hsd-power-switch-on</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition>  
+					<property>sim/model/f-14b/controls/HSD/on-off</property>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</hsd-power-switch-on>
+		<hsd-power-switch-off> 
+			<name>hsd-power-switch-off</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<not> 
+					<property>sim/model/f-14b/controls/HSD/on-off</property>
+				</not>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</hsd-power-switch-off>
+
+		<tacan-xy-switch-x> 
+			<name>tacan-xy-switch-x</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition>
+				<equals>
+					<property>instrumentation/tacan/frequencies/selected-channel[4]</property>
+					<value>X</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</tacan-xy-switch-x>
+		<tacan-xy-switch-y> 
+			<name>tacan-xy-switch-y</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals>
+					<property>instrumentation/tacan/frequencies/selected-channel[4]</property>
+					<value>Y</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.25</factor>
+			</volume>
+		</tacan-xy-switch-y>
+
+		<tanks-ground-sound-in> 
+			<name>tanks-ground-sound-in</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/ext-tanks.wav</path>
+			<condition>
+				<property>sim/model/f-14b/controls/armament/tanks-ground-sound</property>
+			</condition>
+			<volume> 
+				<factor>0.8</factor>
+			</volume>
+		</tanks-ground-sound-in>
 
 	</fx>
 

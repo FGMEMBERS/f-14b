@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<!DOCTYPE PropertyList SYSTEM "panel.dtd">
+
+<PropertyList>
+	<name>hotspot-pilot-console-L</name>
+	<background>Aircraft/f-14b/Models/Cockpit/transparent-bg.rgb</background>
+	<w>1024</w>
+	<h>768</h>
+	<y-offset>0</y-offset>
+
+	<instruments>
+		<instrument>
+			<name>P-Console-Center-Fwd</name>
+			<w>1024</w>
+			<h>768</h>
+			<w-base>1024</w-base>
+			<h-base>1024</h-base>
+			<x>512</x>
+			<y>384</y>
+			<layers>
+				<layer>
+					<name>background</name>
+					<texture>
+						<path>Aircraft/f-14b/Models/Cockpit/transparent-bg.rgb</path>
+						<!--<path>Aircraft/f-14b/Models/Cockpit/hotspotgrid.rgb</path>-->
+						<x1>0.0</x1>
+						<y1>0.0</y1>
+						<x2>1.0</x2>
+						<y2>1.0</y2>
+					</texture>
+				</layer>
+			</layers>
+			<actions>
+
+
+				<!-- ######### AFCS Panel ######### -->
+
+				<!-- SAS Pitch switch -->
+				<action>
+					<name>sas-pitch-switch-toggle</name>
+					<button>0</button>
+					<x>-405</x>
+					<y>20</y>
+					<w>70</w>
+					<h>45</h>
+					<binding>
+						<command>nasal</command>
+						<script>f14_afcs.sas_pitch_toggle()</script>
+					</binding>
+				</action>
+
+				<!-- SAS Roll switch -->
+				<action>
+					<name>sas-roll-switch-toggle</name>
+					<button>0</button>
+					<x>-270</x>
+					<y>20</y>
+					<w>70</w>
+					<h>45</h>
+					<binding>
+						<command>nasal</command>
+						<script>f14_afcs.sas_roll_toggle()</script>
+					</binding>
+				</action>
+
+				<!-- SAS Yaw switch -->
+				<action>
+					<name>sas-yaw-switch-toggle</name>
+					<button>0</button>
+					<x>-135</x>
+					<y>20</y>
+					<w>70</w>
+					<h>45</h>
+					<binding>
+						<command>nasal</command>
+						<script>f14_afcs.sas_yaw_toggle()</script>
+					</binding>
+				</action>
+
+
+				<!-- AFCS VEC/PCD ACL switch -->
+				<!--<action>
+					<name>vac-acl-switch-up</name>
+					<button>0</button>
+					<x>-420</x>
+					<y>-14</y>
+					<w>70</w>
+					<h>20</h>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/controls/AFCS/vec-acl</property>
+						<step>1</step>
+						<max>1</max>
+					</binding>
+				</action>
+				<action>
+					<name>vac-acl-switch-down</name>
+					<button>0</button>
+					<x>-420</x>
+					<y>-37</y>
+					<w>70</w>
+					<h>20</h>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/controls/AFCS/vec-acl</property>
+						<step>-1</step>
+						<min>-1</min>
+					</binding>
+				</action>-->
+
+				<!-- AFCS ALT switch -->
+				<action>
+					<name>alt-switch-toggle</name>
+					<button>0</button>
+					<x>-320</x>
+					<y>-37</y>
+					<w>70</w>
+					<h>45</h>
+					<binding>
+						<command>nasal</command>
+						<script>f14_afcs.afcs_altitude_engage_toggle()</script>
+					</binding>
+				</action>
+
+				<!-- AFCS HDG GT switch -->
+				<action>
+					<name>hdg-gt-switch-up</name>
+					<button>0</button>
+					<x>-220</x>
+					<y>-14</y>
+					<w>70</w>
+					<h>20</h>
+					<binding>
+						<command>nasal</command>
+						<script>f14_afcs.afcs_heading_switch(1)</script>
+					</binding>
+				</action>
+				<action>
+					<name>hdg-gt-switch-down</name>
+					<button>0</button>
+					<x>-220</x>
+					<y>-37</y>
+					<w>70</w>
+					<h>20</h>
+					<binding>
+						<command>nasal</command>
+						<script>f14_afcs.afcs_heading_switch(-1)</script>
+					</binding>
+				</action>
+
+				<!-- AFCS Engage switch -->
+				<action>
+					<name>engage-switch-toggle</name>
+					<button>0</button>
+					<x>-120</x>
+					<y>-37</y>
+					<w>70</w>
+					<h>45</h>
+					<binding>
+						<command>nasal</command>
+						<script>f14_afcs.afcs_engage_toggle()</script>
+					</binding>
+				</action>
+
+
+
+				<!-- ######### Tacan-Panel ######### -->
+
+				<!-- Chan Knob -->
+				<action>
+					<name>chan-knob-left</name>
+					<button>0</button>
+					<x>60</x>
+					<y>-178</y>
+					<w>70</w>
+					<h>60</h>
+					<binding>
+						<command>property-adjust</command>
+						<property>instrumentation/tacan/frequencies/selected-channel</property>
+						<step>-1</step>
+						<min>1</min>
+					</binding>
+				</action>
+				<action>
+					<name>chan-knob-right</name>
+					<button>0</button>
+					<x>160</x>
+					<y>-178</y>
+					<w>70</w>
+					<h>60</h>
+					<binding>
+						<command>property-adjust</command>
+						<property>instrumentation/tacan/frequencies/selected-channel</property>
+						<step>1</step>
+						<max>126</max>
+					</binding>
+				</action>
+
+				<!-- Mode Knob -->
+				<action>
+					<name>mode-knob-left</name>
+					<button>0</button>
+					<x>357</x>
+					<y>-182</y>
+					<w>70</w>
+					<h>43</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/controls/instrumentation/tacan/mode</property>
+						<step>-1</step>
+						<min>0</min>
+					</binding>
+				</action>
+				<action>
+					<name>mode-knob-right</name>
+					<button>0</button>
+					<x>435</x>
+					<y>-182</y>
+					<w>70</w>
+					<h>43</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/controls/instrumentation/tacan/mode</property>
+						<step>1</step>
+						<max>4</max>
+					</binding>
+				</action>
+
+
+				<!-- XY switch -->
+				<action>
+					<name>xy-switch-toggle</name>
+					<button>0</button>
+					<x>285</x>
+					<y>-178</y>
+					<w>50</w>
+					<h>40</h>
+					<binding>
+						<command>nasal</command>
+						<script>f14_instruments.tacan_XYtoggle()</script>
+					</binding>
+				</action>
+
+			</actions>
+		</instrument>
+	</instruments>
+</PropertyList>
