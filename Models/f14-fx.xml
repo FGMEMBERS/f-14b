@@ -241,45 +241,101 @@
 		</axis>
 	</animation>
 
-	<animation>
-		<type>select</type>
-		<object-name>ManeuverVortexR</object-name>
-		<condition>
-			<and>
-				<greater-than>
-					<property>/velocities/airspeed-kt</property>
-					<value>100</value>
-				</greater-than>
-				<greater-than>
-					<property>/orientation/alpha-deg</property>
-					<value>8.0</value>
-				</greater-than>
-				<less-than>
-					<property>/position/altitude-ft</property>
-					<value>5000.0</value>
-				</less-than>
-			</and>
-		</condition>
-	</animation>
 
+	<!-- Left wing -->
 	<animation>
 		<type>select</type>
 		<object-name>ManeuverVortexL</object-name>
 		<condition>
-			<and>
-				<greater-than>
-					<property>/velocities/airspeed-kt</property>
-					<value>100</value>
-				</greater-than>
-				<greater-than>
-					<property>/orientation/alpha-deg</property>
-					<value>8.0</value>
-				</greater-than>
-				<less-than>
-					<property>/position/altitude-ft</property>
-					<value>5000.0</value>
-				</less-than>
-			</and>
+			<greater-than>
+				<property>/velocities/airspeed-kt</property>
+				<value>100</value>
+			</greater-than>
+			<greater-than>
+				<property>/orientation/alpha-deg</property>
+				<value>8.0</value>
+			</greater-than>
+			<less-than>
+				<property>/position/altitude-ft</property>
+				<value>5000.0</value>
+			</less-than>
+			<not>
+				<property>/f-14/left-wing-torn</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>ManeuverVortexL</object-name>
+		<property>/f-14/burner</property>
+		<factor>-0.0439453125</factor>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>ManeuverVortexL</object-name>
+		<property>sim/multiplay/generic/float[0]</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>1</ind><dep>49</dep></entry>
+			<entry><ind>1.2</ind><dep>52</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>1.247</x-m>
+			<y-m>-2.615</y-m>
+			<z-m>-0.636</z-m>
+		</center>
+		<axis>
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>1.0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>ManeuverVortexL</object-name>
+		<property>/f-14/wing-bend</property>
+		<factor>-7.0</factor>
+		<center>
+			<x-m>1.247</x-m>
+			<y-m>-2.615</y-m>
+			<z-m>-0.636</z-m>
+		</center>
+		<axis>
+			<x>1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+
+
+	<!-- Right wing -->
+	<animation>
+		<type>select</type>
+		<object-name>ManeuverVortexR</object-name>
+		<condition>
+			<greater-than>
+				<property>/velocities/airspeed-kt</property>
+				<value>100</value>
+			</greater-than>
+			<greater-than>
+				<property>/orientation/alpha-deg</property>
+				<value>8.0</value>
+			</greater-than>
+			<less-than>
+				<property>/position/altitude-ft</property>
+				<value>5000.0</value>
+			</less-than>
+			<not>
+				<property>/f-14/right-wing-torn</property>
+			</not>
 		</condition>
 	</animation>
 
@@ -296,18 +352,38 @@
 	</animation>
 
 	<animation>
-		<type>textranslate</type>
-		<object-name>ManeuverVortexL</object-name>
-		<property>/f-14/burner</property>
-		<factor>-0.0439453125</factor>
-		<axis>
-			<x>0</x>
-			<y>1</y>
-			<z>0</z>
-		</axis>
+		<type>rotate</type>
+		<object-name>ManeuverVortexR</object-name>
+		<property>sim/multiplay/generic/float[0]</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>1</ind><dep>-49</dep></entry>
+			<entry><ind>1.2</ind><dep>-52</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>1.247</x-m>
+			<y-m>2.615</y-m>
+			<z-m>-0.636</z-m>
+		</center>
+		<axis><z>1.0</z></axis>
 	</animation>
 
-<!-- disable shadows for these objects -->
+	<animation>
+		<type>rotate</type>
+		<object-name>ManeuverVortexR</object-name>
+		<property>/f-14/wing-bend</property>
+		<factor>7.0</factor>
+		<center>
+			<x-m>1.247</x-m>
+			<y-m>2.615</y-m>
+			<z-m>-0.636</z-m>
+		</center>
+		<axis><x>1.0</x></axis>
+	</animation>
+
+
+
+	<!-- disable shadows for these objects -->
 	<animation>
 		<type>noshadow</type>
 		<object-name>fx</object-name>
