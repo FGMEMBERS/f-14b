@@ -338,22 +338,18 @@
 <!-- ******************************************************************* -->
 
 
- <animation>
-  <type>rotate</type>
-  <object-name>Hook</object-name>
-  <property>gear/tailhook/position-norm</property>
-  <factor>60.0</factor>
-  <center>
-   <x-m>6.675</x-m>
-   <y-m>0</y-m>
-   <z-m>-1.488</z-m>
-  </center>
-  <axis>
-   <x>0.0</x>
-   <y>1.0</y>
-   <z>0.0</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Hook</object-name>
+		<property>gear/tailhook/position-norm</property>
+		<factor>60.0</factor>
+		<center>
+			<x-m>6.675</x-m>
+			<y-m>0</y-m>
+			<z-m>-1.488</z-m>
+		</center>
+		<axis><y>1.0</y></axis>
+	</animation>
 
 
 
@@ -383,7 +379,6 @@
 		<object-name>Spoiler4</object-name>  
 		<object-name>LeftWingLight</object-name>
 		<object-name>LWingSlimmer</object-name>
-		<object-name>ManeuverVortexL</object-name>
 		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -422,7 +417,6 @@
 		<object-name>Spoiler4</object-name>  
 		<object-name>LeftWingLight</object-name>
 		<object-name>LWingSlimmer</object-name>
-		<object-name>ManeuverVortexL</object-name>
 		<property>/f-14/wing-bend</property>
 		<factor>-7.0</factor>
 		<center>
@@ -457,7 +451,6 @@
 		<object-name>Spoiler4</object-name>
 		<object-name>LeftWingLight</object-name>
 		<object-name>LWingSlimmer</object-name>
-		<object-name>ManeuverVortexL</object-name>
 		<condition>
 			<not>
 				<property>/f-14/left-wing-torn</property>
@@ -487,7 +480,6 @@
 		<object-name>Spoiler4.001</object-name> 
 		<object-name>RightWingLight</object-name>
 		<object-name>RWingSlimmer</object-name>
-		<object-name>ManeuverVortexR</object-name>
 		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -526,7 +518,6 @@
 		<object-name>Spoiler4.001</object-name> 
 		<object-name>RightWingLight</object-name>
 		<object-name>RWingSlimmer</object-name>
-		<object-name>ManeuverVortexR</object-name>
 		<property>/f-14/wing-bend</property>
 		<factor>7.0</factor>
 		<center>
@@ -562,7 +553,6 @@
 		<object-name>Spoiler4.001</object-name> 
 		<object-name>RightWingLight</object-name>
 		<object-name>RWingSlimmer</object-name>
-		<object-name>ManeuverVortexR</object-name>
 		<condition>
 			<not>
 				<property>/f-14/right-wing-torn</property>
@@ -570,192 +560,190 @@
 			</condition>
 	</animation>
 
-<!-- canvas sweep seals -->
+	<!-- canvas sweep seals -->
 
-<animation>
-  <type>select</type>
-  <object-name>CanvasSeal</object-name>
-  <object-name>CanvasSeal.005</object-name>
-  <condition>
-   <less-than-equals>
-    <property>/surface-positions/wing-sweep</property>
-    <value>0.1</value>
-   </less-than-equals>
-  </condition>
-</animation>
+	<animation>
+		<type>select</type>
+		<object-name>CanvasSeal</object-name>
+		<object-name>CanvasSeal.005</object-name>
+		<condition>
+			<less-than-equals>
+				<property>/surface-positions/wing-sweep</property>
+				<value>0.1</value>
+			</less-than-equals>
+		</condition>
+	</animation>
 
-<animation>
-  <type>select</type>
-  <object-name>CanvasSeal.001</object-name>
-  <object-name>CanvasSeal.004</object-name>
-  <condition>
-  <and>
-   <greater-than>
-    <property>/surface-positions/wing-sweep</property>
-    <value>0.1</value>
-   </greater-than>
-   <less-than-equals>
-    <property>/surface-positions/wing-sweep</property>
-    <value>0.6</value>
-   </less-than-equals>
-  </and>
-  </condition>
-</animation>
+	<animation>
+		<type>select</type>
+		<object-name>CanvasSeal.001</object-name>
+		<object-name>CanvasSeal.004</object-name>
+		<condition>
+			<greater-than>
+				<property>/surface-positions/wing-sweep</property>
+				<value>0.1</value>
+			</greater-than>
+			<less-than-equals>
+				<property>/surface-positions/wing-sweep</property>
+				<value>0.6</value>
+			</less-than-equals>
+		</condition>
+	</animation>
 
-<animation>
-  <type>select</type>
-  <object-name>CanvasSeal.002</object-name>
-  <object-name>CanvasSeal.003</object-name>
-  <condition>
-   <greater-than>
-    <property>/surface-positions/wing-sweep</property>
-    <value>0.6</value>
-   </greater-than>
-  </condition>
-</animation>
+	<animation>
+		<type>select</type>
+		<object-name>CanvasSeal.002</object-name>
+		<object-name>CanvasSeal.003</object-name>
+		<condition>
+			<greater-than>
+				<property>/surface-positions/wing-sweep</property>
+				<value>0.6</value>
+			</greater-than>
+		</condition>
+	</animation>
 
 <!-- ******************************************************************* -->
 <!-- Control surfaces animations                                         -->
 <!-- ******************************************************************* -->
 
- <!-- Spoilers +++++++++++++++++++++ -->
- 
- <animation>
-  <type>rotate</type>
-  <object-name>Spoiler1</object-name>
-  <property>surface-positions/left-spoilers</property>
-  <factor>55</factor>
-  <center>
-   <x-m>3.474</x-m>
-   <y-m>-8.065</y-m>
-   <z-m>-0.632</z-m>
-  </center>
-  <axis>
-   <x>0.128</x>
-   <y>-0.678</y>
-   <z>-0.013</z>
-  </axis>
- </animation>
+	<!-- Spoilers  -->
 
-  <animation>
-  <type>rotate</type>
-  <object-name>Spoiler2</object-name>
-  <property>surface-positions/left-spoilers</property>
-  <factor>55</factor>
-  <center>
-   <x-m>3.275</x-m>
-   <y-m>-7.011</y-m>
-   <z-m>-0.612</z-m>
-  </center>
-  <axis>
-   <x>0.128</x>
-   <y>-0.678</y>
-   <z>-0.013</z>
-  </axis>
-</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Spoiler1</object-name>
+		<property>surface-positions/left-spoilers</property>
+		<factor>55</factor>
+		<center>
+			<x-m>3.474</x-m>
+			<y-m>-8.065</y-m>
+			<z-m>-0.632</z-m>
+		</center>
+		<axis>
+			<x>0.128</x>
+			<y>-0.678</y>
+			<z>-0.013</z>
+		</axis>
+	</animation>
 
-<animation>
-  <type>rotate</type>
-  <object-name>Spoiler3</object-name>
-  <property>surface-positions/inner-left-spoilers</property>
-  <factor>55</factor>
-  <center>
-   <x-m>3.069</x-m>
-   <y-m>-5.918</y-m>
-   <z-m>-0.590</z-m>
-  </center>
-  <axis>
-   <x>0.128</x>
-   <y>-0.678</y>
-   <z>-0.013</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Spoiler2</object-name>
+		<property>surface-positions/left-spoilers</property>
+		<factor>55</factor>
+		<center>
+			<x-m>3.275</x-m>
+			<y-m>-7.011</y-m>
+			<z-m>-0.612</z-m>
+		</center>
+		<axis>
+			<x>0.128</x>
+			<y>-0.678</y>
+			<z>-0.013</z>
+		</axis>
+	</animation>
 
-<animation>
-  <type>rotate</type>
-  <object-name>Spoiler4</object-name>
-  <property>surface-positions/inner-left-spoilers</property>
-  <factor>55</factor>
-  <center>
-   <x-m>2.913</x-m>
-   <y-m>-5.097</y-m>
-   <z-m>-0.575</z-m>
-  </center>
-  <axis>
-   <x>0.128</x>
-   <y>-0.678</y>
-   <z>-0.013</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Spoiler3</object-name>
+		<property>surface-positions/inner-left-spoilers</property>
+		<factor>55</factor>
+		<center>
+			<x-m>3.069</x-m>
+			<y-m>-5.918</y-m>
+			<z-m>-0.590</z-m>
+		</center>
+		<axis>
+			<x>0.128</x>
+			<y>-0.678</y>
+			<z>-0.013</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Spoiler4</object-name>
+		<property>surface-positions/inner-left-spoilers</property>
+		<factor>55</factor>
+		<center>
+			<x-m>2.913</x-m>
+			<y-m>-5.097</y-m>
+			<z-m>-0.575</z-m>
+		</center>
+		<axis>
+			<x>0.128</x>
+			<y>-0.678</y>
+			<z>-0.013</z>
+		</axis>
+	</animation>
 
 
-<animation>
-  <type>rotate</type>
-  <object-name>Spoiler1.001</object-name>
-  <property>surface-positions/right-spoilers</property>
-  <factor>-55</factor>
-  <center>
-   <x-m>3.476</x-m>
-   <y-m>8.068</y-m>
-   <z-m>-0.632</z-m>
-  </center>
-  <axis>
-   <x>0.128</x>
-   <y>0.678</y>
-   <z>-0.013</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Spoiler1.001</object-name>
+		<property>surface-positions/right-spoilers</property>
+		<factor>-55</factor>
+		<center>
+			<x-m>3.476</x-m>
+			<y-m>8.068</y-m>
+			<z-m>-0.632</z-m>
+		</center>
+		<axis>
+			<x>0.128</x>
+			<y>0.678</y>
+			<z>-0.013</z>
+		</axis>
+	</animation>
 
-  <animation>
-  <type>rotate</type>
-  <object-name>Spoiler2.001</object-name>
-  <property>surface-positions/right-spoilers</property>
-  <factor>-55</factor>
-  <center>
-   <x-m>3.275</x-m>
-   <y-m>7.011</y-m>
-   <z-m>-0.612</z-m>
-  </center>
-  <axis>
-   <x>0.128</x>
-   <y>0.678</y>
-   <z>-0.013</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Spoiler2.001</object-name>
+		<property>surface-positions/right-spoilers</property>
+		<factor>-55</factor>
+		<center>
+			<x-m>3.275</x-m>
+			<y-m>7.011</y-m>
+			<z-m>-0.612</z-m>
+		</center>
+		<axis>
+			<x>0.128</x>
+			<y>0.678</y>
+			<z>-0.013</z>
+		</axis>
+	</animation>
 
-<animation>
-  <type>rotate</type>
-  <object-name>Spoiler3.001</object-name>
-  <property>surface-positions/inner-right-spoilers</property>
-  <factor>-55</factor>
-  <center>
-   <x-m>3.069</x-m>
-   <y-m>5.918</y-m>
-   <z-m>-0.590</z-m>
-  </center>
-  <axis>
-   <x>0.128</x>
-   <y>0.678</y>
-   <z>-0.013</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Spoiler3.001</object-name>
+		<property>surface-positions/inner-right-spoilers</property>
+		<factor>-55</factor>
+		<center>
+			<x-m>3.069</x-m>
+			<y-m>5.918</y-m>
+			<z-m>-0.590</z-m>
+		</center>
+		<axis>
+			<x>0.128</x>
+			<y>0.678</y>
+			<z>-0.013</z>
+		</axis>
+	</animation>
 
-<animation>
-  <type>rotate</type>
-  <object-name>Spoiler4.001</object-name>
-  <property>surface-positions/inner-right-spoilers</property>
-  <factor>-55</factor>
-  <center>
-   <x-m>2.913</x-m>
-   <y-m>5.097</y-m>
-   <z-m>-0.575</z-m>
-  </center>
-  <axis>
-   <x>0.128</x>
-   <y>0.678</y>
-   <z>-0.013</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Spoiler4.001</object-name>
+		<property>surface-positions/inner-right-spoilers</property>
+		<factor>-55</factor>
+		<center>
+			<x-m>2.913</x-m>
+			<y-m>5.097</y-m>
+			<z-m>-0.575</z-m>
+		</center>
+		<axis>
+			<x>0.128</x>
+			<y>0.678</y>
+			<z>-0.013</z>
+		</axis>
+	</animation>
 
 
 <!-- Rudders +++++++++++++++++++++ -->
