@@ -24,6 +24,7 @@ kids 21
 OBJECT poly
 name "patche"
 loc 0.221553 0.022748 0.277831
+texture "patche.rgb"
 crease 45.000000
 numvert 19
 0.0133299 0.0483648 4.89056e-05
