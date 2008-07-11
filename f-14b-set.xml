@@ -74,22 +74,6 @@
 				<desc>Decrease speed brakes</desc>
 			</key>
 			<key>
-				<name>a</name>
-				<desc>Toggle APC</desc>
-			</key>
-			<key>
-				<name>Ctrl-d</name>
-				<desc>Toggle DLC</desc>
-			</key>
-			<key>
-				<name>d</name>
-				<desc>DLC increase</desc>
-			</key>
-			<key>
-				<name>D</name>
-				<desc>DLC decrease</desc>
-			</key>
-			<key>
 				<name>Ctrl-s</name>
 				<desc>Toggle ground spoilers armed</desc>
 			</key>
@@ -105,10 +89,66 @@
 				<name>Ctrl-o</name>
 				<desc>Toggle oversweep</desc>
 			</key>
-
-			<!--<line>External fuel tanks ?</line>
+			<line>__________________________________________________</line>
+			<key>
+				<name>a</name>
+				<desc>Toggle APC (Landing Automatic Power control)</desc>
+			</key>
+			<key>
+				<name>Ctrl-d</name>
+				<desc>Toggle DLC (Landing Direct Lift Control)</desc>
+			</key>
+			<key>
+				<name>d</name>
+				<desc>DLC increase</desc>
+			</key>
+			<key>
+				<name>D</name>
+				<desc>DLC decrease</desc>
+			</key>
+			<key>
+				<name>Ctrl-t</name>
+				<desc>Toggle AFCS (Attitude Mode)</desc>
+			</key>
+			<key>
+				<name>Ctrl-t</name>
+				<desc>Enable AFCS Altitude Mode</desc>
+			</key>
+			<key>
+				<name>*</name>
+				<desc>Engage AFCS Altitude Mode</desc>
+			</key>
+			<key>
+				<name>Ctrl-t</name>
+				<desc>Enable AFCS Heading Mode</desc>
+			</key>
+			<line></line>
+			<line>Autopilot:</line>
+			<line>The main mode is Attitude Hold Mode (Ctrl-t). Other Modes need this main mode activated </line>
+			<line>before being selected. Switching off Attitude Mode disables all other modes. When in Attitude Mode,</line>
+			<line>the autopilot disengages whenever a certain pressure is put on the stick and it reengages</line>
+			<line>when the stick is back in the center position.</line>
+			<line>Attitude Hold Mode will hold pitch attitudes up to +/- 30° and bank angles up to +/- 60°.</line>
+			<line>It shall be switched off for acrobatics and inverted flight... and it is still on beta test.</line>
+			<line></line>
+			<line>Altitude Mode:</line>
+			<line>Once in Attitude Mode, you can select Altitude Mode by hitting Ctrl-a, then the AP REF</line>
+			<line>indicator (left of the VDI) will illuminate, when at the desired altitude (using normal</line>
+			<line>stick control) engage by hitting * (star symbol). The autopilot will then maintain your altitude.</line>
+			<line>WARNING: at high speeds, its imperative to stabilize the aircraft prior to engage Altitude Mode</line>
+			<line></line>
+			<line>Heading Mode:</line>
+			<line>Once in Attitude Mode, you can select Heading Mode by hitting Ctrl-h. After manoeuvering the</line>
+			<line>aircraft to the desired reference heading, release the control stick at a bank angle of less than</line>
+			<line>+/- 5°. The autopilot will then hold the aircraft on the desired Heading.</line>
+			<line></line>
+			<line>Autopilot need SAS channels to be engaged (wich is the default). SAS Pitch and Roll channels may be</line>
+			<line>disengaged with switches located on the AFCS panel.</line>
+			<line></line>
+			<line>__________________________________________________</line>
+			<line></line>
+			<line>External fuel tanks ?</line>
 			<line>  Menu > Equipment > Fuel and Payload</line>
-			<line>__________________________________________________</line>-->
 
 		</help>
 
