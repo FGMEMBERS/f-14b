@@ -372,6 +372,35 @@
 		</offsets>
 	</model>
 
+<!-- ******************************************************************* -->
+<!-- RIO's Instruments                                                 -->
+<!-- ******************************************************************* -->
+
+	<!-- Left Instrument Panel -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/rio-detail-display-panel.xml</path>
+		<offsets>
+			<x-m>-4.2267</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>0.2392</z-m>
+			<pitch-deg>-12.4</pitch-deg>
+		</offsets>
+	</model>
+
+	<!-- Left Instrument Panel -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/rio-tid.xml</path>
+		<offsets>
+			<x-m>-4.2356</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>-0.0914</z-m>
+			<pitch-deg>-12</pitch-deg>
+		</offsets>
+	</model>
+
+<!-- ******************************************************************* -->
+<!-- Specials                                                            -->
+<!-- ******************************************************************* -->
 
 	<!-- black-out/red-out -->
 	<model>
