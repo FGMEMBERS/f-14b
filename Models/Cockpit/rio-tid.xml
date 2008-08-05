@@ -1,0 +1,109 @@
+<PropertyList>
+
+	<!-- Détailled Cockpit Consoles and Panels -->
+	<name>RIO-TID</name>
+	<path>rio-tid.ac</path>
+
+	<!-- don't show it when external view or Pilot View-->
+	<animation>
+		<type>select</type>
+		<object-name>rio-tid</object-name>
+		<condition>
+			<equals>
+				<property>sim/current-view/name</property>
+				<value>RIO View</value>
+			</equals>
+		</condition>
+	</animation>
+
+					<!--sim/model/f-14b/instrumentation/rio-nav-display/
+						standby-light type="bool"
+						ready-light type="bool"
+						track-hold-light type="bool"
+						clsn-light type="bool"-->
+
+
+	<!-- screen background -->
+	<animation>
+		<type>select</type>
+		<object-name>screen-bkg</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/TID/on-off</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>screen-bkg-off</object-name>
+		<condition>
+			<not>
+				<property>sim/model/f-14b/controls/TID/on-off</property>
+			</not>
+		</condition>
+	</animation>
+
+
+	<animation> 
+		<object-name>lights-on</object-name>
+		<type>select</type>
+		<condition>
+			<property>sim/model/f-14b/instrumentation/rio-nav-display/standby-light</property>
+		</condition>
+	</animation>
+
+	<!-- lighting -->
+	<animation>
+		<object-name>screen-bkg</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/TID/brightness</factor-prop>
+			<red>0.0</red>
+			<green>0.9</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+
+	<!--<animation> 
+		<object-name>vert-side-panels</object-name>
+		<object-name>panel-front-up</object-name>
+		<object-name>knee-panels</object-name>
+		<object-name>pedestal</object-name>
+		<object-name>consoles</object-name>
+		<object-name>checklists-pilot</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.275</red>
+			<green>0.12</green>
+			<blue>0.05</blue>
+		</emission>
+	</animation>
+	<animation> 
+		<object-name>pedals</object-name>
+		<object-name>bathtub-sides</object-name>
+		<object-name>fire-handles</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.1375</red>
+			<green>0.06</green>
+			<blue>0.025</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>floor</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.0687</red>
+			<green>0.03</green>
+			<blue>0.0125</blue>
+		</emission>
+	</animation>-->
+
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>70</max-m>
+	</animation>
+
+</PropertyList>
