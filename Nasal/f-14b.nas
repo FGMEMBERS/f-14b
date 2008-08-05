@@ -41,19 +41,20 @@ var SweepSpeed = 0.3;
 
 
 # Properties used for multiplayer syncronization.
-var main_flap_output   = props.globals.getNode("surface-positions/main-flap-pos-norm", 1);
+#var main_flap_output   = props.globals.getNode("surface-positions/main-flap-pos-norm", 1);
 var aux_flap_output    = props.globals.getNode("surface-positions/aux-flap-pos-norm", 1);
 var slat_output        = props.globals.getNode("surface-positions/slats-pos-norm", 1);
 var left_elev_output   = props.globals.getNode("surface-positions/left-elevator-pos-norm", 1);
 var right_elev_output  = props.globals.getNode("surface-positions/right-elevator-pos-norm", 1);
 var refuel_output      = props.globals.getNode("sim/model/f-14b/refuel/probe-position", 1);
 var sweep_generic      = props.globals.getNode("sim/multiplay/generic/float[0]");
-var main_flap_generic  = props.globals.getNode("sim/multiplay/generic/float[1]");
+#var main_flap_generic  = props.globals.getNode("sim/multiplay/generic/float[1]");
 var aux_flap_generic   = props.globals.getNode("sim/multiplay/generic/float[2]");
 var slat_generic       = props.globals.getNode("sim/multiplay/generic/float[3]");
 var left_elev_generic  = props.globals.getNode("sim/multiplay/generic/float[4]");
 var right_elev_generic = props.globals.getNode("sim/multiplay/generic/float[5]");
 var refuel_generic     = props.globals.getNode("sim/multiplay/generic/float[6]");
+var fuel_dump_generic     = props.globals.getNode("sim/multiplay/generic/int[0]");
 
 
 var toggleAccess = func {
@@ -214,12 +215,14 @@ var timedMotions = func {
 
 	# Copy surfaces animations properties so they are transmited via multiplayer.
 	sweep_generic.setDoubleValue(currentSweep);
-	main_flap_generic.setDoubleValue(main_flap_output.getValue());
+	#main_flap_generic.setDoubleValue(main_flap_output.getValue());
 	aux_flap_generic.setDoubleValue(aux_flap_output.getValue());
 	slat_generic.setDoubleValue(slat_output.getValue());
 	left_elev_generic.setDoubleValue(left_elev_output.getValue());
 	right_elev_generic.setDoubleValue(right_elev_output.getValue());
 	refuel_generic.setDoubleValue(refuel_output.getValue());
+	# And some more multiplay properties:
+	fuel_dump_generic.setIntValue(0);
 
 }
 
