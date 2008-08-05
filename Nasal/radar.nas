@@ -17,47 +17,17 @@ var init = func {
 
 
 
-
-var display = func {
-	var r_init = getprop("controls/switches/radar_init");
-
-	if (r_init == 0) {
-		setprop("controls/switches/radar_init", 1);
-		setprop("controls/switches/radar_i", 0);
-	}
-
-	if (r_init == 1) {
-		var i = getprop("controls/switches/radar_i");
-		if ( i <= 12 ) {
-			var target = "ai/models/multiplayer[" ~ i ~ "]";
-		} else {
-			var target = "ai/models/tanker[" ~ ( i - 13 ) ~ "]";
-		}
-		if ( props.globals.getNode( target ) != nil) {			
-			target_draw(target, i);
-		}
-		var i = i + 1;
-		if (i == 17) {
-			var i = 0;
-		}
-		setprop("controls/switches/radar_i", i);
-		counter += 1;
-		if ( counter < SPEED ) {
-			display();
-		} else {
-			counter = 0;
-		}
-	}
-}
-
-var target_draw = func (target, i) {
+var target_draw = func (target) {
 	var t_node          = props.globals.getNode(target);
 	var t_radar_node    = t_node.getNode("radar");
-	var t_in_range_node = t_radar_node.getNode("in-range");
+	var t_in_range_node = t_radar_node.getNode("in-range");# not computed for carrier ???
 	# Checks if target datas are valid
 	var t_in_range      = t_in_range_node.getValue();
 	var t_display_node  = t_radar_node.getNode("display", 1);
+	# Radar stuff:
+	# TODO: test if radar stuff is needed.
 	if (! t_in_range) {
+		# What does exactly t_in_range mean ???
 		t_display_node.setBoolValue(0);
 	} else {
 		var t_position_node      = t_node.getNode("position");
@@ -96,6 +66,10 @@ var target_draw = func (target, i) {
 			}
 		}
 	}
+	# TODO: ECM/RWR stuff.
+	# test if ECM/RWR stuff is needed.
+	# TODO: Impact stuff
+	# test if Impact stuff is needed.
 }
 
 
@@ -107,39 +81,31 @@ var rounding1000 = func(n) {
 }
 
 var range_control = func(n) {
-	# 2.5, 5, 10, 25, 50, 100, 150, 200
+	# 5, 10, 20, 50, 100, 200
 	var range_radar = range_radar_node.getValue();
 	if ( n == 1 ) {
-		if ( range_radar == 2.5 ) {
-			range_radar = 5;
-		} elsif ( range_radar == 5 ) {
+		if ( range_radar == 5 ) {
 			range_radar = 10;
 		} elsif ( range_radar == 10 ) {
-			range_radar = 25;
-		} elsif ( range_radar == 25 ) {
+			range_radar = 20;
+		} elsif ( range_radar == 20 ) {
 			range_radar = 50;
 		} elsif ( range_radar == 50 ) {
 			range_radar = 100;
-		} elsif ( range_radar == 100 ) {
-			range_radar = 150;
 		} else {
 			range_radar = 200;
 		}
 	} else {
 		if ( range_radar == 200 ) {
-			range_radar = 150;
-		} elsif ( range_radar == 150 ) {
 			range_radar = 100;
 		} elsif ( range_radar == 100 ) {
 			range_radar = 50;
 		} elsif ( range_radar == 50 ) {
-			range_radar = 25;
-		} elsif ( range_radar == 25 ) {
+			range_radar = 20;
+		} elsif ( range_radar == 20 ) {
 			range_radar = 10;
-		} elsif ( range_radar == 10 ) {
-			range_radar = 5;
 		} else {
-			range_radar = 2.5;
+			range_radar = 5;
 		}
 	}
 	range_radar_node.setValue(range_radar);
