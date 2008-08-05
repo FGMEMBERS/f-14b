@@ -45,7 +45,7 @@ var computeSpoilers = func {
 		wingSweepBias = 1.0 - (WingSweep * 1.25); 
 	}
 
-	#Ground spoiler activation  
+	# Ground spoiler activation  
 	if ((groundSpoilersArmed and !WOW) or (WOW and !GroundSpoilersLatchedClosed and groundSpoilersArmed)) {
 		GroundSpoilersLatchedClosed = false;
 	} else {
@@ -53,7 +53,7 @@ var computeSpoilers = func {
 	}
 
 	if (groundSpoilersArmed and ! GroundSpoilersLatchedClosed and Throttle < ThrottleIdle ) { 
-		#if weight on wheels or ground spoilers deployed (in case of hard bounce)
+		# if weight on wheels or ground spoilers deployed (in case of hard bounce)
 		if (GroundSpoilersDeployed or WOW) {
 			GroundSpoilersDeployed = true;
 			LeftSpoilersTarget = 1.0 * wingSweepBias;
