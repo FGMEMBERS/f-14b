@@ -73,7 +73,7 @@
   <control-input axis="/controls/flight/slats" control="SLAT"/>
   <control-input axis="/controls/flight/yasim-spoilers" control="SPOILER"/>
 
-  <control-output control="FLAP0" prop="/surface-positions/main-flap-pos-norm"/>
+  <control-output control="FLAP0" prop="/surface-positions/flap-pos-norm"/>
   <control-output control="FLAP1" prop="/surface-positions/aux-flap-pos-norm"/>
 
   <control-output control="SLAT" prop="/surface-positions/slats-pos-norm"/>
