@@ -1,5 +1,9 @@
 var UPDATE_PERIOD = 0.1;
 
+
+
+
+
 # TACAN: nav[1]
 # ------------- 
 var nav1_back = 0;
@@ -128,21 +132,47 @@ var com_0 = props.globals.getNode("instrumentation/comm/frequencies/selected-mhz
 var com_1 = props.globals.getNode("instrumentation/comm[1]/frequencies/selected-mhz");
 
 # fuel gauges ###############
-var bingo      = props.globals.getNode("sim/model/f-14b/controls/fuel/bingo");
+var bingo      = props.globals.getNode("sim/model/f-14b/controls/fuel/bingo", 1);
 var fuel_tolal = props.globals.getNode("sim/model/f-14b/instrumentation/fuel-gauges/total", 1);
 var fuel_WL    = props.globals.getNode("sim/model/f-14b/instrumentation/fuel-gauges/left-wing-display", 1);
 var fuel_WR    = props.globals.getNode("sim/model/f-14b/instrumentation/fuel-gauges/right-wing-display", 1);
 var fus_feed_L = props.globals.getNode("sim/model/f-14b/instrumentation/fuel-gauges/left-fus-feed-display", 1);
 var fus_feed_R = props.globals.getNode("sim/model/f-14b/instrumentation/fuel-gauges/right-fus-feed-display", 1);
-var fwd_lvl    = props.globals.getNode("consumables/fuel/tank[0]/level-lbs"); # FWD tank
-var aft_lvl    = props.globals.getNode("consumables/fuel/tank[1]/level-lbs"); # AFT tank
-var Lfg_lvl    = props.globals.getNode("consumables/fuel/tank[2]/level-lbs"); # left feed group
-var Rfg_lvl    = props.globals.getNode("consumables/fuel/tank[3]/level-lbs"); # right feed group
-var Lw_lvl     = props.globals.getNode("consumables/fuel/tank[4]/level-lbs"); # left wing tank 2000 lbs
-var Rw_lvl     = props.globals.getNode("consumables/fuel/tank[5]/level-lbs"); # right wing tank 2000 lbs
-var Le_lvl     = props.globals.getNode("consumables/fuel/tank[6]/level-lbs"); # left external tank 2000 lbs
-var Re_lvl     = props.globals.getNode("consumables/fuel/tank[7]/level-lbs"); # right external tank 2000 lbs
-aircraft.data.add( bingo );
+var fwd_lvl    = props.globals.getNode("consumables/fuel/tank[0]/level-lbs", 1); # FWD tank
+var aft_lvl    = props.globals.getNode("consumables/fuel/tank[1]/level-lbs", 1); # AFT tank
+var Lfg_lvl    = props.globals.getNode("consumables/fuel/tank[2]/level-lbs", 1); # left feed group
+var Rfg_lvl    = props.globals.getNode("consumables/fuel/tank[3]/level-lbs", 1); # right feed group
+var Lw_lvl     = props.globals.getNode("consumables/fuel/tank[4]/level-lbs", 1); # left wing tank 2000 lbs
+var Rw_lvl     = props.globals.getNode("consumables/fuel/tank[5]/level-lbs", 1); # right wing tank 2000 lbs
+var Le_lvl     = props.globals.getNode("consumables/fuel/tank[6]/level-lbs", 1); # left external tank 2000 lbs
+var Re_lvl     = props.globals.getNode("consumables/fuel/tank[7]/level-lbs", 1); # right external tank 2000 lbs
+var fwd_lvl_gal_us    = props.globals.getNode("consumables/fuel/tank[0]/level-gal_us", 1);
+var aft_lvl_gal_us    = props.globals.getNode("consumables/fuel/tank[1]/level-gal_us", 1);
+var Lfg_lvl_gal_us    = props.globals.getNode("consumables/fuel/tank[2]/level-gal_us", 1);
+var Rfg_lvl_gal_us    = props.globals.getNode("consumables/fuel/tank[3]/level-gal_us", 1);
+var Lw_lvl_gal_us     = props.globals.getNode("consumables/fuel/tank[4]/level-gal_us", 1);
+var Rw_lvl_gal_us     = props.globals.getNode("consumables/fuel/tank[5]/level-gal_us", 1);
+var Le_lvl_gal_us     = props.globals.getNode("consumables/fuel/tank[6]/level-gal_us", 1);
+var Re_lvl_gal_us     = props.globals.getNode("consumables/fuel/tank[7]/level-gal_us", 1);
+aircraft.data.add(	bingo,
+					fwd_lvl,
+					aft_lvl,
+					Lfg_lvl,
+					Rfg_lvl,
+					Lw_lvl,
+					Rw_lvl,
+					Le_lvl,
+					Re_lvl
+				);
+aircraft.data.add(	fwd_lvl_gal_us,
+					aft_lvl_gal_us,
+					Lfg_lvl_gal_us,
+					Rfg_lvl_gal_us,
+					Lw_lvl_gal_us,
+					Rw_lvl_gal_us,
+					Le_lvl_gal_us,
+					Re_lvl_gal_us
+				);
 
 var fuel_gauge = func {
 	var fwd = fwd_lvl.getValue();
@@ -238,8 +268,7 @@ var main_loop = func {
 	g_min_max();
 	f14_chronograph.update_chrono();
 	afcs_filters();
-	var hsd_mode = hsd_mode_node.getValue();
-	if ( hsd_mode == 0 ) { f14_radar.display() }
+	#f14_mp_watcher.watch_aimp_models();
 	if (( cnt == 3 ) or ( cnt == 6 )) {
 		# done each 0.3 sec.
 		fuel_gauge();
@@ -256,11 +285,13 @@ var main_loop = func {
 # Init ####################
 var init = func {
 	print("Initializing F-14B Instruments System");
+	aircraft.data.load();
 	ticker.setDoubleValue(0);
 	f14_hud.init_hud();
 	tacan_switch_init();
 	radardist.init();
 	f14_radar.init();
+	#f14_mp_watcher.init();
 	setprop("controls/switches/radar_init", 0);
 	# properties to be stored
 	aircraft.data.add(com_0, com_1);
