@@ -1,10 +1,16 @@
+# This generic func is deactivated cause we don't need it and we have a better
+# use for "h" keyboard shortcut.
+aircraft.HUD.cycle_color = func {}
+
+
+
 var pilot_g            = props.globals.getNode("accelerations/pilot-g", 1);
 var timeratio          = props.globals.getNode("accelerations/timeratio", 1);
 var pilot_g_damped     = props.globals.getNode("accelerations/pilot-g-damped", 1);
 var hud_intens_control = props.globals.getNode("sim/model/f-14b/controls/hud/intens");
 var hud_alpha          = props.globals.getNode("sim[0]/hud/color/alpha", 1);
 var view               = props.globals.getNode("sim/current-view/name");
- #var hud_volts          = props.globals.getNode("systems/electrical/outputs/hud", 1);
+#var hud_volts          = props.globals.getNode("systems/electrical/outputs/hud", 1);
 aircraft.data.add("sim/model/f-14b/controls/hud/intens", "sim/hud/current-color");
 
 pilot_g_damped.setDoubleValue(0); 
