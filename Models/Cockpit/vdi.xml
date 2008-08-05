@@ -214,7 +214,6 @@
  
 	<!-- bank-index -->
 	<animation>
-		<name>bank-index-rotation</name>
 		<type>rotate</type>
 		<object-name>bank-index</object-name>
 		<property>orientation/roll-deg</property>
@@ -350,12 +349,42 @@
 		</emission>
 	</animation>
 	<animation>
-		<object-name>compas</object-name>
+		<object-name>pitch-ladder</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
 			<red>0.0</red>
 			<green>0.7</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>compas</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>compas-index</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>0.75</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>horizon-line</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>0.70</green>
 			<blue>0.0</blue>
 		</emission>
 	</animation>
@@ -365,7 +394,7 @@
 		<emission>
 			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
 			<red>0.0</red>
-			<green>0.7</green>
+			<green>0.60</green>
 			<blue>0.0</blue>
 		</emission>
 	</animation>
@@ -375,7 +404,17 @@
 		<emission>
 			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
 			<red>0.0</red>
-			<green>0.7</green>
+			<green>0.60</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>bank-index</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>0.75</green>
 			<blue>0.0</blue>
 		</emission>
 	</animation>

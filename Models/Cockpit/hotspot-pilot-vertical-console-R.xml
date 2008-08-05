@@ -180,33 +180,19 @@
 
 			<!-- HSD Mode Switch -->
 			<action>
-				<name>HSD-mode-up</name>
-				<button>0</button>
-				<x>-230</x>
-				<y>-30</y>
-				<w>125</w>
-				<h>30</h>
-				<binding>
-					<command>property-adjust</command>
-					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
-					<step>1</step>
-					<max>1</max>
-					<wrap>false</wrap>
-				</binding>
-			</action>
-			<action>
-				<name>HSD-mode-down</name>
+				<name>HSD-mode-cycle</name>
 				<button>0</button>
 				<x>-230</x>
 				<y>-65</y>
 				<w>125</w>
-				<h>30</h>
+				<h>65</h>
 				<binding>
 					<command>property-adjust</command>
 					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
-					<step>-1</step>
+					<step>1</step>
 					<min>-1</min>
-					<wrap>false</wrap>
+					<max>2</max>
+					<wrap>true</wrap>
 				</binding>
 			</action>
 

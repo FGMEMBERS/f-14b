@@ -21,7 +21,7 @@
 		<name>flaps</name>
 		<type>rotate</type>
 		<object-name>flaps</object-name>
-		<property>surface-positions/main-flap-pos-norm</property>
+		<property>surface-positions/flap-pos-norm</property>
 		<factor>90</factor>
 		<center>
 			<x-m>0</x-m>
