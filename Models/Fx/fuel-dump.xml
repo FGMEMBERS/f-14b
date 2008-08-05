@@ -23,7 +23,7 @@
 			</equals>
 			<greater-than>
 				<property>sim/multiplay/generic/int[0]</property>
-				<greater-than>
+				</greater-than>
 			</equals>
 		</condition>
 
