@@ -9,7 +9,7 @@
 
 		<flight-model>yasim</flight-model>
 		<aero>f-14b-yasim</aero>
-		<fuel-fraction>1.0</fuel-fraction>
+		<fuel-fraction>0.5</fuel-fraction>
 
 		<systems>
 			<autopilot>
@@ -87,7 +87,7 @@
 			</key>
 			<key>
 				<name>Ctrl-o</name>
-				<desc>Toggle oversweep</desc>
+				<desc>Toggle oversweep (on ground only, otherwise sweep is automatic)</desc>
 			</key>
 			<line>__________________________________________________</line>
 			<key>
@@ -175,6 +175,12 @@
 					<blue type="float">0.0</blue>
 				</color>
 			</palette>
+			<clipping>
+				<left type="double">-80</left>
+				<right type="double">80</right>
+				<top type="double">30</top>
+				<bottom type="double">-130</bottom>
+			</clipping>
 		</hud>
 
 		<model>
@@ -226,6 +232,10 @@
 						</steer>
 						<hsd-mode-nav type="int">1</hsd-mode-nav><!-- 1=NAV, 0=TID, -1=ECM -->
 					</pilots-displays>
+					<radar-awg-9>
+						<on-off type="bool">true</on-off>
+						<brightness type="double">1</brightness>
+					</radar-awg-9>
 					<SAS>
 						<pitch type="bool">true</pitch>
 						<roll type="bool">true</roll>
@@ -234,6 +244,10 @@
 					<tacan>
 						<xy-switch type="bool">0</xy-switch>
 					</tacan>
+					<TID>
+						<on-off type="bool">true</on-off>
+						<brightness type="double">1</brightness>
+					</TID>
 					<VDI>
 						<brightness type="double">1</brightness>
 						<on-off type="bool">0</on-off>
@@ -260,11 +274,30 @@
 					<radar-altimeter>
 						<limit-bug type="double">250</limit-bug>
 					</radar-altimeter>
+					<radar-awg-9>
+						<ccm-mode-spl type="bool">false</ccm-mode-spl>
+						<ccm-mode-alt-dhf type="bool">false</ccm-mode-alt-dhf>
+						<ccm-mode-trs type="bool">false</ccm-mode-trs>
+						<display-rdr type="bool">true</display-rdr>
+						<display-ir type="bool">false</display-ir>
+						<display-iff type="bool">false</display-iff>
+						<mode type="string">PDS</mode> <!-- PDS, RWS, TWS, PDSTT, PSTT, VSL -->
+						<ant-trk-light type="bool">false</ant-trk-light>
+						<rd-rot-light type="bool">false</rd-rot-light>
+						<jat-light type="bool">false</jat-light>
+						<irot-light type="bool">false</irot-light>
+					</radar-awg-9>
 					<tacan>
 						<nogo-lamp type="bool">false</nogo-lamp>
 						<go-lamp type="bool">false</go-lamp>
 						<mode type="int">0</mode>
 					</tacan>
+					<rio-nav-display>
+						<standby-light type="bool">false</standby-light>
+						<ready-light type="bool">false</ready-light>
+						<track-hold-light type="bool">false</track-hold-light>
+						<clsn-light type="bool">false</clsn-light><!--Constant Angle Collision Steering enabled-->
+					</rio-nav-display>
 					<warnings>
 						<master-caution type="bool">0</master-caution>
 					</warnings>
@@ -272,6 +305,11 @@
 				<modeling>
 					<show-canopy type="bool">false</show-canopy>
 				</modeling>
+				<mp-systems>
+					<radar-enabled type="bool">true</radar-enabled>
+					<ecm-rwr-enabled type="bool">false</ecm-rwr-enabled>
+					<combat-enabled type="bool">false</combat-enabled>
+				</mp-systems>
 				<systems>
 					<afcs>
 						<engaged type="bool">false</engaged>
@@ -302,13 +340,14 @@
 
 		<multiplay>
 			<generic>
-				<float n="0">0</float><!-- wing-sweep -->
-				<float n="1">0</float><!-- main flaps -->
-				<float n="2">0</float><!-- aux flaps  -->
-				<float n="3">0</float><!-- slats      -->
+				<float n="0">0</float><!-- wing-sweep     -->
+				<float n="1">0</float><!-- main flaps     -->
+				<float n="2">0</float><!-- aux flaps      -->
+				<float n="3">0</float><!-- slats          -->
 				<float n="4">0</float><!-- left elevator  -->
 				<float n="5">0</float><!-- right elevator -->
-				<float n="6">0</float><!-- refuel probe -->
+				<float n="6">0</float><!-- refuel probe   -->
+				<int n="0">0</int>    <!-- fuel dump      -->
 			</generic>
 		</multiplay>
 
@@ -420,6 +459,19 @@
 				<z-offset-m archive="y">-3.58</z-offset-m>
 				<pitch-offset-deg>-12</pitch-offset-deg>
 				<default-field-of-view-deg>55</default-field-of-view-deg>
+				<limits>
+					<enabled type="bool">true</enabled>
+					<left>
+						<heading-max-deg type="double">161</heading-max-deg>
+						<x-offset-max-m type="double">0.25</x-offset-max-m>
+						<x-offset-threshold-deg type="double">45</x-offset-threshold-deg>
+					</left>
+					<right>
+						<heading-max-deg type="double">161</heading-max-deg>
+						<x-offset-max-m type="double">0.25</x-offset-max-m>
+						<x-offset-threshold-deg type="double">45</x-offset-threshold-deg>
+					</right>
+				</limits>
 			</config>
 		</view>
 
@@ -437,6 +489,7 @@
 		</weight>
 		<weight n="2">
 			<name>Station 2</name>
+			<tank>6</tank> <!-- FDM tank index on this pylon -->
 			<weight-lb type="float">0</weight-lb>
 			<selected>2000 lbs Fuel Tank</selected>
 			<opt><name>none</name><lbs>0</lbs></opt>
@@ -468,6 +521,7 @@
 		</weight>
 		<weight n="7">
 			<name>Station 7</name>
+			<tank>7</tank> <!-- FDM tank index on this pylon -->
 			<weight-lb type="float">0</weight-lb>
 			<selected>2000 lbs Fuel Tank</selected>
 			<opt><name>none</name><lbs>0</lbs></opt>
@@ -486,24 +540,6 @@
 			<opt><name>none</name><lbs>0</lbs></opt>
 		</weight>
 
-		<!--<weight n="0">
-			<name>Left external tank</name>
-			<tank>6</tank>
-			<weight-lb>0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
-			<opt><name>2000 lbs Fuel Tank</name><lbs>250</lbs><gals>300</gals></opt>
-		</weight>
-
-		<weight n="1">
-			<name>Right external tank</name>
-			<tank>7</tank>
-			<weight-lb>0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
-			<opt><name>2000 lbs Fuel Tank</name><lbs>250</lbs><gals>300</gals></opt>
-		</weight>-->
-
 	</sim>
 
 	<systems>
@@ -515,35 +551,35 @@
 	<consumables>
 		<fuel>
 			<tank n="0">
-				<level-lbs archive="y">4700</level-lbs>
+				<!-- <level-lbs>4700</level-lbs> -->
 				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="1">
-				<level-lbs archive="y">4400</level-lbs>
+				<!-- <level-lbs>4400</level-lbs> -->
 				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="2">
-				<level-lbs archive="y">1550</level-lbs>
+				<!-- <level-lbs>1550</level-lbs> -->
 				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="3">
-				<level-lbs archive="y">1550</level-lbs>
+				<!-- <level-lbs>1550</level-lbs> -->
 				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="4">
-				<level-lbs archive="y">2000</level-lbs>
+				<!-- <level-lbs>2000</level-lbs> -->
 				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="5">
-				<level-lbs archive="y">2000</level-lbs>
+				<!-- <level-lbs>2000</level-lbs> -->
 				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="6">
-				<level-lbs archive="y">2000</level-lbs>
+				<!-- <level-lbs>2000</level-lbs> -->
 				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 			<tank n="7">
-				<level-lbs archive="y">2000</level-lbs>
+				<!-- <level-lbs>2000</level-lbs> -->
 				<kill-when-empty type="bool">false</kill-when-empty>
 			</tank>
 		</fuel>
@@ -740,6 +776,19 @@
 				</binding>
 			</key>
 
+			<key n="104">
+				<name>h</name>
+				<desc>HUD Master Switch</desc>
+				<binding>
+					<command>property-adjust</command>
+					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
+					<step>1</step>
+					<min>-1</min>
+					<max>2</max>
+					<wrap>true</wrap>
+				</binding>
+			</key>
+
 			<key n="115">
 				<name>s</name>
 				<desc>Increase speed brakes</desc>
@@ -813,6 +862,9 @@
 		<f14_radar>
 			<file>Aircraft/f-14b/Nasal/radar.nas</file>
 		</f14_radar>
+		<!--<f14_mp_watcher>
+			<file>Aircraft/f-14b/Nasal/mp_watcher.nas</file>
+		</f14_mp_watcher>-->
 		<f14_chronograph>
 			<file>Aircraft/f-14b/Nasal/chronograph.nas</file>
 		</f14_chronograph>
