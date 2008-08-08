@@ -111,7 +111,7 @@
 				<desc>Toggle AFCS (Attitude Mode)</desc>
 			</key>
 			<key>
-				<name>Ctrl-t</name>
+				<name>Ctrl-a</name>
 				<desc>Enable AFCS Altitude Mode</desc>
 			</key>
 			<key>
@@ -119,7 +119,7 @@
 				<desc>Engage AFCS Altitude Mode</desc>
 			</key>
 			<key>
-				<name>Ctrl-t</name>
+				<name>Ctrl-h</name>
 				<desc>Enable AFCS Heading Mode</desc>
 			</key>
 			<line></line>
