@@ -268,7 +268,7 @@ var main_loop = func {
 	g_min_max();
 	f14_chronograph.update_chrono();
 	afcs_filters();
-	#f14_mp_watcher.watch_aimp_models();
+	f14_mp_watcher.watch_aimp_models();
 	if (( cnt == 3 ) or ( cnt == 6 )) {
 		# done each 0.3 sec.
 		fuel_gauge();
@@ -291,7 +291,7 @@ var init = func {
 	tacan_switch_init();
 	radardist.init();
 	f14_radar.init();
-	#f14_mp_watcher.init();
+	f14_mp_watcher.init();
 	setprop("controls/switches/radar_init", 0);
 	# properties to be stored
 	aircraft.data.add(com_0, com_1);
