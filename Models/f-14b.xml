@@ -343,6 +343,17 @@
 		</offsets>
 	</model>
 
+	<!-- formation lights -->
+	<animation>
+		<object-name>Slimmers</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/multiplay/generic/int[1]</factor-prop>
+				<red>0.091</red>
+				<green>0.098</green>
+				<blue>0.078</blue>
+			</emission>
+	</animation>
 <!-- ******************************************************************* -->
 <!-- fuselage animations                                                 -->
 <!-- ******************************************************************* -->

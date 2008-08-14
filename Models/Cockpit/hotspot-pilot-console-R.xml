@@ -106,6 +106,36 @@
 				</binding>
 			</action>
 
+			<!-- Formation Slimmers Wheel-->
+			<action>
+				<name>formation-light-up</name>
+				<button>0</button>
+				<x>125</x>
+				<y>-60</y>
+				<w>70</w>
+				<h>30</h>
+				<binding>
+					<command>property-adjust</command>
+					<property>sim/multiplay/generic/int[1]</property>
+					<step>1</step>
+					<max>10</max>
+				</binding>
+			</action>
+
+			<action>
+				<name>formation-light-down</name>
+				<button>0</button>
+				<x>205</x>
+				<y>-60</y>
+				<w>70</w>
+				<h>30</h>
+				<binding>
+					<command>property-adjust</command>
+					<property>sim/multiplay/generic/int[1]</property>
+					<step>-1</step>
+					<min>0</min>
+				</binding>
+			</action>
 
 
 			</actions>
