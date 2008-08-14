@@ -347,7 +347,8 @@
 				<float n="4">0</float><!-- left elevator  -->
 				<float n="5">0</float><!-- right elevator -->
 				<float n="6">0</float><!-- refuel probe   -->
-				<int n="0">0</int>    <!-- fuel dump      -->
+				<int n="0" type="int">0</int>    <!-- fuel dump      -->
+				<int n="1" type="int">0</int>    <!-- formation slimmers -->
 			</generic>
 		</multiplay>
 
@@ -356,16 +357,14 @@
 			<visibility archive="y">false</visibility>
 		</panel>
 
-		<!-- f-14b is currently mostly used by v1.0 users
-		so let's disable CVS version builtin and instead use some good old stuff -->
-		<!--<rendering>
+		<rendering>
 			<redout>
 				<parameters>
-					<blackout-complete-g>6</blackout-complete-g>
-					<blackout-onset-g>4.5</blackout-onset-g>
+					<blackout-complete-g>9.5</blackout-complete-g>
+					<blackout-onset-g>7.5</blackout-onset-g>
 				</parameters>
 			</redout>
-		</rendering>-->
+		</rendering>
 
 		<submodels>
 			<serviceable>true</serviceable>
@@ -862,9 +861,9 @@
 		<f14_radar>
 			<file>Aircraft/f-14b/Nasal/radar.nas</file>
 		</f14_radar>
-		<!--<f14_mp_watcher>
+		<f14_mp_watcher>
 			<file>Aircraft/f-14b/Nasal/mp_watcher.nas</file>
-		</f14_mp_watcher>-->
+		</f14_mp_watcher>
 		<f14_chronograph>
 			<file>Aircraft/f-14b/Nasal/chronograph.nas</file>
 		</f14_chronograph>
