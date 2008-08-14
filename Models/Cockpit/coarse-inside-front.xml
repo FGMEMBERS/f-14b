@@ -22,7 +22,7 @@
 	<animation>
 		<type>range</type>
 		<min-m>0</min-m>
-		<max-m>70</max-m>
+		<max-m>150</max-m>
 	</animation>
 
 </PropertyList>
