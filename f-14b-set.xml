@@ -546,7 +546,7 @@
 			<path>Aircraft/f-14b/Systems/f-14b-electrical.xml</path>
 		</electrical>
 		<refuel>
-			<system>probe</system>
+			<type>probe</type>
 		</refuel>
 	</systems>
 
