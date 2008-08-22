@@ -20,8 +20,8 @@
 				<x>0.0</x>
 				<y>0.0</y>
 				<z>180.0</z>
-				<inner-cone>180.0</inner-cone>
-				<outer-cone>360.0</outer-cone>
+				<inner-angle>180.0</inner-angle>
+				<outer-angle>360.0</outer-angle>
 				<outer-gain>0.2</outer-gain>
 			</orientation>
 			<pitch>
@@ -46,8 +46,8 @@
 				<x>0.0</x>
 				<y>0.0</y>
 				<z>180.0</z>
-				<inner-cone>180.0</inner-cone>
-				<outer-cone>360.0</outer-cone>
+				<inner-angle>180.0</inner-angle>
+				<outer-angle>360.0</outer-angle>
 				<outer-gain>0.2</outer-gain>
 			</orientation>
 			<pitch>
@@ -79,8 +79,8 @@
 				<x>0.0</x>
 				<y>-5.0</y>
 				<z>0.0</z>
-				<inner-cone>50.0</inner-cone>
-				<outer-cone>180.0</outer-cone>
+				<inner-angle>50.0</inner-angle>
+				<outer-angle>180.0</outer-angle>
 				<outer-gain>0.0</outer-gain>
 			</orientation>
 			<pitch>
@@ -108,8 +108,8 @@
 				<x>0.0</x>
 				<y>-5.0</y>
 				<z>0.0</z>
-				<inner-cone>50.0</inner-cone>
-				<outer-cone>180.0</outer-cone>
+				<inner-angle>50.0</inner-angle>
+				<outer-angle>180.0</outer-angle>
 				<outer-gain>0.0</outer-gain>
 			</orientation>
 			<pitch>
