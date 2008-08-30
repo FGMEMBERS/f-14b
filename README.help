@@ -1,0 +1,70 @@
+Grumman F-14B
+
+Flight control shortcuts:
+Home: Increase elevator trim.
+End: Decrease elevator trim.
+f: Lower flaps
+Maj-F: Raise flaps
+s: Increase speed brakes.
+Maj-S: Decrease speed brakes.
+Ctrl-s:Toggle ground spoilers armed.
+
+Miscelaneous shortcuts:
+Maj-E: Decrease Radar Range Display.
+Maj-R:  Increase Radar Range Display.
+e:Toggle canopy and access ladder.
+u: Toggle refuelling probe.
+Ctrl-o: Toggle oversweep (on ground only, otherwise sweep is automatic).
+
+
+Autopilot shortcuts:
+Ctrl-t: Toggle AFCS (Attitude Mode).
+Ctrl-a: Enable AFCS Altitude Mode.
+*:      Engage AFCS Altitude Mode.
+Ctrl-h: Enable AFCS Heading Mode</desc>
+
+Landing helps shortcuts:
+a:      Toggle APC (Landing Automatic Power control).
+Ctrl-d: Toggle DLC (Landing Direct Lift Control).
+d:      DLC increase.
+Maj-D:  DLC decrease.
+
+
+Autopilot Operation:
+The main mode is Attitude Hold Mode (Ctrl-t). Other Modes need this main mode
+activated before being selected. Switching off Attitude Mode disables all other
+modes. When in Attitude Mode, the autopilot disengages whenever a certain
+pressure is put on the stick and it reengages when the stick is back in the
+center position. Attitude Hold Mode will hold pitch attitudes up to +/- 30° and
+bank angles up to +/- 60°. It shall be switched off for aerobatics and inverted
+flight... and it is still on beta test.
+
+Autopilot Altitude Mode:
+Once in Attitude Mode, you can select Altitude Mode by hitting Ctrl-a, then the
+AP REF indicator (left of the VDI) will illuminate, when at the desired altitude
+(using normalstick control) engage by hitting * (star symbol). The autopilot
+will then maintain your altitude.
+CAUTION: at high speeds, its imperative to stabilize the aircraft prior to
+engage Altitude Mode.
+
+Autopilot Heading Mode:
+Once in Attitude Mode, you can select Heading Mode by hitting Ctrl-h. After
+manoeuvering the aircraft to the desired reference heading, release the control
+stick at a bank angle of less than +/- 5°. The autopilot will then hold the
+aircraft on the desired Heading.
+
+Autopilot need SAS channels to be engaged (wich is the default). SAS Pitch and
+Roll channels may be disengaged with switches located on the AFCS panel.
+
+Landing Automatic Power control (APC) Operation:
+
+Landing Direct Lift Control (DLC) Operation:
+During landing approaches, the spoilers and horizontal stabilizers can be
+controled simultaneously to provide glidepath correction without changing power
+setting or angle of attack.
+
+
+Ground Spoilers Operation:
+
+ 
+
