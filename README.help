@@ -57,6 +57,17 @@ Autopilot need SAS channels to be engaged (wich is the default). SAS Pitch and
 Roll channels may be disengaged with switches located on the AFCS panel.
 
 Landing Automatic Power control (APC) Operation:
+The APC is a closed loop system that automaticaly regulates basic engine thrust
+to maintain the aircraft at an optimum approach angle of attack for landing.
+Prior to engage APC, gear handle must be down with weight of wheels, and the
+throttles must be set between 98% and 68% rpm (as shown on the panel gauges).
+Type "a" to toggle the APC on/off. APC is also disengaged by setting the
+throttles to MIL (> 98%) or iddle (< 68%) or raising the landig gear handle or
+when weight on wheels. 
+
+When disengaged the AUTO THROT caution light (on the left side of the HUD)
+illuminates for 10 seconds.
+
 
 Landing Direct Lift Control (DLC) Operation:
 During landing approaches, the spoilers and horizontal stabilizers can be
