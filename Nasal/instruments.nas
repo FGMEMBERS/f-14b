@@ -287,7 +287,6 @@ var init = func {
 	print("Initializing F-14B Instruments System");
 	aircraft.data.load();
 	ticker.setDoubleValue(0);
-	f14_hud.init_hud();
 	tacan_switch_init();
 	radardist.init();
 	f14_radar.init();

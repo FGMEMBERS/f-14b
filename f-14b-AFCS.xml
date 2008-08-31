@@ -281,57 +281,56 @@
 		</config>
 	</pid-controller>
 
-	<!-- vertical speed with throttle (autoland) -->
-	<pid-controller>
-		<name>Vertical Speed with Throttle</name>
-		<debug>false</debug>
-		<enable>
-			<prop>/autopilot/locks/speed</prop>
-			g<value>vertical-speed-with-throttle</value>
-		</enable>
-		<input>
-			<prop>/velocities/vertical-speed-fps</prop>
-		</input>
-		<reference>
-			<prop>/autopilot/settings/vertical-speed-fpm</prop>
-			<scale>0.01667</scale>
-		</reference>
-		<output>
-			<prop>/controls/engines/engine[0]/throttle</prop>
-			<prop>/controls/engines/engine[1]/throttle</prop>
-		</output>
-		<config>
-			<Kp>0.085</Kp>
-			<Ki>15</Ki>
-			<beta>1.0</beta>
-			<alpha>0.1</alpha>
-			<gamma>0.1</gamma>
-			<Ti>10.0</Ti>
-			<Td>0.00001</Td>
-			<u_min>0.0</u_min>
-			<u_max>0.88</u_max> <!-- no use of reheat -->
-		</config>
-	</pid-controller>
+
 
 
 	<!-- =============================================================== -->
 	<!-- Velocity Modes                                                  -->
 	<!-- =============================================================== -->
 
+	<!-- AoA with throttle (Approach Power Compensator - APC) -->
+	<pid-controller>
+		<name>AoA-with-throttle</name>
+		<debug>true</debug>
+		<enable>
+			<prop>autopilot/locks/aoa</prop>
+			<value>APC</value>
+		</enable>
+		<input>
+			<prop>orientation/alpha-deg</prop>
+		</input>
+		<reference>
+			<prop>sim/model/f-14b/instrumentation/aoa-indexer/target-deg</prop>
+		</reference>
+		<output>
+			<prop>autopilot/internal/target-speed</prop>
+		</output>
+		<config>
+			<Ts>0.02</Ts>
+			<Kp>-2.0</Kp>
+			<beta>1.0</beta>
+			<alpha>0.1</alpha>
+			<gamma>0.0</gamma>
+			<Ti>20.0</Ti>
+			<Td>0.01</Td>
+			<u_min>100.0</u_min>
+			<u_max>180.0</u_max>
+		</config>
+	</pid-controller>
 
 	<!-- Speed Auto throttle --> 
 	<pid-controller>
 		<name>Speed Auto Throttle</name>
 		<debug>false</debug>
 		<enable>
-			<prop>/autopilot/locks/speed</prop>
-			<value>speed-with-throttle</value>
+			<prop>autopilot/locks/speed</prop>
+			<value>APC</value>
 		</enable>
 		<input>
-			<prop>/velocities/airspeed-kt</prop>
+			<prop>velocities/airspeed-kt</prop>
 		</input>
 		<reference>
-			<prop>/autopilot/settings/target-speed-kt</prop>
+			<prop>autopilot/internal/target-speed</prop>
 		</reference>
 		<output>
 			<prop>/controls/engines/engine[0]/throttle</prop>
@@ -344,152 +343,10 @@
 			<gamma>0.0</gamma>
 			<Ti>10.0</Ti>
 			<Td>0.00001</Td>
-			<u_min>0.0</u_min>
-			<u_max>0.88</u_max> <!-- no use of reheat -->
+			<u_min>0.081</u_min>
+			<u_max>0.759</u_max> <!-- no use of reheat and keep in sync with APC range-->
 		</config>
 	</pid-controller>
 
-	<!-- Mach Auto Throttle --> 
-	<pid-controller>
-		<name>Mach Auto Throttle (5 sec lookahead)</name>
-		<debug>false</debug>
-		<enable>
-			<prop>/autopilot/locks/speed</prop>
-			<value>mach-with-throttle</value>
-		</enable>
-		<input>
-			<prop>/autopilot/internal/lookahead-5-sec-mach</prop>
-		</input>
-		<reference>
-			<prop>/autopilot/settings/target-mach</prop>
-		</reference>
-		<output>
-			<prop>/controls/engines/engine[0]/throttle</prop>
-			<prop>/controls/engines/engine[1]/throttle</prop>
-		</output>
-		<config>
-			<Kp>25.0</Kp>
-			<beta>1.0</beta>
-			<alpha>0.1</alpha>
-			<gamma>0.0</gamma>
-			<Ti>10.0</Ti> 
-			<Td>0.00001</Td>
-			<u_min>0.0</u_min>
-			<u_max>0.88</u_max> <!-- no use of reheat -->
-		</config>
-	</pid-controller>
 
-	<!-- Hold speed by varying pitch (Two stage cascading controller) --> 
-	<pid-controller>
-		<name>Speed hold (vary pitch) Stage #1</name>
-		<debug>false</debug>
-		<enable>
-			<prop>/autopilot/locks/altitude</prop>
-			<value>speed-with-pitch</value>
-		</enable>
-		<input>
-			<prop>/autopilot/internal/lookahead-5-sec-airspeed-kt</prop>
-		</input>
-		<reference>
-			<prop>/autopilot/settings/target-speed-kt</prop>
-		</reference>
-		<output>
-			<prop>/autopilot/settings/target-pitch-deg</prop>
-		</output>
-		<config>
-			<Kp>-0.1</Kp>
-			<beta>1.0</beta>
-			<alpha>0.1</alpha>
-			<gamma>0.0</gamma>
-			<Ti>1.0</Ti>
-			<Td>0.00001</Td>
-			<u_min>-15.0</u_min>
-			<u_max>15.0</u_max>
-		</config>
-	</pid-controller>
-
-	<pid-controller>
-		<name>Speed hold (vary pitch) Stage #2</name>
-		<debug>false</debug>
-		<enable>
-			<prop>/autopilot/locks/altitude</prop>
-			<value>speed-with-pitch</value>
-		</enable>
-		<input>
-			<prop>/orientation/pitch-deg</prop>
-		</input>
-		<reference>
-			<prop>/autopilot/settings/target-pitch-deg</prop>
-		</reference>
-		<output>
-			<prop>/controls/flight/elevator-trim</prop>
-		</output>
-		<config>
-			<Kp>-0.05</Kp>
-			<beta>1.0</beta>
-			<alpha>0.1</alpha>
-			<gamma>0.0</gamma>
-			<Ti>1.0</Ti>
-			<Td>0.00001</Td>
-			<u_min>-0.3</u_min>
-			<u_max>0.3</u_max>
-		</config>
-	</pid-controller>
-
-	<!-- Hold Mach by varying pitch (Two stage cascading controller) --> 
-	<pid-controller>
-		<name>Mach hold (vary pitch) Stage #1</name>
-		<debug>false</debug>
-		<enable>
-			<prop>/autopilot/locks/altitude</prop>
-			<value>mach-with-pitch</value>
-		</enable>
-		<input>
-			<prop>/autopilot/internal/lookahead-5-sec-mach</prop>
-		</input>
-		<reference>
-			<prop>/autopilot/settings/target-mach</prop>
-		</reference>
-		<output>
-			<prop>/autopilot/settings/target-pitch-deg</prop>
-		</output>
-		<config>
-			<Kp>-1.0</Kp>
-			<beta>1.0</beta>
-			<alpha>0.1</alpha>
-			<gamma>0.0</gamma>
-			<Ti>1.0</Ti>
-			<Td>0.00001</Td>
-			<u_min>-15.0</u_min>
-			<u_max>15.0</u_max>
-		</config>
-	</pid-controller>
-
-	<pid-controller>
-		<name>Mach hold (vary pitch) Stage #2</name>
-		<debug>false</debug>
-		<enable>
-			<prop>/autopilot/locks/altitude</prop>
-			<value>mach-with-pitch</value>
-		</enable>
-		<input>
-			<prop>/orientation/pitch-deg</prop>
-		</input>
-		<reference>
-			<prop>/autopilot/settings/target-pitch-deg</prop>
-		</reference>
-		<output>
-			<prop>/controls/flight/elevator-trim</prop>
-		</output>
-		<config>
-			<Kp>-0.05</Kp>
-			<beta>1.0</beta>
-			<alpha>0.1</alpha>
-			<gamma>0.0</gamma>
-			<Ti>1.0</Ti>
-			<Td>0.00001</Td>
-			<u_min>-0.3</u_min>
-			<u_max>0.3</u_max>
-		</config>
-	</pid-controller>
 </PropertyList>

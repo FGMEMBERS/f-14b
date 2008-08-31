@@ -28,7 +28,7 @@ var init = func {
 
 
 var watch_aimp_models = func {
-	# Create an ordered list of carriers; multiplayers and tankers.
+	# Ordered list of carriers, multiplayers and tankers.
 	if ( watch_i == 0 ) { list_count = get_list() }
 	var target_name = watch_list[watch_i][0];
 	var target_index = watch_list[watch_i][1];

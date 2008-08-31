@@ -144,72 +144,194 @@
 		</rumble>
 
 		<!-- Gears -->
-		<gear-transit>
-			<name>gear-transit</name>
-			<mode>in-transit</mode>
-			<path>Sounds/gear.wav</path>
-			<property>gear/gear[0]/position-norm</property>
-			<pitch>
-				<internal>dt_play</internal>
-				<offset>1.0</offset>
-				<factor>-0.001</factor>
-			</pitch>
-			<volume>
-				<factor>0.20</factor>
-			</volume>
-		</gear-transit>
+	<gear>
+		<name>gear</name>
+		<mode>in-transit</mode>
+		<path>Sounds/gear.wav</path>
+		<property>gear/gear[0]/position-norm</property>
+		<pitch>
+			<internal>dt_play</internal>
+			<offset>1.0</offset>
+			<factor>-0.001</factor>
+		</pitch>
+	</gear>
 
-		<gear-lock>
-			<name>gear-lock</name>
-			<path>Sounds/gear-lck.wav</path>
-			<condition>
-				<equals>
-					<property>gear/gear[0]/position-norm</property>
-					<value>0</value>
-				</equals>
-			</condition>
-			<volume>
-				<factor>0.25</factor>
-			</volume>
-		</gear-lock>
+	<gear>
+		<name>gear-lock</name>
+		<path>Sounds/gear-lck.wav</path>
+		<condition>
+			<equals>
+				<property>gear/gear[0]/position-norm</property>
+				<value>0</value>
+			</equals>
+		</condition>
+	</gear>
 
-		<gear-squeal>
-			<name>gear-squeal</name>
-			<path>Sounds/squeal.wav</path>
-			<condition>
-				<or>
-					<property>gear/gear[0]/wow</property>
-					<property>gear/gear[1]/wow</property>
-					<property>gear/gear[2]/wow</property>
-				</or>
-			</condition>
-			<volume>
-				<property>velocities/speed-down-fps</property>
-				<factor>0.05</factor>
-			</volume>
-			<volume>
-				<property>velocities/airspeed-kt</property>
-				<factor>0.01</factor>
-			</volume>
-			<volume>
-				<internal>dt_stop</internal>
-				<factor>0.05</factor>
-				<max>1.0</max>
-			</volume>
-			<pitch>
-				<property>velocities/airspeed-kt</property>
-				<factor>0.0025</factor>
-				<offset>1.2</offset>
-			</pitch>
-		</gear-squeal>
+	<gear>
+		<name>gear-lock</name>
+		<path>Sounds/gear-lck.wav</path>
+		<condition>
+			<equals>
+				<property>gear/gear[0]/position-norm</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</gear>
+
+	<gear>
+		<name>gear</name>
+		<mode>in-transit</mode>
+		<path>Sounds/gear.wav</path>
+		<property>gear/gear[1]/position-norm</property>
+		<pitch>
+			<internal>dt_play</internal>
+			<offset>1.0</offset>
+			<factor>-0.001</factor>
+		</pitch>
+	</gear>
+
+	<gear>
+		<name>gear-lock</name>
+		<path>Sounds/gear-lck.wav</path>
+		<condition>
+			<equals>
+				<property>gear/gear[1]/position-norm</property>
+				<value>0</value>
+			</equals>
+		</condition>
+	</gear>
+
+	<gear>
+		<name>gear-lock</name>
+		<path>Sounds/gear-lck.wav</path>
+		<condition>
+			<equals>
+				<property>gear/gear[1]/position-norm</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</gear>
+
+	<gear>
+		<name>gear</name>
+		<mode>in-transit</mode>
+		<path>Sounds/gear.wav</path>
+		<property>gear/gear[2]/position-norm</property>
+		<pitch>
+			<internal>dt_play</internal>
+			<offset>1.0</offset>
+			<factor>-0.001</factor>
+		</pitch>
+	</gear>
+
+	<gear>
+		<name>gear-lock</name>
+		<path>Sounds/gear-lck.wav</path>
+		<condition>
+			<equals>
+				<property>gear/gear[2]/position-norm</property>
+				<value>0</value>
+			</equals>
+		</condition>
+	</gear>
+
+	<gear>
+		<name>gear-lock</name>
+		<path>Sounds/gear-lck.wav</path>
+		<condition>
+			<equals>
+				<property>gear/gear[2]/position-norm</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</gear>
+
+	<!-- squeal -->
+	<squeal>
+		<name>squeal</name>
+		<path>Sounds/squeal.wav</path>
+		<condition>
+			<property>gear/gear[0]/wow</property>
+		</condition>
+		<volume>
+			<property>velocities/speed-down-fps</property>
+			<factor>0.05</factor>
+		</volume>
+		<volume>
+			<property>velocities/groundspeed-kt</property>
+			<factor>0.01</factor>
+		</volume>
+		<volume>
+			<internal>dt_stop</internal>
+			<factor>0.05</factor>
+			<max>1.0</max>
+		</volume>
+		<pitch>
+			<property>velocities/groundspeed-kt</property>
+			<factor>0.0025</factor>
+			<offset>1.2</offset>
+		</pitch>
+	</squeal>
+
+	<squeal>
+		<name>squeal</name>
+		<path>Sounds/squeal.wav</path>
+		<condition>
+			<property>gear/gear[1]/wow</property>
+		</condition>
+		<volume>
+			<property>velocities/speed-down-fps</property>
+			<factor>0.05</factor>
+		</volume>
+		<volume>
+			<property>velocities/groundspeed-kt</property>
+			<factor>0.01</factor>
+		</volume>
+		<volume>
+			<internal>dt_stop</internal>
+			<factor>0.05</factor>
+			<max>1.0</max>
+		</volume>
+		<pitch>
+			<property>velocities/airspeed-kt</property>
+			<factor>0.0025</factor>
+			<offset>1.2</offset>
+		</pitch>
+	</squeal>
+
+	<squeal>
+		<name>squeal</name>
+		<path>Sounds/squeal.wav</path>
+		<condition>
+			<property>gear/gear[2]/wow</property>
+		</condition>
+		<volume>
+			<property>velocities/speed-down-fps</property>
+			<factor>0.05</factor>
+		</volume>
+		<volume>
+			<property>velocities/groundspeed-kt</property>
+			<factor>0.01</factor>
+		</volume>
+		<volume>
+			<internal>dt_stop</internal>
+			<factor>0.05</factor>
+			<max>1.0</max>
+		</volume>
+		<pitch>
+			<property>velocities/groundspeed-kt</property>
+			<factor>0.0025</factor>
+			<offset>1.2</offset>
+		</pitch>
+	</squeal>
 
 		<flap-in-transit>
 			<name>flaps-in-transit</name>
 			<mode>in-transit</mode>
 			<path>Sounds/flaps.wav</path>
-			<property>surface-positions/main-flap-pos-norm</property>
+			<property>surface-positions/flap-pos-norm</property>
 			<pitch>
-				<property>surface-positions/main-flap-pos-norm</property>
+				<property>surface-positions/flap-pos-norm</property>
 				<factor>-0.1</factor>
 			</pitch>
 			<volume>

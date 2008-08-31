@@ -54,7 +54,7 @@ var slat_generic       = props.globals.getNode("sim/multiplay/generic/float[3]")
 var left_elev_generic  = props.globals.getNode("sim/multiplay/generic/float[4]");
 var right_elev_generic = props.globals.getNode("sim/multiplay/generic/float[5]");
 var refuel_generic     = props.globals.getNode("sim/multiplay/generic/float[6]");
-var fuel_dump_generic     = props.globals.getNode("sim/multiplay/generic/int[0]");
+var fuel_dump_generic  = props.globals.getNode("sim/multiplay/generic/int[0]");
 
 
 var toggleAccess = func {
@@ -221,8 +221,7 @@ var timedMotions = func {
 	left_elev_generic.setDoubleValue(left_elev_output.getValue());
 	right_elev_generic.setDoubleValue(right_elev_output.getValue());
 	refuel_generic.setDoubleValue(refuel_output.getValue());
-	# And some more multiplay properties:
-	fuel_dump_generic.setIntValue(0);
+
 
 }
 

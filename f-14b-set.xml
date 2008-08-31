@@ -122,7 +122,10 @@
 				<name>Ctrl-h</name>
 				<desc>Enable AFCS Heading Mode</desc>
 			</key>
-			<line></line>
+			<key>
+				<name>h</name>
+				<desc>Cycles through HSD modes (radar, compas, ECM)</desc>
+			</key>
 			<line>Autopilot:</line>
 			<line>The main mode is Attitude Hold Mode (Ctrl-t). Other Modes need this main mode activated </line>
 			<line>before being selected. Switching off Attitude Mode disables all other modes. When in Attitude Mode,</line>
@@ -142,10 +145,19 @@
 			<line>aircraft to the desired reference heading, release the control stick at a bank angle of less than</line>
 			<line>+/- 5°. The autopilot will then hold the aircraft on the desired Heading.</line>
 			<line></line>
-			<line>Autopilot need SAS channels to be engaged (wich is the default). SAS Pitch and Roll channels may be</line>
-			<line>disengaged with switches located on the AFCS panel.</line>
+			<line>Autopilot need SAS channels to be engaged (which is the default). SAS Pitch and Roll channels may be</line>
+			<line>disengaged by actuating switches located on the AFCS panel.</line>
 			<line></line>
 			<line>__________________________________________________</line>
+			<line></line>
+			<line>Landing Automatic Power Control (APC) Operation:</line>
+			<line>The APC is a closed loop system that automaticaly regulates basic engine thrust to maintain the</line>
+			<line>aircraft at an optimum approach angle of attack for landing.</line>
+			<line>Prior to engage APC, gear handle must be down with weight off wheels, and the throttles must be set</line>
+			<line>between 98% and 68% rpm (as shown on the panel gauges).</line>
+			<line>Type "a" to toggle the APC on/off. APC is also disengaged by setting the throttles to MIL (98% rpm)</line>
+			<line>or iddle (68% rpm) or raising the landig gear handle or when weight on wheels.</line> 
+			<line>When disengaged the AUTO THROT caution light (on the left side of the HUD) illuminates for 10 seconds.</line>
 			<line></line>
 			<line>External fuel tanks ?</line>
 			<line>  Menu > Equipment > Fuel and Payload</line>
@@ -261,6 +273,7 @@
 						<!-- target = 11.3 deg AoA -->
 						<too-slow-deg>13.7</too-slow-deg>	<!-- target +2.4 deg -->
 						<slow-deg>12.1</slow-deg>			<!-- target +0.8 deg -->
+						<target-deg>11.3</target-deg>		<!-- target -->
 						<fast-deg>10.5</fast-deg>			<!-- target -0.8 deg -->
 						<too-fast-deg>8.9</too-fast-deg>	<!-- target -2.4 deg -->
 					</aoa-indexer>
@@ -341,7 +354,7 @@
 		<multiplay>
 			<generic>
 				<float n="0">0</float><!-- wing-sweep     -->
-				<float n="1">0</float><!-- main flaps     -->
+				<!-- <float n="1">0</float> free     -->
 				<float n="2">0</float><!-- aux flaps      -->
 				<float n="3">0</float><!-- slats          -->
 				<float n="4">0</float><!-- left elevator  -->
@@ -360,8 +373,8 @@
 		<rendering>
 			<redout>
 				<parameters>
-					<blackout-complete-g>9.5</blackout-complete-g>
-					<blackout-onset-g>7.5</blackout-onset-g>
+					<blackout-complete-g>7.9</blackout-complete-g>
+					<blackout-onset-g>5.5</blackout-onset-g>
 				</parameters>
 			</redout>
 		</rendering>
@@ -780,7 +793,7 @@
 
 			<key n="104">
 				<name>h</name>
-				<desc>HUD Master Switch</desc>
+				<desc>HSD cycle modes</desc>
 				<binding>
 					<command>property-adjust</command>
 					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
@@ -857,6 +870,8 @@
 			<file>Aircraft/f-14b/Nasal/adverse.nas</file>
 			<file>Aircraft/f-14b/Nasal/f-14b.nas</file>
 			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
+			<file>Aircraft/f-14b/tmp/objects.nas</file>
+			<file>Aircraft/f-14b/Nasal/display_props.nas</file>
 		</f14>
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>

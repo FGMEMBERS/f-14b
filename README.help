@@ -12,7 +12,8 @@ Ctrl-s:Toggle ground spoilers armed.
 Miscelaneous shortcuts:
 Maj-E: Decrease Radar Range Display.
 Maj-R:  Increase Radar Range Display.
-e:Toggle canopy and access ladder.
+e: Toggle canopy and access ladder.
+h: Cycles through pilot's HSD displays (compas, radar, ECM). 
 u: Toggle refuelling probe.
 Ctrl-o: Toggle oversweep (on ground only, otherwise sweep is automatic).
 
@@ -53,18 +54,17 @@ manoeuvering the aircraft to the desired reference heading, release the control
 stick at a bank angle of less than +/- 5°. The autopilot will then hold the
 aircraft on the desired Heading.
 
-Autopilot need SAS channels to be engaged (wich is the default). SAS Pitch and
-Roll channels may be disengaged with switches located on the AFCS panel.
+Autopilot need SAS channels to be engaged (which is the default). SAS Pitch and
+Roll channels may be disengaged by actuating switches located on the AFCS panel.
 
-Landing Automatic Power control (APC) Operation:
+Landing Automatic Power Control (APC) Operation:
 The APC is a closed loop system that automaticaly regulates basic engine thrust
 to maintain the aircraft at an optimum approach angle of attack for landing.
-Prior to engage APC, gear handle must be down with weight of wheels, and the
+Prior to engage APC, gear handle must be down with weight off wheels, and the
 throttles must be set between 98% and 68% rpm (as shown on the panel gauges).
 Type "a" to toggle the APC on/off. APC is also disengaged by setting the
 throttles to MIL (> 98%) or iddle (< 68%) or raising the landig gear handle or
 when weight on wheels. 
-
 When disengaged the AUTO THROT caution light (on the left side of the HUD)
 illuminates for 10 seconds.
 
