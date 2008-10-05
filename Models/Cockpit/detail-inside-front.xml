@@ -50,6 +50,7 @@
 		</emission>
 	</animation>-->
 	<animation> 
+		<object-name>labels</object-name>
 		<object-name>vert-side-panels</object-name>
 		<object-name>panel-front-up</object-name>
 		<object-name>knee-panels</object-name>

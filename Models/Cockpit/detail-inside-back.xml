@@ -6,7 +6,7 @@
 
 	<animation>
 		<type>select</type>
-		<object-name>inside-front</object-name>
+		<object-name>details</object-name>
 		<condition>
 			<equals>
 				<property>sim/current-view/name</property>
