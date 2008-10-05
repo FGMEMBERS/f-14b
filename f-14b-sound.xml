@@ -19,7 +19,7 @@
 			<orientation>
 				<x>0.0</x>
 				<y>0.0</y>
-				<z>180.0</z>
+				<z>-180.0</z>
 				<inner-angle>180.0</inner-angle>
 				<outer-angle>360.0</outer-angle>
 				<outer-gain>0.2</outer-gain>
@@ -36,16 +36,20 @@
 				<max>0.75</max>
 			</volume>
 		</engine-jet>
-
 		<engine-rumble>
 			<name>engine-rumble</name>
 			<path>Sounds/rumble.wav</path>
 			<mode>looped</mode>
+			<condition>
+				<not>
+					<property>engines/engine/out-of-fuel</property>
+				</not>
+			</condition>
 			<property>engines/engine[0]/afterburner</property>
 			<orientation>
 				<x>0.0</x>
 				<y>0.0</y>
-				<z>180.0</z>
+				<z>-180.0</z>
 				<inner-angle>180.0</inner-angle>
 				<outer-angle>360.0</outer-angle>
 				<outer-gain>0.2</outer-gain>
@@ -62,7 +66,6 @@
 				<max>1</max>
 			</volume>
 		</engine-rumble>
-
 		<engine-whine-external>
 			<name>external-whine</name>
 			<path>Sounds/turbojet_fan.wav</path>
@@ -77,11 +80,11 @@
 			</condition>
 			<orientation>
 				<x>0.0</x>
-				<y>-5.0</y>
-				<z>0.0</z>
-				<inner-angle>50.0</inner-angle>
-				<outer-angle>180.0</outer-angle>
-				<outer-gain>0.0</outer-gain>
+				<y>0.0</y>
+				<z>1</z>
+				<inner-angle>180.0</inner-angle>
+				<outer-angle>360.0</outer-angle>
+				<outer-gain>0.5</outer-gain>
 			</orientation>
 			<pitch>
 				<property>engines/engine/n1</property>
@@ -95,14 +98,15 @@
 				<max>0.6</max>
 			</volume>
 		</engine-whine-external>
-
 		<engine-whine-internal>
 			<name>internal-whine</name>
 			<path>Sounds/whine.wav</path>
 			<mode>looped</mode>
 			<condition>
 				<property>sim/current-view/internal</property>
-				<property>engines/engine/running</property>
+				<not>
+					<property>engines/engine/out-of-fuel</property>
+				</not>
 			</condition>
 			<orientation>
 				<x>0.0</x>
@@ -144,186 +148,198 @@
 		</rumble>
 
 		<!-- Gears -->
-	<gear>
-		<name>gear</name>
-		<mode>in-transit</mode>
-		<path>Sounds/gear.wav</path>
-		<property>gear/gear[0]/position-norm</property>
-		<pitch>
-			<internal>dt_play</internal>
-			<offset>1.0</offset>
-			<factor>-0.001</factor>
-		</pitch>
-	</gear>
+		<gear>
+			<name>gear</name>
+			<mode>in-transit</mode>
+			<path>Sounds/gear.wav</path>
+			<property>gear/gear[0]/position-norm</property>
+			<pitch>
+				<internal>dt_play</internal>
+				<offset>1.0</offset>
+				<factor>-0.001</factor>
+			</pitch>
+		</gear>
+		<gear>
+			<name>gear-lock</name>
+			<path>Sounds/gear-lck.wav</path>
+			<condition>
+				<equals>
+					<property>gear/gear[0]/position-norm</property>
+					<value>0</value>
+				</equals>
+			</condition>
+		</gear>
+		<gear>
+			<name>gear-lock</name>
+			<path>Sounds/gear-lck.wav</path>
+			<condition>
+				<equals>
+					<property>gear/gear[0]/position-norm</property>
+					<value>1</value>
+				</equals>
+			</condition>
+		</gear>
+		<gear>
+			<name>gear</name>
+			<mode>in-transit</mode>
+			<path>Sounds/gear.wav</path>
+			<property>gear/gear[1]/position-norm</property>
+			<pitch>
+				<internal>dt_play</internal>
+				<offset>1.0</offset>
+				<factor>-0.001</factor>
+			</pitch>
+		</gear>
+		<gear>
+			<name>gear-lock</name>
+			<path>Sounds/gear-lck.wav</path>
+			<condition>
+				<equals>
+					<property>gear/gear[1]/position-norm</property>
+					<value>0</value>
+				</equals>
+			</condition>
+		</gear>
+		<gear>
+			<name>gear-lock</name>
+			<path>Sounds/gear-lck.wav</path>
+			<condition>
+				<equals>
+					<property>gear/gear[1]/position-norm</property>
+					<value>1</value>
+				</equals>
+			</condition>
+		</gear>
+		<gear>
+			<name>gear</name>
+			<mode>in-transit</mode>
+			<path>Sounds/gear.wav</path>
+			<property>gear/gear[2]/position-norm</property>
+			<pitch>
+				<internal>dt_play</internal>
+				<offset>1.0</offset>
+				<factor>-0.001</factor>
+			</pitch>
+		</gear>
+		<gear>
+			<name>gear-lock</name>
+			<path>Sounds/gear-lck.wav</path>
+			<condition>
+				<equals>
+					<property>gear/gear[2]/position-norm</property>
+					<value>0</value>
+				</equals>
+			</condition>
+		</gear>
+		<gear>
+			<name>gear-lock</name>
+			<path>Sounds/gear-lck.wav</path>
+			<condition>
+				<equals>
+					<property>gear/gear[2]/position-norm</property>
+					<value>1</value>
+				</equals>
+			</condition>
+		</gear>
 
-	<gear>
-		<name>gear-lock</name>
-		<path>Sounds/gear-lck.wav</path>
-		<condition>
-			<equals>
-				<property>gear/gear[0]/position-norm</property>
+		<!-- wind -->
+		<wind>
+			<name>wind</name>
+			<mode>looped</mode>
+			<path>Aircraft/f-14b/Sounds/wind.wav</path>
+			<condition>
+				<equals>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</equals>
+					<greater-than>
+					<property>canopy/position-norm</property>
 				<value>0</value>
-			</equals>
-		</condition>
-	</gear>
+				</greater-than>
+			</condition>
+			<volume>
+				<property>velocities/airspeed-kt</property>
+				<factor>0.001</factor>
+			</volume>
+		</wind>
 
-	<gear>
-		<name>gear-lock</name>
-		<path>Sounds/gear-lck.wav</path>
-		<condition>
-			<equals>
-				<property>gear/gear[0]/position-norm</property>
-				<value>1</value>
-			</equals>
-		</condition>
-	</gear>
 
-	<gear>
-		<name>gear</name>
-		<mode>in-transit</mode>
-		<path>Sounds/gear.wav</path>
-		<property>gear/gear[1]/position-norm</property>
-		<pitch>
-			<internal>dt_play</internal>
-			<offset>1.0</offset>
-			<factor>-0.001</factor>
-		</pitch>
-	</gear>
-
-	<gear>
-		<name>gear-lock</name>
-		<path>Sounds/gear-lck.wav</path>
-		<condition>
-			<equals>
-				<property>gear/gear[1]/position-norm</property>
-				<value>0</value>
-			</equals>
-		</condition>
-	</gear>
-
-	<gear>
-		<name>gear-lock</name>
-		<path>Sounds/gear-lck.wav</path>
-		<condition>
-			<equals>
-				<property>gear/gear[1]/position-norm</property>
-				<value>1</value>
-			</equals>
-		</condition>
-	</gear>
-
-	<gear>
-		<name>gear</name>
-		<mode>in-transit</mode>
-		<path>Sounds/gear.wav</path>
-		<property>gear/gear[2]/position-norm</property>
-		<pitch>
-			<internal>dt_play</internal>
-			<offset>1.0</offset>
-			<factor>-0.001</factor>
-		</pitch>
-	</gear>
-
-	<gear>
-		<name>gear-lock</name>
-		<path>Sounds/gear-lck.wav</path>
-		<condition>
-			<equals>
-				<property>gear/gear[2]/position-norm</property>
-				<value>0</value>
-			</equals>
-		</condition>
-	</gear>
-
-	<gear>
-		<name>gear-lock</name>
-		<path>Sounds/gear-lck.wav</path>
-		<condition>
-			<equals>
-				<property>gear/gear[2]/position-norm</property>
-				<value>1</value>
-			</equals>
-		</condition>
-	</gear>
-
-	<!-- squeal -->
-	<squeal>
-		<name>squeal</name>
-		<path>Sounds/squeal.wav</path>
-		<condition>
-			<property>gear/gear[0]/wow</property>
-		</condition>
-		<volume>
-			<property>velocities/speed-down-fps</property>
-			<factor>0.05</factor>
-		</volume>
-		<volume>
-			<property>velocities/groundspeed-kt</property>
-			<factor>0.01</factor>
-		</volume>
-		<volume>
-			<internal>dt_stop</internal>
-			<factor>0.05</factor>
-			<max>1.0</max>
-		</volume>
-		<pitch>
-			<property>velocities/groundspeed-kt</property>
-			<factor>0.0025</factor>
-			<offset>1.2</offset>
-		</pitch>
-	</squeal>
-
-	<squeal>
-		<name>squeal</name>
-		<path>Sounds/squeal.wav</path>
-		<condition>
-			<property>gear/gear[1]/wow</property>
-		</condition>
-		<volume>
-			<property>velocities/speed-down-fps</property>
-			<factor>0.05</factor>
-		</volume>
-		<volume>
-			<property>velocities/groundspeed-kt</property>
-			<factor>0.01</factor>
-		</volume>
-		<volume>
-			<internal>dt_stop</internal>
-			<factor>0.05</factor>
-			<max>1.0</max>
-		</volume>
-		<pitch>
-			<property>velocities/airspeed-kt</property>
-			<factor>0.0025</factor>
-			<offset>1.2</offset>
-		</pitch>
-	</squeal>
-
-	<squeal>
-		<name>squeal</name>
-		<path>Sounds/squeal.wav</path>
-		<condition>
-			<property>gear/gear[2]/wow</property>
-		</condition>
-		<volume>
-			<property>velocities/speed-down-fps</property>
-			<factor>0.05</factor>
-		</volume>
-		<volume>
-			<property>velocities/groundspeed-kt</property>
-			<factor>0.01</factor>
-		</volume>
-		<volume>
-			<internal>dt_stop</internal>
-			<factor>0.05</factor>
-			<max>1.0</max>
-		</volume>
-		<pitch>
-			<property>velocities/groundspeed-kt</property>
-			<factor>0.0025</factor>
-			<offset>1.2</offset>
-		</pitch>
-	</squeal>
+		<!-- Squeal -->
+		<squeal>
+			<name>squeal</name>
+			<path>Sounds/squeal.wav</path>
+			<condition>
+				<property>gear/gear[0]/wow</property>
+			</condition>
+			<volume>
+				<property>velocities/speed-down-fps</property>
+				<factor>0.05</factor>
+			</volume>
+			<volume>
+				<property>velocities/groundspeed-kt</property>
+				<factor>0.01</factor>
+			</volume>
+			<volume>
+				<internal>dt_stop</internal>
+				<factor>0.05</factor>
+				<max>1.0</max>
+			</volume>
+			<pitch>
+				<property>velocities/groundspeed-kt</property>
+				<factor>0.0025</factor>
+				<offset>1.2</offset>
+			</pitch>
+		</squeal>
+		<squeal>
+			<name>squeal</name>
+			<path>Sounds/squeal.wav</path>
+			<condition>
+				<property>gear/gear[1]/wow</property>
+			</condition>
+			<volume>
+				<property>velocities/speed-down-fps</property>
+				<factor>0.05</factor>
+			</volume>
+			<volume>
+				<property>velocities/groundspeed-kt</property>
+				<factor>0.01</factor>
+			</volume>
+			<volume>
+				<internal>dt_stop</internal>
+				<factor>0.05</factor>
+				<max>1.0</max>
+			</volume>
+			<pitch>
+				<property>velocities/airspeed-kt</property>
+				<factor>0.0025</factor>
+				<offset>1.2</offset>
+			</pitch>
+		</squeal>
+		<squeal>
+			<name>squeal</name>
+			<path>Sounds/squeal.wav</path>
+			<condition>
+				<property>gear/gear[2]/wow</property>
+			</condition>
+			<volume>
+				<property>velocities/speed-down-fps</property>
+				<factor>0.05</factor>
+			</volume>
+			<volume>
+				<property>velocities/groundspeed-kt</property>
+				<factor>0.01</factor>
+			</volume>
+			<volume>
+				<internal>dt_stop</internal>
+				<factor>0.05</factor>
+				<max>1.0</max>
+			</volume>
+			<pitch>
+				<property>velocities/groundspeed-kt</property>
+				<factor>0.0025</factor>
+				<offset>1.2</offset>
+			</pitch>
+		</squeal>
 
 		<flap-in-transit>
 			<name>flaps-in-transit</name>
@@ -364,19 +380,67 @@
 			</volume>
 		</canopy-close>
 
-		<!--<stall-warning>
-			<name>stall-warning</name>
-			<path>Sounds/stall.wav</path>
-			<property>sim/alarms/stall-warning</property>
-			<volume>
-				<property>velocities/airspeed-kt</property>
-			<max>0.3</max>
+		<!--ACM jettison lever -->
+		<acm-jett-lever-on>
+			<name>acm-jett-lever-on</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/armament/acm-jettison-lever</property>
+					<value>true</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.30</factor>
 			</volume>
-			<pitch>
-				<max>0.5</max>
-			</pitch>
-		</stall-warning> -->
+		</acm-jett-lever-on>
+		<acm-jett-lever-off> 
+			<name>acm-jett-lever-off</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/armament/acm-jettison-lever</property>
+					<value>false</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.37</factor>
+			</volume>
+		</acm-jett-lever-off>
 
+		<!--ACM Master Arm lever -->
+		<master-arm-lever-on>
+			<name>master-arm-lever-on</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/armament/master-arm-lever</property>
+					<value>true</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.37</factor>
+			</volume>
+		</master-arm-lever-on>
+		<master-arm-lever-off> 
+			<name>master-arm-lever-off</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/armament/master-arm-lever</property>
+					<value>false</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.42</factor>
+			</volume>
+		</master-arm-lever-off>
+
+		<!-- Warnings tones -->
 		<low-alt-warning>
 			<name>stall-warning</name>
 			<path>Aircraft/f-14b/Sounds/low-alt-warning.wav</path>
@@ -391,6 +455,93 @@
 				</less-than>
 			</condition>
 		</low-alt-warning>
+
+		<!-- Left Verical console -->
+		<refuel-probe-switch-2>
+			<name>refuel-probe-switch-2</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/fuel/refuel-probe-switch</property>
+					<value>2</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.30</factor>
+			</volume>
+		</refuel-probe-switch-2>
+		<refuel-probe-switch-1> 
+			<name>refuel-probe-switch-1</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/fuel/refuel-probe-switch</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.30</factor>
+			</volume>
+		</refuel-probe-switch-1>
+		<refuel-probe-switch-0> 
+			<name>refuel-probe-switch-0</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/fuel/refuel-probe-switch</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.50</factor>
+			</volume>
+		</refuel-probe-switch-0>
+
+		<fuel-qty-sel-switch-up>
+			<name>fuel-qty-sel-switch-up</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/fuel/qty-sel-switch</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.20</factor>
+			</volume>
+		</fuel-qty-sel-switch-up>
+		<fuel-qty-sel-switch-center> 
+			<name>fuel-qty-sel-switch-center</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/fuel/qty-sel-switch</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.20</factor>
+			</volume>
+		</fuel-qty-sel-switch-center>
+		<fuel-qty-sel-switch-down> 
+			<name>fuel-qty-sel-switch-down</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/fuel/qty-sel-switch</property>
+					<value>-1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.20</factor>
+			</volume>
+		</fuel-qty-sel-switch-down>
 
 		<!-- Master Light Panel -->
 		<hook-bypass-switch-on>
@@ -541,6 +692,98 @@
 			</volume>
 		</hsd-power-switch-off>
 
+		<!-- Left console -->
+		<afcs-main-switch-on> 
+			<name>afcs-main-switch-on</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition>
+				<property>sim/model/f-14b/controls/AFCS/engage</property>
+			</condition>
+			<volume> 
+				<factor>0.35</factor>
+			</volume>
+		</afcs-main-switch-on>
+		<afcs-main-switch-off> 
+			<name>afcs-main-switch-off</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition>
+				<not>
+					<property>sim/model/f-14b/controls/AFCS/engage</property>
+				</not>
+			</condition>
+			<volume> 
+				<factor>0.45</factor>
+			</volume>
+		</afcs-main-switch-off>
+		<afcs-altitude-switch-on> 
+			<name>afcs-altitude-switch-on</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition>
+				<property>sim/model/f-14b/controls/AFCS/engage</property>
+			</condition>
+			<volume> 
+				<factor>0.35</factor>
+			</volume>
+		</afcs-altitude-switch-on>
+		<afcs-altitude-switch-off> 
+			<name>afcs-altitude-switch-off</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition>
+				<not>
+					<property>sim/model/f-14b/controls/AFCS/altitude</property>
+				</not>
+			</condition>
+			<volume> 
+				<factor>0.45</factor>
+			</volume>
+		</afcs-altitude-switch-off>
+		<afcs-heading-gt-switch-up> 
+			<name>afcs-heading-gt-switch-up</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition>
+				<equals>
+					<property>sim/model/f-14b/controls/AFCS/heading-gt</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.35</factor>
+			</volume>
+		</afcs-heading-gt-switch-up>
+		<afcs-heading-gt-switch-off> 
+			<name>afcs-heading-gt-switch-off</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition>
+				<equals>
+					<property>sim/model/f-14b/controls/AFCS/heading-gt</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.45</factor>
+			</volume>
+		</afcs-heading-gt-switch-off>
+		<afcs-heading-gt-switch-down> 
+			<name>afcs-heading-gt-switch-down</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition>
+				<equals>
+					<property>sim/model/f-14b/controls/AFCS/heading-gt</property>
+					<value>-1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.35</factor>
+			</volume>
+		</afcs-heading-gt-switch-down>
+
 		<tacan-xy-switch-x> 
 			<name>tacan-xy-switch-x</name>
 			<mode>once</mode>
@@ -570,6 +813,7 @@
 			</volume>
 		</tacan-xy-switch-y>
 
+		<!-- External -->
 		<tanks-ground-sound-in> 
 			<name>tanks-ground-sound-in</name>
 			<mode>once</mode>
