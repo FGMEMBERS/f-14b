@@ -95,6 +95,15 @@
 			<heading-deg>12</heading-deg>
 		</offsets>
 	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/windshield-warn-lights-right.xml</path>
+		<offsets>
+			<x-m>-5.9288</x-m>
+			<y-m>0.1321</y-m>
+			<z-m>0.2363</z-m>
+			<heading-deg>-12</heading-deg>
+		</offsets>
+	</model>
 
 
 
@@ -186,8 +195,8 @@
 		<path>Aircraft/f-14b/Models/Cockpit/slats-flaps-gear-indicator.xml</path>
 		<offsets>
 			<x-m>-5.7537</x-m>
-			<y-m>-0.3887</y-m>
-			<z-m>-0.1816</z-m>
+			<y-m>-0.3837</y-m>
+			<z-m>-0.1766</z-m>
 			<pitch-deg>-19</pitch-deg>
 			<heading-deg>21</heading-deg>
 			<roll-deg>-7</roll-deg>
@@ -197,12 +206,24 @@
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/ldg-control-panel.xml</path>
 		<offsets>
-			<x-m>-5.7132</x-m>
-			<y-m>-0.4321</y-m>
-			<z-m>-0.2343</z-m>
+			<x-m>-5.7152</x-m>
+			<y-m>-0.4245</y-m>
+			<z-m>-0.2283</z-m>
 			<pitch-deg>-19</pitch-deg>
 			<heading-deg>21</heading-deg>
-			<roll-deg>-8</roll-deg>
+			<roll-deg>-7</roll-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/fuel-panel.xml</path>
+		<offsets>
+			<x-m>-5.6420</x-m>
+			<y-m>-0.4393</y-m>
+			<z-m>-0.4105</z-m>
+			<pitch-deg>-19</pitch-deg>
+			<heading-deg>21</heading-deg>
+			<roll-deg>-7</roll-deg>
 		</offsets>
 	</model>
 
@@ -258,6 +279,15 @@
 	</model>
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/hsd-radar.xml</path>
+		<offsets>
+			<x-m>-5.8345</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.2747</z-m>
+			<pitch-deg>-29</pitch-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/hsd-ecm.xml</path>
 		<offsets>
 			<x-m>-5.8345</x-m>
 			<y-m>0.0</y-m>
@@ -401,17 +431,6 @@
 <!-- ******************************************************************* -->
 <!-- Specials                                                            -->
 <!-- ******************************************************************* -->
-
-	<!-- black-out/red-out -->
-	<model>
-		<path>Aircraft/f-14b/Models/Cockpit/blackout.xml</path>
-		<name>Blackout</name>
-		<offsets>
-			<x-m>-5.0759</x-m>
-			<y-m>0.0000</y-m>
-			<z-m>0.3553</z-m>
-		</offsets>
-	</model>
 
 
 	<!-- Lighting -->
