@@ -10,7 +10,7 @@
 		<condition>   
 			<equals>
 				<property>sim/weight[2]/selected</property>
-				<value>2000 lbs Fuel Tank</value>
+				<value>1800 lbs Fuel Tank</value>
 			</equals>
 		</condition>
 	</animation>

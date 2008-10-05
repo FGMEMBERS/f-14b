@@ -41,22 +41,11 @@
 				<value>10</value>
 				<spread>2.5</spread>
 			</speed-mps>
-			<rotation-speed>
-			<!-- used wrong tags, and so wasn't functional; tags fixed but commented out  [mfranz]
-				 (was in pittss1s [xiii])
-				<x-min-deg-sec>5</x-min-deg-sec>
-				<y-min-deg-sec>5</y-min-deg-sec>
-				<z-min-deg-sec>5</z-min-deg-sec>
-				<x-max-deg-sec>25</x-max-deg-sec>
-				<y-max-deg-sec>25</y-max-deg-sec>
-				<z-max-deg-sec>25</z-max-deg-sec>
-			-->
-			</rotation-speed>
 		</shooter>
 
 		<counter>
 			<particles-per-sec>
-				<value>15</value>
+				<value>12</value>
 				<spread>2.5</spread>
 			</particles-per-sec>
 		</counter>
@@ -64,28 +53,28 @@
 		<particle>
 			<start>
 				<color>
-					<red><value>0.6</value></red>
-					<green><value>0.6</value></green>
-					<blue><value>0.6</value></blue>
+					<red><value>0.7</value></red>
+					<green><value>0.7</value></green>
+					<blue><value>0.7</value></blue>
 					<alpha><value>0.3</value></alpha>
 				</color>
 				<size>
-					<value>0.1</value>
+					<value>0.2</value>
 				</size>
 			</start>
 			<end>
 				<color>
-					<red><value>0.7</value></red>
-					<green><value>0.7</value></green>
-					<blue><value>0.7</value></blue>
+					<red><value>0.9</value></red>
+					<green><value>0.9</value></green>
+					<blue><value>0.9</value></blue>
 					<alpha><value>0</value></alpha>
 				</color>
 				<size>
-					<value>60.0</value>
+					<value>40.0</value>
 				</size>
 			</end>
 			<life-sec>
-				<value>45</value>
+				<value>25</value>
 			</life-sec>
 
 			<mass-kg>0.1</mass-kg>
