@@ -57,13 +57,6 @@ var GroundSpoilersLatchedClosed = true;
 # create a property to control spoilers in the YaSim flight model
 setprop ("/controls/flight/yasim-spoilers", 0.0);
 
-#----------------------------------------------------------------------------
-# flap computer
-#----------------------------------------------------------------------------
-
-# Variables
-
-var SpeedBrakes = 0.0;
 
 #----------------------------------------------------------------------------
 # SAS

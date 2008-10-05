@@ -48,6 +48,7 @@ var left_elev_output   = props.globals.getNode("surface-positions/left-elevator-
 var right_elev_output  = props.globals.getNode("surface-positions/right-elevator-pos-norm", 1);
 var refuel_output      = props.globals.getNode("sim/model/f-14b/refuel/probe-position", 1);
 var sweep_generic      = props.globals.getNode("sim/multiplay/generic/float[0]");
+var radar_standby      = props.globals.getNode("instrumentation/radar/radar-standby");
 #var main_flap_generic  = props.globals.getNode("sim/multiplay/generic/float[1]");
 var aux_flap_generic   = props.globals.getNode("sim/multiplay/generic/float[2]");
 var slat_generic       = props.globals.getNode("sim/multiplay/generic/float[3]");
@@ -55,7 +56,8 @@ var left_elev_generic  = props.globals.getNode("sim/multiplay/generic/float[4]")
 var right_elev_generic = props.globals.getNode("sim/multiplay/generic/float[5]");
 var refuel_generic     = props.globals.getNode("sim/multiplay/generic/float[6]");
 var fuel_dump_generic  = props.globals.getNode("sim/multiplay/generic/int[0]");
-
+# sim/multiplay/generic/int[1] <->     <!-- formation slimmers -->
+var radar_standby_generic = props.globals.getNode("sim/multiplay/generic/int[2]");
 
 var toggleAccess = func {
 	if (DoorsTargetPosition == 0.0) DoorsTargetPosition = 1.0;
@@ -221,7 +223,7 @@ var timedMotions = func {
 	left_elev_generic.setDoubleValue(left_elev_output.getValue());
 	right_elev_generic.setDoubleValue(right_elev_output.getValue());
 	refuel_generic.setDoubleValue(refuel_output.getValue());
-
+	radar_standby_generic.setIntValue(radar_standby.getValue());
 
 }
 

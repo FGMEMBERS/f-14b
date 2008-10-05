@@ -17,13 +17,13 @@ var alt_enable      = props.globals.getNode("sim/model/f-14b/controls/AFCS/altit
 var press_alt_ft = props.globals.getNode("instrumentation/altimeter/pressure-alt-ft");
 var pitch_deg    = props.globals.getNode("orientation/pitch-deg");
 var roll_deg     = props.globals.getNode("orientation/roll-deg");
-var hdg_true     = props.globals.getNode("orientation/heading-deg");
+var hdg_bug     = props.globals.getNode("orientation/heading-magnetic-deg");
 
 # Settings
 var target_alt   = props.globals.getNode("autopilot/settings/target-altitude-ft", 1);
 var target_pitch  = props.globals.getNode("autopilot/settings/target-pitch-deg", 1);
 var target_roll  = props.globals.getNode("autopilot/settings/target-roll-deg", 1);
-var target_hdg   = props.globals.getNode("autopilot/settings/heading-deg", 1);
+var target_hdg   = props.globals.getNode("autopilot/settings/heading-bug-deg", 1);
 
 # Locks
 var ap_alt_lock  = props.globals.getNode("autopilot/locks/altitude");
@@ -137,15 +137,19 @@ var afcs_attitude_engage = func() {
 	if ( pdeg > 30 ) { pdeg = 30 }
 	target_pitch.setValue(pdeg);
 	ap_alt_lock.setValue("pitch-hold");
-	#print("pitch-hold");
 
 	var rdeg = roll_deg.getValue();
-	if ( rdeg < -60 ) { rdeg = -60 }
-	if ( rdeg > 60 ) { rdeg = 60 }
-	target_roll.setValue( rdeg );
-	ap_hdg_lock.setValue("wing-leveler");
-	#print("wing-leveler");
-
+	if ( hdg_gt_switch.getBoolValue()) {	
+		if ( rdeg < 5 and rdeg > -5 ) {
+			target_hdg.setValue(hdg_bug.getValue());
+			ap_hdg_lock.setValue("dg-heading-hold");
+		}
+	} else {
+		if ( rdeg < -60 ) { rdeg = -60 }
+		if ( rdeg > 60 ) { rdeg = 60 }
+		target_roll.setValue( rdeg );
+		ap_hdg_lock.setValue("wing-leveler");
+	}
 	ap_lock_att = 1;
 }
 
@@ -158,10 +162,9 @@ var afcs_heading_engage = func() {
 		return;
 	}
 	var rdeg = roll_deg.getValue();
-	if (rdeg < 5 and rdeg > -5) {
-		target_hdg.setValue(hdg_true.getValue());
-		ap_hdg_lock.setValue("true-heading-hold");
-		print("true-heading-hold");
+	if ( rdeg < 5 and rdeg > -5 ) {
+		target_hdg.setValue(hdg_bug.getValue());
+		ap_hdg_lock.setValue("dg-heading-hold");
 	}
 }
 
@@ -173,7 +176,6 @@ var afcs_engage_selected_mode = func() {
 		if (alt_enable.getBoolValue()) {
 			target_alt.setValue(press_alt_ft.getValue());
 			ap_alt_lock.setValue("altitude-hold");
-			print("altitude-hold");
 			alt_enable.setBoolValue(0);
 		}
 		# Here other selectable modes.
@@ -197,7 +199,6 @@ var afcs_disengage = func() {
 	ap_alt_lock.setValue("");
 	ap_lock_att = 0;
 	ap_hdg_lock.setValue("");
-	print("stop");
 }
 
 var afcs_altitude_disengage = func() {
@@ -208,16 +209,15 @@ var afcs_altitude_disengage = func() {
 	target_pitch.setValue(pdeg);
 	ap_alt_lock.setValue("pitch-hold");
 	ap_altlock_pitch = 1;
-	print("pitch-hold return");
 	alt_enable.setBoolValue(0);
 }
 
 var afcs_heading_disengage = func() {
 	# returns to attitude autopilot
+	hdg_gt_switch.setBoolValue( 0 );
 	var rdeg = roll_deg.getValue();
 	if ( rdeg < -60 ) { rdeg = -60 }
 	if ( rdeg > 60 ) { rdeg = 60 }
 	target_roll.setValue( rdeg );
 	ap_hdg_lock.setValue("wing-leveler");
-	print("wing-leveler return");
 }

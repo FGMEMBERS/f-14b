@@ -77,19 +77,17 @@ var computeNozzles = func {
 #----------------------------------------------------------------------------
 # APC - Approach Power Compensator
 #----------------------------------------------------------------------------
-# 123 kts 10,3 deg AoA
+# target:        - sim/model/f-14b/instrumentation/aoa-indexer/target-deg (11,3 deg AoA)
 # engaged by:    - Throttle Mode Lever
 #                - keystroke "a" (toggle)
 # disengaged by: - Throttle Mode Lever
 #                - keystroke "a" (toggle)
 #                - WoW
 #                - throttle levers at ~ idle or MIL
-#                - autopilot emer disengage padle
+#                - autopilot emer disengage padle (TODO)
 
 var APCengaged = props.globals.getNode("sim/model/f-14b/systems/apc/engaged");
 var engaded = 0;
-var SpeedSlope = (146 - 114) / 16000.0; # 0.001555556 
-
 var gear_down = props.globals.getNode("controls/gear/gear-down");
 var disengaged_light = props.globals.getNode("sim/model/f-14b/systems/apc/self-disengaged-light");
 var throttle_0 = props.globals.getNode("controls/engines/engine[0]/throttle");
@@ -99,14 +97,14 @@ var computeAPC = func {
 	var t0 = throttle_0.getValue();
 	var t1 = throttle_1.getValue();
 	if (APCengaged.getBoolValue()) { 
-		# override throttles
+		# TODO override throttles
 		if ( WOW or !gear_down.getBoolValue()
 		or t0 > 0.76 or t0 < 0.08
 		or t1 > 0.76 or t1 < 0.08 ) {
 			APC_off()
 		}
 	} else {
-		# duplicate throttles
+		# TODO duplicate throttles
 	}
 }
 
@@ -125,7 +123,7 @@ var APC_on = func {
 		disengaged_light.setBoolValue(0);
 		setprop ("autopilot/locks/aoa", "APC");
 		setprop ("autopilot/locks/speed", "APC");
-		print ("APC on()");
+		#print ("APC on()");
 	}
 }
 
@@ -136,7 +134,7 @@ var APC_off = func {
 	settimer(func { disengaged_light.setBoolValue(0); }, 10);	
 	setprop ("autopilot/locks/aoa", "");
 	setprop ("autopilot/locks/speed", "");
-	print ("APC off()");
+	#print ("APC off()");
 }
 
 

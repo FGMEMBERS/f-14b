@@ -94,8 +94,9 @@ var computeSAS = func {
 
 	raw_e = raw_elev.getValue();
 	raw_a = raw_aileron.getValue();
+	steering = ((raw_e > 0.05 or -0.05 > raw_e) or (raw_a > 0.01 or -0.01 > raw_a)) ? 1 : 0;
 	#steering = ((raw_e > 0.015 or -0.015 > raw_e) or (raw_a > 0.01 or -0.01 > raw_a)) ? 1 : 0;
-	steering = ( abs(raw_e) + abs(raw_a) ) / 2;
+	#steering = ( abs(raw_e) + abs(raw_a) ) / 2;
 
 	# Temporarly disengage Autopilot when control stick steering.
 	# Simple mode, Attitude: pitch and roll.
