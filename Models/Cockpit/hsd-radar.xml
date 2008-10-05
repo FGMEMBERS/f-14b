@@ -20,10 +20,18 @@
 
 	<animation>
 		<type>select</type>
+		<object-name>stand-by</object-name>
+		<condition>
+			<property>instrumentation/radar/radar-standby</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
 		<object-name>miles-drum-0</object-name>
 		<condition>
 			<less-than>
-				<property>instrumentation/radar/range</property>
+				<property>instrumentation/radar/radar2-range</property>
 				<value>3</value>
 			</less-than>
 		</condition>
@@ -31,7 +39,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>miles-drum-1</object-name>
-		<property>instrumentation/radar/range</property>
+		<property>instrumentation/radar/radar2-range</property>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -41,7 +49,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>miles-drum-2</object-name>
-		<property>instrumentation/radar/range</property>
+		<property>instrumentation/radar/radar2-range</property>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -51,7 +59,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>miles-drum-3</object-name>
-		<property>instrumentation/radar/range</property>
+		<property>instrumentation/radar/radar2-range</property>
 		<factor>0.001</factor>
 		<offset>-100</offset>
 		<step>100</step>
@@ -60,83 +68,128 @@
 	</animation>
 
 
-	<animation> <!--Group MP1 -->
+	<MP1> <!--Group MP1 -->
+		<group-name>MP1</group-name>
+		<hdg-name>MP1hdg</hdg-name>
+		<alt0-name>MP1alt0</alt0-name>
+		<alt1-name>MP1alt1</alt1-name>
+		<alt2-name>MP1alt2</alt2-name>
+		<symb-carrier-name>MP1symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[0]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[0]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[0]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[0]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[0]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[0]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[0]/radar/carrier</carrier>
+	</MP1>
+
+	<animation>
 		<type>select</type>
-		<object-name>MP1</object-name>
+		<object-name alias="../../MP1/group-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[0]/radar/in-range</property>
+				<property alias="../../../../MP1/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[0]/radar/display</property>
+				<property alias="../../../../MP1/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP1</object-name>
-		<property>ai/models/multiplayer[0]/radar/bearing-deg[0]</property>
+		<object-name alias="../../MP1/group-name"/>
+		<property alias="../../MP1/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP1</object-name>
+		<object-name alias="../../MP1/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP1</object-name>
-		<property>ai/models/multiplayer[0]/radar/draw-range-nm</property>
+		<object-name alias="../../MP1/group-name"/>
+		<property alias="../../MP1/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP1</object-name>
+		<object-name alias="../../MP1/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP1</object-name>
-		<property>ai/models/multiplayer[0]/radar/bearing-deg</property>
+		<object-name alias="../../MP1/group-name"/>
+		<property alias="../../MP1/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP1 Heading -->
+	<type>select</type>
+		<object-name alias="../../MP1/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP1/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP1hdg</object-name>
-		<property>ai/models/multiplayer[0]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP1/hdg-name"/>
+		<property alias="../../MP1/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP1hdg</object-name>
+		<object-name alias="../../MP1/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP1 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP1alt0</object-name>
+		<object-name alias="../../MP1/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[0]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP1/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP1/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP1alt0</object-name>
-		<property>ai/models/multiplayer[0]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP1/alt0-name"/>
+		<property alias="../../MP1/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -144,28 +197,31 @@
 	</animation>
 	<animation> <!--MP1 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP1alt1</object-name>
+		<object-name alias="../../MP1/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[0]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP1/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP1alt2</object-name>
+		<object-name alias="../../MP1/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[0]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP1/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP1alt1</object-name>
-		<property>ai/models/multiplayer[0]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP1/alt1-name"/>
+		<property alias="../../MP1/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -174,92 +230,151 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP1alt2</object-name>
-		<property>ai/models/multiplayer[0]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP1/alt2-name"/>
+		<property alias="../../MP1/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-	<animation> <!--Group MP2 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP2</object-name>
+		<object-name alias="../../MP1/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[1]/radar/in-range</property>
+				<property alias="../../../../MP1/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+	<MP2> <!--Group MP2 -->
+		<group-name>MP2</group-name>
+		<hdg-name>MP2hdg</hdg-name>
+		<alt0-name>MP2alt0</alt0-name>
+		<alt1-name>MP2alt1</alt1-name>
+		<alt2-name>MP2alt2</alt2-name>
+		<symb-carrier-name>MP2symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[1]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[1]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[1]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[1]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[1]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[1]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[1]/radar/carrier</carrier>
+	</MP2>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP2/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP2/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[1]/radar/display</property>
+				<property alias="../../../../MP2/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP2</object-name>
-		<property>ai/models/multiplayer[1]/radar/bearing-deg</property>
+		<object-name alias="../../MP2/group-name"/>
+		<property alias="../../MP2/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP2</object-name>
+		<object-name alias="../../MP2/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP2</object-name>
-		<property>ai/models/multiplayer[1]/radar/draw-range-nm</property>
+		<object-name alias="../../MP2/group-name"/>
+		<property alias="../../MP2/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP2</object-name>
+		<object-name alias="../../MP2/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP2</object-name>
-		<property>ai/models/multiplayer[1]/radar/bearing-deg</property>
+		<object-name alias="../../MP2/group-name"/>
+		<property alias="../../MP2/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP2 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP2/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP2/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP2hdg</object-name>
-		<property>ai/models/multiplayer[1]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP2/hdg-name"/>
+		<property alias="../../MP2/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP2hdg</object-name>
+		<object-name alias="../../MP2/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP2 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP2alt0</object-name>
+		<object-name alias="../../MP2/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[1]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP2/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP2/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP2alt0</object-name>
-		<property>ai/models/multiplayer[1]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP2/alt0-name"/>
+		<property alias="../../MP2/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -267,28 +382,31 @@
 	</animation>
 	<animation> <!--MP2 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP2alt1</object-name>
+		<object-name alias="../../MP2/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[1]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP2/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP2alt2</object-name>
+		<object-name alias="../../MP2/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[1]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP2/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP2alt1</object-name>
-		<property>ai/models/multiplayer[1]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP2/alt1-name"/>
+		<property alias="../../MP2/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -297,93 +415,151 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP2alt2</object-name>
-		<property>ai/models/multiplayer[1]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP2/alt2-name"/>
+		<property alias="../../MP2/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-
-	<animation> <!--Group MP3 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP3</object-name>
+		<object-name alias="../../MP2/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[2]/radar/in-range</property>
+				<property alias="../../../../MP2/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+	<MP3> <!--Group MP3 -->
+		<group-name>MP3</group-name>
+		<hdg-name>MP3hdg</hdg-name>
+		<alt0-name>MP3alt0</alt0-name>
+		<alt1-name>MP3alt1</alt1-name>
+		<alt2-name>MP3alt2</alt2-name>
+		<symb-carrier-name>MP3symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[2]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[2]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[2]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[2]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[2]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[2]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[2]/radar/carrier</carrier>
+	</MP3>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP3/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP3/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[2]/radar/display</property>
+				<property alias="../../../../MP3/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP3</object-name>
-		<property>ai/models/multiplayer[2]/radar/bearing-deg</property>
+		<object-name alias="../../MP3/group-name"/>
+		<property alias="../../MP3/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP3</object-name>
+		<object-name alias="../../MP3/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP3</object-name>
-		<property>ai/models/multiplayer[2]/radar/draw-range-nm</property>
+		<object-name alias="../../MP3/group-name"/>
+		<property alias="../../MP3/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP3</object-name>
+		<object-name alias="../../MP3/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP3</object-name>
-		<property>ai/models/multiplayer[2]/radar/bearing-deg</property>
+		<object-name alias="../../MP3/group-name"/>
+		<property alias="../../MP3/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP3 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP3/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP3/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP3hdg</object-name>
-		<property>ai/models/multiplayer[2]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP3/hdg-name"/>
+		<property alias="../../MP3/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP3hdg</object-name>
+		<object-name alias="../../MP3/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP3 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP3alt0</object-name>
+		<object-name alias="../../MP3/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[2]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP3/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP3/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP3alt0</object-name>
-		<property>ai/models/multiplayer[2]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP3/alt0-name"/>
+		<property alias="../../MP3/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -391,28 +567,31 @@
 	</animation>
 	<animation> <!--MP3 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP3alt1</object-name>
+		<object-name alias="../../MP3/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[2]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP3/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP3alt2</object-name>
+		<object-name alias="../../MP3/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[2]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP3/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP3alt1</object-name>
-		<property>ai/models/multiplayer[2]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP3/alt1-name"/>
+		<property alias="../../MP3/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -421,92 +600,152 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP3alt2</object-name>
-		<property>ai/models/multiplayer[2]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP3/alt2-name"/>
+		<property alias="../../MP3/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-	<animation> <!--Group MP4 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP4</object-name>
+		<object-name alias="../../MP3/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[3]/radar/in-range</property>
+				<property alias="../../../../MP3/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+	<MP4> <!--Group MP4 -->
+		<group-name>MP4</group-name>
+		<hdg-name>MP4hdg</hdg-name>
+		<alt0-name>MP4alt0</alt0-name>
+		<alt1-name>MP4alt1</alt1-name>
+		<alt2-name>MP4alt2</alt2-name>
+		<symb-carrier-name>MP4symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[3]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[3]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[3]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[3]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[3]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[3]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[3]/radar/carrier</carrier>
+	</MP4>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP4/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP4/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[3]/radar/display</property>
+				<property alias="../../../../MP4/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP4</object-name>
-		<property>ai/models/multiplayer[3]/radar/bearing-deg</property>
+		<object-name alias="../../MP4/group-name"/>
+		<property alias="../../MP4/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP4</object-name>
+		<object-name alias="../../MP4/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP4</object-name>
-		<property>ai/models/multiplayer[3]/radar/draw-range-nm</property>
+		<object-name alias="../../MP4/group-name"/>
+		<property alias="../../MP4/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP4</object-name>
+		<object-name alias="../../MP4/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP4</object-name>
-		<property>ai/models/multiplayer[3]/radar/bearing-deg</property>
+		<object-name alias="../../MP4/group-name"/>
+		<property alias="../../MP4/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP4 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP4/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP4/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP4hdg</object-name>
-		<property>ai/models/multiplayer[3]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP4/hdg-name"/>
+		<property alias="../../MP4/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP4hdg</object-name>
+		<object-name alias="../../MP4/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP4 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP4alt0</object-name>
+		<object-name alias="../../MP4/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[3]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP4/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP4/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP4alt0</object-name>
-		<property>ai/models/multiplayer[3]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP4/alt0-name"/>
+		<property alias="../../MP4/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -514,28 +753,31 @@
 	</animation>
 	<animation> <!--MP4 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP4alt1</object-name>
+		<object-name alias="../../MP4/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[3]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP4/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP4alt2</object-name>
+		<object-name alias="../../MP4/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[3]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP4/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP4alt1</object-name>
-		<property>ai/models/multiplayer[3]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP4/alt1-name"/>
+		<property alias="../../MP4/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -544,92 +786,153 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP4alt2</object-name>
-		<property>ai/models/multiplayer[3]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP4/alt2-name"/>
+		<property alias="../../MP4/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-	<animation> <!--Group MP5 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP5</object-name>
+		<object-name alias="../../MP4/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[4]/radar/in-range</property>
+				<property alias="../../../../MP4/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+
+	<MP5> <!--Group MP5 -->
+		<group-name>MP5</group-name>
+		<hdg-name>MP5hdg</hdg-name>
+		<alt0-name>MP5alt0</alt0-name>
+		<alt1-name>MP5alt1</alt1-name>
+		<alt2-name>MP5alt2</alt2-name>
+		<symb-carrier-name>MP5symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[4]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[4]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[4]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[4]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[4]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[4]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[4]/radar/carrier</carrier>
+	</MP5>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP5/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP5/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[4]/radar/display</property>
+				<property alias="../../../../MP5/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP5</object-name>
-		<property>ai/models/multiplayer[4]/radar/bearing-deg</property>
+		<object-name alias="../../MP5/group-name"/>
+		<property alias="../../MP5/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP5</object-name>
+		<object-name alias="../../MP5/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP5</object-name>
-		<property>ai/models/multiplayer[4]/radar/draw-range-nm</property>
+		<object-name alias="../../MP5/group-name"/>
+		<property alias="../../MP5/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP5</object-name>
+		<object-name alias="../../MP5/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP5</object-name>
-		<property>ai/models/multiplayer[4]/radar/bearing-deg</property>
+		<object-name alias="../../MP5/group-name"/>
+		<property alias="../../MP5/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP5 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP5/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP5/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP5hdg</object-name>
-		<property>ai/models/multiplayer[4]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP5/hdg-name"/>
+		<property alias="../../MP5/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP5hdg</object-name>
+		<object-name alias="../../MP5/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP5 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP5alt0</object-name>
+		<object-name alias="../../MP5/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[4]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP5/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP5/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP5alt0</object-name>
-		<property>ai/models/multiplayer[4]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP5/alt0-name"/>
+		<property alias="../../MP5/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -637,28 +940,31 @@
 	</animation>
 	<animation> <!--MP5 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP5alt1</object-name>
+		<object-name alias="../../MP5/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[4]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP5/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP5alt2</object-name>
+		<object-name alias="../../MP5/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[4]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP5/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP5alt1</object-name>
-		<property>ai/models/multiplayer[4]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP5/alt1-name"/>
+		<property alias="../../MP5/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -667,94 +973,153 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP5alt2</object-name>
-		<property>ai/models/multiplayer[4]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP5/alt2-name"/>
+		<property alias="../../MP5/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-
-
-	<animation> <!--Group MP6 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP6</object-name>
+		<object-name alias="../../MP5/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[5]/radar/in-range</property>
+				<property alias="../../../../MP5/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+
+	<MP6> <!--Group MP6 -->
+		<group-name>MP6</group-name>
+		<hdg-name>MP6hdg</hdg-name>
+		<alt0-name>MP6alt0</alt0-name>
+		<alt1-name>MP6alt1</alt1-name>
+		<alt2-name>MP6alt2</alt2-name>
+		<symb-carrier-name>MP6symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[5]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[5]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[5]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[5]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[5]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[5]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[5]/radar/carrier</carrier>
+	</MP6>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP6/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP6/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[5]/radar/display</property>
+				<property alias="../../../../MP6/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP6</object-name>
-		<property>ai/models/multiplayer[5]/radar/bearing-deg</property>
+		<object-name alias="../../MP6/group-name"/>
+		<property alias="../../MP6/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP6</object-name>
+		<object-name alias="../../MP6/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP6</object-name>
-		<property>ai/models/multiplayer[5]/radar/draw-range-nm</property>
+		<object-name alias="../../MP6/group-name"/>
+		<property alias="../../MP6/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP6</object-name>
+		<object-name alias="../../MP6/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP6</object-name>
-		<property>ai/models/multiplayer[5]/radar/bearing-deg</property>
+		<object-name alias="../../MP6/group-name"/>
+		<property alias="../../MP6/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP6 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP6/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP6/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP6hdg</object-name>
-		<property>ai/models/multiplayer[5]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP6/hdg-name"/>
+		<property alias="../../MP6/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP6hdg</object-name>
+		<object-name alias="../../MP6/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP6 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP6alt0</object-name>
+		<object-name alias="../../MP6/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[5]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP6/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP6/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP6alt0</object-name>
-		<property>ai/models/multiplayer[5]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP6/alt0-name"/>
+		<property alias="../../MP6/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -762,28 +1127,31 @@
 	</animation>
 	<animation> <!--MP6 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP6alt1</object-name>
+		<object-name alias="../../MP6/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[5]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP6/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP6alt2</object-name>
+		<object-name alias="../../MP6/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[5]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP6/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP6alt1</object-name>
-		<property>ai/models/multiplayer[5]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP6/alt1-name"/>
+		<property alias="../../MP6/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -792,93 +1160,152 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP6alt2</object-name>
-		<property>ai/models/multiplayer[5]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP6/alt2-name"/>
+		<property alias="../../MP6/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-
-	<animation> <!--Group MP7 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP7</object-name>
+		<object-name alias="../../MP6/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[6]/radar/in-range</property>
+				<property alias="../../../../MP6/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+	<MP7> <!--Group MP7 -->
+		<group-name>MP7</group-name>
+		<hdg-name>MP7hdg</hdg-name>
+		<alt0-name>MP7alt0</alt0-name>
+		<alt1-name>MP7alt1</alt1-name>
+		<alt2-name>MP7alt2</alt2-name>
+		<symb-carrier-name>MP7symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[6]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[6]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[6]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[6]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[6]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[6]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[6]/radar/carrier</carrier>
+	</MP7>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP7/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP7/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[6]/radar/display</property>
+				<property alias="../../../../MP7/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP7</object-name>
-		<property>ai/models/multiplayer[6]/radar/bearing-deg</property>
+		<object-name alias="../../MP7/group-name"/>
+		<property alias="../../MP7/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP7</object-name>
+		<object-name alias="../../MP7/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP7</object-name>
-		<property>ai/models/multiplayer[6]/radar/draw-range-nm</property>
+		<object-name alias="../../MP7/group-name"/>
+		<property alias="../../MP7/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP7</object-name>
+		<object-name alias="../../MP7/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP7</object-name>
-		<property>ai/models/multiplayer[6]/radar/bearing-deg</property>
+		<object-name alias="../../MP7/group-name"/>
+		<property alias="../../MP7/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP7 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP7/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP7/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP7hdg</object-name>
-		<property>ai/models/multiplayer[6]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP7/hdg-name"/>
+		<property alias="../../MP7/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP7hdg</object-name>
+		<object-name alias="../../MP7/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP7 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP7alt0</object-name>
+		<object-name alias="../../MP7/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[6]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP7/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP7/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP7alt0</object-name>
-		<property>ai/models/multiplayer[6]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP7/alt0-name"/>
+		<property alias="../../MP7/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -886,28 +1313,31 @@
 	</animation>
 	<animation> <!--MP7 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP7alt1</object-name>
+		<object-name alias="../../MP7/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[6]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP7/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP7alt2</object-name>
+		<object-name alias="../../MP7/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[6]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP7/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP7alt1</object-name>
-		<property>ai/models/multiplayer[6]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP7/alt1-name"/>
+		<property alias="../../MP7/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -916,91 +1346,152 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP7alt2</object-name>
-		<property>ai/models/multiplayer[6]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP7/alt2-name"/>
+		<property alias="../../MP7/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-	<animation> <!--Group MP8 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP8</object-name>
+		<object-name alias="../../MP7/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[7]/radar/in-range</property>
+				<property alias="../../../../MP7/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+	<MP8> <!--Group MP8 -->
+		<group-name>MP8</group-name>
+		<hdg-name>MP8hdg</hdg-name>
+		<alt0-name>MP8alt0</alt0-name>
+		<alt1-name>MP8alt1</alt1-name>
+		<alt2-name>MP8alt2</alt2-name>
+		<symb-carrier-name>MP8symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[7]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[7]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[7]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[7]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[7]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[7]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[7]/radar/carrier</carrier>
+	</MP8>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP8/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP8/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[7]/radar/display</property>
+				<property alias="../../../../MP8/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP8</object-name>
-		<property>ai/models/multiplayer[7]/radar/bearing-deg</property>
+		<object-name alias="../../MP8/group-name"/>
+		<property alias="../../MP8/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP8</object-name>
+		<object-name alias="../../MP8/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP8</object-name>
-		<property>ai/models/multiplayer[7]/radar/draw-range-nm</property>
+		<object-name alias="../../MP8/group-name"/>
+		<property alias="../../MP8/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP8</object-name>
+		<object-name alias="../../MP8/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP8</object-name>
-		<property>ai/models/multiplayer[7]/radar/bearing-deg</property>
+		<object-name alias="../../MP8/group-name"/>
+		<property alias="../../MP8/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP8 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP8/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP8/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP8hdg</object-name>
-		<property>ai/models/multiplayer[7]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP8/hdg-name"/>
+		<property alias="../../MP8/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP8hdg</object-name>
+		<object-name alias="../../MP8/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP8 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP8alt0</object-name>
+		<object-name alias="../../MP8/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[7]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP8/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP8/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP8alt0</object-name>
-		<property>ai/models/multiplayer[7]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP8/alt0-name"/>
+		<property alias="../../MP8/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1008,28 +1499,31 @@
 	</animation>
 	<animation> <!--MP8 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP8alt1</object-name>
+		<object-name alias="../../MP8/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[7]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP8/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP8alt2</object-name>
+		<object-name alias="../../MP8/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[7]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP8/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP8alt1</object-name>
-		<property>ai/models/multiplayer[7]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP8/alt1-name"/>
+		<property alias="../../MP8/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -1038,93 +1532,153 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP8alt2</object-name>
-		<property>ai/models/multiplayer[7]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP8/alt2-name"/>
+		<property alias="../../MP8/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-
-	<animation> <!--Group MP9 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP9</object-name>
+		<object-name alias="../../MP8/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[8]/radar/in-range</property>
+				<property alias="../../../../MP8/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+
+	<MP9> <!--Group MP9 -->
+		<group-name>MP9</group-name>
+		<hdg-name>MP9hdg</hdg-name>
+		<alt0-name>MP9alt0</alt0-name>
+		<alt1-name>MP9alt1</alt1-name>
+		<alt2-name>MP9alt2</alt2-name>
+		<symb-carrier-name>MP9symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[8]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[8]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[8]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[8]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[8]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[8]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[8]/radar/carrier</carrier>
+	</MP9>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP9/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP9/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[8]/radar/display</property>
+				<property alias="../../../../MP9/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP9</object-name>
-		<property>ai/models/multiplayer[8]/radar/bearing-deg</property>
+		<object-name alias="../../MP9/group-name"/>
+		<property alias="../../MP9/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP9</object-name>
+		<object-name alias="../../MP9/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP9</object-name>
-		<property>ai/models/multiplayer[8]/radar/draw-range-nm</property>
+		<object-name alias="../../MP9/group-name"/>
+		<property alias="../../MP9/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP9</object-name>
+		<object-name alias="../../MP9/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP9</object-name>
-		<property>ai/models/multiplayer[8]/radar/bearing-deg</property>
+		<object-name alias="../../MP9/group-name"/>
+		<property alias="../../MP9/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP9 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP9/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP9/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP9hdg</object-name>
-		<property>ai/models/multiplayer[8]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP9/hdg-name"/>
+		<property alias="../../MP9/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP9hdg</object-name>
+		<object-name alias="../../MP9/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP9 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP9alt0</object-name>
+		<object-name alias="../../MP9/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[8]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP9/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP9/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP9alt0</object-name>
-		<property>ai/models/multiplayer[8]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP9/alt0-name"/>
+		<property alias="../../MP9/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1132,28 +1686,31 @@
 	</animation>
 	<animation> <!--MP9 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP9alt1</object-name>
+		<object-name alias="../../MP9/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[8]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP9/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP9alt2</object-name>
+		<object-name alias="../../MP9/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[8]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP9/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP9alt1</object-name>
-		<property>ai/models/multiplayer[8]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP9/alt1-name"/>
+		<property alias="../../MP9/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -1162,92 +1719,152 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP9alt2</object-name>
-		<property>ai/models/multiplayer[8]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP9/alt2-name"/>
+		<property alias="../../MP9/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-	<animation> <!--Group MP10 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP10</object-name>
+		<object-name alias="../../MP9/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[9]/radar/in-range</property>
+				<property alias="../../../../MP9/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+	<MP10> <!--Group MP10 -->
+		<group-name>MP10</group-name>
+		<hdg-name>MP10hdg</hdg-name>
+		<alt0-name>MP10alt0</alt0-name>
+		<alt1-name>MP10alt1</alt1-name>
+		<alt2-name>MP10alt2</alt2-name>
+		<symb-carrier-name>MP10symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[9]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[9]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[9]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[9]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[9]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[9]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[9]/radar/carrier</carrier>
+	</MP10>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP10/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP10/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[9]/radar/display</property>
+				<property alias="../../../../MP10/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP10</object-name>
-		<property>ai/models/multiplayer[9]/radar/bearing-deg</property>
+		<object-name alias="../../MP10/group-name"/>
+		<property alias="../../MP10/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP10</object-name>
+		<object-name alias="../../MP10/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP10</object-name>
-		<property>ai/models/multiplayer[9]/radar/draw-range-nm</property>
+		<object-name alias="../../MP10/group-name"/>
+		<property alias="../../MP10/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP10</object-name>
+		<object-name alias="../../MP10/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP10</object-name>
-		<property>ai/models/multiplayer[9]/radar/bearing-deg</property>
+		<object-name alias="../../MP10/group-name"/>
+		<property alias="../../MP10/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP10 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP10/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP10/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP10hdg</object-name>
-		<property>ai/models/multiplayer[9]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP10/hdg-name"/>
+		<property alias="../../MP10/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP10hdg</object-name>
+		<object-name alias="../../MP10/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP10 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP10alt0</object-name>
+		<object-name alias="../../MP10/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[9]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP10/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP10/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP10alt0</object-name>
-		<property>ai/models/multiplayer[9]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP10/alt0-name"/>
+		<property alias="../../MP10/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1255,28 +1872,31 @@
 	</animation>
 	<animation> <!--MP10 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP10alt1</object-name>
+		<object-name alias="../../MP10/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[9]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP10/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP10alt2</object-name>
+		<object-name alias="../../MP10/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[9]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP10/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP10alt1</object-name>
-		<property>ai/models/multiplayer[9]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP10/alt1-name"/>
+		<property alias="../../MP10/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -1285,92 +1905,153 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP10alt2</object-name>
-		<property>ai/models/multiplayer[9]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP10/alt2-name"/>
+		<property alias="../../MP10/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-	<animation> <!--Group MP11 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP11</object-name>
+		<object-name alias="../../MP10/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[10]/radar/in-range</property>
+				<property alias="../../../../MP10/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+
+	<MP11> <!--Group MP11 -->
+		<group-name>MP11</group-name>
+		<hdg-name>MP11hdg</hdg-name>
+		<alt0-name>MP11alt0</alt0-name>
+		<alt1-name>MP11alt1</alt1-name>
+		<alt2-name>MP11alt2</alt2-name>
+		<symb-carrier-name>MP11symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[10]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[10]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[10]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[10]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[10]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[10]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[10]/radar/carrier</carrier>
+	</MP11>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP11/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP11/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[10]/radar/display</property>
+				<property alias="../../../../MP11/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP11</object-name>
-		<property>ai/models/multiplayer[10]/radar/bearing-deg</property>
+		<object-name alias="../../MP11/group-name"/>
+		<property alias="../../MP11/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP11</object-name>
+		<object-name alias="../../MP11/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP11</object-name>
-		<property>ai/models/multiplayer[10]/radar/draw-range-nm</property>
+		<object-name alias="../../MP11/group-name"/>
+		<property alias="../../MP11/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP11</object-name>
+		<object-name alias="../../MP11/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP11</object-name>
-		<property>ai/models/multiplayer[10]/radar/bearing-deg</property>
+		<object-name alias="../../MP11/group-name"/>
+		<property alias="../../MP11/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP11 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP11/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP11/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP11hdg</object-name>
-		<property>ai/models/multiplayer[10]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP11/hdg-name"/>
+		<property alias="../../MP11/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP11hdg</object-name>
+		<object-name alias="../../MP11/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP11 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP11alt0</object-name>
+		<object-name alias="../../MP11/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[10]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP11/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP11/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP11alt0</object-name>
-		<property>ai/models/multiplayer[10]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP11/alt0-name"/>
+		<property alias="../../MP11/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1378,28 +2059,31 @@
 	</animation>
 	<animation> <!--MP11 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP11alt1</object-name>
+		<object-name alias="../../MP11/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[10]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP11/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP11alt2</object-name>
+		<object-name alias="../../MP11/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[10]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP11/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP11alt1</object-name>
-		<property>ai/models/multiplayer[10]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP11/alt1-name"/>
+		<property alias="../../MP11/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -1408,92 +2092,153 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP11alt2</object-name>
-		<property>ai/models/multiplayer[10]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP11/alt2-name"/>
+		<property alias="../../MP11/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-	<animation> <!--Group MP12 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP12</object-name>
+		<object-name alias="../../MP11/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[11]/radar/in-range</property>
+				<property alias="../../../../MP11/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+
+	<MP12> <!--Group MP12 -->
+		<group-name>MP12</group-name>
+		<hdg-name>MP12hdg</hdg-name>
+		<alt0-name>MP12alt0</alt0-name>
+		<alt1-name>MP12alt1</alt1-name>
+		<alt2-name>MP12alt2</alt2-name>
+		<symb-carrier-name>MP12symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[11]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[11]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[11]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[11]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[11]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[11]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[11]/radar/carrier</carrier>
+	</MP12>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP12/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP12/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[11]/radar/display</property>
+				<property alias="../../../../MP12/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP12</object-name>
-		<property>ai/models/multiplayer[11]/radar/bearing-deg</property>
+		<object-name alias="../../MP12/group-name"/>
+		<property alias="../../MP12/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP12</object-name>
+		<object-name alias="../../MP12/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP12</object-name>
-		<property>ai/models/multiplayer[11]/radar/draw-range-nm</property>
+		<object-name alias="../../MP12/group-name"/>
+		<property alias="../../MP12/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP12</object-name>
+		<object-name alias="../../MP12/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP12</object-name>
-		<property>ai/models/multiplayer[11]/radar/bearing-deg</property>
+		<object-name alias="../../MP12/group-name"/>
+		<property alias="../../MP12/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP12 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP12/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP12/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP12hdg</object-name>
-		<property>ai/models/multiplayer[11]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP12/hdg-name"/>
+		<property alias="../../MP12/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP12hdg</object-name>
+		<object-name alias="../../MP12/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP12 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP12alt0</object-name>
+		<object-name alias="../../MP12/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[11]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP12/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP12/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP12alt0</object-name>
-		<property>ai/models/multiplayer[11]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP12/alt0-name"/>
+		<property alias="../../MP12/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1501,28 +2246,31 @@
 	</animation>
 	<animation> <!--MP12 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP12alt1</object-name>
+		<object-name alias="../../MP12/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[11]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP12/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP12alt2</object-name>
+		<object-name alias="../../MP12/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[11]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP12/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP12alt1</object-name>
-		<property>ai/models/multiplayer[11]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP12/alt1-name"/>
+		<property alias="../../MP12/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -1531,93 +2279,152 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP12alt2</object-name>
-		<property>ai/models/multiplayer[11]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP12/alt2-name"/>
+		<property alias="../../MP12/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-
-	<animation> <!--Group MP13 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>MP13</object-name>
+		<object-name alias="../../MP12/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/multiplayer[12]/radar/in-range</property>
+				<property alias="../../../../MP12/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+	<MP13> <!--Group MP13 -->
+		<group-name>MP13</group-name>
+		<hdg-name>MP13hdg</hdg-name>
+		<alt0-name>MP13alt0</alt0-name>
+		<alt1-name>MP13alt1</alt1-name>
+		<alt2-name>MP13alt2</alt2-name>
+		<symb-carrier-name>MP13symb-carrier</symb-carrier-name>
+		<in-range>ai/models/multiplayer[12]/radar/in-range</in-range>
+		<display>ai/models/multiplayer[12]/radar/display</display>
+		<bearing-deg>ai/models/multiplayer[12]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/multiplayer[12]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/multiplayer[12]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/multiplayer[12]/radar/rounded-alt-ft</rounded-alt-ft>
+		<carrier>ai/models/multiplayer[12]/radar/carrier</carrier>
+	</MP13>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP13/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP13/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/multiplayer[12]/radar/display</property>
+				<property alias="../../../../MP13/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP13</object-name>
-		<property>ai/models/multiplayer[12]/radar/bearing-deg</property>
+		<object-name alias="../../MP13/group-name"/>
+		<property alias="../../MP13/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP13</object-name>
+		<object-name alias="../../MP13/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>MP13</object-name>
-		<property>ai/models/multiplayer[12]/radar/draw-range-nm</property>
+		<object-name alias="../../MP13/group-name"/>
+		<property alias="../../MP13/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP13</object-name>
+		<object-name alias="../../MP13/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>MP13</object-name>
-		<property>ai/models/multiplayer[12]/radar/bearing-deg</property>
+		<object-name alias="../../MP13/group-name"/>
+		<property alias="../../MP13/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- MP13 Heading -->
+		<type>select</type>
+		<object-name alias="../../MP13/hdg-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP13/carrier"/>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>MP13hdg</object-name>
-		<property>ai/models/multiplayer[12]/orientation/true-heading-deg</property>
+		<object-name alias="../../MP13/hdg-name"/>
+		<property alias="../../MP13/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>MP13hdg</object-name>
+		<object-name alias="../../MP13/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--MP13 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>MP13alt0</object-name>
+		<object-name alias="../../MP13/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/multiplayer[12]/radar/rounded-alt-ft</property>
+				<property alias="../../../../MP13/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
+			<equals>
+				<property alias="../../../../MP13/carrier"/>
+				<value>false</value>
+			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP13alt0</object-name>
-		<property>ai/models/multiplayer[12]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP13/alt0-name"/>
+		<property alias="../../MP13/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1625,28 +2432,31 @@
 	</animation>
 	<animation> <!--MP13 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>MP13alt1</object-name>
+		<object-name alias="../../MP13/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[12]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP13/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>MP13alt2</object-name>
+		<object-name alias="../../MP13/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/multiplayer[12]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../MP13/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP13alt1</object-name>
-		<property>ai/models/multiplayer[12]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP13/alt1-name"/>
+		<property alias="../../MP13/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -1655,92 +2465,137 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>MP13alt2</object-name>
-		<property>ai/models/multiplayer[12]/radar/rounded-alt-ft</property>
+		<object-name alias="../../MP13/alt2-name"/>
+		<property alias="../../MP13/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
-
-
-	<animation> <!--Group TK1 -->
+	<animation><!-- carrier symbol -->
 		<type>select</type>
-		<object-name>TK1</object-name>
+		<object-name alias="../../MP13/symb-carrier-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/tanker[0]/radar/in-range</property>
+				<property alias="../../../../MP13/carrier"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+
+
+
+
+
+	<TK1> <!--Group TK1 -->
+		<group-name>TK1</group-name>
+		<hdg-name>TK1hdg</hdg-name>
+		<alt0-name>TK1alt0</alt0-name>
+		<alt1-name>TK1alt1</alt1-name>
+		<alt2-name>TK1alt2</alt2-name>
+		<in-range>ai/models/tanker[0]/radar/in-range</in-range>
+		<display>ai/models/tanker[0]/radar/display</display>
+		<bearing-deg>ai/models/tanker[0]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/tanker[0]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/tanker[0]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/tanker[0]/radar/rounded-alt-ft</rounded-alt-ft>
+	</TK1>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../TK1/group-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../TK1/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/tanker[0]/radar/display</property>
+				<property alias="../../../../TK1/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>TK1</object-name>
-		<property>ai/models/tanker[0]/radar/bearing-deg</property>
+		<object-name alias="../../TK1/group-name"/>
+		<property alias="../../TK1/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK1</object-name>
+		<object-name alias="../../TK1/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>TK1</object-name>
-		<property>ai/models/tanker[0]/radar/draw-range-nm</property>
+		<object-name alias="../../TK1/group-name"/>
+		<property alias="../../TK1/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK1</object-name>
+		<object-name alias="../../TK1/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK1</object-name>
-		<property>ai/models/tanker[0]/radar/bearing-deg</property>
+		<object-name alias="../../TK1/group-name"/>
+		<property alias="../../TK1/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- TK1 Heading -->
 		<type>rotate</type>
-		<object-name>TK1hdg</object-name>
-		<property>ai/models/tanker[0]/orientation/true-heading-deg</property>
+		<object-name alias="../../TK1/hdg-name"/>
+		<property alias="../../TK1/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>TK1hdg</object-name>
+		<object-name alias="../../TK1/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--TK1 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>TK1alt0</object-name>
+		<object-name alias="../../TK1/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/tanker[0]/radar/rounded-alt-ft</property>
+				<property alias="../../../../TK1/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK1alt0</object-name>
-		<property>ai/models/tanker[0]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK1/alt0-name"/>
+		<property alias="../../TK1/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1748,28 +2603,31 @@
 	</animation>
 	<animation> <!--TK1 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>TK1alt1</object-name>
+		<object-name alias="../../TK1/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/tanker[0]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../TK1/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>TK1alt2</object-name>
+		<object-name alias="../../TK1/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/tanker[0]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../TK1/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK1alt1</object-name>
-		<property>ai/models/tanker[0]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK1/alt1-name"/>
+		<property alias="../../TK1/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -1778,8 +2636,11 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK1alt2</object-name>
-		<property>ai/models/tanker[0]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK1/alt2-name"/>
+		<property alias="../../TK1/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1787,83 +2648,115 @@
 	</animation>
 
 
-	<animation> <!--Group TK2 -->
+
+
+
+	<TK2> <!--Group TK2 -->
+		<group-name>TK2</group-name>
+		<hdg-name>TK2hdg</hdg-name>
+		<alt0-name>TK2alt0</alt0-name>
+		<alt1-name>TK2alt1</alt1-name>
+		<alt2-name>TK2alt2</alt2-name>
+		<in-range>ai/models/tanker[1]/radar/in-range</in-range>
+		<display>ai/models/tanker[1]/radar/display</display>
+		<bearing-deg>ai/models/tanker[1]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/tanker[1]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/tanker[1]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/tanker[1]/radar/rounded-alt-ft</rounded-alt-ft>
+	</TK2>
+
+	<animation>
 		<type>select</type>
-		<object-name>TK2</object-name>
+		<object-name alias="../../TK2/group-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/tanker[1]/radar/in-range</property>
+				<property alias="../../../../TK2/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/tanker[1]/radar/display</property>
+				<property alias="../../../../TK2/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>TK2</object-name>
-		<property>ai/models/tanker[1]/radar/bearing-deg</property>
+		<object-name alias="../../TK2/group-name"/>
+		<property alias="../../TK2/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK2</object-name>
+		<object-name alias="../../TK2/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>TK2</object-name>
-		<property>ai/models/tanker[1]/radar/draw-range-nm</property>
+		<object-name alias="../../TK2/group-name"/>
+		<property alias="../../TK2/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK2</object-name>
+		<object-name alias="../../TK2/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK2</object-name>
-		<property>ai/models/tanker[1]/radar/bearing-deg</property>
+		<object-name alias="../../TK2/group-name"/>
+		<property alias="../../TK2/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- TK2 Heading -->
 		<type>rotate</type>
-		<object-name>TK2hdg</object-name>
-		<property>ai/models/tanker[1]/orientation/true-heading-deg</property>
+		<object-name alias="../../TK2/hdg-name"/>
+		<property alias="../../TK2/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>TK2hdg</object-name>
+		<object-name alias="../../TK2/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--TK2 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>TK2alt0</object-name>
+		<object-name alias="../../TK2/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/tanker[1]/radar/rounded-alt-ft</property>
+				<property alias="../../../../TK2/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK2alt0</object-name>
-		<property>ai/models/tanker[1]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK2/alt0-name"/>
+		<property alias="../../TK2/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1871,28 +2764,31 @@
 	</animation>
 	<animation> <!--TK2 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>TK2alt1</object-name>
+		<object-name alias="../../TK2/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/tanker[1]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../TK2/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>TK2alt2</object-name>
+		<object-name alias="../../TK2/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/tanker[1]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../TK2/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK2alt1</object-name>
-		<property>ai/models/tanker[1]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK2/alt1-name"/>
+		<property alias="../../TK2/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -1901,8 +2797,11 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK2alt2</object-name>
-		<property>ai/models/tanker[1]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK2/alt2-name"/>
+		<property alias="../../TK2/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1910,83 +2809,115 @@
 	</animation>
 
 
-	<animation> <!--Group TK3 -->
+
+
+
+	<TK3> <!--Group TK3 -->
+		<group-name>TK3</group-name>
+		<hdg-name>TK3hdg</hdg-name>
+		<alt0-name>TK3alt0</alt0-name>
+		<alt1-name>TK3alt1</alt1-name>
+		<alt2-name>TK3alt2</alt2-name>
+		<in-range>ai/models/tanker[2]/radar/in-range</in-range>
+		<display>ai/models/tanker[2]/radar/display</display>
+		<bearing-deg>ai/models/tanker[2]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/tanker[2]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/tanker[2]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/tanker[2]/radar/rounded-alt-ft</rounded-alt-ft>
+	</TK3>
+
+	<animation>
 		<type>select</type>
-		<object-name>TK3</object-name>
+		<object-name alias="../../TK3/group-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/tanker[2]/radar/in-range</property>
+				<property alias="../../../../TK3/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/tanker[2]/radar/display</property>
+				<property alias="../../../../TK3/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>TK3</object-name>
-		<property>ai/models/tanker[2]/radar/bearing-deg</property>
+		<object-name alias="../../TK3/group-name"/>
+		<property alias="../../TK3/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK3</object-name>
+		<object-name alias="../../TK3/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>TK3</object-name>
-		<property>ai/models/tanker[2]/radar/draw-range-nm</property>
+		<object-name alias="../../TK3/group-name"/>
+		<property alias="../../TK3/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK3</object-name>
+		<object-name alias="../../TK3/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK3</object-name>
-		<property>ai/models/tanker[2]/radar/bearing-deg</property>
+		<object-name alias="../../TK3/group-name"/>
+		<property alias="../../TK3/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- TK3 Heading -->
 		<type>rotate</type>
-		<object-name>TK3hdg</object-name>
-		<property>ai/models/tanker[2]/orientation/true-heading-deg</property>
+		<object-name alias="../../TK3/hdg-name"/>
+		<property alias="../../TK3/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>TK3hdg</object-name>
+		<object-name alias="../../TK3/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--TK3 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>TK3alt0</object-name>
+		<object-name alias="../../TK3/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/tanker[2]/radar/rounded-alt-ft</property>
+				<property alias="../../../../TK3/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK3alt0</object-name>
-		<property>ai/models/tanker[2]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK3/alt0-name"/>
+		<property alias="../../TK3/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -1994,28 +2925,31 @@
 	</animation>
 	<animation> <!--TK3 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>TK3alt1</object-name>
+		<object-name alias="../../TK3/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/tanker[2]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../TK3/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>TK3alt2</object-name>
+		<object-name alias="../../TK3/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/tanker[2]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../TK3/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK3alt1</object-name>
-		<property>ai/models/tanker[2]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK3/alt1-name"/>
+		<property alias="../../TK3/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -2024,8 +2958,11 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK3alt2</object-name>
-		<property>ai/models/tanker[2]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK3/alt2-name"/>
+		<property alias="../../TK3/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -2033,83 +2970,116 @@
 	</animation>
 
 
-	<animation> <!--Group TK4 -->
+
+
+
+
+	<TK4> <!--Group TK4 -->
+		<group-name>TK4</group-name>
+		<hdg-name>TK4hdg</hdg-name>
+		<alt0-name>TK4alt0</alt0-name>
+		<alt1-name>TK4alt1</alt1-name>
+		<alt2-name>TK4alt2</alt2-name>
+		<in-range>ai/models/tanker[3]/radar/in-range</in-range>
+		<display>ai/models/tanker[3]/radar/display</display>
+		<bearing-deg>ai/models/tanker[3]/radar/bearing-deg</bearing-deg>
+		<draw-range-nm>ai/models/tanker[3]/radar/draw-range-nm</draw-range-nm>
+		<true-heading-deg>ai/models/tanker[3]/orientation/true-heading-deg</true-heading-deg>
+		<rounded-alt-ft>ai/models/tanker[3]/radar/rounded-alt-ft</rounded-alt-ft>
+	</TK4>
+
+	<animation>
 		<type>select</type>
-		<object-name>TK4</object-name>
+		<object-name alias="../../TK4/group-name"/>
 		<condition>
 			<equals>
-				<property>ai/models/tanker[3]/radar/in-range</property>
+				<property alias="../../../../TK4/in-range"/>
 				<value>true</value>
 			</equals>
 			<equals>
-				<property>ai/models/tanker[3]/radar/display</property>
+				<property alias="../../../../TK4/display"/>
 				<value>true</value>
 			</equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>TK4</object-name>
-		<property>ai/models/tanker[3]/radar/bearing-deg</property>
+		<object-name alias="../../TK4/group-name"/>
+		<property alias="../../TK4/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK4</object-name>
+		<object-name alias="../../TK4/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation>
 		<type>translate</type>
-		<object-name>TK4</object-name>
-		<property>ai/models/tanker[3]/radar/draw-range-nm</property>
+		<object-name alias="../../TK4/group-name"/>
+		<property alias="../../TK4/draw-range-nm"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>1</factor>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK4</object-name>
+		<object-name alias="../../TK4/group-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> 
 		<type>rotate</type>
-		<object-name>TK4</object-name>
-		<property>ai/models/tanker[3]/radar/bearing-deg</property>
+		<object-name alias="../../TK4/group-name"/>
+		<property alias="../../TK4/bearing-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0781</z-m></center>
 	</animation>
 	<animation> <!-- TK4 Heading -->
 		<type>rotate</type>
-		<object-name>TK4hdg</object-name>
-		<property>ai/models/tanker[3]/orientation/true-heading-deg</property>
+		<object-name alias="../../TK4/hdg-name"/>
+		<property alias="../../TK4/true-heading-deg"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<axis><x>-1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>TK4hdg</object-name>
+		<object-name alias="../../TK4/hdg-name"/>
 		<property>orientation/heading-deg</property>
 		<axis><x>1</x></axis>
 		<center><z-m>-0.0807</z-m></center>
 	</animation>
 	<animation><!--TK4 Altitude < 10000 ft-->
 		<type>select</type>
-		<object-name>TK4alt0</object-name>
+		<object-name alias="../../TK4/alt0-name"/>
 		<condition>
 			<less-than>
-				<property>ai/models/tanker[3]/radar/rounded-alt-ft</property>
+				<property alias="../../../../TK4/rounded-alt-ft"/>
 				<value>10</value>
 			</less-than>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK4alt0</object-name>
-		<property>ai/models/tanker[3]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK4/alt0-name"/>
+		<property alias="../../TK4/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
@@ -2117,28 +3087,31 @@
 	</animation>
 	<animation> <!--TK4 Altitude > 10000 ft -->
 		<type>select</type>
-		<object-name>TK4alt1</object-name>
+		<object-name alias="../../TK4/alt1-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/tanker[3]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../TK4/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>TK4alt2</object-name>
+		<object-name alias="../../TK4/alt2-name"/>
 		<condition>
-			<greater-than>
-				<property>ai/models/tanker[3]/radar/rounded-alt-ft</property>
+			<greater-than-equals>
+				<property alias="../../../../TK4/rounded-alt-ft"/>
 				<value>10</value>
-			</greater-than>
+			</greater-than-equals>
 		</condition>
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK4alt1</object-name>
-		<property>ai/models/tanker[3]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK4/alt1-name"/>
+		<property alias="../../TK4/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -2147,8 +3120,11 @@
 	</animation>
 	<animation>
 		<type>textranslate</type>
-		<object-name>TK4alt2</object-name>
-		<property>ai/models/tanker[3]/radar/rounded-alt-ft</property>
+		<object-name alias="../../TK4/alt2-name"/>
+		<property alias="../../TK4/rounded-alt-ft"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
