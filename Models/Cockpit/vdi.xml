@@ -317,6 +317,74 @@
 		</condition>
 	</animation>
 
+	<!-- Autopilot -->
+	<animation>
+		<type>select</type>
+		<object-name>ap-attitude</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/AFCS/engage</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>ap-altitude</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/AFCS/altitude</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>ap-heading</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/controls/AFCS/heading-gt</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>ap-attitude-lock</object-name>
+		<condition>
+			<equals>
+				<property>autopilot/locks/heading</property>
+				<value>wing-leveler</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>ap-altitude-lock</object-name>
+		<condition>
+			<equals>
+				<property>/autopilot/locks/altitude</property>
+				<value>altitude-hold</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>ap-heading-lock</object-name>
+		<condition>
+			<equals>
+				<property>autopilot/locks/heading</property>
+				<value>dg-heading-hold</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>apc</object-name>
+		<condition>
+			<equals>
+				<property>autopilot/locks/aoa</property>
+				<value>APC</value>
+			</equals>
+		</condition>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>ap-ref</object-name>
@@ -332,7 +400,7 @@
 		<object-name>sky</object-name>
 		<type>material</type>
 		<emission>
-			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<factor-prop>sim/model/f-14b/controls/VDI/contrast</factor-prop>
 			<red>0.0</red>
 			<green>0.7</green>
 			<blue>0.0</blue>
@@ -342,12 +410,85 @@
 		<object-name>ground</object-name>
 		<type>material</type>
 		<emission>
-			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<factor-prop>sim/model/f-14b/controls/VDI/contrast</factor-prop>
 			<red>0.0</red>
 			<green>0.7</green>
 			<blue>0.0</blue>
 		</emission>
 	</animation>
+
+	<animation>
+		<object-name>apc</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>ap-attitude</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>ap-altitude</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>ap-heading</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>ap-attitude-lock</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>ap-altitude-lock</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>ap-heading-lock</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+
+
 	<animation>
 		<object-name>pitch-ladder</object-name>
 		<type>material</type>
