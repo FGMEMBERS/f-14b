@@ -222,17 +222,17 @@
 		<object-name>hook-lamp-off</object-name> 
 		<type>material</type>
 		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.1375</red>
-			<green>0.06</green>
-			<blue>0.025</blue>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.07</red>
+			<green>0.03</green>
+			<blue>0.012</blue>
 		</emission>
 	</animation>
 	<animation>
 		<object-name>hook-lamp-on</object-name> 
 		<type>material</type>
 		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<factor-prop>sim/model/f-14b/systems/utilities/numeral-1</factor-prop>
 			<red>0.8</red>
 			<green>0.8</green>
 			<blue>0.8</blue>
@@ -240,13 +240,33 @@
 	</animation>
 
 	<animation> 
-		<object-name>right-vertical-console</object-name>
+		<object-name>mounts</object-name>
 		<type>material</type>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
 			<blue>0.10</blue>
+		</emission>
+	</animation>
+	<animation> 
+		<object-name>switches-and-buttons</object-name>
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+	<animation> 
+		<object-name>rounds-drums</object-name>
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.71</red>
+			<green>0.31</green>
+			<blue>0.13</blue>
 		</emission>
 	</animation>
 

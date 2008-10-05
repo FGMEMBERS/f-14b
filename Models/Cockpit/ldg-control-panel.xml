@@ -119,7 +119,6 @@
 
 
 
-
 	<!-- lighting -->
 	<animation>
 		<object-name>mount</object-name>
@@ -131,16 +130,35 @@
 			<blue>0.10</blue>
 		</emission>
 	</animation>
-	<animation>
-		<object-name>emerg-stores-jett-button-on</object-name>
+	<animation> 
+		<object-name>switches-and-levers</object-name>
 		<type>material</type>
-		<emission>
-			<factor-prop>sim/model/f-14b/controls/armament/emerg-jettison-switch</factor-prop>
-			<red>0.85</red>
-			<green>0.85</green>
-			<blue>0.85</blue>
+		<emission> 
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
-
+	<animation>
+		<object-name>lamp-off</object-name> 
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.07</red>
+			<green>0.03</green>
+			<blue>0.012</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>lamp-on</object-name> 
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/systems/utilities/numeral-1</factor-prop>
+			<red>0.8</red>
+			<green>0.8</green>
+			<blue>0.8</blue>
+		</emission>
+	</animation>
 
 </PropertyList>
