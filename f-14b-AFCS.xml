@@ -101,11 +101,11 @@
 			<prop>autopilot/internal/target-roll-deg</prop>
 		</reference>
 		<output>
-			<prop>controls/flight/aileron-trim</prop>
+			<prop>/controls/flight/SAS-roll</prop>
 		</output>
 		<config>
 			<Kp>0.05</Kp>
-			<beta>0.000001</beta>
+			<beta>1</beta>
 			<Ti>10</Ti>
 			<Td>0.00000000001</Td>
 			<u_min>-0.3</u_min>
@@ -114,7 +114,7 @@
 	</pid-controller>
 
 	<!-- True heading hold -->
-	<pi-simple-controller>
+	<!--<pi-simple-controller>
 		<name>True Heading Hold</name>
 		<debug>false</debug>
 		<enable>
@@ -162,7 +162,7 @@
 			<u_min>-0.3</u_min>
 			<u_max>0.3</u_max>
 		</config>
-	</pid-controller>
+	</pid-controller>-->
 
 
 
@@ -291,7 +291,7 @@
 	<!-- AoA with throttle (Approach Power Compensator - APC) -->
 	<pid-controller>
 		<name>AoA-with-throttle</name>
-		<debug>true</debug>
+		<debug>false</debug>
 		<enable>
 			<prop>autopilot/locks/aoa</prop>
 			<value>APC</value>
