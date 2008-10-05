@@ -62,6 +62,85 @@
 		</axis>
 	</animation>
 
+	<!-- ACM jettison lever -->
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>acm-jett-lever</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<interval-sec>0.1</interval-sec>
+			<binding>
+				<command>property-toggle</command>
+				<property>sim/model/f-14b/controls/armament/acm-jettison-lever</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>acm-jett-lever</object-name>
+		<property>sim/model/f-14b/controls/armament/acm-jettison-lever</property>
+		<factor>85</factor>
+		<center>
+			<x-m>-0.0016</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0369</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>acm-jett-button</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<interval-sec>0.1</interval-sec>
+			<binding>
+				<command>nasal</command>
+				<script>f14.emerg_jettison()</script>
+			</binding>
+		</action>
+	</animation>
+
+	<!-- Master Arm lever -->
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>master-arm-lever</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<interval-sec>0.1</interval-sec>
+			<binding>
+				<command>property-toggle</command>
+				<property>sim/model/f-14b/controls/armament/master-arm-lever</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>master-arm-lever</object-name>
+		<property>sim/model/f-14b/controls/armament/master-arm-lever</property>
+		<factor>85</factor>
+		<center>
+			<x-m>-0.0016</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0369</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+
 
 	<!-- lighting -->
 	<animation> 
@@ -69,9 +148,19 @@
 		<type>material</type>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
+			<red>0.4</red>
+			<green>0.17</green>
+			<blue>0.07</blue>
+		</emission>
+	</animation>
+	<animation> 
+		<object-name>switches-and-levers</object-name>
+		<type>material</type>
+		<emission> 
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.4</red>
+			<green>0.17</green>
+			<blue>0.07</blue>
 		</emission>
 	</animation>
 	<animation> 
@@ -88,7 +177,8 @@
 		<object-name>master-caution-on</object-name>
 		<type>material</type>
 		<emission> 
-			<red>0.1</red>
+			<factor-prop>sim/model/f-14b/systems/utilities/numeral-1</factor-prop>
+			<red>1</red>
 			<green>0.85</green>
 			<blue>0.85</blue>
 		</emission>
