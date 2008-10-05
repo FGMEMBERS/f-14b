@@ -118,6 +118,38 @@
 					</binding>
 				</action>
 
+				<!-- VDI Contrast Knob -->
+				<action>
+					<name>vdi-contrast-left</name>
+					<button>0</button>
+					<x>-415</x>
+					<y>-450</y>
+					<w>70</w>
+					<h>80</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/controls/VDI/contrast</property>
+						<step>-0.05</step>
+						<min>0</min>
+					</binding>
+				</action>
+				<action>
+					<name>vdi-contrast-right</name>
+					<button>0</button>
+					<x>-335</x>
+					<y>-450</y>
+					<w>70</w>
+					<h>80</h>
+					<repeatable type="bool">true</repeatable>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/model/f-14b/controls/VDI/contrast</property>
+						<step>0.05</step>
+						<max>1</max>
+					</binding>
+				</action>
+
 
 				<!-- Hud Filter Knob -->
 				<action>

@@ -75,6 +75,31 @@
 				</binding>
 			</action>
 
+			<!-- Refuel Probe Switch -->
+			<action>
+				<name>refuel-probe-switch-up</name>
+				<button>0</button>
+				<x>200</x>
+				<y>-240</y>
+				<w>110</w>
+				<h>50</h>
+				<binding>
+					<command>nasal</command>
+					<script>f14.refuel_probe_switch_up()</script>
+				</binding>
+			</action>
+			<action>
+				<name>refuel-probe-switch-down</name>
+				<button>0</button>
+				<x>200</x>
+				<y>-300</y>
+				<w>110</w>
+				<h>50</h>
+				<binding>
+					<command>nasal</command>
+					<script>f14.refuel_probe_switch_down()</script>
+				</binding>
+			</action>
 
 
 
