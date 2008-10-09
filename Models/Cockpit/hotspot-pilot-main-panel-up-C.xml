@@ -33,22 +33,6 @@
 
 			<actions>
 
-				<!-- ######### ACM-Panel ######### -->
-
-				<!-- Master Caution Button -->
-				<action>
-					<name>master-caution-reset</name>
-					<button>0</button>
-					<x>-75</x>
-					<y>425</y>
-					<w>180</w>
-					<h>80</h>
-					<binding>
-						<command>property-assign</command>
-						<property>sim/model/f-14b/instrumentation/warnings/master-caution</property>
-						<value>0</value>
-					</binding>
-				</action>
 
 				<!-- ######### VDI ######### -->
 
