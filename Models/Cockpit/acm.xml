@@ -108,6 +108,25 @@
 		</action>
 	</animation>
 
+
+	<!-- Master Caution Button -->
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-master-caution-pick</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<interval-sec>0.1</interval-sec>
+			<binding>
+				<command>property-assign</command>
+				<property>sim/model/f-14b/instrumentation/warnings/master-caution</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+
+
 	<!-- Master Arm lever -->
 	<animation>
 		<type>pick</type>
@@ -118,8 +137,8 @@
 			<repeatable>false</repeatable>
 			<interval-sec>0.1</interval-sec>
 			<binding>
-				<command>property-toggle</command>
-				<property>sim/model/f-14b/controls/armament/master-arm-lever</property>
+				<command>nasal</command>
+				<script>f14_weapons.master_arm_lever_toggle()</script>
 			</binding>
 		</action>
 	</animation>
@@ -140,6 +159,49 @@
 		</axis>
 	</animation>
 
+
+	<animation>
+		<type>rotate</type>
+		<object-name>master-arm-switch</object-name>
+		<property>sim/model/f-14b/controls/armament/master-arm-switch</property>
+		<factor>25</factor>
+		<center>
+			<x-m>-0.0066</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0230</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-master-arm-up</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_weapons.master_arm_switch(1)</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-master-arm-down</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_weapons.master_arm_switch(0)</script>
+			</binding>
+		</action>
+	</animation>
 
 
 	<!-- lighting -->
