@@ -440,6 +440,50 @@
 			</volume>
 		</master-arm-lever-off>
 
+		<!--ACM Master Arm switch -->
+		<master-arm-switch-up>
+			<name>master-arm-switch-up</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/armament/master-arm-switch</property>
+					<value>2</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.45</factor>
+			</volume>
+		</master-arm-switch-up>
+		<master-arm-switch-center>
+			<name>master-arm-switch-center</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/armament/master-arm-switch</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.45</factor>
+			</volume>
+		</master-arm-switch-center>
+		<master-arm-switch-down>
+			<name>master-arm-switch-down</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/click.wav</path>
+			<condition> 
+				<equals> 
+					<property>sim/model/f-14b/controls/armament/master-arm-switch</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.45</factor>
+			</volume>
+		</master-arm-switch-down>
+
 		<!-- Warnings tones -->
 		<low-alt-warning>
 			<name>stall-warning</name>

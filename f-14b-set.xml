@@ -214,6 +214,7 @@
 						<acm-jettison-lever type="bool">0</acm-jettison-lever>
 						<acm-jettison-button type="bool">0</acm-jettison-button>
 						<master-arm-lever type="bool">0</master-arm-lever>
+						<master-arm-switch type="int">1</master-arm-switch>
 						<emerg-jettison-switch type="bool">0</emerg-jettison-switch>
 						<tanks-ground-sound type="bool">0</tanks-ground-sound>
 					</armament>
@@ -273,6 +274,7 @@
 					</TID>
 					<VDI>
 						<brightness type="double">1</brightness>
+						<contrast type="double">0.6</contrast>
 						<on-off type="bool">0</on-off>
 					</VDI>
 				</controls>
@@ -932,6 +934,7 @@
 			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
 			<file>Aircraft/f-14b/Nasal/fuel-system.nas</file>
 			<file>Aircraft/f-14b/Nasal/f14_radar.nas</file>
+			<!--<file>Aircraft/f-14b/Nasal/controls.nas</file>-->
 			<!--<file>Aircraft/f-14b/Nasal/display_props.nas</file>-->
 		</f14>
 		<f14_hud>
@@ -946,6 +949,9 @@
 		<f14_afcs>
 			<file>Aircraft/f-14b/Nasal/afcs.nas</file>
 		</f14_afcs>
+		<f14_weapons>
+			<file>Aircraft/f-14b/Nasal/weapons.nas</file>
+		</f14_weapons>
 	</nasal>
 
 </PropertyList>
