@@ -213,9 +213,23 @@
 					<armament>
 						<acm-jettison-lever type="bool">0</acm-jettison-lever>
 						<acm-jettison-button type="bool">0</acm-jettison-button>
+						<acm-panel-lights>
+							<seam-lock-light type="bool">false</seam-lock-light>
+							<collision-light type="bool">false</collision-light>
+							<hot-trig-light type="bool">false</hot-trig-light>
+							<gun-rate-high-light type="bool">false</gun-rate-high-light>
+							<gun-rate-low-light type="bool">false</gun-rate-low-light>
+							<sw-cool-on-light type="bool">false</sw-cool-on-light>
+							<sw-cool-off-light type="bool">false</sw-cool-off-light>
+							<msl-prep-on-light type="bool">false</msl-prep-on-light>
+							<msl-prep-off-light type="bool">false</msl-prep-off-light>
+							<mode-stp-norm-light type="bool">false</mode-stp-norm-light>
+							<mode-stp-brsit-light type="bool">false</mode-stp-brsit-light>
+						</acm-panel-lights>
+						<emerg-jettison-switch type="bool">0</emerg-jettison-switch>
 						<master-arm-lever type="bool">0</master-arm-lever>
 						<master-arm-switch type="int">1</master-arm-switch>
-						<emerg-jettison-switch type="bool">0</emerg-jettison-switch>
+						<system-on-off type="bool">false</system-on-off>
 						<tanks-ground-sound type="bool">0</tanks-ground-sound>
 					</armament>
 					<fuel>
