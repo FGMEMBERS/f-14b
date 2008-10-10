@@ -144,7 +144,7 @@ var computeSAS = func {
 		if (rollBias > RollMaxOutput) rollBias = RollMaxOutput;
 		if (rollBias < RollMinOutput) rollBias = RollMinOutput;
 
-		SASroll = getprop ("/controls/flight/aileron") + rollBias + getprop ("/controls/flight/aileron-trim");   
+		SASroll = (getprop ("/controls/flight/aileron") + rollBias + getprop ("/controls/flight/aileron-trim")) * ! OverSweep;   
 		if (airspeed > RollLoSpeed)
 			SASroll = SASroll * ( (RollLoSpeed * RollLoSpeed) / squaredAirspeed );
 
@@ -221,9 +221,9 @@ var computeSAS = func {
 	# Longitudinal authority limit
 	# Mechanicaly "handled".
 	if (pitchInput > 0) {
-		SASpitch = pitchInput * MinPitchElevator;
+		SASpitch = pitchInput * MinPitchElevator * ! OverSweep;
 	} else {
-		SASpitch = pitchInput * MaxPitchElevator;
+		SASpitch = pitchInput * MaxPitchElevator * ! OverSweep;
 	}
 
 	# Quadratic Law
