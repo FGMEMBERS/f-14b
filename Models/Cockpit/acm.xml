@@ -203,6 +203,90 @@
 		</action>
 	</animation>
 
+	<!-- seam-lock -->
+	<animation>
+		<type>select</type>
+		<object-name>seam-lock-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/seam-lock-light</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>collision-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/collision-light</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>hot-trig-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/hot-trig-light</property>
+		</condition>
+	</animation>
+	<!-- gun-rate -->
+	<animation>
+		<type>select</type>
+		<object-name>gun-rate-high-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/gun-rate-high-light</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>gun-rate-low-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/gun-rate-low-light</property>
+		</condition>
+	</animation>
+	<!-- sw-cool -->
+	<animation>
+		<type>select</type>
+		<object-name>sw-cool-on-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/sw-cool-on-light</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sw-cool-off-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/sw-cool-off-light</property>
+		</condition>
+	</animation>
+	<!-- msl-prep -->
+	<animation>
+		<type>select</type>
+		<object-name>msl-prep-on-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/msl-prep-on-light</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>msl-prep-off-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/msl-prep-off-light</property>
+		</condition>
+	</animation>
+	<!-- mode-stp -->
+	<animation>
+		<type>select</type>
+		<object-name>mode-stp-norm-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/mode-stp-norm-light</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>mode-stp-brsit-light</object-name>
+		<condition>
+			<property>sim/model/f-14b/controls/armament/acm-panel-lights/mode-stp-brsit-light</property>
+		</condition>
+	</animation>
+
+
 
 	<!-- lighting -->
 	<animation> 
@@ -226,23 +310,13 @@
 		</emission>
 	</animation>
 	<animation> 
-		<object-name>master-caution-off</object-name>
+		<object-name>lights-off</object-name>
 		<type>material</type>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.275</red>
 			<green>0.12</green>
 			<blue>0.05</blue>
-		</emission>
-	</animation>
-	<animation> 
-		<object-name>master-caution-on</object-name>
-		<type>material</type>
-		<emission> 
-			<factor-prop>sim/model/f-14b/systems/utilities/numeral-1</factor-prop>
-			<red>1</red>
-			<green>0.85</green>
-			<blue>0.85</blue>
 		</emission>
 	</animation>
 
