@@ -380,6 +380,70 @@
 			</volume>
 		</canopy-close>
 
+		<!-- stall warnings -->
+		<pre-stall>
+			<name>pre-stall</name>
+			<mode>looped</mode>
+			<path>Aircraft/f-14b/Sounds/stall-600-chopped.wav</path>
+			<condition>
+				<greater-than>
+					<property>orientation/alpha-deg</property>
+					<value>18</value>
+				</greater-than>
+				<less-than-equals>
+					<property>orientation/alpha-deg</property>
+					<value>22.5</value>
+				</less-than-equals>
+				<greater-than>
+					<property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+					<value>10</value>
+				</greater-than>
+				<or>
+					<equals>
+						<property>sim/current-view/name</property>
+						<value>Cockpit View</value>
+					</equals>
+					<equals>
+						<property>sim/current-view/name</property>
+						<value>RIO View</value>
+					</equals>
+				</or>
+			</condition>
+			<volume>
+				<factor>0.4</factor>
+			</volume>
+		</pre-stall>
+
+
+		<stall>
+			<name>stall</name>
+			<mode>looped</mode>
+			<path>Aircraft/f-14b/Sounds/stall-600-continue.wav</path>
+			<condition>
+				<greater-than>
+					<property>orientation/alpha-deg</property>
+					<value>22.5</value>
+				</greater-than>
+				<greater-than>
+					<property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+					<value>10</value>
+				</greater-than>
+				<or>
+					<equals>
+						<property>sim/current-view/name</property>
+						<value>Cockpit View</value>
+					</equals>
+					<equals>
+						<property>sim/current-view/name</property>
+						<value>RIO View</value>
+					</equals>
+				</or>
+			</condition>
+			<volume>
+				<factor>0.6</factor>
+			</volume>
+		</stall>
+
 		<!--ACM jettison lever -->
 		<acm-jett-lever-on>
 			<name>acm-jett-lever-on</name>
