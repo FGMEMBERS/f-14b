@@ -5,7 +5,7 @@
 	<sim>
 		<description>Grumman F-14B </description>
 		<author>Enrique Laso</author>
-		<status>early-production</status>
+		<status>production</status>
 
 		<flight-model>yasim</flight-model>
 		<aero>f-14b-yasim</aero>
@@ -246,8 +246,12 @@
 						<intens type="double">1</intens>
 					</hud>
 					<lighting>
-						<index-norm type="double">1</index-norm>
+						<anti-collision-switch type="bool">1</anti-collision-switch>
 						<hook-bypass type="bool">false</hook-bypass><!-- false = carrier -->
+						<index-norm type="double">1</index-norm>
+						<position-tail-switch type="int">1</position-tail-switch>
+						<position-wing-switch type="int">1</position-wing-switch>
+						<position-flash-switch type="bool">false</position-flash-switch>
 					</lighting>
 					<HSD>
 						<brightness type="double">1</brightness>
@@ -342,6 +346,10 @@
 						<master-caution type="bool">0</master-caution>
 					</warnings>
 				</instrumentation>
+				<lighting>
+					<position-wing-factor type="int">0</position-wing-factor>
+					<position-tail-factor type="int">0</position-tail-factor>
+				</lighting>
 				<modeling>
 					<show-canopy type="bool">false</show-canopy>
 				</modeling>
@@ -370,6 +378,10 @@
 						<numeral-1 type="int">1</numeral-1>
 					</utilities>
 				</systems>
+				<wings>
+					<left-wing-torn type="bool">false</left-wing-torn>
+					<right-wing-torn type="bool">false</right-wing-torn>
+				</wings>
 			</f-14b>
 			<livery>
 				<path type="string">RedRippers1</path>
@@ -389,6 +401,10 @@
 				<int n="0" type="int">0</int>    <!-- fuel dump      -->
 				<int n="1" type="int">0</int>    <!-- formation slimmers -->
 				<int n="2" type="int">0</int>    <!-- radar-standby -->
+				<int n="3" type="int">0</int>    <!-- collision lights -->
+				<int n="4" type="int">0</int>    <!-- position lights -->
+				<int n="5" type="int">0</int>    <!-- left wing torn -->
+				<int n="6" type="int">0</int>    <!-- right wing torn -->
 			</generic>
 		</multiplay>
 
