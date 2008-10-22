@@ -215,7 +215,7 @@
 		</bottom-right>
 	</panel>
 
-	<!-- Hotspots-Pilot's Console Right -->
+	<!-- Hotspots-Pilot's Console Right
 	<panel>
 		<name>hotspot-pilot-console-R</name>
 		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-console-R.xml</path>
@@ -234,7 +234,7 @@
 			<y-m>0.6254</y-m>
 			<z-m>-0.3698</z-m>
 		</bottom-right>
-	</panel>
+	</panel> -->
 
 
 	<model>
@@ -269,81 +269,16 @@
 <!-- ******************************************************************* -->
 <!-- Lighting                                                            -->
 <!-- ******************************************************************* -->
-
-
-<!-- Billboard lights -->
-
-	<animation>
-		<type>select</type>
-		<object-name>LWingSlimmer</object-name>
-		<object-name>RWingSlimmer</object-name>
-		<object-name>FuselageSlimmers</object-name>
-		<condition>
-			<property>/controls/lighting/nav-lights</property>
-		</condition>
-	</animation>
-
 	<model>
-		<name>Chin Light</name>
-		<path>Aircraft/f-14b/Models/chinLight.xml</path>
+		<path>Aircraft/f-14b/Models/lighting.xml</path>
 		<offsets>
-			<x-m>-7.664</x-m>
-			<y-m>0.0</y-m>
-			<z-m>-1.725</z-m>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
 		</offsets>
 	</model>
 
-	<model>
-		<name>LeftWingLight</name>
-		<path>Aircraft/f-14b/Models/redLight.xml</path>
-		<offsets>
-			<x-m>2.948</x-m>
-			<y-m>-9.060</y-m>
-			<z-m>-0.689</z-m>
-		</offsets>
-	</model>
 
-	<model>
-		<name>RightWingLight</name>
-		<path>Aircraft/f-14b/Models/greenLight.xml</path>
-		<offsets>
-		<x-m>2.948</x-m>
-		<y-m>9.060</y-m>
-		<z-m>-0.689</z-m>
-		</offsets>
-	</model>
-
-	<model>
-		<name>leftColLight</name>
-		<path>Aircraft/f-14b/Models/redLight.xml</path>
-		<offsets>
-			<x-m>8.132</x-m>
-			<y-m>-1.685</y-m>
-			<z-m>1.905</z-m>
-		</offsets>
-	</model>
-
-	<model>
-		<name>aftPosLight</name>
-		<path>Aircraft/f-14b/Models/whiteLight.xml</path>
-		<offsets>
-			<x-m>9.117</x-m>
-			<y-m>-1.685</y-m>
-			<z-m>1.693</z-m>
-		</offsets>
-	</model>
-
-	<model>
-		<name>leftColLight</name>
-		<path>Aircraft/f-14b/Models/redLight.xml</path>
-		<offsets>
-			<x-m>9.072</x-m>
-			<y-m>1.704</y-m>
-			<z-m>1.919</z-m>
-		</offsets>
-	</model>
-
-	<!-- formation lights -->
 	<animation>
 		<object-name>Slimmers</object-name>
 		<type>material</type>
@@ -354,6 +289,7 @@
 				<blue>0.078</blue>
 			</emission>
 	</animation>
+
 <!-- ******************************************************************* -->
 <!-- fuselage animations                                                 -->
 <!-- ******************************************************************* -->
@@ -400,7 +336,7 @@
 		<object-name>Spoiler4</object-name>  
 		<object-name>LeftWingLight</object-name>
 		<object-name>LWingSlimmer</object-name>
-		<property>sim/multiplay/generic/float[0]</property>
+		<property>surface-positions/wing-pos-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
 			<entry><ind>1</ind><dep>49</dep></entry>
@@ -438,7 +374,7 @@
 		<object-name>Spoiler4</object-name>  
 		<object-name>LeftWingLight</object-name>
 		<object-name>LWingSlimmer</object-name>
-		<property>/f-14/wing-bend</property>
+		<property>surface-positions/wing-fold-pos-norm</property>
 		<factor>-7.0</factor>
 		<center>
 			<x-m>1.247</x-m>
@@ -474,7 +410,7 @@
 		<object-name>LWingSlimmer</object-name>
 		<condition>
 			<not>
-				<property>/f-14/left-wing-torn</property>
+				<property>sim/multiplay/generic/int[5]</property>
 			</not>
 		</condition>
 	</animation>
@@ -501,7 +437,7 @@
 		<object-name>Spoiler4.001</object-name> 
 		<object-name>RightWingLight</object-name>
 		<object-name>RWingSlimmer</object-name>
-		<property>sim/multiplay/generic/float[0]</property>
+		<property>surface-positions/wing-pos-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
 			<entry><ind>1</ind><dep>-49</dep></entry>
@@ -539,7 +475,7 @@
 		<object-name>Spoiler4.001</object-name> 
 		<object-name>RightWingLight</object-name>
 		<object-name>RWingSlimmer</object-name>
-		<property>/f-14/wing-bend</property>
+		<property>surface-positions/wing-fold-pos-norm</property>
 		<factor>7.0</factor>
 		<center>
 			<x-m>1.247</x-m>
@@ -576,7 +512,7 @@
 		<object-name>RWingSlimmer</object-name>
 		<condition>
 			<not>
-				<property>/f-14/right-wing-torn</property>
+				<property>sim/multiplay/generic/int[6]</property>
 			</not>
 			</condition>
 	</animation>
@@ -1479,27 +1415,6 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>FwdNsGrDoor.001</object-name>
-		<property>gear/gear[0]/position-norm</property>
-		<interpolation>
-			<entry><ind>0</ind><dep>0</dep></entry>
-			<entry><ind>0.2</ind><dep>-90</dep></entry>
-			<entry><ind>1</ind><dep>-90</dep></entry>
-		</interpolation>
-		<center>
-			<x-m>-5.858</x-m>
-			<y-m>0.295</y-m>
-			<z-m>-1.407</z-m>
-		</center>
-		<axis>
-			<x>-1.138</x>
-			<y>0.098</y>
-			<z>0.015</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
 		<object-name>FwdNsGrDoor</object-name>
 		<property>gear/gear[0]/position-norm</property>
 		<interpolation>
@@ -1521,11 +1436,33 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>FwdNsGrDoor.001</object-name>
+		<property>gear/gear[0]/position-norm</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>0.2</ind><dep>-90</dep></entry>
+			<entry><ind>1</ind><dep>-90</dep></entry>
+		</interpolation>
+		<center>
+			<x-m>-5.858</x-m>
+			<y-m>0.295</y-m>
+			<z-m>-1.407</z-m>
+		</center>
+		<axis>
+			<x>-1.138</x>
+			<y>0.098</y>
+			<z>0.015</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
 		<object-name>MidNsGrDoor</object-name>
 		<property>gear/gear[0]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
-			<entry><ind>0.2</ind><dep>90</dep></entry>
+			<entry><ind>0.1</ind><dep>0</dep></entry>
+			<entry><ind>0.3</ind><dep>90</dep></entry>
 			<entry><ind>1</ind><dep>90</dep></entry>
 		</interpolation>
 		<center>
@@ -1546,8 +1483,9 @@
 		<property>gear/gear[0]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
-			<entry><ind>0.2</ind><dep>90</dep></entry>
-			<entry><ind>1</ind><dep>90</dep></entry>
+			<entry><ind>0.1</ind><dep>0</dep></entry>
+			<entry><ind>0.3</ind><dep>-90</dep></entry>
+			<entry><ind>1</ind><dep>-90</dep></entry>
 		</interpolation>
 		<center>
 			<x-m>-4.879</x-m>
