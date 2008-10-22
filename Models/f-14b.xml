@@ -525,7 +525,7 @@
 		<object-name>CanvasSeal.005</object-name>
 		<condition>
 			<less-than-equals>
-				<property>/surface-positions/wing-sweep</property>
+				<property>surface-positions/wing-pos-norm</property>
 				<value>0.1</value>
 			</less-than-equals>
 		</condition>
@@ -537,11 +537,11 @@
 		<object-name>CanvasSeal.004</object-name>
 		<condition>
 			<greater-than>
-				<property>/surface-positions/wing-sweep</property>
+				<property>surface-positions/wing-pos-norm</property>
 				<value>0.1</value>
 			</greater-than>
 			<less-than-equals>
-				<property>/surface-positions/wing-sweep</property>
+				<property>surface-positions/wing-pos-norm</property>
 				<value>0.6</value>
 			</less-than-equals>
 		</condition>
@@ -553,7 +553,7 @@
 		<object-name>CanvasSeal.003</object-name>
 		<condition>
 			<greater-than>
-				<property>/surface-positions/wing-sweep</property>
+				<property>surface-positions/wing-pos-norm</property>
 				<value>0.6</value>
 			</greater-than>
 		</condition>
