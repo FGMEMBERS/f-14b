@@ -4,11 +4,71 @@
 # Utilities 
 #===========================================================================
 
-# strobes ===========================================================
+# Lighting ===========================================================
 
-strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
-aircraft.light.new("sim/model/lighting/strobe", [0.03, 1.9+rand()/5], strobe_switch);
+# Collision lights flasher
+var anti_collision_switch = props.globals.getNode("sim/model/f-14b/controls/lighting/anti-collision-switch");
+aircraft.light.new("sim/model/f-14b/lighting/anti-collision", [0.09, 1.20], anti_collision_switch);
 
+# Navigation lights steady/flash dimmed/bright
+# ------------------------
+var position_flash_sw = props.globals.getNode("sim/model/f-14b/controls/lighting/position-flash-switch");
+var position = aircraft.light.new("sim/model/f-14b/lighting/position", [0.08, 1.15]);
+var sw_pos_prop = props.globals.getNode("sim/model/f-14b/controls/lighting/position-wing-switch", 1);
+var position_intens = 0;
+
+var position_switch = func(n) {
+	var sw_pos = sw_pos_prop.getValue();
+	if (n == 1) {
+		if (sw_pos == 0) {
+			sw_pos_prop.setIntValue(1);
+			position.switch(0);
+			position_intens = 0;
+		} elsif (sw_pos == 1) {
+			sw_pos_prop.setIntValue(2);
+			position.switch(1);
+			position_intens = 6;
+		}
+	} else {
+		if (sw_pos == 2) {
+			sw_pos_prop.setIntValue(1);
+			position.switch(0);
+			position_intens = 0;
+		} elsif (sw_pos == 1) {
+			sw_pos_prop.setIntValue(0);
+			position.switch(1);
+			position_intens = 3;
+		}
+	}	
+}
+var position_flash_switch = func {
+	if (! position_flash_sw.getBoolValue() ) {
+		position_flash_sw.setBoolValue(1);
+		position.blink();
+	} else {
+		position_flash_sw.setBoolValue(0);
+		position.cont();
+	}
+}
+
+var position_flash_init  = func {
+	if (position_flash_sw.getBoolValue() ) {
+		position.blink();
+	} else {
+		position.cont();
+	}
+	var sw_pos = sw_pos_prop.getValue();
+	if (sw_pos == 0 ) {
+		position_intens = 3;
+		position.switch(1);
+	} elsif (sw_pos == 1 ) {
+		position_intens = 0;
+		position.switch(0);
+	} elsif (sw_pos == 2 ) {
+		position_intens = 6;
+		position.switch(1);
+	}
+}
 #============================================================================
 # Flight control system 
 #============================================================================
@@ -47,8 +107,12 @@ var slat_output        = props.globals.getNode("surface-positions/slats-pos-norm
 var left_elev_output   = props.globals.getNode("surface-positions/left-elevator-pos-norm", 1);
 var right_elev_output  = props.globals.getNode("surface-positions/right-elevator-pos-norm", 1);
 var refuel_output      = props.globals.getNode("sim/model/f-14b/refuel/probe-position", 1);
-var sweep_generic      = props.globals.getNode("sim/multiplay/generic/float[0]");
+var lighting_collision = props.globals.getNode("sim/model/f-14b/lighting/anti-collision/state", 1);
+var lighting_position  = props.globals.getNode("sim/model/f-14b/lighting/position/state", 1);
 var radar_standby      = props.globals.getNode("instrumentation/radar/radar-standby");
+var left_wing_torn     = props.globals.getNode("sim/model/f-14b/wings/left-wing-torn");
+var right_wing_torn    = props.globals.getNode("sim/model/f-14b/wings/right-wing-torn");
+
 #var main_flap_generic  = props.globals.getNode("sim/multiplay/generic/float[1]");
 var aux_flap_generic   = props.globals.getNode("sim/multiplay/generic/float[2]");
 var slat_generic       = props.globals.getNode("sim/multiplay/generic/float[3]");
@@ -56,8 +120,12 @@ var left_elev_generic  = props.globals.getNode("sim/multiplay/generic/float[4]")
 var right_elev_generic = props.globals.getNode("sim/multiplay/generic/float[5]");
 var refuel_generic     = props.globals.getNode("sim/multiplay/generic/float[6]");
 var fuel_dump_generic  = props.globals.getNode("sim/multiplay/generic/int[0]");
-# sim/multiplay/generic/int[1] <->     <!-- formation slimmers -->
-var radar_standby_generic = props.globals.getNode("sim/multiplay/generic/int[2]");
+# sim/multiplay/generic/int[1] used by formation slimmers.
+var radar_standby_generic      = props.globals.getNode("sim/multiplay/generic/int[2]");
+var lighting_collision_generic = props.globals.getNode("sim/multiplay/generic/int[3]");
+var lighting_position_generic  = props.globals.getNode("sim/multiplay/generic/int[4]");
+var left_wing_torn_generic     = props.globals.getNode("sim/multiplay/generic/int[5]");
+var right_wing_torn_generic    = props.globals.getNode("sim/multiplay/generic/int[6]");
 
 var toggleAccess = func {
 	if (DoorsTargetPosition == 0.0) DoorsTargetPosition = 1.0;
@@ -212,11 +280,10 @@ var timedMotions = func {
 	setprop ("engines/engine[1]/nozzle-pos-norm", Nozzle2);
 	setprop ("canopy/position-norm", DoorsPosition);
 	setprop ("sim/model/f-14b/refuel/probe-position", RefuelProbePosition);
-	setprop ("surface-positions/wing-sweep", currentSweep);
+	setprop ("surface-positions/wing-pos-norm", currentSweep);
 	setprop ("controls/flight/wing-sweep", WingSweep);
 
 	# Copy surfaces animations properties so they are transmited via multiplayer.
-	sweep_generic.setDoubleValue(currentSweep);
 	#main_flap_generic.setDoubleValue(main_flap_output.getValue());
 	aux_flap_generic.setDoubleValue(aux_flap_output.getValue());
 	slat_generic.setDoubleValue(slat_output.getValue());
@@ -224,7 +291,10 @@ var timedMotions = func {
 	right_elev_generic.setDoubleValue(right_elev_output.getValue());
 	refuel_generic.setDoubleValue(refuel_output.getValue());
 	radar_standby_generic.setIntValue(radar_standby.getValue());
-
+	lighting_collision_generic.setIntValue(lighting_collision.getValue());
+	lighting_position_generic.setIntValue(lighting_position.getValue() * position_intens);
+	left_wing_torn_generic.setIntValue(left_wing_torn.getValue());
+	right_wing_torn_generic.setIntValue(right_wing_torn.getValue());
 }
 
 
@@ -272,13 +342,16 @@ var updateBurner = func {
 	Burner +=1;
 	if (Burner == 3) Burner = 0;
 	setprop ("f-14/burner", Burner); 
-	registerBurner ();
+	registerBurner();
 }
 
 var startProcess = func {
 	settimer (updateFCS, 1.0);
 	settimer (updateBurner, 1.0);
 	#aircraft.livery.init("Aircraft/f-14b/Models/Liveries", "sim/model/livery/name", "sim/model/livery/index");
+	position_flash_init();
 }
 
 setlistener("/sim/signals/fdm-initialized", startProcess);
+
+

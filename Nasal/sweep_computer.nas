@@ -18,7 +18,7 @@ var toggleOversweep = func {
 	if ( WOW and ! OverSweep ) {
 		# Flaps/sweep interlock
 		#do not move the wings until auxiliary flaps are in.
-		if (getprop ("/controls/flight/auxFlaps") > 0.05) return;
+		if (getprop ("surface-positions/aux-flap-pos-norm") > 0.05) return;
 		OverSweep = true;
 		AutoSweep = false;
 		WingSweep = 1.2;
@@ -38,7 +38,7 @@ var computeSweep = func {
 		current_mach = getprop ("/velocities/mach");
 		# Flaps/sweep interlock
 		# do not move the wings until auxiliary flaps are in.
-		if (getprop ("/controls/flight/auxFlaps") > 0.05) return;
+		if (getprop ("surface-positions/aux-flap-pos-norm") > 0.05) return;
 		# Sweep vs. Mach motion
 		if (current_mach <= MachLo) {
 			WingSweep = 0.0;

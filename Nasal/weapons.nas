@@ -29,6 +29,10 @@ var master_arm_lever_toggle = func {
 			MasterArmSwitch.setValue( 1 );
 	}
 	MasterArmLever.setBoolValue( ! master_arm_lever );
+	if (master_arm_switch == 2) {
+		MasterArmSwitch.setDoubleValue(1);
+		system_stop();
+	}
 }
 
 var master_arm_switch = func(a) {

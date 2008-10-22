@@ -222,9 +222,13 @@ aircraft.data.add("sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed
 aircraft.data.add("sim/model/f-14b/instrumentation/radar-altimeter/limit-bug");
 
 # Lighting ################
-aircraft.data.add("sim/model/f-14b/controls/lighting/hook-bypass",
+aircraft.data.add(
+	"sim/model/f-14b/controls/lighting/hook-bypass",
 	"controls/lighting/instruments-norm",
-	"controls/lighting/panel-norm");
+	"controls/lighting/panel-norm",
+	"sim/model/f-14b/controls/lighting/anti-collision-switch",
+	"sim/model/f-14b/controls/lighting/position-flash-switch",
+	"sim/model/f-14b/controls/lighting/position-wing-switch");
 
 # HSD #####################
 var hsd_mode_node = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/hsd-mode-nav");
@@ -301,6 +305,11 @@ setlistener("/sim/signals/fdm-initialized", init);
 aircraft.light.new("sim/model/f-14b/lighting/warn-medium-lights-switch", [0.3, 0.2]);
 setprop("sim/model/f-14b/lighting/warn-medium-lights-switch/enabled", 1);
 
+# warning lights fast speed flasher
+# -----------------------------------
+aircraft.light.new("sim/model/f-14b/lighting/warn-fast-lights-switch", [0.1, 0.1]);
+setprop("sim/model/f-14b/controls/lighting/warn-fast-lights-switch/enabled", 1);
+
 # Old Fashioned Radio Button Selector
 # -----------------------------------
 # Where group is the parent node that contains the radio state nodes as children.
@@ -308,7 +317,8 @@ setprop("sim/model/f-14b/lighting/warn-medium-lights-switch/enabled", 1);
 radio_bt_sel = func(group, which) {
 	foreach (var n; props.globals.getNode(group).getChildren()) {
 		n.setBoolValue(n.getName() == which);
-		#var toto = n.getName();print(toto);
 	}
 }
+
+
 

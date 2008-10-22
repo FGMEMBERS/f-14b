@@ -35,8 +35,8 @@ var fixAirframe = func {
 	MinGreached = 0.0;
 	ResidualBend = 0.0;
 	FailureAileron =0.0;
-	setprop ("f-14/left-wing-torn", LeftWingTorn);
-	setprop ("f-14/right-wing-torn", RightWingTorn);
+	setprop ("sim/model/f-14b/wings/left-wing-torn", LeftWingTorn);
+	setprop ("sim/model/f-14b/wings/right-wing-torn", RightWingTorn);
 }
 
 var computeWingBend = func {
@@ -65,8 +65,8 @@ var computeWingBend = func {
 			}
 		}
 		FailureAileron = RightWingTorn - LeftWingTorn;
-		setprop ("f-14/left-wing-torn", LeftWingTorn);
-		setprop ("f-14/right-wing-torn", RightWingTorn);
+		setprop ("sim/model/f-14b/wings/left-wing-torn", LeftWingTorn);
+		setprop ("sim/model/f-14b/wings/right-wing-torn", RightWingTorn);
 	}
 	if (CurrentIAS > FlutterOnsetIAS) {
 		currentAmplitude = math.sin (FlutterPulsation * FlutterTime);
@@ -83,7 +83,7 @@ var computeWingBend = func {
 		flutterBend = 0.0;
 	}
 	WingBend = ResidualBend + currentG * BendFactor + flutterBend;
-	setprop ("f-14/wing-bend", WingBend);
+	setprop ("surface-positions/wing-fold-pos-norm", WingBend);
 }
 
 #----------------------------------------------------------------------------
