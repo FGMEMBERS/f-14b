@@ -32,7 +32,7 @@
 			</layers>
 			<actions>
 
-			<!-- Hook Bypass Switch -->
+			<!-- Hook Bypass Switch 
 			<action>
 				<name>panel-wheel-left</name>
 				<button>0</button>
@@ -44,12 +44,12 @@
 					<command>property-toggle</command>
 					<property>sim/model/f-14b/controls/lighting/hook-bypass</property>
 				</binding>
-			</action>
+			</action>-->
 
 
 
 
-			<!-- Panel (Console) Wheel -->
+			<!-- Panel (Console) Wheel 
 			<action>
 				<name>panel-wheel-left</name>
 				<button>0</button>
@@ -76,9 +76,9 @@
 					<property>controls/lighting/instruments-norm</property>
 					<step>0.1</step>
 				</binding>
-			</action>
+			</action>-->
 
-			<!-- Instruments Wheel-->
+			<!-- Instruments Wheel
 			<action>
 				<name>instrument-wheel-left</name>
 				<button>0</button>
@@ -104,9 +104,9 @@
 					<property>controls/lighting/panel-norm</property>
 					<step>0.1</step>
 				</binding>
-			</action>
+			</action>-->
 
-			<!-- Formation Slimmers Wheel-->
+			<!-- Formation Slimmers Wheel
 			<action>
 				<name>formation-light-up</name>
 				<button>0</button>
@@ -135,7 +135,7 @@
 					<step>-1</step>
 					<min>0</min>
 				</binding>
-			</action>
+			</action>-->
 
 
 			</actions>

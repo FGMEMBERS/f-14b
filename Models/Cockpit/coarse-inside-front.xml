@@ -14,6 +14,12 @@
 					<value>Cockpit View</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>RIO View</value>
+				</equals>
+			</not>
 		</condition>
 	</animation>
 

@@ -38,7 +38,7 @@
 	<animation>
 		<type>translate</type>
 		<object-name>index-actual-pos</object-name>
-		<property>surface-positions/wing-sweep</property>
+		<property>surface-positions/wing-pos-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
 			<entry><ind>1</ind><dep>0.0527</dep></entry>
