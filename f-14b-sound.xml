@@ -13,7 +13,7 @@
 					<property>sim/current-view/internal</property>
 				</not>
 				<not>
-					<property>engines/engine/out-of-fuel</property>
+					<property>engines/engine[0]/out-of-fuel</property>
 				</not>
 			</condition>
 			<orientation>
@@ -25,7 +25,7 @@
 				<outer-gain>0.2</outer-gain>
 			</orientation>
 			<pitch>
-				<property>engines/engine/n1</property>
+				<property>engines/engine[0]/n1</property>
 				<ofset>0.1</ofset>
 				<factor>.001</factor>
 			</pitch>
@@ -42,7 +42,7 @@
 			<mode>looped</mode>
 			<condition>
 				<not>
-					<property>engines/engine/out-of-fuel</property>
+					<property>engines/engine[0]/out-of-fuel</property>
 				</not>
 			</condition>
 			<property>engines/engine[0]/afterburner</property>
@@ -75,7 +75,7 @@
 					<property>sim/current-view/internal</property>
 				</not>
 				<not>
-					<property>engines/engine/out-of-fuel</property>
+					<property>engines/engine[0]/out-of-fuel</property>
 				</not>
 			</condition>
 			<orientation>
@@ -87,7 +87,7 @@
 				<outer-gain>0.5</outer-gain>
 			</orientation>
 			<pitch>
-				<property>engines/engine/n1</property>
+				<property>engines/engine[0]/n1</property>
 				<ofset>0.7</ofset>
 				<factor>.003</factor>
 			</pitch>
@@ -105,7 +105,7 @@
 			<condition>
 				<property>sim/current-view/internal</property>
 				<not>
-					<property>engines/engine/out-of-fuel</property>
+					<property>engines/engine[0]/out-of-fuel</property>
 				</not>
 			</condition>
 			<orientation>
@@ -117,7 +117,7 @@
 				<outer-gain>0.0</outer-gain>
 			</orientation>
 			<pitch>
-				<property>engines/engine/n1</property>
+				<property>engines/engine[0]/n1</property>
 				<ofset>0.1</ofset>
 				<factor>.0016</factor>
 			</pitch>
