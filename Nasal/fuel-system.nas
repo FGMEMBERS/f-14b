@@ -144,7 +144,7 @@ var init_fuel_system = func {
 	neg_g = Neg_g.new(0);
 
 	setlistener("sim/ai/enabled", func(n) { ai_enabled = n.getBoolValue() }, 1);
-	refuelingN = props.initNode("/systems/refuel/contact", 0, "BOOL");
+	refuelingN = props.globals.initNode("/systems/refuel/contact", 0, "BOOL");
 	aimodelsN = props.globals.getNode("ai/models", 1);
 	foreach (var t; props.globals.getNode("systems/refuel", 1).getChildren("type"))
 		types[t.getValue()] = 1;
