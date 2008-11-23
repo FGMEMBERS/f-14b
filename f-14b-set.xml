@@ -165,6 +165,11 @@
 			<line></line>
 			<line>External fuel tanks ?</line>
 			<line>  Menu > Equipment > Fuel and Payload</line>
+			<line></line>
+			<line>__________________________________________________</line>
+			<line></line>
+			<line>UHF1: Located on the pilot's left console, frequency settable but it won't be used as UHF is not</line>
+			<line>supported yet in FG.</line>
 
 		</help>
 
@@ -342,6 +347,11 @@
 						<track-hold-light type="bool">false</track-hold-light>
 						<clsn-light type="bool">false</clsn-light><!--Constant Angle Collision Steering enabled-->
 					</rio-nav-display>
+					<uhf n="[0]">
+						<frequencies>
+							<selected-mhz type="int">225000</selected-mhz>
+						</frequencies>
+					</uhf>
 					<warnings>
 						<master-caution type="bool">0</master-caution>
 					</warnings>
@@ -949,6 +959,9 @@
 		<radar2>
 			<file>Aircraft/Instruments-3d/radar2/radar2.nas</file>
 		</radar2>
+		<!--<radios>
+			<file>Aircraft/f-14b/Nasal/radios.nas</file>
+		</radios>-->
 		<f14>
 			<file>Aircraft/f-14b/Nasal/f14_globals.nas</file>
 			<file>Aircraft/f-14b/Nasal/flaps_computer.nas</file>
@@ -964,8 +977,8 @@
 			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
 			<file>Aircraft/f-14b/Nasal/fuel-system.nas</file>
 			<file>Aircraft/f-14b/Nasal/f14_radar.nas</file>
-			<!--<file>Aircraft/f-14b/Nasal/controls.nas</file>-->
-			<!--<file>Aircraft/f-14b/Nasal/display_props.nas</file>-->
+			<!--<file>Aircraft/f-14b/Nasal/controls.nas</file>
+			<file>Aircraft/f-14b/Nasal/display_props.nas</file>-->
 		</f14>
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>

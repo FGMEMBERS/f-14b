@@ -247,6 +247,16 @@
 		</offsets>
 	</model>
 
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/an-arc-159v1.xml</path>
+		<offsets>
+			<x-m>-5.2810</x-m>
+			<y-m>-0.4125</y-m>
+			<z-m>-0.4910</z-m>
+			<roll-deg>-28</roll-deg>
+		</offsets>
+	</model>
+
 	<!-- Center Instrument Panel -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/acm.xml</path>
