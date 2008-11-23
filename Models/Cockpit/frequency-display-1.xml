@@ -20,7 +20,7 @@
 		<type>select</type>
 		<object-name>UHF-VHF</object-name>
 		<condition>
-				<property>null</property>
+			<property>null</property>
 		</condition>
 	</animation>
 
