@@ -69,7 +69,7 @@ var elev_smooth_factor = 0.1;
 # Elevator Trim
 # -------------
 var MaxTrimRate   = 0.015;
-var TrimIncrement = 0.015;
+var TrimIncrement = 0.0075;
 var CurrentTrim   = 0.0;
 
 var trimUp = func {
