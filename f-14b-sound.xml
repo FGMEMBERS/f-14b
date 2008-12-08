@@ -921,6 +921,22 @@
 			</volume>
 		</tacan-xy-switch-y>
 
+		<an-arc-182v-load-preset> 
+		<name>an-arc-182v-load-preset</name>
+		<mode>once</mode>
+		<path>Aircraft/f-14b/Sounds/record-signal.wav</path>
+		<condition>
+		<equals>
+		<property>sim/model/f-14b/instrumentation/an-arc-182v/load-state</property>
+		<value>1</value>
+		</equals>
+		</condition>
+		<volume> 
+		<factor>0.6</factor>
+		</volume>
+		</an-arc-182v-load-preset>
+
+
 		<!-- External -->
 		<tanks-ground-sound-in> 
 			<name>tanks-ground-sound-in</name>

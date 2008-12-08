@@ -9,7 +9,7 @@
 
 		<flight-model>yasim</flight-model>
 		<aero>f-14b-yasim</aero>
-		<fuel-fraction>0.5</fuel-fraction>
+		<fuel-fraction>0.1</fuel-fraction>
 
 		<systems>
 			<autopilot>
@@ -130,11 +130,15 @@
 				<name>Ctrl-r</name>
 				<desc>Toggles Radar Standby Mode</desc>
 			</key>
+			<key>
+				<name>Ctrl-v</name>
+				<desc>Back to Pilot's View or toggle Pilot's and RIO View.</desc>
+			</key>
 			<line>Autopilot:</line>
-			<line>The main mode is Attitude Hold Mode (Ctrl-t). Other Modes need this main mode activated </line>
-			<line>before being selected. Switching off Attitude Mode disables all other modes. When in Attitude Mode,</line>
-			<line>the autopilot disengages whenever a certain pressure is put on the stick and it reengages</line>
-			<line>when the stick is back in the center position (Try hiting 5 on the numeric keyboard).</line>
+			<line>The main mode is Attitude Hold Mode (Ctrl-t). Other Modes need this main mode activated before being </line>
+			<line>selected. Switching off Attitude Mode disables all other modes. When in Attitude Mode, the autopilot </line>
+			<line>disengages whenever a certain pressure is put on the stick and it reengages when the stick is back in </line>
+			<line>the center position (Try hiting 5 on the numeric keyboard).</line>
 			<line>Attitude Hold Mode will hold pitch attitudes up to +/- 30° and bank angles up to +/- 60°.</line>
 			<line>It shall be switched off for acrobatics and inverted flight... and it is still on beta test.</line>
 			<line></line>
@@ -151,9 +155,7 @@
 			<line></line>
 			<line>Autopilot need SAS channels to be engaged (which is the default). SAS Pitch and Roll channels may be</line>
 			<line>disengaged by actuating switches located on the AFCS panel.</line>
-			<line></line>
 			<line>__________________________________________________</line>
-			<line></line>
 			<line>Landing Automatic Power Control (APC) Operation:</line>
 			<line>The APC is a closed loop system that automaticaly regulates basic engine thrust to maintain the</line>
 			<line>aircraft at an optimum approach angle of attack for landing.</line>
@@ -162,14 +164,19 @@
 			<line>Type "a" to toggle the APC on/off. APC is also disengaged by setting the throttles to MIL (98% rpm)</line>
 			<line>or iddle (68% rpm) or raising the landig gear handle or when weight on wheels.</line> 
 			<line>When disengaged the AUTO THROT caution light (on the left side of the HUD) illuminates for 10 seconds.</line>
-			<line></line>
+			<line>__________________________________________________</line>
 			<line>External fuel tanks ?</line>
 			<line>  Menu > Equipment > Fuel and Payload</line>
-			<line></line>
 			<line>__________________________________________________</line>
+			<line>FUEL: First time you fly the f-14b, the tanks have a 10% level. When exiting the level will be stored for</line>
+			<line>the next session. However when reseting Flightgear, the stored level can be lost. </line>
+			<line>__________________________________________________</line>
+			<line>VHF: Located on the RIO's left console, 3 bands: 30-88 Mhz, 108-174 Mhz,225-400 Mhz. Modes TR and TR-G set COMM1.</line>
+			<line>Mode DF sets NAV1, that is Direction Finder displayed with the single needle in both BDHIs. You have Comm *or* DF.</line>
+			<line>Storing frequencies (up to 20 channels) a- PRESET select the desired chan, b- READ tune the desired frequency,</line>
+			<line>c- LOAD stores the frequency in the previously selected chan.</line>
+			<line>UHF: Located on the pilot's left console, 225-400 Mhz. Not used yet</line>
 			<line></line>
-			<line>UHF1: Located on the pilot's left console, frequency settable but it won't be used as UHF is not</line>
-			<line>supported yet in FG.</line>
 
 		</help>
 
@@ -206,6 +213,22 @@
 
 		<model>
 			<path>Aircraft/f-14b/Models/f-14b.xml</path>
+			<livery-side1>
+				<file type="string">checkmates</file>
+				<index type="int">0</index>
+			</livery-side1>
+			<livery-side2>
+				<file type="string">checkmates</file>
+				<index type="int">0</index>
+			</livery-side2>
+			<livery-topbottom1>
+				<file type="string">checkmates</file>
+				<index type="int">0</index>
+			</livery-topbottom1>
+			<livery-topbottom2>
+				<file type="string">checkmates</file>
+				<index type="int">0</index>
+			</livery-topbottom2>
 			<f-14b>
 				<controls>
 					<AFCS>
@@ -305,6 +328,39 @@
 					<airspeed-indicator>
 						<safe-speed-limit-bug type="double">830</safe-speed-limit-bug>
 					</airspeed-indicator>
+					<an-arc-182v>
+						<frequencies>
+							<selected-mhz type="int">115800</selected-mhz>
+						</frequencies>
+						<preset type="int">0</preset>
+						<presets>
+							<frequency n="0" type="double">115.80</frequency><!-- KSFO ATIS VOR-DME--> 
+							<frequency n="1" type="double">120.50</frequency><!-- KSFO TWR -->
+							<frequency n="2" type="double">124.17</frequency><!-- KNUQ ATIS -->
+							<frequency n="3" type="double">119.55</frequency><!-- KNUQ TWR -->
+							<frequency n="4" type="double">120.15</frequency><!-- KNID TWR -->
+							<frequency n="5" type="double">132.55</frequency><!-- KLSV TWR -->
+							<frequency n="6" type="double">0.0</frequency>
+							<frequency n="7" type="double">0.0</frequency>
+							<frequency n="8" type="double">0.0</frequency>
+							<frequency n="9" type="double">0.0</frequency>
+							<frequency n="10" type="double">0.0</frequency>
+							<frequency n="11" type="double">0.0</frequency>
+							<frequency n="12" type="double">0.0</frequency>
+							<frequency n="13" type="double">0.0</frequency>
+							<frequency n="14" type="double">0.0</frequency>
+							<frequency n="15" type="double">0.0</frequency>
+							<frequency n="16" type="double">0.0</frequency>
+							<frequency n="17" type="double">0.0</frequency>
+							<frequency n="18" type="double">0.0</frequency>
+							<frequency n="19" type="double">399.975</frequency>
+						</presets>
+						<mode type="int">0</mode>
+						<function type="int">3</function>
+						<volume type="double">0.5</volume>
+						<brightness type="double">0.8</brightness>
+						<selected-channel type="int">1</selected-channel>
+					</an-arc-182v>
 					<aoa-indexer>
 						<!-- target = 11.3 deg AoA -->
 						<too-slow-deg>13.7</too-slow-deg>	<!-- target +2.4 deg -->
@@ -393,9 +449,6 @@
 					<right-wing-torn type="bool">false</right-wing-torn>
 				</wings>
 			</f-14b>
-			<livery>
-				<path type="string">RedRippers1</path>
-			</livery>
 		</model>
 
 		<multiplay>
@@ -534,8 +587,8 @@
 				<x-offset-m archive="y">0.0</x-offset-m>
 				<y-offset-m archive="y">0.43</y-offset-m>
 				<z-offset-m archive="y">-3.58</z-offset-m>
-				<pitch-offset-deg>-12</pitch-offset-deg>
-				<default-field-of-view-deg>55</default-field-of-view-deg>
+				<pitch-offset-deg>-23</pitch-offset-deg>
+				<default-field-of-view-deg>57</default-field-of-view-deg>
 				<limits>
 					<enabled type="bool">true</enabled>
 					<left>
@@ -693,6 +746,7 @@
 		<flight>
 			<ground-spoilers-armed type="bool"> false </ground-spoilers-armed>
 			<fake>0.0</fake>
+			<DLC-engaged type="bool">false</DLC-engaged>
 		</flight>
 		<gear>
 			<!-- Start with the Parking Brake on -->
@@ -780,6 +834,15 @@
 				<binding>
 					<command>nasal</command>
 					<script>f14_afcs.afcs_engage_toggle()</script>
+				</binding>
+			</key>
+
+			<key n="22">
+				<name>Ctrl-v</name>
+				<desc>Select pilot's view (view 0) or toggle between pilot's and RIO's view</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14.toggle_cockpit_views();</script>
 				</binding>
 			</key>
 
@@ -950,6 +1013,12 @@
 			<enabled type="bool">true</enabled>			
 			<on-off type="bool">true</on-off>
 		</ecm>
+		<nav>
+			<frequencies>
+				<selected-freq type="double">115.8</selected-freq>
+				<standby-freq type="double">115.8</standby-freq>
+			</frequencies>
+		</nav>
 	</instrumentation>
 
 	<nasal>
@@ -959,10 +1028,11 @@
 		<radar2>
 			<file>Aircraft/Instruments-3d/radar2/radar2.nas</file>
 		</radar2>
-		<!--<radios>
-			<file>Aircraft/f-14b/Nasal/radios.nas</file>
-		</radios>-->
+		<an_arc_182v>
+			<file>Aircraft/f-14b/Nasal/an-arc-182v.nas</file>
+		</an_arc_182v>
 		<f14>
+			<file>Aircraft/f-14b/Nasal/liveries.nas</file>
 			<file>Aircraft/f-14b/Nasal/f14_globals.nas</file>
 			<file>Aircraft/f-14b/Nasal/flaps_computer.nas</file>
 			<file>Aircraft/f-14b/Nasal/drag_computer.nas</file>   
@@ -977,7 +1047,7 @@
 			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
 			<file>Aircraft/f-14b/Nasal/fuel-system.nas</file>
 			<file>Aircraft/f-14b/Nasal/f14_radar.nas</file>
-			<!--<file>Aircraft/f-14b/Nasal/controls.nas</file>
+			<!--
 			<file>Aircraft/f-14b/Nasal/display_props.nas</file>-->
 		</f14>
 		<f14_hud>
