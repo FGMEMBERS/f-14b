@@ -7,6 +7,7 @@
 # control on approach
 #----------------------------------------------------------------------------
 
+
 # Constants
 var MaxFlightSpoilers = 0.7;
 var SpoilersMinima = 0.0;
@@ -16,26 +17,28 @@ var SpoilersMinima = 0.0;
 var toggleDLC = func {
 	if (!DLCactive and (getprop ("/controls/flight/flapscommand") >= FlapsToLdg)) {
 		DLCactive = true;
-		setprop("/controls/flight/DLC", 0.3);
+		DLC_Engaged.setBoolValue(1);
+		setprop("controls/flight/DLC", 0.3);
 	} else {
 		DLCactive = false;
-		setprop("/controls/flight/DLC", 0.0);
+		DLC_Engaged.setBoolValue(0);
+		setprop("controls/flight/DLC", 0.0);
 	}
 }
 
 var toggleGroundSpoilers = func {
-	if (getprop ("/controls/flight/ground-spoilers-armed")) {
-		setprop ("/controls/flight/ground-spoilers-armed", false);
+	if (getprop ("controls/flight/ground-spoilers-armed")) {
+		setprop ("controls/flight/ground-spoilers-armed", false);
 	} else {
-		setprop ("/controls/flight/ground-spoilers-armed", true);
+		setprop ("controls/flight/ground-spoilers-armed", true);
 	}
 }
 
 var computeSpoilers = func {
 
-	var rollCommand = - getprop ("/controls/flight/aileron");
+	var rollCommand = - getprop ("controls/flight/aileron");
 	var DLC = 0.0;
-	var groundSpoilersArmed = getprop ("/controls/flight/ground-spoilers-armed");
+	var groundSpoilersArmed = getprop ("controls/flight/ground-spoilers-armed");
 
 	# Compute a bias to reduce spoilers extension from full extension at sweep = 20deg
 	# to no extension past 56 deg
@@ -60,7 +63,7 @@ var computeSpoilers = func {
 			RightSpoilersTarget = 1.0 * wingSweepBias;
 			InnerLeftSpoilersTarget = 1.0 * wingSweepBias; 
 			InnerRightSpoilersTarget = 1.0 * wingSweepBias;
-			setprop ("/controls/flight/yasim-spoilers", 1.0 * wingSweepBias);
+			setprop ("controls/flight/yasim-spoilers", 1.0 * wingSweepBias);
 			return;
 		}
 	}
@@ -75,12 +78,12 @@ var computeSpoilers = func {
 	if (WingSweep > 0.05) {
 		DLC = 0.0; # TODO: add a condition on weight on wheels
 	} else {
-		DLC = getprop("/controls/flight/DLC")
+		DLC = getprop("controls/flight/DLC")
 	}
 
 	#spoilers are depressed -4 degrees when flaps are out
-	if (getprop ("/controls/flight/flapscommand") != nil) {
-		if (getprop ("/controls/flight/flapscommand") == FlapsToLdg) {
+	if (getprop ("controls/flight/flapscommand") != nil) {
+		if (getprop ("controls/flight/flapscommand") == FlapsToLdg) {
 			SpoilersMinima = -0.073;
 		} else {
 			SpoilersMinima = 0.0;
@@ -104,7 +107,7 @@ var computeSpoilers = func {
 		if (InnerLeftSpoilersTarget > MaxFlightSpoilers) InnerLeftSpoilersTarget = MaxFlightSpoilers;
 		if (InnerRightSpoilersTarget > MaxFlightSpoilers) InnerRightSpoilersTarget = MaxFlightSpoilers;
 
-		setprop ("/controls/flight/yasim-spoilers", (InnerRightSpoilersTarget + InnerLeftSpoilersTarget) / 2.0);
+		setprop ("controls/flight/yasim-spoilers", (InnerRightSpoilersTarget + InnerLeftSpoilersTarget) / 2.0);
 
 	}
 }
