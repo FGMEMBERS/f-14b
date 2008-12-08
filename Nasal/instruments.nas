@@ -24,6 +24,7 @@ var vtc_from_flag   = props.globals.getNode("instrumentation/nav[1]/from-flag");
 var vtc_to_flag     = props.globals.getNode("instrumentation/nav[1]/to-flag");
 var vtc_deflection  = props.globals.getNode("instrumentation/nav[1]/heading-needle-deflection");
 var course_radial   = props.globals.getNode("instrumentation/nav[1]/radials/selected-deg");
+aircraft.data.add(course_radial);
 
 # compute the local magnetic deviation #######
 var true_hdg_deg  = props.globals.getNode("orientation/heading-deg");
@@ -127,9 +128,6 @@ var tacan_XYtoggle = func {
 }
 
 
-# Radios
-var com_0 = props.globals.getNode("instrumentation/comm/frequencies/selected-mhz");
-var com_1 = props.globals.getNode("instrumentation/comm[1]/frequencies/selected-mhz");
 
 # Save fuel state ###############
 var bingo      = props.globals.getNode("sim/model/f-14b/controls/fuel/bingo", 1);
@@ -285,9 +283,9 @@ var init = func {
 	tacan_switch_init();
 	radardist.init();
 	radar2.init();
+	an_arc_182v.init();
 	setprop("controls/switches/radar_init", 0);
 	# properties to be stored
-	aircraft.data.add(com_0, com_1);
 	foreach (var f_tc; tc_freq.getChildren()) {
 		aircraft.data.add(f_tc);
 	}
