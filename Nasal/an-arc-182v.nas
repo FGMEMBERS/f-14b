@@ -1,7 +1,7 @@
 # 30 - 88 Mz
 # 108 - 174 Mz
 # 225 - 400 Mz
-# 28 preset channels
+# 20 preset channels
 
 # Modes:     0= off,
 #            1= T/R,
