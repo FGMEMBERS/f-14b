@@ -32,6 +32,13 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>needle-1</object-name>
+		<condition>
+			<property>instrumentation/nav[0]/in-range</property>
+		</condition>
+	</animation>
+	<animation>
 		<type>rotate</type>
 		<object-name>needle-1</object-name>
 		<property>orientation/heading-magnetic-deg</property>
@@ -46,6 +53,53 @@
 			<z>0</z>
 		</axis>
 	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>needle-1</object-name>
+		<property>instrumentation/nav[0]/heading-deg</property>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/instrumentation/an-arc-182v/mode</property>
+				<value>3</value>
+			</equals>
+		</condition>
+		<center>
+			<x-m>0.0</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>needle-1-off</object-name>
+		<condition>
+			<not>
+				<property>instrumentation/nav[0]/in-range</property>
+			</not>
+		</condition>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>needle-1-off</object-name>
+		<property>orientation/heading-magnetic-deg</property>
+		<center>
+			<x-m>0.0</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 
 	<animation>
 		<type>rotate</type>
@@ -201,6 +255,16 @@
 
 	<animation>
 		<object-name>needle-1</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>needle-1-off</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
