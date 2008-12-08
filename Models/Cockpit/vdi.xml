@@ -384,6 +384,13 @@
 			</equals>
 		</condition>
 	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>dlc</object-name>
+		<condition>
+			<property>controls/flight/DLC-engaged</property>
+		</condition>
+	</animation>
 
 	<animation>
 		<type>select</type>
@@ -419,6 +426,16 @@
 
 	<animation>
 		<object-name>apc</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>dlc</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
