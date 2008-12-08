@@ -427,7 +427,59 @@
 		</offsets>
 	</model>
 
-	<!-- Left Instrument Panel -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/stdby-adi2.xml</path>
+		<offsets>
+			<x-m>-4.2230</x-m>
+			<y-m>-0.3010</y-m>
+			<z-m>0.1031</z-m>
+			<pitch-deg>-12.2</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/frequency-display-1-2.xml</path>
+		<offsets>
+			<x-m>-4.2100</x-m>
+			<y-m>-0.2205</y-m>
+			<z-m>0.0914</z-m>
+			<pitch-deg>-12.2</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/asi2.xml</path>
+		<offsets>
+			<x-m>-4.1957</x-m>
+			<y-m>-0.3474</y-m>
+			<z-m>0.0256</z-m>
+			<pitch-deg>-12.2</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/altimeter2.xml</path>
+		<offsets>
+			<x-m>-4.1957</x-m>
+			<y-m>-0.2530</y-m>
+			<z-m>0.0280</z-m>
+			<pitch-deg>-12.2</pitch-deg>
+		</offsets>
+	</model>
+
+	<!-- Left Console -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/an-arc-182v.xml</path>
+		<offsets>
+			<x-m>-3.7609</x-m>
+			<y-m>-0.3850</y-m>
+			<z-m>-0.3340</z-m>
+			<roll-deg>-23.8</roll-deg>
+		</offsets>
+	</model>
+
+
+	<!-- Right Instrument Panel -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/rio-tid.xml</path>
 		<offsets>
@@ -437,6 +489,17 @@
 			<pitch-deg>-12</pitch-deg>
 		</offsets>
 	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/bdhi2.xml</path>
+		<offsets>
+			<x-m>-4.2018</x-m>
+			<y-m>0.2738</y-m>
+			<z-m>0.0287</z-m>
+			<pitch-deg>-12.2</pitch-deg>
+		</offsets>
+	</model>
+
 
 <!-- ******************************************************************* -->
 <!-- Specials                                                            -->
