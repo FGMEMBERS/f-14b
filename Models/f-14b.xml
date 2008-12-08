@@ -4,12 +4,46 @@
 
 	<path>f14.ac</path>
 
-	<!-- uncomment *one* of those to choose a livery. -->
-	<texture-path>CheckMates/</texture-path>
-	<!--<texture-path>RedRippers1/</texture-path>-->
-	<!--<texture-path>RedRippers2/</texture-path>-->
+	<nasal>
+		<load>
+			var livery_update = aircraft.livery_update.new(
+			"Aircraft/f-14b/Models/Liveries", 10,
+			func { print("f-14b livery update") });
+		</load>
 
+		<unload>
+			livery_update.stop();
+		</unload>
+	</nasal>
 
+	<animation>
+		<type>material</type>
+		<object-name>tex-side1</object-name>
+		<property-base>sim/model/livery-side1</property-base>
+		<texture-prop>texture</texture-prop>
+		<texture>side1.checkmates.rgb</texture>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>tex-side2</object-name>
+		<property-base>sim/model/livery-side2</property-base>
+		<texture-prop>texture</texture-prop>
+		<texture>side2.checkmates.rgb</texture>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>tex-topbottom1</object-name>
+		<property-base>sim/model/livery-topbottom1</property-base>
+		<texture-prop>texture</texture-prop>
+		<texture>topbottom1.checkmates.rgb</texture>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>tex-topbottom2</object-name>
+		<property-base>sim/model/livery-topbottom2</property-base>
+		<texture-prop>texture</texture-prop>
+		<texture>topbottom2.checkmates.rgb</texture>
+	</animation>
 <!-- ******************************************************************* -->
 <!-- FX                                                                  -->
 <!-- ******************************************************************* -->
@@ -324,22 +358,22 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Wing</object-name>  
-		<object-name>Slat1</object-name>
-		<object-name>Slat2</object-name>
-		<object-name>Flap1</object-name>
-		<object-name>Flap2</object-name>
-		<object-name>Flap3</object-name>
-		<object-name>Flap1Brow</object-name>
-		<object-name>Flap2Brow</object-name>
-		<object-name>Flap3Brow</object-name>
-		<object-name>FlapSeal1</object-name>
-		<object-name>FlapSeal2</object-name>
-		<object-name>FlapSeal3</object-name>
-		<object-name>Spoiler1</object-name>
-		<object-name>Spoiler2</object-name>
-		<object-name>Spoiler3</object-name>
-		<object-name>Spoiler4</object-name>  
+		<object-name>WingL</object-name>  
+		<object-name>Slat1L</object-name>
+		<object-name>Slat2L</object-name>
+		<object-name>Flap1L</object-name>
+		<object-name>Flap2L</object-name>
+		<object-name>Flap3L</object-name>
+		<object-name>Flap1BrowL</object-name>
+		<object-name>Flap2BrowL</object-name>
+		<object-name>Flap3BrowL</object-name>
+		<object-name>FlapSeal1L</object-name>
+		<object-name>FlapSeal2L</object-name>
+		<object-name>FlapSeal3L</object-name>
+		<object-name>Spoiler1L</object-name>
+		<object-name>Spoiler2L</object-name>
+		<object-name>Spoiler3L</object-name>
+		<object-name>Spoiler4L</object-name>  
 		<object-name>LeftWingLight</object-name>
 		<object-name>LWingSlimmer</object-name>
 		<property>surface-positions/wing-pos-norm</property>
@@ -362,22 +396,22 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Wing</object-name>  
-		<object-name>Slat1</object-name>
-		<object-name>Slat2</object-name>
-		<object-name>Flap1</object-name>
-		<object-name>Flap2</object-name>
-		<object-name>Flap3</object-name>
-		<object-name>Flap1Brow</object-name>
-		<object-name>Flap2Brow</object-name>
-		<object-name>Flap3Brow</object-name>
-		<object-name>FlapSeal1</object-name>
-		<object-name>FlapSeal2</object-name>
-		<object-name>FlapSeal3</object-name>
-		<object-name>Spoiler1</object-name>
-		<object-name>Spoiler2</object-name>
-		<object-name>Spoiler3</object-name>
-		<object-name>Spoiler4</object-name>  
+		<object-name>WingL</object-name>  
+		<object-name>Slat1L</object-name>
+		<object-name>Slat2L</object-name>
+		<object-name>Flap1L</object-name>
+		<object-name>Flap2L</object-name>
+		<object-name>Flap3L</object-name>
+		<object-name>Flap1BrowL</object-name>
+		<object-name>Flap2BrowL</object-name>
+		<object-name>Flap3BrowL</object-name>
+		<object-name>FlapSeal1L</object-name>
+		<object-name>FlapSeal2L</object-name>
+		<object-name>FlapSeal3L</object-name>
+		<object-name>Spoiler1L</object-name>
+		<object-name>Spoiler2L</object-name>
+		<object-name>Spoiler3L</object-name>
+		<object-name>Spoiler4L</object-name>  
 		<object-name>LeftWingLight</object-name>
 		<object-name>LWingSlimmer</object-name>
 		<property>surface-positions/wing-fold-pos-norm</property>
@@ -396,22 +430,22 @@
 
 	<animation>
 		<type>select</type>
-		<object-name>Wing</object-name>
-		<object-name>Slat1</object-name>
-		<object-name>Slat2</object-name>
-		<object-name>Flap1</object-name>
-		<object-name>Flap2</object-name>
-		<object-name>Flap3</object-name>
-		<object-name>Flap1Brow</object-name>
-		<object-name>Flap2Brow</object-name>
-		<object-name>Flap3Brow</object-name>
-		<object-name>FlapSeal1</object-name>
-		<object-name>FlapSeal2</object-name>
-		<object-name>FlapSeal3</object-name>
-		<object-name>Spoiler1</object-name>
-		<object-name>Spoiler2</object-name>
-		<object-name>Spoiler3</object-name>
-		<object-name>Spoiler4</object-name>
+		<object-name>WingL</object-name>
+		<object-name>Slat1L</object-name>
+		<object-name>Slat2L</object-name>
+		<object-name>Flap1L</object-name>
+		<object-name>Flap2L</object-name>
+		<object-name>Flap3L</object-name>
+		<object-name>Flap1BrowL</object-name>
+		<object-name>Flap2BrowL</object-name>
+		<object-name>Flap3BrowL</object-name>
+		<object-name>FlapSeal1L</object-name>
+		<object-name>FlapSeal2L</object-name>
+		<object-name>FlapSeal3L</object-name>
+		<object-name>Spoiler1L</object-name>
+		<object-name>Spoiler2L</object-name>
+		<object-name>Spoiler3L</object-name>
+		<object-name>Spoiler4L</object-name>
 		<object-name>LeftWingLight</object-name>
 		<object-name>LWingSlimmer</object-name>
 		<condition>
@@ -425,22 +459,22 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Wing.001</object-name>
-		<object-name>Slat1.001</object-name>
-		<object-name>Slat2.001</object-name>
-		<object-name>Flap1.001</object-name>
-		<object-name>Flap2.001</object-name>
-		<object-name>Flap3.001</object-name>
-		<object-name>Flap1Brow.001</object-name>
-		<object-name>Flap2Brow.001</object-name>
-		<object-name>Flap3Brow.001</object-name>
-		<object-name>FlapSeal1.001</object-name>
-		<object-name>FlapSeal2.001</object-name>
-		<object-name>FlapSeal3.001</object-name>
-		<object-name>Spoiler1.001</object-name>
-		<object-name>Spoiler2.001</object-name>
-		<object-name>Spoiler3.001</object-name>
-		<object-name>Spoiler4.001</object-name> 
+		<object-name>WingR</object-name>
+		<object-name>Slat1R</object-name>
+		<object-name>Slat2R</object-name>
+		<object-name>Flap1R</object-name>
+		<object-name>Flap2R</object-name>
+		<object-name>Flap3R</object-name>
+		<object-name>Flap1BrowR</object-name>
+		<object-name>Flap2BrowR</object-name>
+		<object-name>Flap3BrowR</object-name>
+		<object-name>FlapSeal1R</object-name>
+		<object-name>FlapSeal2R</object-name>
+		<object-name>FlapSeal3R</object-name>
+		<object-name>Spoiler1R</object-name>
+		<object-name>Spoiler2R</object-name>
+		<object-name>Spoiler3R</object-name>
+		<object-name>Spoiler4R</object-name> 
 		<object-name>RightWingLight</object-name>
 		<object-name>RWingSlimmer</object-name>
 		<property>surface-positions/wing-pos-norm</property>
@@ -463,22 +497,22 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Wing.001</object-name>
-		<object-name>Slat1.001</object-name>
-		<object-name>Slat2.001</object-name>
-		<object-name>Flap1.001</object-name>
-		<object-name>Flap2.001</object-name>
-		<object-name>Flap3.001</object-name>
-		<object-name>Flap1Brow.001</object-name>
-		<object-name>Flap2Brow.001</object-name>
-		<object-name>Flap3Brow.001</object-name>
-		<object-name>FlapSeal1.001</object-name>
-		<object-name>FlapSeal2.001</object-name>
-		<object-name>FlapSeal3.001</object-name>
-		<object-name>Spoiler1.001</object-name>
-		<object-name>Spoiler2.001</object-name>
-		<object-name>Spoiler3.001</object-name>
-		<object-name>Spoiler4.001</object-name> 
+		<object-name>WingR</object-name>
+		<object-name>Slat1R</object-name>
+		<object-name>Slat2R</object-name>
+		<object-name>Flap1R</object-name>
+		<object-name>Flap2R</object-name>
+		<object-name>Flap3R</object-name>
+		<object-name>Flap1BrowR</object-name>
+		<object-name>Flap2BrowR</object-name>
+		<object-name>Flap3BrowR</object-name>
+		<object-name>FlapSeal1R</object-name>
+		<object-name>FlapSeal2R</object-name>
+		<object-name>FlapSeal3R</object-name>
+		<object-name>Spoiler1R</object-name>
+		<object-name>Spoiler2R</object-name>
+		<object-name>Spoiler3R</object-name>
+		<object-name>Spoiler4R</object-name> 
 		<object-name>RightWingLight</object-name>
 		<object-name>RWingSlimmer</object-name>
 		<property>surface-positions/wing-fold-pos-norm</property>
@@ -498,22 +532,22 @@
 
 	<animation>
 		<type>select</type>
-		<object-name>Wing.001</object-name>
-		<object-name>Slat1.001</object-name>
-		<object-name>Slat2.001</object-name>
-		<object-name>Flap1.001</object-name>
-		<object-name>Flap2.001</object-name>
-		<object-name>Flap3.001</object-name>
-		<object-name>Flap1Brow.001</object-name>
-		<object-name>Flap2Brow.001</object-name>
-		<object-name>Flap3Brow.001</object-name>
-		<object-name>FlapSeal1.001</object-name>
-		<object-name>FlapSeal2.001</object-name>
-		<object-name>FlapSeal3.001</object-name>
-		<object-name>Spoiler1.001</object-name>
-		<object-name>Spoiler2.001</object-name>
-		<object-name>Spoiler3.001</object-name>
-		<object-name>Spoiler4.001</object-name> 
+		<object-name>WingR</object-name>
+		<object-name>Slat1R</object-name>
+		<object-name>Slat2R</object-name>
+		<object-name>Flap1R</object-name>
+		<object-name>Flap2R</object-name>
+		<object-name>Flap3R</object-name>
+		<object-name>Flap1BrowR</object-name>
+		<object-name>Flap2BrowR</object-name>
+		<object-name>Flap3BrowR</object-name>
+		<object-name>FlapSeal1R</object-name>
+		<object-name>FlapSeal2R</object-name>
+		<object-name>FlapSeal3R</object-name>
+		<object-name>Spoiler1R</object-name>
+		<object-name>Spoiler2R</object-name>
+		<object-name>Spoiler3R</object-name>
+		<object-name>Spoiler4R</object-name> 
 		<object-name>RightWingLight</object-name>
 		<object-name>RWingSlimmer</object-name>
 		<condition>
@@ -573,7 +607,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Spoiler1</object-name>
+		<object-name>Spoiler1L</object-name>
 		<property>surface-positions/left-spoilers</property>
 		<factor>55</factor>
 		<center>
@@ -590,7 +624,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Spoiler2</object-name>
+		<object-name>Spoiler2L</object-name>
 		<property>surface-positions/left-spoilers</property>
 		<factor>55</factor>
 		<center>
@@ -607,7 +641,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Spoiler3</object-name>
+		<object-name>Spoiler3L</object-name>
 		<property>surface-positions/inner-left-spoilers</property>
 		<factor>55</factor>
 		<center>
@@ -624,7 +658,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Spoiler4</object-name>
+		<object-name>Spoiler4L</object-name>
 		<property>surface-positions/inner-left-spoilers</property>
 		<factor>55</factor>
 		<center>
@@ -642,7 +676,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Spoiler1.001</object-name>
+		<object-name>Spoiler1R</object-name>
 		<property>surface-positions/right-spoilers</property>
 		<factor>-55</factor>
 		<center>
@@ -659,7 +693,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Spoiler2.001</object-name>
+		<object-name>Spoiler2R</object-name>
 		<property>surface-positions/right-spoilers</property>
 		<factor>-55</factor>
 		<center>
@@ -676,7 +710,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Spoiler3.001</object-name>
+		<object-name>Spoiler3R</object-name>
 		<property>surface-positions/inner-right-spoilers</property>
 		<factor>-55</factor>
 		<center>
@@ -693,7 +727,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Spoiler4.001</object-name>
+		<object-name>Spoiler4R</object-name>
 		<property>surface-positions/inner-right-spoilers</property>
 		<factor>-55</factor>
 		<center>
@@ -749,7 +783,7 @@
 
  <animation>
   <type>rotate</type>
-  <object-name>Stabilator</object-name>
+  <object-name>StabilatorL</object-name>
   <property>sim/multiplay/generic/float[4]</property>
   <factor>25.0</factor>
   <center>
@@ -766,7 +800,7 @@
 
  <animation>
   <type>rotate</type>
-  <object-name>Stabilator.001</object-name>
+  <object-name>StabilatorR</object-name>
   <property>sim/multiplay/generic/float[5]</property>
   <factor>25.0</factor>
   <center>
@@ -785,9 +819,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap1</object-name>
-		<object-name>Flap1Brow</object-name>
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>Flap1L</object-name>
+		<object-name>Flap1BrowL</object-name>
 		<property>surface-positions/flap-pos-norm</property>
 		<factor>35</factor>
 		<center>
@@ -804,12 +837,11 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>FlapSeal1</object-name>  
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>FlapSeal1L</object-name>  
 		<property>surface-positions/flap-pos-norm</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
-			<entry><ind>1</ind><dep>-10</dep></entry>
+			<entry><ind>1</ind><dep>10</dep></entry>
 		</interpolation>
 		<center>
 			<x-m>3.662</x-m>
@@ -825,8 +857,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap1Brow</object-name>
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>Flap1BrowL</object-name>
 		<property>surface-positions/flap-pos-norm</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
@@ -846,9 +877,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap2</object-name>
-		<object-name>Flap2Brow</object-name>
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>Flap2L</object-name>
+		<object-name>Flap2BrowL</object-name>
 		<property>surface-positions/flap-pos-norm</property>
 		<factor>35</factor>
 		<center>
@@ -865,12 +895,11 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>FlapSeal2</object-name>  
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>FlapSeal2L</object-name>  
 		<property>surface-positions/flap-pos-norm</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
-			<entry><ind>1</ind><dep>-10</dep></entry>
+			<entry><ind>1</ind><dep>10</dep></entry>
 		</interpolation>
 		<center>
 			<x-m>3.205</x-m>
@@ -886,8 +915,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap2Brow</object-name>
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>Flap2BrowL</object-name>
 		<property>surface-positions/flap-pos-norm</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
@@ -907,8 +935,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap3</object-name>
-		<object-name>Flap3Brow</object-name>
+		<object-name>Flap3L</object-name>
+		<object-name>Flap3BrowL</object-name>
 		<property>sim/multiplay/generic/float[2]</property>
 		<factor>35</factor>
 		<center>
@@ -925,11 +953,11 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>FlapSeal3</object-name>  
+		<object-name>FlapSeal3L</object-name>  
 		<property>sim/multiplay/generic/float[2]</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
-			<entry><ind>1</ind><dep>-10</dep></entry>
+			<entry><ind>1</ind><dep>10</dep></entry>
 		</interpolation>
 		<center>
 			<x-m>2.755</x-m>
@@ -945,7 +973,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap3Brow</object-name>
+		<object-name>Flap3BrowL</object-name>
 		<property>sim/multiplay/generic/float[2]</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
@@ -965,9 +993,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap1.001</object-name>
-		<object-name>Flap1Brow.001</object-name>
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>Flap1R</object-name>
+		<object-name>Flap1BrowR</object-name>
 		<property>surface-positions/flap-pos-norm</property>
 		<factor>-35</factor>
 		<center>
@@ -984,12 +1011,11 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>FlapSeal1.001</object-name>  
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>FlapSeal1R</object-name>  
 		<property>surface-positions/flap-pos-norm</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
-			<entry><ind>1</ind><dep>10</dep></entry>
+			<entry><ind>1</ind><dep>-10</dep></entry>
 		</interpolation>
 		<center>
 			<x-m>3.662</x-m>
@@ -1005,8 +1031,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap1Brow.001</object-name>
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>Flap1BrowR</object-name>
 		<property>surface-positions/flap-pos-norm</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
@@ -1026,9 +1051,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap2.001</object-name>
-		<object-name>Flap2Brow.001</object-name>
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>Flap2R</object-name>
+		<object-name>Flap2BrowR</object-name>
 		<property>surface-positions/flap-pos-norm</property>
 		<factor>-35</factor>
 		<center>
@@ -1045,12 +1069,11 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>FlapSeal2.001</object-name>  
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>FlapSeal2R</object-name>  
 		<property>surface-positions/flap-pos-norm</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
-			<entry><ind>1</ind><dep>10</dep></entry>
+			<entry><ind>1</ind><dep>-10</dep></entry>
 		</interpolation>
 		<center>
 			<x-m>3.205</x-m>
@@ -1066,8 +1089,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap2Brow.001</object-name>
-		<!-- <property>sim/multiplay/generic/float[1]</property> -->
+		<object-name>Flap2BrowR</object-name>
 		<property>surface-positions/flap-pos-norm</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
@@ -1087,8 +1109,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap3.001</object-name>
-		<object-name>Flap3Brow.001</object-name>
+		<object-name>Flap3R</object-name>
+		<object-name>Flap3BrowR</object-name>
 		<property>sim/multiplay/generic/float[2]</property>
 		<factor>-35</factor>
 		<center>
@@ -1105,11 +1127,11 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>FlapSeal3.001</object-name>  
+		<object-name>FlapSeal3R</object-name>  
 		<property>sim/multiplay/generic/float[2]</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
-			<entry><ind>1</ind><dep>10</dep></entry>
+			<entry><ind>1</ind><dep>-10</dep></entry>
 		</interpolation>
 		<center>
 			<x-m>2.755</x-m>
@@ -1125,7 +1147,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Flap3Brow.001</object-name>
+		<object-name>Flap3BrowR</object-name>
 		<property>sim/multiplay/generic/float[2]</property>
 		<interpolation>
 			<entry><ind>0.3</ind><dep>0</dep></entry>
@@ -1147,7 +1169,7 @@
  
  <animation>
   <type>translate</type>
-  <object-name>Slat1</object-name>
+  <object-name>Slat1L</object-name>
   <property>sim/multiplay/generic/float[3]</property>
   <factor>0.12</factor>
   <axis>
@@ -1159,7 +1181,7 @@
  
 <animation>
   <type>rotate</type>
-  <object-name>Slat1</object-name>
+  <object-name>Slat1L</object-name>
   <property>sim/multiplay/generic/float[3]</property>
   <factor>12</factor>
   <center>
@@ -1176,7 +1198,7 @@
 
  <animation>
   <type>translate</type>
-  <object-name>Slat1.001</object-name>
+  <object-name>Slat1R</object-name>
   <property>sim/multiplay/generic/float[3]</property>
   <factor>0.12</factor>
   <axis>
@@ -1188,7 +1210,7 @@
  
 <animation>
   <type>rotate</type>
-  <object-name>Slat1.001</object-name>
+  <object-name>Slat1R</object-name>
   <property>sim/multiplay/generic/float[3]</property>
   <factor>-12</factor>
   <center>
@@ -1205,7 +1227,7 @@
 
   <animation>
   <type>translate</type>
-  <object-name>Slat2</object-name>
+  <object-name>Slat2L</object-name>
   <property>sim/multiplay/generic/float[3]</property>
   <factor>0.17</factor>
   <axis>
@@ -1217,7 +1239,7 @@
  
 <animation>
   <type>rotate</type>
-  <object-name>Slat2</object-name>
+  <object-name>Slat2L</object-name>
   <property>sim/multiplay/generic/float[3]</property>
   <factor>12</factor>
   <center>
@@ -1234,7 +1256,7 @@
 
    <animation>
   <type>translate</type>
-  <object-name>Slat2.001</object-name>
+  <object-name>Slat2R</object-name>
   <property>sim/multiplay/generic/float[3]</property>
   <factor>0.17</factor>
   <axis>
@@ -1246,7 +1268,7 @@
  
 <animation>
   <type>rotate</type>
-  <object-name>Slat2.001</object-name>
+  <object-name>Slat2R</object-name>
   <property>sim/multiplay/generic/float[3]</property>
   <factor>-12</factor>
   <center>
@@ -1265,7 +1287,8 @@
 
 <animation>
   <type>rotate</type>
-  <object-name>UpSpdBrk</object-name>
+  <object-name>UpSpdBrk_1</object-name>
+  <object-name>UpSpdBrk_0</object-name>
   <object-name>UpSpdBrkJack</object-name>
   <object-name>UpSpdBrkJack.001</object-name>
   <object-name>UpSpdBrkJack2</object-name>
@@ -1286,11 +1309,16 @@
 
  <animation>
   <type>rotate</type>
-  <object-name>LoSpdBrk</object-name>
+  <object-name>LoSpdBrk_0</object-name>
+  <object-name>LoSpdBrk_1</object-name>
   <object-name>LoSpdBrkJack1</object-name>
   <object-name>LoSpdBrkJack2</object-name>
   <object-name>LoSpdBrkJack11</object-name>
   <object-name>LoSpdBrkJack22</object-name>
+  <object-name>LoSpdBrkJack1.001</object-name>
+  <object-name>LoSpdBrkJack2.001</object-name>
+  <object-name>LoSpdBrkJack11.001</object-name>
+  <object-name>LoSpdBrkJack22.001</object-name>
   <property>surface-positions/speedbrake-pos-norm</property>
   <factor>60</factor>
   <center>
@@ -1305,7 +1333,7 @@
   </axis>
  </animation>
 
-<animation>
+<!--<animation>
   <type>rotate</type>
   <object-name>LoSpdBrk.001</object-name>
   <object-name>LoSpdBrkJack1.001</object-name>
@@ -1324,7 +1352,7 @@
    <y>1.0</y>
    <z>0.0</z>
   </axis>
- </animation>
+ </animation>-->
 
 <!-- ******************************************************************* -->
 <!-- Nose Gear Animations                                                -->
@@ -1421,7 +1449,9 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>FwdNsGrDoor</object-name>
+		<object-name>FwdNsGrDoorL_0</object-name>
+		<object-name>FwdNsGrDoorL_1</object-name>
+		<object-name>FwdNsGrDoorL_2</object-name>
 		<property>gear/gear[0]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -1442,7 +1472,9 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>FwdNsGrDoor.001</object-name>
+		<object-name>FwdNsGrDoorR_0</object-name>
+		<object-name>FwdNsGrDoorR_1</object-name>
+		<object-name>FwdNsGrDoorR_2</object-name>
 		<property>gear/gear[0]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -1463,7 +1495,9 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>MidNsGrDoor</object-name>
+		<object-name>MidNsGrDoorL_0</object-name>
+		<object-name>MidNsGrDoorL_1</object-name>
+		<object-name>MidNsGrDoorL_2</object-name>
 		<property>gear/gear[0]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -1485,7 +1519,9 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>MidNsGrDoor.001</object-name>
+		<object-name>MidNsGrDoorR_0</object-name>
+		<object-name>MidNsGrDoorR_1</object-name>
+		<object-name>MidNsGrDoorR_2</object-name>
 		<property>gear/gear[0]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -1507,7 +1543,9 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.004</object-name>
+		<object-name>Fuselage.004_0</object-name>
+		<object-name>Fuselage.004_1</object-name>
+		<object-name>Fuselage.004_2</object-name>
 		<property>gear/gear[0]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -1673,7 +1711,9 @@
 	<!-- Doors-->
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.002</object-name>
+		<object-name>Fuselage.002_0</object-name>
+		<object-name>Fuselage.002_1</object-name>
+		<object-name>Fuselage.002_2</object-name>
 		<property>gear/gear[1]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -1694,7 +1734,10 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.001</object-name>
+		<object-name>Fuselage.001_0</object-name>
+		<object-name>Fuselage.001_1</object-name>
+		<object-name>Fuselage.001_2</object-name>
+		<object-name>Fuselage.001_3</object-name>
 		<property>gear/gear[1]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -1715,7 +1758,10 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.003</object-name>
+		<object-name>Fuselage.003_0</object-name>
+		<object-name>Fuselage.003_1</object-name>
+		<object-name>Fuselage.003_2</object-name>
+		<object-name>Fuselage.003_3</object-name>
 		<property>gear/gear[1]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -2017,7 +2063,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.008</object-name>
+		<object-name>Fuselage.008_0</object-name>
+		<object-name>Fuselage.008_1</object-name>
 		<property>gear/gear[2]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -2038,7 +2085,9 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.009</object-name>
+		<object-name>Fuselage.009_0</object-name>
+		<object-name>Fuselage.009_1</object-name>
+		<object-name>Fuselage.009_2</object-name>
 		<property>gear/gear[2]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -2059,7 +2108,9 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.010</object-name>
+		<object-name>Fuselage.010_0</object-name>
+		<object-name>Fuselage.010_1</object-name>
+		<object-name>Fuselage.010_2</object-name>
 		<property>gear/gear[2]/position-norm</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
@@ -2356,6 +2407,8 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>Canopy_1</object-name>
+		<object-name>Canopy_2</object-name>
 		<object-name>CanopyInside</object-name>
 		<property>canopy/position-norm</property>
 		<interpolation>
@@ -2376,7 +2429,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Canopy</object-name>
+		<object-name>Canopy_0</object-name>
 		<property>canopy/position-norm</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>0.0</dep></entry>
@@ -2397,7 +2450,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.014</object-name>
+		<object-name>Fuselage.014_0</object-name>
+		<object-name>Fuselage.014_1</object-name>
 		<property>canopy/position-norm</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>0.0</dep></entry>
@@ -2417,7 +2471,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.012</object-name>
+		<object-name>Fuselage.012_0</object-name>
+		<object-name>Fuselage.012_1</object-name>
 		<property>canopy/position-norm</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>0.0</dep></entry>
@@ -2502,7 +2557,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.011</object-name>
+		<object-name>Fuselage.011_0</object-name>
+		<object-name>Fuselage.011_1</object-name>
 		<property>canopy/position-norm</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>0.0</dep></entry>
@@ -2567,7 +2623,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>Fuselage.006</object-name>
+		<object-name>Fuselage.006_0</object-name>
+		<object-name>Fuselage.006_1</object-name>
 		<property>sim/multiplay/generic/float[6]</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>0.0</dep></entry>
