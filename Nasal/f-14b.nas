@@ -138,15 +138,6 @@ var toggleProbe = func {
 }
 
 
-#var switchLivery = func
-
-	#{
-	#texture_index = getprop ("f-14/livery-number");
-	#if (texture_index == 2) texture_index = 0;
-	#else texture_index = texture_index + 1;
-	#setprop ("f-14/livery-number", texture_index);
-	#}
-
 var switchHeatBlur = func {
 	if (getprop ("f-14/heat-blur-on")) setprop ("f-14/heat-blur-on", false);
 	else setprop ("f-14/heat-blur-on", true);
@@ -348,10 +339,30 @@ var updateBurner = func {
 var startProcess = func {
 	settimer (updateFCS, 1.0);
 	settimer (updateBurner, 1.0);
-	#aircraft.livery.init("Aircraft/f-14b/Models/Liveries", "sim/model/livery/name", "sim/model/livery/index");
 	position_flash_init();
 }
 
 setlistener("/sim/signals/fdm-initialized", startProcess);
+
+#----------------------------------------------------------------------------
+# View change: Ctrl-V switchback to view #0 but switch to Rio view when already
+# in view #0.
+#----------------------------------------------------------------------------
+
+var CurrentView_Num = props.globals.getNode("sim/current-view/view-number");
+var rio_view_num = view.indexof("RIO View");
+
+var toggle_cockpit_views = func() {
+	cur_v = CurrentView_Num.getValue();
+	if (cur_v != 0 ) {
+		CurrentView_Num.setValue(0);
+	} else {
+		CurrentView_Num.setValue(rio_view_num);
+	}
+}
+
+
+
+
 
 
