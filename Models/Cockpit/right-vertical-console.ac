@@ -19,7 +19,7 @@ kids 5
 OBJECT poly
 name "steer-man-bt"
 loc 7.35382e-05 -4.00171e-05 -0.0405583
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 0.00620033 -0.0087233
@@ -175,7 +175,7 @@ kids 0
 OBJECT poly
 name "steer-tacan-bt"
 loc -2.21571e-05 -7.30231e-05 0.0405007
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 -0.00883238 0.00604633
@@ -331,7 +331,7 @@ kids 0
 OBJECT poly
 name "steer-awl-bt"
 loc -7.05011e-06 0.000113577 0.000260975
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 0.0105526 -0.00178403
@@ -487,7 +487,7 @@ kids 0
 OBJECT poly
 name "steer-dest-bt"
 loc -2.21673e-05 -4.00171e-05 0.0204002
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 -0.00861599 0.00635086
@@ -643,7 +643,7 @@ kids 0
 OBJECT poly
 name "steer-vec-bt"
 loc -2.21571e-05 3.94806e-05 -0.0206035
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 0.00650097 -0.00850162
@@ -803,7 +803,7 @@ kids 5
 OBJECT poly
 name "mode-to-bt"
 loc 7.35382e-05 0.0405584 -4.0032e-05
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 -0.00635087 -0.00861599
@@ -959,7 +959,7 @@ kids 0
 OBJECT poly
 name "mode-ldg-bt"
 loc -2.21571e-05 -0.0405007 -7.30306e-05
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 0.00850158 0.00650097
@@ -1115,7 +1115,7 @@ kids 0
 OBJECT poly
 name "mode-aa-bt"
 loc -7.05011e-06 -0.000260917 0.000113569
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 0.00160167 -0.0105832
@@ -1271,7 +1271,7 @@ kids 0
 OBJECT poly
 name "mode-ag-bt"
 loc -2.21673e-05 -0.0204002 -4.0032e-05
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 0.00872331 0.00620032
@@ -1427,7 +1427,7 @@ kids 0
 OBJECT poly
 name "mode-cruise-bt"
 loc -2.21571e-05 0.0206035 3.957e-05
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 16
 -0.00379405 -0.00604631 -0.00883237
@@ -1583,7 +1583,7 @@ kids 0
 OBJECT poly
 name "pitch-lad-brt-knob"
 loc 0.00339659 -0.101218 -0.0770183
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 23
 0.0113859 -0.0066701 0.00325919
@@ -2604,7 +2604,7 @@ kids 9
 OBJECT poly
 name "power-vdi-switch"
 loc -0.00157876 -0.0449992 0.0553743
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 17
 -0.0148305 -0.00217402 0.00267185
@@ -2733,7 +2733,7 @@ kids 0
 OBJECT poly
 name "power-hud-switch"
 loc -0.00157876 -0.0449992 0.0131678
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 17
 0.0149146 -6.55651e-06 -3.42131e-05
@@ -2862,7 +2862,7 @@ kids 0
 OBJECT poly
 name "power-hsd-switch"
 loc -0.00157876 -0.0449992 -0.0273788
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 17
 -0.0148305 -0.00217402 0.00267185
@@ -2991,7 +2991,7 @@ kids 0
 OBJECT poly
 name "hsd-ecm-switch"
 loc -0.00157876 -0.00872057 -0.0273788
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 17
 0.0149146 -6.55651e-06 -3.42131e-05
@@ -3120,7 +3120,7 @@ kids 0
 OBJECT poly
 name "hsd-mode-switch"
 loc -0.00157876 -0.00872057 0.0131678
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 17
 -0.0148305 -0.00217402 0.00267185
@@ -3249,7 +3249,7 @@ kids 0
 OBJECT poly
 name "vdi-mode-switch"
 loc -0.00157876 0.0221044 0.0131678
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 17
 0.0149146 -6.55651e-06 -3.42131e-05
@@ -3378,7 +3378,7 @@ kids 0
 OBJECT poly
 name "vdi-awl-switch"
 loc -0.00157876 0.0221044 -0.0273788
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 17
 -0.0148305 -0.00217402 0.00267185
@@ -3507,7 +3507,7 @@ kids 0
 OBJECT poly
 name "hud-awl-switch"
 loc -0.00157876 0.0541149 -0.0273788
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 17
 0.0149146 -6.55651e-06 -3.42131e-05
@@ -3636,7 +3636,7 @@ kids 0
 OBJECT poly
 name "hud-decutter-switch"
 loc -0.00157876 0.0541149 0.0131678
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 17
 -0.0148305 -0.00217402 0.00267185
@@ -4151,7 +4151,7 @@ kids 0
 OBJECT poly
 name "displays-buttons-bkg"
 loc -0.00227734 -0.0191012 0.00807926
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 90
 0.00654004 -0.0720376 -0.0424474
@@ -4928,7 +4928,7 @@ kids 0
 OBJECT poly
 name "elevation-lead-mount"
 loc 0.0054526 -0.144631 -0.00888252
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 180.000000
 numvert 30
 -0.01 0.0287227 -0.112083
@@ -5121,7 +5121,7 @@ kids 0
 OBJECT poly
 name "displays-mount"
 loc 0.0054526 0.000821121 -0.00920244
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 40
 -0.01 0.0501841 -0.0629465
@@ -5478,7 +5478,7 @@ kids 0
 OBJECT poly
 name "displays-buttons-bkg"
 loc -0.00227734 -0.0191012 0.00807926
-texture "displays-control-panel.rgb"
+texture "displays-control-panel.png"
 crease 45.000000
 numvert 160
 -0.00654002 -0.0785245 -0.0424474
