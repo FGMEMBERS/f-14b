@@ -134,6 +134,10 @@
 				<name>Ctrl-v</name>
 				<desc>Back to Pilot's View or toggle Pilot's and RIO View.</desc>
 			</key>
+			<line>Take off:</line>
+			<line>Full Flaps, 100% rpm, rotation @ 150Kts. Depending on the grossweight (fuel) you will have to push slightly</line>
+			<line>on the stick in order to keep a reasonable pitch.</line>
+			<line>__________________________________________________</line>
 			<line>Autopilot:</line>
 			<line>The main mode is Attitude Hold Mode (Ctrl-t). Other Modes need this main mode activated before being </line>
 			<line>selected. Switching off Attitude Mode disables all other modes. When in Attitude Mode, the autopilot </line>
