@@ -9,7 +9,7 @@ kids 5
 OBJECT poly
 name "spoiler-face"
 loc -0.00401912 -0.0420288 0.000388002
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 4
 0 0.0340225 -0.0111346
@@ -346,7 +346,7 @@ kids 0
 OBJECT poly
 name "mount1"
 loc 0.000182736 -0.031608 -0.0134353
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 122
 0.00030227 0.0914833 -0.0160053
@@ -1121,7 +1121,7 @@ kids 8
 OBJECT poly
 name "feed-guard-lever"
 loc -0.00112229 0.066691 0.0012876
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 180.000000
 numvert 32
 0.00453829 -0.0302367 -0.00801598
@@ -1384,7 +1384,7 @@ loc -0.0095096 -0.0106331 0.0643294
 kids 2
 OBJECT poly
 name "qty-sel-switch-down"
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 180.000000
 numvert 16
 0.00497906 -0.0160489 -0.00946759
@@ -1499,7 +1499,7 @@ refs 3
 kids 0
 OBJECT poly
 name "qty-sel-switch-up"
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 180.000000
 numvert 18
 0.00116766 -5.01907e-06 -0.00946759
@@ -1631,7 +1631,7 @@ kids 0
 OBJECT poly
 name "wing-ext-trans-switch"
 loc 0.0031914 0.0388915 -0.050921
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 17
 -0.0125584 0.00224789 0.00218284
@@ -1760,7 +1760,7 @@ kids 0
 OBJECT poly
 name "dump-switch"
 loc 0.00833371 -0.00691437 -0.0503875
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 63.000000
 numvert 32
 0.0138694 -0.00313078 -0.00864767
@@ -1919,7 +1919,7 @@ kids 0
 OBJECT poly
 name "master-reset-button"
 loc -0.0095096 -0.108064 0.0264297
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 21
 0.0102907 0.0497994 -0.0768129
@@ -2078,7 +2078,7 @@ kids 0
 OBJECT poly
 name "refuel-probe-switch"
 loc 0.0114017 -0.0170764 -7.42078e-06
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 67
 -0.00343796 0.00346156 0.000125099
@@ -2479,7 +2479,7 @@ kids 0
 OBJECT poly
 name "antiskid-spoiler-switch"
 loc 0.007657 -0.0588294 0.000118399
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 32
 -0.00516556 0.00296317 0.000138648
@@ -2645,7 +2645,7 @@ kids 0
 OBJECT poly
 name "feed-switch"
 loc -0.007657 0.0588294 -0.000118401
-texture "divs-instr.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 17
 0.012952 0.00021705 0.000327118
@@ -2669,107 +2669,107 @@ numsurf 16
 SURF 0x10
 mat 0
 refs 4
-15 0.402912 0.703933
-7 0.412105 0.665906
-8 0.358579 0.710523
-16 0.361498 0.738429
+15 0.0990856 0.0925651
+7 0.101876 0.0867932
+8 0.0856274 0.0935653
+16 0.0865135 0.097801
 SURF 0x10
 mat 0
 refs 4
-14 0.444332 0.738437
-6 0.465631 0.710523
-7 0.412105 0.665906
-15 0.402912 0.703933
+14 0.111659 0.0978022
+6 0.118125 0.0935653
+7 0.101876 0.0867932
+15 0.0990856 0.0925651
 SURF 0x10
 mat 0
 refs 4
-13 0.461467 0.821765
-5 0.487795 0.818199
-6 0.465631 0.710523
-14 0.444332 0.738437
+13 0.116861 0.11045
+5 0.124854 0.109909
+6 0.118125 0.0935653
+14 0.111659 0.0978022
 SURF 0x10
 mat 0
 refs 4
-12 0.444332 0.905078
-4 0.465631 0.925862
-5 0.487795 0.818199
-13 0.461467 0.821765
+12 0.111659 0.123096
+4 0.118125 0.12625
+5 0.124854 0.109909
+13 0.116861 0.11045
 SURF 0x10
 mat 0
 refs 4
-11 0.402912 0.939585
-3 0.412105 0.970468
-4 0.465631 0.925862
-12 0.444332 0.905078
+11 0.0990856 0.128333
+3 0.101876 0.133021
+4 0.118125 0.12625
+12 0.111659 0.123096
 SURF 0x10
 mat 0
 refs 4
-10 0.361498 0.905063
-2 0.358579 0.925851
-3 0.412105 0.970468
-11 0.402912 0.939585
+10 0.0865135 0.123093
+2 0.0856274 0.126249
+3 0.101876 0.133021
+11 0.0990856 0.128333
 SURF 0x10
 mat 0
 refs 4
-9 0.344351 0.821753
-1 0.336409 0.818187
-2 0.358579 0.925851
-10 0.361498 0.905063
+9 0.0813082 0.110448
+1 0.0788972 0.109907
+2 0.0856274 0.126249
+10 0.0865135 0.123093
 SURF 0x10
 mat 0
 refs 4
-16 0.361498 0.738429
-8 0.358579 0.710523
-1 0.336409 0.818187
-9 0.344351 0.821753
+16 0.0865135 0.097801
+8 0.0856274 0.0935653
+1 0.0788972 0.109907
+9 0.0813082 0.110448
 SURF 0x10
 mat 0
 refs 3
-0 0.412748 0.817945
-8 0.358579 0.710523
-7 0.412105 0.665906
+0 0.102072 0.10987
+8 0.0856274 0.0935653
+7 0.101876 0.0867932
 SURF 0x10
 mat 0
 refs 3
-0 0.412748 0.817945
-7 0.412105 0.665906
-6 0.465631 0.710523
+0 0.102072 0.10987
+7 0.101876 0.0867932
+6 0.118125 0.0935653
 SURF 0x10
 mat 0
 refs 3
-0 0.412748 0.817945
-6 0.465631 0.710523
-5 0.487795 0.818199
+0 0.102072 0.10987
+6 0.118125 0.0935653
+5 0.124854 0.109909
 SURF 0x10
 mat 0
 refs 3
-0 0.412748 0.817945
-5 0.487795 0.818199
-4 0.465631 0.925862
+0 0.102072 0.10987
+5 0.124854 0.109909
+4 0.118125 0.12625
 SURF 0x10
 mat 0
 refs 3
-0 0.412748 0.817945
-4 0.465631 0.925862
-3 0.412105 0.970468
+0 0.102072 0.10987
+4 0.118125 0.12625
+3 0.101876 0.133021
 SURF 0x10
 mat 0
 refs 3
-0 0.412748 0.817945
-3 0.412105 0.970468
-2 0.358579 0.925851
+0 0.102072 0.10987
+3 0.101876 0.133021
+2 0.0856274 0.126249
 SURF 0x10
 mat 0
 refs 3
-0 0.412748 0.817945
-2 0.358579 0.925851
-1 0.336409 0.818187
+0 0.102072 0.10987
+2 0.0856274 0.126249
+1 0.0788972 0.109907
 SURF 0x10
 mat 0
 refs 3
-0 0.412748 0.817945
-1 0.336409 0.818187
-8 0.358579 0.710523
+0 0.102072 0.10987
+1 0.0788972 0.109907
+8 0.0856274 0.0935653
 kids 0
 OBJECT group
 name "needles"
@@ -2778,7 +2778,7 @@ kids 4
 OBJECT poly
 name "needle-horiz-L"
 loc -0.000232268 -0.0012496 0.0105469
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 5
 0 -0.00111374 0.00416031
@@ -2809,7 +2809,7 @@ kids 0
 OBJECT poly
 name "needle-horiz-R"
 loc 0.000232268 -0.00125186 0.0136731
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 9
 0 0.00112582 0.00103414
@@ -2851,7 +2851,7 @@ kids 0
 OBJECT poly
 name "needle-rudder-L"
 loc -0.000232268 0.00125074 -0.01211
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 5
 0 0.00349038 0.00112593
@@ -2882,7 +2882,7 @@ kids 0
 OBJECT poly
 name "needle-rudder-R"
 loc 0.000232268 0.00125074 -0.01211
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 5
 0 0.0117097 -0.00112593
@@ -2917,7 +2917,7 @@ kids 9
 OBJECT poly
 name "spoilers-off"
 loc -0.00125381 0.0066959 0.00729415
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 16
 0 0.00217987 -0.0179728
@@ -2969,7 +2969,7 @@ kids 0
 OBJECT poly
 name "sp-L-ext-down"
 loc -0.000836137 0.0066959 0.0222863
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 4
 0 0.00217987 -0.00298064
@@ -2988,7 +2988,7 @@ kids 0
 OBJECT poly
 name "sp-L-int-down"
 loc -0.000836137 0.0066959 0.0128551
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 4
 0 -0.00217987 -0.00298064
@@ -3007,7 +3007,7 @@ kids 0
 OBJECT poly
 name "sp-R-int-down"
 loc -0.000836137 0.0066959 0.00191123
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 4
 0 0.00217987 -0.00298064
@@ -3026,7 +3026,7 @@ kids 0
 OBJECT poly
 name "sp-R-ext-down"
 loc -0.000836137 0.0066959 -0.00769799
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 4
 0 -0.00217987 -0.00298064
@@ -3045,7 +3045,7 @@ kids 0
 OBJECT poly
 name "sp-L-ext-up"
 loc -0.000836137 0.0066959 0.0222863
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 4
 0 -0.00217987 -0.00298064
@@ -3064,7 +3064,7 @@ kids 0
 OBJECT poly
 name "sp-L-int-up"
 loc -0.000836137 0.0066959 0.0128551
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 4
 0 0.00217987 -0.00298064
@@ -3083,7 +3083,7 @@ kids 0
 OBJECT poly
 name "sp-R-int-up"
 loc -0.000836137 0.0066959 0.00191123
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 4
 0 -0.00217987 -0.00298064
@@ -3102,7 +3102,7 @@ kids 0
 OBJECT poly
 name "sp-R-ext-up"
 loc -0.000836137 0.0066959 -0.00769799
-texture "fuel-panel.rgb"
+texture "fuel-panel.png"
 crease 45.000000
 numvert 4
 0 0.00217987 -0.00298064
