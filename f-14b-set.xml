@@ -471,11 +471,6 @@
 			</generic>
 		</multiplay>
 
-		<panel>
-			<path>Aircraft/f-14b/Panels/2D.xml</path>
-			<visibility archive="y">false</visibility>
-		</panel>
-
 		<rendering>
 			<redout>
 				<parameters>
