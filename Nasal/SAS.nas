@@ -95,10 +95,8 @@ var computeSAS = func {
 	raw_e = raw_elev.getValue();
 	raw_a = raw_aileron.getValue();
 	steering = ((raw_e > 0.05 or -0.05 > raw_e) or (raw_a > 0.01 or -0.01 > raw_a)) ? 1 : 0;
-	#steering = ((raw_e > 0.015 or -0.015 > raw_e) or (raw_a > 0.01 or -0.01 > raw_a)) ? 1 : 0;
-	#steering = ( abs(raw_e) + abs(raw_a) ) / 2;
 
-	# Temporarly disengage Autopilot when control stick steering.
+	# Temporarly disengage Autopilot when control stick steering or when fps < 10.
 	# Simple mode, Attitude: pitch and roll.
 	# f14_afcs.ap_lock_att:
 	# 0 = attitude not engaged (no autopilot at all)
@@ -106,22 +104,20 @@ var computeSAS = func {
 	# 2 = attitude engaged and temporary disabled.
 	# 3 = attitude engaged and temporary disabled with altitude selected.
 	if ( f14_afcs.ap_lock_att > 0 ) {
-		if ( f14_afcs.ap_lock_att == 1 and steering > 0.015 ) {
+		if ( f14_afcs.ap_lock_att == 1 and ( steering > 0.015 or deltaT >= 0.1 )) {
 			if (f14_afcs.ap_alt_lock.getValue() == "altitude-hold") {
 				f14_afcs.ap_lock_att = 3;
 			} else {
 				f14_afcs.ap_lock_att = 2;
 			}
-			#print ( f14_afcs.ap_lock_att ~ " " ~ steering);
 			ap_alt_lock.setValue("");
 			ap_hdg_lock.setValue("");
-		} elsif ( f14_afcs.ap_lock_att > 1 and steering < 0.01 ) {
+		} elsif ( f14_afcs.ap_lock_att > 1 and steering < 0.01 and deltaT < 0.1 ) {
 			if ( f14_afcs.ap_lock_att == 3 ) {
 				f14_afcs.alt_enable.setBoolValue(1);
 			}
 			f14_afcs.ap_lock_att = 1;
 			f14_afcs.afcs_attitude_engage();
-			#print ( f14_afcs.ap_lock_att ~ " " ~ steering);
 		}
 	}
 
@@ -133,9 +129,9 @@ var computeSAS = func {
 		RollVarError = RollVarTarget - getprop ("/orientation/roll-deg");
 
 		rollBias = PreviousRollBias 
-				+ RollKp * (RollVarError - RollPIDpreviousError)
-				+ RollKi * deltaT * RollVarError
-				+ RollKd * (RollVarError - 2* RollPIDpreviousError + RollPIDppError) / deltaT;
+				+ RollKp * (RollVarError - RollPIDpreviousError);
+				#+ RollKi * deltaT * RollVarError # unused: RollKi = 0
+				#+ RollKd * (RollVarError - 2* RollPIDpreviousError + RollPIDppError) / deltaT; # unused: RollKd = 0
 
 		RollPIDpreviousError = RollVarError;
 		RollPIDppError = RollPIDpreviousError;
@@ -177,20 +173,23 @@ var computeSAS = func {
 		last_elev = smooth_elev;
 		smooth_elev_node.setDoubleValue(smooth_elev);
 
-		# 2) PID Bias Filter based on current attitude change rate.
-		PitchVarError = PitchVarTarget - phiDot; # PitchVarTarget: adjustment variable, normaly set to 0.0
-		pitchBias = PreviousPitchBias 
-				+ PitchKp * (PitchVarError - PitchPIDpreviousError)
-				+ PitchKi * deltaT * PitchVarError
-				+ PitchKd * (PitchVarError - 2* PitchPIDpreviousError + PitchPIDppError) / deltaT;
+		if ( deltaT < 0.06 ) {
+			# 2) PID Bias Filter based on current attitude change rate.
+			var PitchVarError = PitchVarTarget - phiDot; # PitchVarTarget: adjustment variable, normaly set to 0.0
+			pitchBias = PreviousPitchBias 
+					+ PitchKp * (PitchVarError - PitchPIDpreviousError);
+					#+ PitchKi * deltaT * PitchVarError # unused: PitchKi = 0
+					#+ PitchKd * (PitchVarError - 2* PitchPIDpreviousError + PitchPIDppError) / deltaT; # unused: PitchKd = 0
 
-		PitchPIDpreviousError = PitchVarError;
-		PitchPIDppError = PitchPIDpreviousError;
-		PreviousPitchBias = pitchBias;
+			PitchPIDpreviousError = PitchVarError;
+			PitchPIDppError = PitchPIDpreviousError;
+			PreviousPitchBias = pitchBias;
 
-		if (pitchBias > PitchMaxOutput) pitchBias = PitchMaxOutput;
-		if (pitchBias < PitchMinOutput) pitchBias = PitchMinOutput;
-
+			if (pitchBias > PitchMaxOutput) pitchBias = PitchMaxOutput;
+			if (pitchBias < PitchMinOutput) pitchBias = PitchMinOutput;
+		} else {
+			pitchBias = 0;
+		}
 	} else {
 		pitchBias = 0;
 		smooth_elev = raw_e;
