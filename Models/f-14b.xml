@@ -19,7 +19,7 @@
 	<animation>
 		<type>material</type>
 		<object-name>tex-side1</object-name>
-		<property-base>sim/model/livery-side1</property-base>
+		<property-base>sim/model/livery</property-base>
 		<texture-prop>texture</texture-prop>
 		<texture>side1.checkmates.rgb</texture>
 	</animation>
@@ -44,6 +44,7 @@
 		<texture-prop>texture</texture-prop>
 		<texture>topbottom2.checkmates.rgb</texture>
 	</animation>
+
 <!-- ******************************************************************* -->
 <!-- FX                                                                  -->
 <!-- ******************************************************************* -->
