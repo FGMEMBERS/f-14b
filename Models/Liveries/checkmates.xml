@@ -3,11 +3,12 @@
 	<sim>
 		<model>
 
-		<livery-side1>
+
+		<livery>
 			<name type="string">checkmates</name>
 			<index type="int">0</index>
 			<texture>Liveries/side1.checkmates.png</texture>
-		</livery-side1>
+		</livery>
 
 		<livery-side2>
 			<name type="string">checkmates</name>
