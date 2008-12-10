@@ -135,50 +135,45 @@
 				<desc>Back to Pilot's View or toggle Pilot's and RIO View.</desc>
 			</key>
 			<line>Take off:</line>
-			<line>Full Flaps, 100% rpm, rotation @ 150Kts. Depending on the grossweight (fuel) you will have to push slightly</line>
-			<line>on the stick in order to keep a reasonable pitch.</line>
+			<line>Full Flaps, 100% rpm, rotation @ 150Kts. Depending on the grossweight (fuel) you will have to push slightly on the stick in order to</line>
+			<line>keep a reasonable pitch.</line>
 			<line>__________________________________________________</line>
 			<line>Autopilot:</line>
-			<line>The main mode is Attitude Hold Mode (Ctrl-t). Other Modes need this main mode activated before being </line>
-			<line>selected. Switching off Attitude Mode disables all other modes. When in Attitude Mode, the autopilot </line>
-			<line>disengages whenever a certain pressure is put on the stick and it reengages when the stick is back in </line>
-			<line>the center position (Try hiting 5 on the numeric keyboard).</line>
-			<line>Attitude Hold Mode will hold pitch attitudes up to +/- 30° and bank angles up to +/- 60°.</line>
-			<line>It shall be switched off for acrobatics and inverted flight... and it is still on beta test.</line>
+			<line>The main mode is Attitude Hold Mode (Ctrl-t). Other Modes need this main mode activated before being selected. Switching off Attitude</line>
+			<line>Mode disables all other modes. When in Attitude Mode, the autopilot disengages whenever a certain pressure is put on the stick and it</line>
+			<line>reengages when the stick is back in the center position (Try hiting 5 on the numeric keyboard). Attitude Hold Mode will hold pitch</line>
+			<line>attitudes up to +/- 30° and bank angles up to +/- 60°. It shall be switched off for acrobatics and inverted flight...  and it is still</line>
+			<line>on beta test.</line>
 			<line></line>
 			<line>Altitude Mode:</line>
-			<line>Once in Attitude Mode, you can select Altitude Mode by hitting Ctrl-a, then the AP REF</line>
-			<line>indicator (left of the VDI) will illuminate, when at the desired altitude (using normal</line>
-			<line>stick control) engage by hitting * (star symbol). The autopilot will then maintain your altitude.</line>
-			<line>WARNING: at high speeds, its imperative to stabilize the aircraft prior to engage Altitude Mode</line>
+			<line>Once in Attitude Mode, you can select Altitude Mode by hitting Ctrl-a, then the AP REF indicator (left of the VDI) will illuminate, when</line>
+			<line>at the desired altitude (using normal stick control) engage by hitting * (star symbol). The autopilot will then maintain your altitude.</line>
+			<line>WARNING: at high speeds, it is imperative to stabilize the aircraft prior to engage Altitude Mode</line>
 			<line></line>
 			<line>Heading Mode:</line>
-			<line>Once in Attitude Mode, you can select Heading Mode by hitting Ctrl-h. After manoeuvering the</line>
-			<line>aircraft to the desired reference heading, release the control stick at a bank angle of less than</line>
-			<line>+/- 5°. The autopilot will then hold the aircraft on the desired Heading.</line>
+			<line>Once in Attitude Mode, you can select Heading Mode by hitting Ctrl-h. After manoeuvering the aircraft to the desired reference heading,</line>
+			<line>release the control stick at a bank angle of less than +/- 5°. The autopilot will then hold the aircraft on the desired Heading.</line>
 			<line></line>
-			<line>Autopilot need SAS channels to be engaged (which is the default). SAS Pitch and Roll channels may be</line>
-			<line>disengaged by actuating switches located on the AFCS panel.</line>
+			<line>Autopilot need SAS channels to be engaged (which is the default). SAS Pitch and Roll channels may be disengaged by actuating switches</line>
+			<line>located on the AFCS panel. With frame rates lower than 17fps you might experience jitter and autopilot may go haywire. In order avoid most</line>
+			<line>catastrophic cases, parts of pitch SAS will be automatically and temporarely disengaged under 15fps, the same for Autopilot under 10fps.</line>
 			<line>__________________________________________________</line>
 			<line>Landing Automatic Power Control (APC) Operation:</line>
-			<line>The APC is a closed loop system that automaticaly regulates basic engine thrust to maintain the</line>
-			<line>aircraft at an optimum approach angle of attack for landing.</line>
-			<line>Prior to engage APC, gear handle must be down with weight off wheels, and the throttles must be set</line>
-			<line>between 98% and 68% rpm (as shown on the panel gauges).</line>
-			<line>Type "a" to toggle the APC on/off. APC is also disengaged by setting the throttles to MIL (98% rpm)</line>
+			<line>The APC is a closed loop system that automaticaly regulates basic engine thrust to maintain the aircraft at an optimum approach angle of</line>
+			<line>attack for landing. Prior to engage APC, gear handle must be down with weight off wheels, and the throttles must be set between 98% and</line>
+			<line>68% rpm (as shown on the panel gauges). Type "a" to toggle the APC on/off. APC is also disengaged by setting the throttles to MIL (98% rpm)</line>
 			<line>or iddle (68% rpm) or raising the landig gear handle or when weight on wheels.</line> 
 			<line>When disengaged the AUTO THROT caution light (on the left side of the HUD) illuminates for 10 seconds.</line>
 			<line>__________________________________________________</line>
 			<line>External fuel tanks ?</line>
-			<line>  Menu > Equipment > Fuel and Payload</line>
+			<line>Menu > Equipment > Fuel and Payload... Select stations 2 and 7.</line>
 			<line>__________________________________________________</line>
-			<line>FUEL: First time you fly the f-14b, the tanks have a 10% level. When exiting the level will be stored for</line>
-			<line>the next session. However when reseting Flightgear, the stored level can be lost. </line>
+			<line>FUEL: First time you fly the f-14b, the tanks have a 10% level. When exiting the level will be stored for the next session. However when </line>
+			<line>reseting Flightgear, the stored level can be lost.</line>
 			<line>__________________________________________________</line>
-			<line>VHF: Located on the RIO's left console, 3 bands: 30-88 Mhz, 108-174 Mhz,225-400 Mhz. Modes TR and TR-G set COMM1.</line>
-			<line>Mode DF sets NAV1, that is Direction Finder displayed with the single needle in both BDHIs. You have Comm *or* DF.</line>
-			<line>Storing frequencies (up to 20 channels) a- PRESET select the desired chan, b- READ tune the desired frequency,</line>
-			<line>c- LOAD stores the frequency in the previously selected chan.</line>
+			<line>VHF: Located on the RIO's left console, 3 bands: 30-88 Mhz, 108-174 Mhz, 225-400 Mhz. Modes TR and TR-G set COMM1. Mode DF sets NAV1,</line>
+			<line>that is Direction Finder displayed with the single needle in both BDHIs. You have Comm *or* DF. Storing frequencies (up to 20 channels) a- PRESET</line>
+			<line>select the desired chan, b- READ tune the desired frequency, c- LOAD stores the frequency in the previously selected chan.</line>
 			<line>UHF: Located on the pilot's left console, 225-400 Mhz. Not used yet</line>
 			<line></line>
 
@@ -217,10 +212,10 @@
 
 		<model>
 			<path>Aircraft/f-14b/Models/f-14b.xml</path>
-			<livery-side1>
+			<livery>
 				<file type="string">checkmates</file>
 				<index type="int">0</index>
-			</livery-side1>
+			</livery>
 			<livery-side2>
 				<file type="string">checkmates</file>
 				<index type="int">0</index>
@@ -766,7 +761,7 @@
 			<yaw-bias type="float">0.0</yaw-bias>
 			<roll-bias type="float">0.0</roll-bias>
 		</SAS>
-		<livery-number type="int">0</livery-number>
+		<!--<livery-number type="int">0</livery-number>-->
 		<heat-blur-on type="bool">false</heat-blur-on>
 	</f-14>
 
