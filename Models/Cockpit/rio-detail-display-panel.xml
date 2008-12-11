@@ -39,7 +39,7 @@
 		<object-name>rng-disp-200</object-name>
 		<condition>
 			<equals>
-				<property>instrumentation/radar/range</property>
+				<property>instrumentation/radar/radar2-range</property>
 				<value>200</value>
 			</equals>
 		</condition>
@@ -49,7 +49,7 @@
 		<object-name>rng-disp-100</object-name>
 		<condition>
 			<equals>
-				<property>instrumentation/radar/range</property>
+				<property>instrumentation/radar/radar2-range</property>
 				<value>100</value>
 			</equals>
 		</condition>
@@ -59,7 +59,7 @@
 		<object-name>rng-disp-50</object-name>
 		<condition>
 			<equals>
-				<property>instrumentation/radar/range</property>
+				<property>instrumentation/radar/radar2-range</property>
 				<value>50</value>
 			</equals>
 		</condition>
@@ -69,7 +69,7 @@
 		<object-name>rng-disp-20</object-name>
 		<condition>
 			<equals>
-				<property>instrumentation/radar/range</property>
+				<property>instrumentation/radar/radar2-range</property>
 				<value>20</value>
 			</equals>
 		</condition>
@@ -79,7 +79,7 @@
 		<object-name>rng-disp-10</object-name>
 		<condition>
 			<equals>
-				<property>instrumentation/radar/range</property>
+				<property>instrumentation/radar/radar2-range</property>
 				<value>10</value>
 			</equals>
 		</condition>
@@ -89,7 +89,7 @@
 		<object-name>rng-disp-5</object-name>
 		<condition>
 			<equals>
-				<property>instrumentation/radar/range</property>
+				<property>instrumentation/radar/radar2-range</property>
 				<value>5</value>
 			</equals>
 		</condition>
@@ -142,10 +142,10 @@
 		</condition>
 	</animation>
 
-						<display-rdr type="bool">true</display-rdr>
+						<!--<display-rdr type="bool">true</display-rdr>
 						<display-ir type="bool">false</display-ir>
 						<display-iff type="bool">false</display-iff>
-						<mode type="string">PDS</mode> <!-- PDS, RWS, TWS, PDSTT, PSTT, VSL -->
+						<mode type="string">PDS</mode>--> <!-- PDS, RWS, TWS, PDSTT, PSTT, VSL -->
 
 	<!-- CCM Modes push buttons -->
 	<animation> 
@@ -171,7 +171,7 @@
 	</animation>
 
 
-						<mode type="string">PDS</mode> <!-- PDS, PS, RWS, TWSA, TWSM, PDSTT, PSTT, VSL -->
+						<!--<mode type="string">PDS</mode>--> <!-- PDS, PS, RWS, TWSA, TWSM, PDSTT, PSTT, VSL -->
 	<!-- Display push buttons -->
 	<animation> 
 		<object-name>rdr-light-on</object-name>
@@ -269,6 +269,16 @@
 
 	<!-- lighting -->
 	<animation>
+		<object-name>mount</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.44</red>
+			<green>0.192</green>
+			<blue>0.08</blue>
+		</emission>
+	</animation>
+	<animation>
 		<object-name>screen-bkg</object-name>
 		<type>material</type>
 		<emission>
@@ -287,6 +297,48 @@
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>switches</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.18</red>
+			<green>0.08</green>
+			<blue>0.033</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>knobs</object-name>
+		<object-name>rng-buttons</object-name>
+		<object-name>elev</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>modes-buttons-off</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.825</red>
+			<green>0.36</green>
+			<blue>0.15</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>rng-disp</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 
