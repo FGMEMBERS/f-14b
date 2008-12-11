@@ -479,7 +479,9 @@
 	</model>
 
 
-	<!-- Right Instrument Panel -->
+	<!-- center Instrument Panel -->
+
+
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/rio-tid.xml</path>
 		<offsets>
@@ -487,6 +489,19 @@
 			<y-m>0.0000</y-m>
 			<z-m>-0.0914</z-m>
 			<pitch-deg>-12</pitch-deg>
+		</offsets>
+	</model>
+
+
+	<!-- Right Instrument Panel -->
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/fuel-gauge-rio.xml</path>
+		<offsets>
+			<x-m>-4.2213</x-m>
+			<y-m>0.3217</y-m>
+			<z-m>0.1108</z-m>
+			<pitch-deg>-12.2</pitch-deg>
 		</offsets>
 	</model>
 

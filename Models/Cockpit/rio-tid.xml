@@ -62,43 +62,60 @@
 		</emission>
 	</animation>
 
-	<!--<animation> 
-		<object-name>vert-side-panels</object-name>
-		<object-name>panel-front-up</object-name>
-		<object-name>knee-panels</object-name>
-		<object-name>pedestal</object-name>
-		<object-name>consoles</object-name>
-		<object-name>checklists-pilot</object-name>
+	<animation>
+		<object-name>knobs</object-name>
+		<object-name>data</object-name>
+		<object-name>steer</object-name>
 		<type>material</type>
 		<emission>
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.275</red>
-			<green>0.12</green>
-			<blue>0.05</blue>
+			<factor-prop>controls/lighting/instruments-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
-	<animation> 
-		<object-name>pedals</object-name>
-		<object-name>bathtub-sides</object-name>
-		<object-name>fire-handles</object-name>
+
+	<animation>
+		<object-name>lights-off</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.1375</red>
-			<green>0.06</green>
-			<blue>0.025</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<object-name>rio-tid-top-mount</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
 	</animation>
 	<animation>
-		<object-name>floor</object-name>
+		<object-name>rio-tid-bottom-mount</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.0687</red>
-			<green>0.03</green>
-			<blue>0.0125</blue>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
 		</emission>
-	</animation>-->
+	</animation>
+	<animation>
+		<object-name>rio-tid-inside-mount</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/TID/brightness</factor-prop>
+			<red>0.1</red>
+			<green>0.3</green>
+			<blue>0.002</blue>
+		</emission>
+	</animation>
 
 	<animation>
 		<type>range</type>
