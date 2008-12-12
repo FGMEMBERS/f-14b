@@ -358,7 +358,7 @@
 		<canopy>
 			<name>canopy</name>
 			<mode>in-transit</mode>
-			<path>Aircraft/A-10/Sounds/canopy-trans.wav</path>
+			<path>Aircraft/f-14b/Sounds/canopy-trans.wav</path>
 			<property>canopy/position-norm</property>
 			<volume>
 				<factor>0.04</factor>
@@ -368,7 +368,7 @@
 		<canopy-close>
 			<name>canopy-close2</name>
 			<mode>once</mode>
-			<path>Aircraft/A-10/Sounds/canopy-close2.wav</path>
+			<path>Aircraft/f-14b/Sounds/canopy-close2.wav</path>
 			<condition>
 				<less-than-equals>
 					<property>canopy/position-norm</property>
