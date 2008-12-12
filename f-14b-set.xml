@@ -174,7 +174,7 @@
 			<line>VHF: Located on the RIO's left console, 3 bands: 30-88 Mhz, 108-174 Mhz, 225-400 Mhz. Modes TR and TR-G set COMM1. Mode DF sets NAV1,</line>
 			<line>that is Direction Finder displayed with the single needle in both BDHIs. You have Comm *or* DF. Storing frequencies (up to 20 channels) a- PRESET</line>
 			<line>select the desired chan, b- READ tune the desired frequency, c- LOAD stores the frequency in the previously selected chan.</line>
-			<line>UHF: Located on the pilot's left console, 225-400 Mhz. Not used yet</line>
+			<line>UHF: Located on the pilot's left console, 225-400 Mhz. ADF is not enabled on this radio.</line>
 			<line></line>
 
 		</help>
@@ -358,8 +358,42 @@
 						<function type="int">3</function>
 						<volume type="double">0.5</volume>
 						<brightness type="double">0.8</brightness>
-						<selected-channel type="int">1</selected-channel>
+						<!--<selected-channel type="int">1</selected-channel>-->
 					</an-arc-182v>
+					<an-arc-159v1>
+						<frequencies>
+							<selected-mhz type="int">283</selected-mhz>
+						</frequencies>
+						<preset type="int">4</preset>
+						<presets>
+							<frequency n="0" type="double">283.00</frequency><!-- KNUQ ATIS-->
+							<frequency n="1" type="double">351.70</frequency><!-- ARTCC Los Angeles CA Sector High Alt (FL230 to FL330)-->
+							<frequency n="2" type="double">338.30</frequency><!-- ARTCC Santa Barbara CA Sector High Alt -->
+							<frequency n="3" type="double">263.00</frequency><!-- ARTCC Bakersfield CA Sector High Alt -->
+							<frequency n="4" type="double">398.90</frequency><!-- ARTCC Cedar City NV Sector High Alt -->
+							<frequency n="5" type="double">369.90</frequency><!-- ARTCC Barstow CA Sector High Alt -->
+							<frequency n="6" type="double">0.0</frequency>
+							<frequency n="7" type="double">0.0</frequency>
+							<frequency n="8" type="double">0.0</frequency>
+							<frequency n="9" type="double">0.0</frequency>
+							<frequency n="10" type="double">0.0</frequency>
+							<frequency n="11" type="double">0.0</frequency>
+							<frequency n="12" type="double">0.0</frequency>
+							<frequency n="13" type="double">0.0</frequency>
+							<frequency n="14" type="double">0.0</frequency>
+							<frequency n="15" type="double">0.0</frequency>
+							<frequency n="16" type="double">0.0</frequency>
+							<frequency n="17" type="double">0.0</frequency>
+							<frequency n="18" type="double">0.0</frequency>
+							<frequency n="19" type="double">399.975</frequency>
+						</presets>
+						<read type="bool">true</read><!-- switch: display freq (true) or display chan number (false) -->
+						<mode type="int">0</mode>
+						<function type="int">0</function>
+						<volume type="double">0.5</volume>
+						<brightness type="double">0.8</brightness>
+						<!--<selected-channel type="int">1</selected-channel>-->
+					</an-arc-159v1>
 					<aoa-indexer>
 						<!-- target = 11.3 deg AoA -->
 						<too-slow-deg>13.7</too-slow-deg>	<!-- target +2.4 deg -->
@@ -1025,6 +1059,9 @@
 		<an_arc_182v>
 			<file>Aircraft/f-14b/Nasal/an-arc-182v.nas</file>
 		</an_arc_182v>
+		<an_arc_159v1>
+			<file>Aircraft/f-14b/Nasal/an-arc-159v1.nas</file>
+		</an_arc_159v1>
 		<f14>
 			<file>Aircraft/f-14b/Nasal/liveries.nas</file>
 			<file>Aircraft/f-14b/Nasal/f14_globals.nas</file>
@@ -1041,8 +1078,8 @@
 			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
 			<file>Aircraft/f-14b/Nasal/fuel-system.nas</file>
 			<file>Aircraft/f-14b/Nasal/f14_radar.nas</file>
-			<!--
-			<file>Aircraft/f-14b/Nasal/display_props.nas</file>-->
+			
+			<file>Aircraft/f-14b/Nasal/display_props.nas</file><!---->
 		</f14>
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>
