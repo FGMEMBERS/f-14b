@@ -19,7 +19,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-1</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.000001</factor>
 		<offset>-100000</offset>
 		<step>100000</step>
@@ -28,7 +28,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-2</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.00001</factor>
 		<offset>-10000</offset>
 		<step>10000</step>
@@ -37,7 +37,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-3</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.0001</factor>
 		<offset>-1000</offset>
 		<step>1000</step>
@@ -46,7 +46,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-4</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.001</factor>
 		<offset>-100</offset>
 		<step>100</step>
@@ -55,7 +55,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-5</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -64,14 +64,77 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-6</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
 	</animation>
 
+	<animation>
+		<object-name>digits</object-name>
+		<type>select</type>
+		<condition>
+			<not>
+				<or>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/an-arc-159v1/mode</property>
+						<value>0</value>
+					</equals>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/an-arc-159v1/mode</property>
+						<value>3</value>
+					</equals>
+				</or>
+			</not>
+			<equals>
+				<property>sim/model/f-14b/instrumentation/an-arc-159v1/read</property>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
 
+	<!-- preset-->
+	<animation>
+		<object-name>digits-preset</object-name>
+		<type>select</type>
+		<condition>
+			<not>
+				<or>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/an-arc-159v1/mode</property>
+						<value>0</value>
+					</equals>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/an-arc-159v1/mode</property>
+						<value>3</value>
+					</equals>
+				</or>
+			</not>
+			<equals>
+				<property>sim/model/f-14b/instrumentation/an-arc-159v1/read</property>
+				<value>false</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>textranslate</type>
+		<object-name>digit-preset-1</object-name>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/preset</property>
+		<factor>0.01</factor>
+		<offset>-10</offset>
+		<step>10</step>
+		<axis><y>-1</y></axis>
+	</animation>
+	<animation>
+		<type>textranslate</type>
+		<object-name>digit-preset-2</object-name>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/preset</property>
+		<factor>0.1</factor>
+		<offset>-1</offset>
+		<step>1</step>
+		<axis><y>-1</y></axis>
+	</animation>
 
 	<animation>
 		<type>pick</type>
@@ -82,12 +145,8 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.2</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
-				<step>10000</step>
-				<min>225000</min>
-				<max>399975</max>
-				<wrap>false</wrap>
+				<command>nasal</command>
+				<script>an_arc_159v1.adj_freq(10000)</script>
 			</binding>
 		</action>
 		<action>
@@ -95,12 +154,8 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.2</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
-				<step>-10000</step>
-				<min>225000</min>
-				<max>399975</max>
-				<wrap>false</wrap>
+				<command>nasal</command>
+				<script>an_arc_159v1.adj_freq(-10000)</script>
 			</binding>
 		</action>
 	</animation>
@@ -113,12 +168,8 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.2</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
-				<step>1000</step>
-				<min>225000</min>
-				<max>399975</max>
-				<wrap>false</wrap>
+				<command>nasal</command>
+				<script>an_arc_159v1.adj_freq(1000)</script>
 			</binding>
 		</action>
 		<action>
@@ -126,12 +177,8 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.2</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/alt-selected-mhz-x1</property>
-				<step>-1000</step>
-				<min>225000</min>
-				<max>399975</max>
-				<wrap>false</wrap>
+				<command>nasal</command>
+				<script>an_arc_159v1.adj_freq(-1000)</script>
 			</binding>
 		</action>
 	</animation>
@@ -144,12 +191,8 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.2</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
-				<step>100</step>
-				<min>225000</min>
-				<max>399975</max>
-				<wrap>false</wrap>
+				<command>nasal</command>
+				<script>an_arc_159v1.adj_freq(100)</script>
 			</binding>
 		</action>
 		<action>
@@ -157,12 +200,8 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.2</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
-				<step>-100</step>
-				<min>225000</min>
-				<max>399975</max>
-				<wrap>false</wrap>
+				<command>nasal</command>
+				<script>an_arc_159v1.adj_freq(-100)</script>
 			</binding>
 		</action>
 	</animation>
@@ -175,12 +214,8 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.2</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
-				<step>25</step>
-				<min>225000</min>
-				<max>399975</max>
-				<wrap>false</wrap>
+				<command>nasal</command>
+				<script>an_arc_159v1.adj_freq(25)</script>
 			</binding>
 		</action>
 		<action>
@@ -188,20 +223,214 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.2</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
-				<step>-25</step>
-				<min>225000</min>
-				<max>399975</max>
-				<wrap>false</wrap>
-				<resolution>0.025</resolution>
+				<command>nasal</command>
+				<script>an_arc_159v1.adj_freq(-25)</script>
 			</binding>
 		</action>
 	</animation>
 
+
+	<!-- Mode -->
+	<animation>
+		<type>rotate</type>
+		<object-name>mode-knob</object-name>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/mode</property>
+		<factor>32</factor>
+		<center>
+			<x-m>0.0205</x-m>
+			<y-m>0.0518</y-m>
+			<z-m>0.0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-mode</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>an_arc_159v1.set_mode(1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>1</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>an_arc_159v1.set_mode(-1)</script>
+			</binding>
+		</action>
+	</animation>
+
+	<!-- Channel Selector knob -->
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-channel</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>an_arc_159v1.set_channel(1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>1</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>an_arc_159v1.set_channel(-1)</script>
+			</binding>
+		</action>
+	</animation>
+
+	<!-- Function knob -->
+	<animation>
+		<type>rotate</type>
+		<object-name>function-knob</object-name>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/function</property>
+		<factor>45</factor>
+		<center>
+			<x-m>0.0205</x-m>
+			<y-m>-0.0524</y-m>
+			<z-m>0.0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-function</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>an_arc_159v1.set_function(1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>1</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>an_arc_159v1.set_function(-1)</script>
+			</binding>
+		</action>
+	</animation>
+
+	<!-- Read switch -->
+	<animation>
+		<type>rotate</type>
+		<object-name>read-switch</object-name>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/read</property>
+		<factor>50</factor>
+		<center>
+			<x-m>-0.0450</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>0.0065</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-read</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>sim/model/f-14b/instrumentation/an-arc-159v1/read</property>
+			</binding>
+		</action>
+
+	</animation>
+
+	<!-- Volume knob -->
+	<animation>
+		<type>rotate</type>
+		<object-name>vol-knob</object-name>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/volume</property>
+		<factor>225</factor>
+		<center>
+			<x-m>-0.0299</x-m>
+			<y-m>-0.0611</y-m>
+			<z-m>0.0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-vol</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>an_arc_159v1.set_volume(0.1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>1</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>an_arc_159v1.set_volume(-0.1)</script>
+			</binding>
+		</action>
+	</animation>
+
+	<!-- Load button -->
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-load</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>an_arc_159v1.load_freq()</script>
+			</binding>
+		</action>
+	</animation>
+
+
 	<!-- lighting -->
 	<animation>
 		<object-name>digits</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<red>0.7</red>
+			<green>0.0</green>
+			<blue>0.0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>digits-preset</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>

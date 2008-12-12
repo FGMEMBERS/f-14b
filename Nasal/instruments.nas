@@ -284,6 +284,7 @@ var init = func {
 	radardist.init();
 	radar2.init();
 	an_arc_182v.init();
+	an_arc_159v1.init();
 	setprop("controls/switches/radar_init", 0);
 	# properties to be stored
 	foreach (var f_tc; tc_freq.getChildren()) {

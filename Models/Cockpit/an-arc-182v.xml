@@ -239,7 +239,7 @@
 	</animation>
 
 
-
+	<!-- Function knob -->
 	<animation>
 		<type>rotate</type>
 		<object-name>function-knob</object-name>
@@ -278,6 +278,7 @@
 		</action>
 	</animation>
 
+	<!-- Channel Selector knob -->
 	<animation>
 		<type>pick</type>
 		<visible>true</visible>
@@ -362,7 +363,7 @@
 		<action>
 			<button>0</button>
 			<repeatable>true</repeatable>
-			<binding>set_volume
+			<binding>
 				<command>nasal</command>
 				<script>an_arc_182v.set_volume(0.1)</script>
 			</binding>
@@ -376,7 +377,6 @@
 			</binding>
 		</action>
 	</animation>
-
 
 	<!-- lighting -->
 	<animation>

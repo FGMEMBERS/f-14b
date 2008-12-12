@@ -18,6 +18,7 @@
 #            5= Load: place the displayed freq in the memory for the selected preset channel.
 
 var Radio        = props.globals.getNode("sim/model/f-14b/instrumentation/an-arc-182v");
+var Pwr          = Radio.getNode("power-btn");
 var Mode         = Radio.getNode("mode");
 var Function     = Radio.getNode("function");
 var Volume       = Radio.getNode("volume");
@@ -27,6 +28,7 @@ var Presets      = Radio.getNode("presets");
 var Selected_F   = Radio.getNode("frequencies/selected-mhz");
 var Load_State   = Radio.getNode("load-state", 1);
 var Nav1_Freq    = props.globals.getNode("instrumentation/nav[0]/frequencies/selected-mhz");
+var Nav1_Freq_stdby = props.globals.getNode("instrumentation/nav[0]/frequencies/standby-mhz");
 var Nav1_Volume  = props.globals.getNode("instrumentation/nav[0]/volume");
 var Comm1_Volume = props.globals.getNode("instrumentation/comm[0]/volume");
 var Comm1_Freq   = props.globals.getNode("instrumentation/comm[0]/frequencies/selected-mhz");
@@ -40,8 +42,10 @@ var preset = 0;
 var preset_freq = 0.0;
 var mode_stby = 0;
 
+
 var set_mode = func(step) {
 	mode = Mode.getValue();
+	function = Function.getValue();
 	var old_mode = mode;
 	volume = Volume.getValue();
 	mode += step;
@@ -52,11 +56,25 @@ var set_mode = func(step) {
 	}
 	Mode.setValue(mode);
 	if (mode == 1 or mode == 2) {
+		# T/R
+		#Pwr.setBoolValue(1);
+		preset = Preset.getValue();
+		var path = "frequency["~preset~"]";
+		preset_freq = Presets.getNode(path).getValue();
+		Selected_F.setValue(preset_freq*1000);
 		cur_f = Selected_F.getValue();
-		Nav1_Freq.setValue(0);
-		Comm1_Freq.setValue(cur_f/1000);
-		Nav1_Volume.setValue(0);
-		Comm1_Volume.setValue(volume);
+		if ( function == 0 ) {
+			# 243
+			comm1_f = Comm1_Freq.getValue();
+			Comm1_Freq.setValue(243.0);
+			Comm1_Freq_stdby.setValue(comm1_f);
+			Selected_F.setValue(243.0*1000);
+		} else {
+			Nav1_Freq.setValue(0);
+			Comm1_Freq.setValue(cur_f/1000);
+			Nav1_Volume.setValue(0);
+			Comm1_Volume.setValue(volume);
+		}
 	} elsif (mode == 3) {
 		if (old_mode == 4) {
 			Selected_F.setValue(mode_stby);
@@ -75,11 +93,13 @@ var set_mode = func(step) {
 			Nav1_Volume.setValue(0);
 			Comm1_Volume.setValue(0);
 		}
-	} else {	 
-		Selected_F.setValue(0);
+	} else {
+		# Mode 0: off	 
 		Nav1_Freq.setValue(0);
-		Comm1_Freq.setValue(0);
+		Nav1_Freq_stdby.setValue(0);
 		Nav1_Volume.setValue(0);
+		Comm1_Freq.setValue(0);
+		Comm1_Freq_stdby.setValue(0);
 		Comm1_Volume.setValue(0);
 	}
 }
@@ -97,6 +117,7 @@ var set_function = func(step) {
 	}
 	Function.setValue(function);
 	if (function == 0 and old_function == 1) {
+		# 243
 		comm1_f = Comm1_Freq.getValue();
 		Comm1_Freq.setValue(243.0);
 		Comm1_Freq_stdby.setValue(comm1_f);
@@ -125,8 +146,8 @@ var set_channel = func(step) {
 	if ((mode != 0 and mode != 4) and (function == 3 or function == 4)) {
 		preset = Preset.getValue();
 		preset += step;
-		if (preset > 20) {
-			preset = 20;
+		if (preset > 19) {
+			preset = 19;
 		} elsif (preset < 0) {
 			preset = 0;	
 		}
@@ -150,8 +171,14 @@ var adj_freq = func(step) {
 		var result = cur_f + step;
 		result = test_boundaries(step, result);
 		Selected_F.setValue(result);
+		if (mode == 1 or mode == 2) {
+			Comm1_Freq.setValue(result/1000);
+		} elsif (mode == 3) {
+			Nav1_Freq.setValue(result/1000);
+		}
 	}
 }
+
 
 var test_boundaries = func(step, result) {
 	if (step > 0) {
@@ -195,14 +222,28 @@ var set_volume = func(step) {
 
 var init = func() {
 	mode = Mode.getValue();
+	function = Function.getValue();
 	preset = Preset.getValue();
 	var path = "frequency["~preset~"]";
 	preset_freq = Presets.getNode(path).getValue();
-	Selected_F.setValue(preset_freq*1000);
+	if (function == 0) {
+		# 243 Mhz
+		Comm1_Freq.setValue(243.0);
+		Selected_F.setValue(243.0*1000);
+	} elsif (function == 1 or function == 2) {
+		Selected_F.setValue(0.0);
+	} else {
+		Selected_F.setValue(preset_freq*1000);
+	}
 	if (mode == 1 or mode == 2) {
 		Comm1_Freq.setValue(preset_freq);
 	} elsif (mode == 3) {
 		Nav1_Freq.setValue(preset_freq);
+	} elsif (mode == 0) {
+		Comm1_Freq.setValue(0.0);
+		Comm1_Freq_stdby.setValue(0.0);
+		Nav1_Freq.setValue(0.0);
+		Nav1_Freq_stdby.setValue(0.0);
 	}
 }
 
@@ -227,5 +268,5 @@ var p16 = Radio.getNode("presets/frequency[16]");
 var p17 = Radio.getNode("presets/frequency[17]");
 var p18 = Radio.getNode("presets/frequency[18]");
 var p19 = Radio.getNode("presets/frequency[19]");
-aircraft.data.add(Preset, Mode, Function, p0, p1, p2, p3, p4, p5,
+aircraft.data.add(Preset, Mode, Function, Comm1_Freq, Comm1_Freq_stdby, Nav1_Freq, Nav1_Freq_stdby, p0, p1, p2, p3, p4, p5,
 	p6, p7, p8, p9, p10, p11, p12, p13, p14, p14, p15, p16, p17, p18, p19);

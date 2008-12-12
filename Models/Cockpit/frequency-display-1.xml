@@ -25,11 +25,10 @@
 	</animation>
 
 	<!-- Frequency Digital Display, ta-ta-ta da... -->
-
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-1</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.000001</factor>
 		<offset>-100000</offset>
 		<step>100000</step>
@@ -38,7 +37,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-2</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.00001</factor>
 		<offset>-10000</offset>
 		<step>10000</step>
@@ -47,7 +46,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-3</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.0001</factor>
 		<offset>-1000</offset>
 		<step>1000</step>
@@ -56,7 +55,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-4</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.001</factor>
 		<offset>-100</offset>
 		<step>100</step>
@@ -65,7 +64,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-5</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
@@ -74,11 +73,30 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>digit-6</object-name>
-		<property>sim/model/f-14b/instrumentation/uhf[0]/frequencies/selected-mhz</property>
+		<property>sim/model/f-14b/instrumentation/an-arc-159v1/frequencies/selected-mhz</property>
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
 		<axis><y>-1</y></axis>
+	</animation>
+
+	<animation>
+		<object-name>digits</object-name>
+		<type>select</type>
+		<condition>
+			<not>
+				<or>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/an-arc-159v1/mode</property>
+						<value>0</value>
+					</equals>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/an-arc-159v1/mode</property>
+						<value>3</value>
+					</equals>
+				</or>
+			</not>
+		</condition>
 	</animation>
 
 
