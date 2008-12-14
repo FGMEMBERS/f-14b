@@ -1,3 +1,8 @@
+var egt_norm1 = props.globals.getNode("engines/engine[0]/egt-norm", 1);
+var egt_norm2 = props.globals.getNode("engines/engine[1]/egt-norm", 1);
+var egt1 = props.globals.getNode("engines/engine[0]/egt-degf");
+var egt2 = props.globals.getNode("engines/engine[1]/egt-degf");
+
 #----------------------------------------------------------------------------
 # AICS (Air Inlet Control System)
 #----------------------------------------------------------------------------
@@ -34,6 +39,10 @@ var computeAICS = func {
 NozzleSpeed = 1.0;
 
 var computeNozzles = func {
+
+	egt_norm1.setValue(egt1.getValue()*0.000679348);
+	egt_norm2.setValue(egt2.getValue()*0.000679348);	
+
 	engine1Burner = getprop ("engines/engine[0]/afterburner");
 	if (engine1Burner == nil) {
 		engine1Burner = 0.0;
@@ -64,9 +73,9 @@ var computeNozzles = func {
 			} else {
 				idleNozzleTarget = 0.15;
 			}
-			Nozzle1Target = idleNozzleTarget;
-			Nozzle2Target = idleNozzleTarget;
 		}
+		Nozzle1Target = idleNozzleTarget;
+		Nozzle2Target = idleNozzleTarget;
 	} else {
 	# throttle idle
 		Nozzle1Target = engine1Burner;
