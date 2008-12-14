@@ -2,7 +2,7 @@
 
 # One button elapsed counter 
 
-var chrono_onoff = props.globals.getNode("sim/model/f-14b/instrumentation/clock/chronometer-on", 1);
+var chrono_onoff = props.globals.getNode("sim/model/f-14b/instrumentation/clock/chronometer-on");
 var reset_state = props.globals.getNode("sim/model/f-14b/instrumentation/clock/reset-state", 1);
 var elapsed_sec = props.globals.getNode("sim/model/f-14b/instrumentation/clock/elapsed-sec", 1);
 var indicated_sec = props.globals.getNode("instrumentation/clock/indicated-sec");
