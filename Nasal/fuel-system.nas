@@ -181,7 +181,7 @@ var fuel_update = func {
 
 	# Fuel Jettison
 	dump_valve = Valve.get("dump_valve");
-	if ( dump_valve and ( TotalFuelLbs.getValue() < 4000 ) ) { fuel_dump_off() }
+	if ( dump_valve and ( TotalFuelLbs.getValue() < 4300 ) ) { fuel_dump_off() }
 	if ( dump_valve ) {
 		Left_Proportioner.jettisonFuel(dt);
 		Right_Proportioner.jettisonFuel(dt);
@@ -782,8 +782,11 @@ Prop = {
 		var amount = 0;
 		if(me.get_level() > 0 and me.get_running()) {
 			amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt * 1 ;
-			if(amount > me.level_gal_us.getValue()) {
-				amount = me.level_gal_us.getValue();
+# Quick fix to deal with low frame rates. FIXME the constant should be defined in the settings.
+#			if(amount > me.level_gal_us.getValue()) {
+#				amount = me.level_gal_us.getValue();
+			if(amount > 1.45) {
+				amount = 1.45;
 			}
 		}
 		var dumprate_lbs = ((amount/dt) * 60) * me.ppg.getValue();
