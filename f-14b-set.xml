@@ -4,7 +4,7 @@
 
 	<sim>
 		<description>Grumman F-14B </description>
-		<author>Enrique Laso</author>
+		<author>Enrique Laso - Alexis Bory</author>
 		<status>production</status>
 
 		<flight-model>yasim</flight-model>
@@ -273,12 +273,12 @@
 						<intens type="double">1</intens>
 					</hud>
 					<lighting>
-						<anti-collision-switch type="bool">1</anti-collision-switch>
+						<anti-collision-switch type="bool">true</anti-collision-switch>
 						<hook-bypass type="bool">false</hook-bypass><!-- false = carrier -->
 						<index-norm type="double">1</index-norm>
 						<position-tail-switch type="int">1</position-tail-switch>
 						<position-wing-switch type="int">1</position-wing-switch>
-						<position-flash-switch type="bool">false</position-flash-switch>
+						<position-flash-switch type="bool">true</position-flash-switch>
 					</lighting>
 					<HSD>
 						<brightness type="double">1</brightness>
@@ -405,6 +405,9 @@
 					<acls>
 						<engaged type="bool">false</engaged>
 					</acls>
+					<clock>
+						<chronometer-on type="bool">false</chronometer-on>
+					</clock>
 					<g-meter>
 						<g-max archive="y" type="double">1</g-max>
 						<g-min archive="y" type="double">1</g-min>
