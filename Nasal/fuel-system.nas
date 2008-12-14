@@ -840,7 +840,7 @@ Valve = {
 	set : func (valve, pos) {
 		foreach (var v; Valve.list) {
 			if(v.get_name() == valve) {
-				print("valve ",v.get_name()," ", pos);
+				#print("valve ",v.get_name()," ", pos);
 				v.prop.setValue(pos);
 			}
 		}
