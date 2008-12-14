@@ -108,14 +108,6 @@
 					<property>engines/engine[0]/out-of-fuel</property>
 				</not>
 			</condition>
-			<orientation>
-				<x>0.0</x>
-				<y>-5.0</y>
-				<z>0.0</z>
-				<inner-angle>50.0</inner-angle>
-				<outer-angle>180.0</outer-angle>
-				<outer-gain>0.0</outer-gain>
-			</orientation>
 			<pitch>
 				<property>engines/engine[0]/n1</property>
 				<ofset>0.1</ofset>
