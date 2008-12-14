@@ -88,6 +88,8 @@ trimDown = func {
 
 # Stability Augmentation System
 # -----------------------------
+var dt_mva_vec = [0,0,0,0,0,0,0];
+
 var computeSAS = func {
 	var airspeed = getprop ("/velocities/airspeed-kt");
 	squaredAirspeed = airspeed * airspeed;
@@ -96,15 +98,19 @@ var computeSAS = func {
 	raw_a = raw_aileron.getValue();
 	steering = ((raw_e > 0.05 or -0.05 > raw_e) or (raw_a > 0.01 or -0.01 > raw_a)) ? 1 : 0;
 
-	# Temporarly disengage Autopilot when control stick steering or when fps < 10.
+	mvaf_dT = (dt_mva_vec[0]+dt_mva_vec[1]+dt_mva_vec[2]+dt_mva_vec[3]+dt_mva_vec[4]+dt_mva_vec[5]+dt_mva_vec[6])/7;
+	pop(dt_mva_vec);
+	dt_mva_vec = [deltaT] ~ dt_mva_vec;
+
+	# Temporarly disengage Autopilot when control stick steering or when 7 frames average fps < 10.
 	# Simple mode, Attitude: pitch and roll.
 	# f14_afcs.ap_lock_att:
-	# 0 = attitude not engaged (no autopilot at all)
-	# 1 = attitude engaged and runing.
+	# 0 = attitude not engaged (no autopilot at all).
+	# 1 = attitude engaged and running.
 	# 2 = attitude engaged and temporary disabled.
 	# 3 = attitude engaged and temporary disabled with altitude selected.
 	if ( f14_afcs.ap_lock_att > 0 ) {
-		if ( f14_afcs.ap_lock_att == 1 and ( steering > 0.015 or deltaT >= 0.1 )) {
+		if ( f14_afcs.ap_lock_att == 1 and ( steering or mvaf_dT >= 0.1 )) {
 			if (f14_afcs.ap_alt_lock.getValue() == "altitude-hold") {
 				f14_afcs.ap_lock_att = 3;
 			} else {
@@ -112,7 +118,7 @@ var computeSAS = func {
 			}
 			ap_alt_lock.setValue("");
 			ap_hdg_lock.setValue("");
-		} elsif ( f14_afcs.ap_lock_att > 1 and steering < 0.01 and deltaT < 0.1 ) {
+		} elsif ( f14_afcs.ap_lock_att > 1 and !steering and mvaf_dT < 0.1 ) {
 			if ( f14_afcs.ap_lock_att == 3 ) {
 				f14_afcs.alt_enable.setBoolValue(1);
 			}
