@@ -3189,27 +3189,6 @@
 		</axis>
 	</animation>
 
-	<animation>
-		<type>material</type>
-		<object-name>ReheatL</object-name>
-		<emission>
-			<red>1.0</red>
-			<green>0.8</green>
-			<blue>0.0</blue>
-			<factor-prop>engines/engine[0]/afterburner</factor-prop>
-		</emission>
-	</animation>
-
-	<animation>
-		<type>material</type>
-		<object-name>ReheatR</object-name>
-		<emission>
-			<red>1.0</red>
-			<green>0.8</green>
-			<blue>0.0</blue>
-			<factor-prop>engines/engine[1]/afterburner</factor-prop>
-		</emission>
-	</animation>
 
 <!-- Left inner Nozzle -->
 
@@ -3404,27 +3383,6 @@
 		</axis>
 	</animation>
 
-	<animation>
-		<type>material</type>
-		<object-name>ReheatL</object-name>
-		<emission>
-			<red>1.0</red>
-			<green>0.8</green>
-			<blue>0.0</blue>
-			<factor-prop>engines/engine[0]/afterburner</factor-prop>
-		</emission>
-	</animation>
-
-	<animation>
-		<type>material</type>
-		<object-name>ReheatR</object-name>
-		<emission>
-			<red>1.0</red>
-			<green>0.8</green>
-			<blue>0.0</blue>
-			<factor-prop>engines/engine[1]/afterburner</factor-prop>
-		</emission>
-	</animation>
 
 	<!-- Fan spin -->
 
