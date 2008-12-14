@@ -17,6 +17,12 @@ var position = aircraft.light.new("sim/model/f-14b/lighting/position", [0.08, 1.
 var sw_pos_prop = props.globals.getNode("sim/model/f-14b/controls/lighting/position-wing-switch", 1);
 var position_intens = 0;
 
+# Temporary (ugly) workaround to allow position.blink() and position.cont() to work correctly.
+var position_enabled = props.globals.getNode("/sim/model/f-14b/lighting/position/enabled");
+position_enabled.setBoolValue(!position_enabled.getBoolValue());
+position_enabled.setBoolValue(!position_enabled.getBoolValue());
+
+
 var position_switch = func(n) {
 	var sw_pos = sw_pos_prop.getValue();
 	if (n == 1) {
