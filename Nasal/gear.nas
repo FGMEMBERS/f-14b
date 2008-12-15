@@ -67,14 +67,11 @@ var ldg_hdl_anim = func {
 # Launch bar animation 
 # -----------------------------
 var listen_launchbar = nil;
-listen_launchbar = setlistener( "gear/launchbar/position-norm", func { update_launchbar() } );
+listen_launchbar = setlistener( "gear/launchbar/state", func { settimer(update_launchbar, 0.05) },0 ,0 );
 
 var update_launchbar = func() {
 	if ( getprop("gear/launchbar/position-norm") == 1 and ! WOW ) {
 		removelistener( listen_launchbar );
-		print("******* launchbar ***********");
-		print(getprop("gear/launchbar/state"));
-		print(getprop("controls/gear/launchbar"));
 		setprop("controls/gear/launchbar", "false");
 		setprop("controls/gear/launchbar", "true");
 		settimer(reset_launchbar_listener, 1);
@@ -82,7 +79,6 @@ var update_launchbar = func() {
 }
 
 var reset_launchbar_listener = func() {
-	print("******* reset ***********");
 	setprop("controls/gear/launchbar", "false");
-	listen_launchbar = setlistener( "gear/launchbar/state", func { update_launchbar() } );
+	listen_launchbar = setlistener( "gear/launchbar/state", func { settimer(update_launchbar, 0.05) },0 ,0 );
 }
