@@ -14,13 +14,10 @@ aircraft.light.new("sim/model/f-14b/lighting/anti-collision", [0.09, 1.20], anti
 # ------------------------
 var position_flash_sw = props.globals.getNode("sim/model/f-14b/controls/lighting/position-flash-switch");
 var position = aircraft.light.new("sim/model/f-14b/lighting/position", [0.08, 1.15]);
+setprop("/sim/model/f-14b/lighting/position/enabled", 1);
 var sw_pos_prop = props.globals.getNode("sim/model/f-14b/controls/lighting/position-wing-switch", 1);
 var position_intens = 0;
 
-# Temporary (ugly) workaround to allow position.blink() and position.cont() to work correctly.
-var position_enabled = props.globals.getNode("/sim/model/f-14b/lighting/position/enabled");
-position_enabled.setBoolValue(!position_enabled.getBoolValue());
-position_enabled.setBoolValue(!position_enabled.getBoolValue());
 
 
 var position_switch = func(n) {
