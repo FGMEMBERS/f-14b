@@ -15,6 +15,13 @@
 # Button Load: place the current tunned freq in the memory for the selected preset channel.
 # Button Read: switch between frequency and preset channel number display.
 
+# Load a freq into a channel:
+#	MODE:			set MAIN or BOTH.
+#	FUNCTION:		set PRESET.
+#	CHAN SEL:		set desired Channel.
+#	FREQ Switches:	tune for desired Frequency.
+#	LOAD Button:	push to load the Frequency into the Channel memory.
+
 var Radio        = props.globals.getNode("sim/model/f-14b/instrumentation/an-arc-159v1");
 var Mode         = Radio.getNode("mode");
 var Function     = Radio.getNode("function");
@@ -28,152 +35,164 @@ var Comm2_Volume = props.globals.getNode("instrumentation/comm[1]/volume");
 var Comm2_Freq   = props.globals.getNode("instrumentation/comm[1]/frequencies/selected-mhz");
 var Comm2_Freq_stdby = props.globals.getNode("instrumentation/comm[1]/frequencies/standby-mhz");
 
-var comm2_f = 0.0;
-var comm2_f_stb = 0.0;
-var cur_f = 0.0;
-var mode = 0.0;
-var preset = 0;
-var preset_freq = 0.0;
-var mode_stby = 0;
+var df_lock = 0;
 
-var set_mode = func(step) {
-	mode = Mode.getValue();
-	var old_mode = mode;
-	volume = Volume.getValue();
-	mode += step;
-	if (mode > 3) {
-		mode = 3;
-	} elsif (mode < 0) {
-		mode = 0;	
-	}
-	Mode.setValue(mode);
-	if ((mode == 1 and old_mode == 0) ) {
-		# from OFF to MAIN
-		preset = Preset.getValue();
-		var path = "frequency["~preset~"]";
-		preset_freq = Presets.getNode(path).getValue();
-		Selected_F.setValue(preset_freq*1000);
-		cur_f = Selected_F.getValue();
-		Comm2_Freq.setValue(cur_f/1000);
-		Comm2_Volume.setValue(volume);
-	} elsif (mode == 0) {
-		# from MAIN to OFF
-		Selected_F.setValue(0);
+var turn_on = func() {
+	var f = Function.getValue();
+	if ( f == 0 ) {
+		var p = Preset.getValue();
+		var path = "frequency[" ~ p ~ "]";
+		var p_freq = Presets.getNode(path).getValue();
+		Selected_F.setValue(p_freq * 1000);
+	} elsif ( f == 1 ) {
 		Comm2_Freq.setValue(0);
-		Comm2_Volume.setValue(0);
+	} else {
+		Comm2_Freq.setValue(243);
+		Selected_F.setValue(243000);
+	}
+	var v = Volume.getValue();
+	Comm2_Volume.setValue(v);
+}
+
+var turn_off = func() {
+	Selected_F.setValue(0);
+	Comm2_Freq.setValue(0);
+	Comm2_Volume.setValue(0);
+	Comm2_Freq_stdby.setValue(0);
+}
+
+var get_selected = func() {
+	return(Selected_F.getValue() / 1000);
+}
+
+var load = func() {
+	var m = Mode.getValue();
+	var f = Function.getValue();
+	var fq = Selected_F.getValue();
+	var p = Preset.getValue();
+	var path = "frequency[" ~ p ~ "]";
+	Presets.getNode(path).setValue(fq / 1000);
+	if ( m == 1 or m == 2) {
+		Comm2_Freq.setValue(fq / 1000);
 	}
 }
 
-
-var set_function = func(step) {
-	mode = Mode.getValue();
-	function = Function.getValue();
-	var old_function = function;
-	function += step;
-	if (function > 2) {
-		function = 2;
-	} elsif (function < 0) {
-		function = 0;	
+var adj_mode = func(s) {
+	var m = Mode.getValue();
+	var old_m = m;
+	m += s;
+	if ( m > 3 ) { m = 3 } elsif ( m < 0 ) { m = 0 }
+	Mode.setValue(m);
+	if ( m == 0 ) {
+		turn_off();
+	} elsif (( m == 1 and old_m == 0 )) {
+		turn_on();
+	} elsif (( m == 2 and old_m == 3 )) {
+		Comm2_Freq.setValue(Selected_F.getValue());
+	} elsif ( m == 3) {
+		Comm2_Freq.setValue(0);
 	}
-	Function.setValue(function);
-	if  (function == 1 and old_function == 2) {
+}
+
+var adj_function = func(s) {
+	var m = Mode.getValue();
+	var f = Function.getValue();
+	var old_f = f;
+	f += s;
+	if ( f > 2 ) { f = 2 } elsif ( f < 0 ) { f = 0 }
+	Function.setValue(f);
+	if  ( f == 1 and old_f == 2 ) {
 		# from GUARD to MANUAL 
-		comm2_f = Comm2_Freq_stdby.getValue();
+		var comm2_f = Comm2_Freq_stdby.getValue();
 		Comm2_Freq.setValue(comm2_f);
-		Selected_F.setValue(comm2_f*1000);
-		Comm2_Freq_stdby.setValue(0.0);
-	} elsif ( function == 2 and old_function == 1 and mode > 0 ) {
+		Selected_F.setValue(comm2_f * 1000);
+		Comm2_Freq_stdby.setValue(0);
+	} elsif ( f == 2 and old_f == 1 and m > 0 ) {
 		# from MANUAL to GUARD
-		comm2_f = Selected_F.getValue()/1000;
-		Comm2_Freq.setValue(243.0);
+		var comm2_f = Selected_F.getValue() / 1000;
+		Comm2_Freq.setValue(243);
 		Comm2_Freq_stdby.setValue(comm2_f);
-		Selected_F.setValue(243.0*1000);
+		Selected_F.setValue(243000);
+	} 
+}
+
+var adj_channel = func(s) {
+	var m = Mode.getValue();
+	var f = Function.getValue();
+	var p = Preset.getValue();
+	p += s;
+	if ( p < 0 ) { p = 0 } elsif ( p > 19 ) { p = 19 }
+	Preset.setValue(p);
+	var path = "frequency[" ~ p ~ "]";
+	var p_freq = Presets.getNode(path).getValue();
+	if (( m == 1 or m == 2 ) and f == 0 ) {
+		Selected_F.setValue(p_freq * 1000);
+		Comm2_Freq.setValue(p_freq);
+	}
+	return(p);
+}
+
+var set_freq = func(fq) {
+	var fq = test_band(fq);
+	Selected_F.setValue(fq);
+	return(fq);
+}
+
+var adj_freq = func(s) {
+	var m = Mode.getValue();
+	var f = Function.getValue();
+	if (( m == 1 or m == 2 )  and ( f < 2 )) {
+		var fq = Selected_F.getValue() + s;
+		fq = test_band(fq);
+		Selected_F.setValue(fq);
+		Comm2_Freq.setValue(fq);
 	}
 }
 
-var set_channel = func(step) {
-	mode = Mode.getValue();
-	function = Function.getValue();
-	preset = Preset.getValue();
-	preset += step;
-	if (preset > 19) {
-		preset = 19;
-	} elsif (preset < 0) {
-		preset = 0;	
-	}
-	Preset.setValue(preset);
-	var path = "frequency["~preset~"]";
-	preset_freq = Presets.getNode(path).getValue();
-	if ((mode == 1 or mode == 2) and function == 0) {
-		Selected_F.setValue(preset_freq*1000);
-		Comm2_Freq.setValue(preset_freq);
-	}
-}
-
-var adj_freq = func(step) {
-	mode = Mode.getValue();
-	function = Function.getValue();
-	if ((mode == 1 or mode == 2 or mode == 3)  and (function == 1 or function == 2)) {
-		cur_f = Selected_F.getValue();
-		var result = cur_f + step;
-		result = test_boundaries(step, result);
-		Selected_F.setValue(result);
-	}
-}
-
-var test_boundaries = func(step, result) {
-	if (result > 400000) {
-		result = 400000;
-	} elsif (result < 225000) {
-		result = 225000;
-	}
-	return(result);
+var test_band = func(fq) {
+	if ( fq < 225000 ) { fq = 225000 } elsif ( fq > 400000 ) { fq = 400000 }
+	return(fq);
 }
 
 var load_freq = func() {
-	mode = Mode.getValue();
-	function = Function.getValue();
-	if ( function == 0 and mode > 0 ) {
-		cur_f = Selected_F.getValue();
-		preset = Preset.getValue();
-		var path = "frequency["~preset~"]";
-		Presets.getNode(path).setValue(cur_f/1000);
+	var m = Mode.getValue();
+	var f = Function.getValue();
+	if ( f == 0 and m > 0 ) {
+		load();
 		Load_State.setValue(1);
-		settimer(func {
-			Load_State.setValue(0);
-			set_function(-1);
-		}, 0.5);
+		settimer(func { Load_State.setValue(0); }, 0.5);
 	}
 }
 
-var set_volume = func(step) {
-	volume = Volume.getValue();
-	mode = Mode.getValue();
-	volume += step;
-	if (volume < 0) { volume = 0 }
-	if (volume > 1) { volume = 1 }
-	Volume.setValue(volume);
-	Comm2_Volume.setValue(volume);
+var set_volume = func(s) {
+	var v = Volume.getValue();
+	var m = Mode.getValue();
+	v += s;
+	if ( v < 0 ) { v = 0 } elsif ( v > 1 ) { v = 1 }
+	Volume.setValue(v);
+	if ( m == 1 or m == 2 ) {
+		Comm2_Volume.setValue(v);
+	}
 }
 
 
 var init = func() {
-	mode = Mode.getValue();
-	function = Function.getValue();
-	preset = Preset.getValue();
-	var path = "frequency["~preset~"]";
-	preset_freq = Presets.getNode(path).getValue();
-	if (function == 2) {
-		# 243 Mhz
-		Comm2_Freq.setValue(243.0);
-		Selected_F.setValue(243.0*1000);
+	var m = Mode.getValue();
+	var f = Function.getValue();
+	var p = Preset.getValue();
+	var path = "frequency[" ~ p ~ "]";
+	var p_freq = Presets.getNode(path).getValue();
+	if ( f == 2 ) {
+		Comm2_Freq.setValue(243);
+		Selected_F.setValue(243000);
 	} else {
-		Comm2_Freq.setValue(preset_freq);
-		Selected_F.setValue(preset_freq*1000);
+		Comm2_Freq.setValue(p_freq);
+		Selected_F.setValue(p_freq * 1000);
 	}
-	if (mode == 0) {
-		Comm2_Freq.setValue(0.0);
-		Comm2_Freq_stdby.setValue(0.0);
+	if ( m == 0 or m == 3 ) {
+		Comm2_Freq.setValue(0);
+		Comm2_Freq_stdby.setValue(0);
+		Selected_F.setValue(0);
 	}
 }
 

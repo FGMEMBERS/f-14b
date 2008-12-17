@@ -256,7 +256,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_159v1.set_mode(1)</script>
+				<script>an_arc_159v1.adj_mode(1)</script>
 			</binding>
 		</action>
 		<action>
@@ -264,7 +264,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_159v1.set_mode(-1)</script>
+				<script>an_arc_159v1.adj_mode(-1)</script>
 			</binding>
 		</action>
 	</animation>
@@ -279,7 +279,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_159v1.set_channel(1)</script>
+				<script>an_arc_159v1.adj_channel(1)</script>
 			</binding>
 		</action>
 		<action>
@@ -287,7 +287,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_159v1.set_channel(-1)</script>
+				<script>an_arc_159v1.adj_channel(-1)</script>
 			</binding>
 		</action>
 	</animation>
@@ -318,7 +318,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_159v1.set_function(1)</script>
+				<script>an_arc_159v1.adj_function(1)</script>
 			</binding>
 		</action>
 		<action>
@@ -326,7 +326,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_159v1.set_function(-1)</script>
+				<script>an_arc_159v1.adj_function(-1)</script>
 			</binding>
 		</action>
 	</animation>
@@ -387,6 +387,7 @@
 		<action>
 			<button>0</button>
 			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
 			<binding>
 				<command>nasal</command>
 				<script>an_arc_159v1.set_volume(0.1)</script>
@@ -395,6 +396,7 @@
 		<action>
 			<button>1</button>
 			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
 			<binding>
 				<command>nasal</command>
 				<script>an_arc_159v1.set_volume(-0.1)</script>

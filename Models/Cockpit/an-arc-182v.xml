@@ -99,6 +99,10 @@
 					<property>sim/model/f-14b/instrumentation/an-arc-182v/function</property>
 					<value>4</value>
 				</equals>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/an-arc-182v/mode</property>
+					<value>4</value>
+				</equals>
 			</or>
 		</condition>
 	</animation>
@@ -112,6 +116,12 @@
 				<equals>
 					<property>sim/model/f-14b/instrumentation/an-arc-182v/mode</property>
 					<value>0</value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/an-arc-182v/mode</property>
+					<value>4</value>
 				</equals>
 			</not>
 			<or>
@@ -265,7 +275,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_182v.set_function(1)</script>
+				<script>an_arc_182v.adj_function(1)</script>
 			</binding>
 		</action>
 		<action>
@@ -273,7 +283,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_182v.set_function(-1)</script>
+				<script>an_arc_182v.adj_function(-1)</script>
 			</binding>
 		</action>
 	</animation>
@@ -288,7 +298,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_182v.set_channel(1)</script>
+				<script>an_arc_182v.adj_channel(1)</script>
 			</binding>
 		</action>
 		<action>
@@ -296,7 +306,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_182v.set_channel(-1)</script>
+				<script>an_arc_182v.adj_channel(-1)</script>
 			</binding>
 		</action>
 	</animation>
@@ -326,7 +336,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_182v.set_mode(1)</script>
+				<script>an_arc_182v.adj_mode(1)</script>
 			</binding>
 		</action>
 		<action>
@@ -334,7 +344,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_182v.set_mode(-1)</script>
+				<script>an_arc_182v.adj_mode(-1)</script>
 			</binding>
 		</action>
 	</animation>
@@ -363,17 +373,19 @@
 		<action>
 			<button>0</button>
 			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_182v.set_volume(0.1)</script>
+				<script>an_arc_182v.adj_volume(0.1)</script>
 			</binding>
 		</action>
 		<action>
 			<button>1</button>
 			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
 			<binding>
 				<command>nasal</command>
-				<script>an_arc_182v.set_volume(-0.1)</script>
+				<script>an_arc_182v.adj_volume(-0.1)</script>
 			</binding>
 		</action>
 	</animation>
