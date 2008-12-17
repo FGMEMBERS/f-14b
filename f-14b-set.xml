@@ -798,12 +798,12 @@
 			<yaw-bias type="float">0.0</yaw-bias>
 			<roll-bias type="float">0.0</roll-bias>
 		</SAS>
-		<!--<livery-number type="int">0</livery-number>-->
 		<heat-blur-on type="bool">false</heat-blur-on>
 	</f-14>
 
 	<input>
-		<keyboard include="../../Input/Keyboard/carrier-bindings.xml">
+		<keyboard n="0" include="../../Input/Keyboard/carrier-bindings.xml">
+		<multikey include="Models/Cockpit/radios-multikey.xml"/>
 
 			<key n="1">
 				<name>CTRL-a</name>
@@ -1081,8 +1081,8 @@
 			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
 			<file>Aircraft/f-14b/Nasal/fuel-system.nas</file>
 			<file>Aircraft/f-14b/Nasal/f14_radar.nas</file>
-			
-			<!--<file>Aircraft/f-14b/Nasal/display_props.nas</file>-->
+			<!--
+			<file>Aircraft/f-14b/Nasal/display_props.nas</file>-->
 		</f14>
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>
