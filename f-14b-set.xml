@@ -508,6 +508,9 @@
 		</multiplay>
 
 		<rendering>
+			<camera-group>
+				<znear type="double">0.25</znear>
+			</camera-group>
 			<redout>
 				<parameters>
 					<blackout-complete-g>7.9</blackout-complete-g>
