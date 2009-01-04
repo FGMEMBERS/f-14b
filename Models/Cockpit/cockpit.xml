@@ -230,17 +230,26 @@
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/afcs.xml</path>
 		<offsets>
-			<x-m>-5.2939</x-m>
-			<y-m>-0.5499</y-m>
-			<z-m>-0.4166</z-m>
+			<x-m>-5.3162</x-m>
+			<y-m>-0.5464</y-m>
+			<z-m>-0.4186</z-m>
 			<roll-deg>-28</roll-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/throttles.xml</path>
+		<offsets>
+			<x-m>-5.4973</x-m>
+			<y-m>-0.4240</y-m>
+			<z-m>-0.4210</z-m>
 		</offsets>
 	</model>
 
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/tacan.xml</path>
 		<offsets>
-			<x-m>-5.1750</x-m>
+			<x-m>-5.1660</x-m>
 			<y-m>-0.4125</y-m>
 			<z-m>-0.4910</z-m>
 			<roll-deg>-28</roll-deg>
@@ -250,7 +259,7 @@
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/an-arc-159v1.xml</path>
 		<offsets>
-			<x-m>-5.2810</x-m>
+			<x-m>-5.2726</x-m>
 			<y-m>-0.4125</y-m>
 			<z-m>-0.4910</z-m>
 			<roll-deg>-28</roll-deg>
