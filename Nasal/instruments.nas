@@ -296,6 +296,13 @@ var init = func {
 
 setlistener("/sim/signals/fdm-initialized", init);
 
+setlistener("/sim/signals/reinit", func (reinit) {
+	if (reinit.getValue()) {
+		f14.internal_save_fuel();
+	} else {
+		settimer(func { f14.internal_restore_fuel() }, 0.6);
+	}		
+});
 
 # Miscelaneous definitions and tools ############
 

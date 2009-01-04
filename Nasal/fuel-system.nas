@@ -1,5 +1,4 @@
-# This is a replacement for fuel.nas for the particlar fuel 
-# system of the Grumman F-14b.
+# Replacement for fuel.nas for the Grumman F-14b particular fuel system.
 
 
 fuel.update = func{}; # disable the generic fuel updater
@@ -66,7 +65,8 @@ var last_time = 0.0;
 var total = 0;
 var dump_valve = 0;
 var dumprate_lbs_hr = 90000; #1500 ppm
-var refuel_rate_gpm = 450; # max rate in gallons per minute at 50 psi pressure
+var max_instant_dumprate_lbs = 1.45; # max instantaneous qty for low frame rates
+var refuel_rate_gpm = 450; # max refuel rate in gallons per minute at 50 psi pressure
 
 
 var left_shut_off = 0; # TODO: Engine fuel shutoff emergency handles
@@ -322,7 +322,7 @@ var fuel_update = func {
 		Right_Sump.set_level( right_sump_level                     - amount_right_sump );
 		Right_Proportioner.set_level(Right_Proportioner.get_level() + amount_right_sump );
 	}
-	#print( "from sumps: " ~ amount_left_sump ~ amount_right_sump );
+
 
 	# Transfer from Left Beam Box to left sump.
 	if ( Left_Sump.get_ullage() > 0 ) {
@@ -340,7 +340,7 @@ var fuel_update = func {
 		Right_Beam_Box.set_level( right_beam_box_level - amount_right_beam_box);
 		Right_Sump.set_level(Right_Sump.get_level()    + amount_right_beam_box);
 	}
-	#print( "from bboxes: " ~ amount_left_beam_box ~ amount_right_beam_box );
+
 
 
 
@@ -626,11 +626,31 @@ var refuel_probe_switch_down = func() {
 }
 
 
-# Specify Classes
-# ---------------
+# Internaly save levels at reinit. This is a workaround:
+# reinit shouldn't try to reload the levels from the -set file.
+var level_list = [];
 
-# This class defines a tank
+var internal_save_fuel = func() {
+	print("Saving F-14B fuel levels");
+	level_list = [];
+	foreach (var t; Tank.list) {
+		append(level_list, t.get_level());
+	}
+}
+var internal_restore_fuel = func() {
+	print("Restoring F-14B fuel levels");
+	var i = 0;
+	foreach (var t; Tank.list) {
+		t.set_level(level_list[i]);
+		i += 1;
+	}
+}
 
+
+# Classes
+# -------
+
+# Tank
 Tank = {
 	new : func (name, number, connect) {
 		var obj = { parents : [Tank]};
@@ -696,8 +716,7 @@ Tank = {
 };
 
 
-# This class defines a proportioner
-# TODO: explain what is a proportioner
+# Proportioner
 Prop = {
 	new : func (name, number, connect, running) {
 		var obj = { parents : [Prop]};
@@ -781,12 +800,9 @@ Prop = {
 	jettisonFuel : func (dt) {
 		var amount = 0;
 		if(me.get_level() > 0 and me.get_running()) {
-			amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt * 1 ;
-# Quick fix to deal with low frame rates. FIXME the constant should be defined in the settings.
-#			if(amount > me.level_gal_us.getValue()) {
-#				amount = me.level_gal_us.getValue();
-			if(amount > 1.45) {
-				amount = 1.45;
+			amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt * 1 ;			
+			if(amount > max_instant_dumprate_lbs) { # Deal with low frame rates.
+				amount = max_instant_dumprate_lbs;
 			}
 		}
 		var dumprate_lbs = ((amount/dt) * 60) * me.ppg.getValue();
@@ -799,7 +815,7 @@ Prop = {
 
 
 
-# this class specifies the negative g switch
+# Negative G switch
 
 Neg_g = {
 	new : func(switch) {
@@ -826,7 +842,7 @@ Neg_g = {
 };	
 
 
-# this class specifies fuel valves
+# Fuel valves
 
 Valve = {
 	new : func (name,
@@ -843,7 +859,6 @@ Valve = {
 	set : func (valve, pos) {
 		foreach (var v; Valve.list) {
 			if(v.get_name() == valve) {
-				#print("valve ",v.get_name()," ", pos);
 				v.prop.setValue(pos);
 			}
 		}
