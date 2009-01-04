@@ -28,6 +28,19 @@
 		</center>
 		<axis><y>-1</y></axis>
 	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-sas-pitch</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_afcs.sas_pitch_toggle()</script>
+			</binding>
+		</action>
+	</animation>
 
 	<!-- Stab Aug Roll Switch -->
 	<animation>
@@ -41,6 +54,19 @@
 			<z-m>0.0038</z-m>
 		</center>
 		<axis><y>-1</y></axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-sas-roll</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_afcs.sas_roll_toggle()</script>
+			</binding>
+		</action>
 	</animation>
 
 	<!-- Stab Aug Yaw Switch -->
@@ -56,6 +82,19 @@
 		</center>
 		<axis><y>-1</y></axis>
 	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-sas-yaw</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_afcs.sas_yaw_toggle()</script>
+			</binding>
+		</action>
+	</animation>
 
 	<!-- Autopilot Engage Switch -->
 	<animation>
@@ -69,6 +108,19 @@
 			<z-m>0.0038</z-m>
 		</center>
 		<axis><y>-1</y></axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-ap-engage</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_afcs.afcs_engage_toggle()</script>
+			</binding>
+		</action>
 	</animation>
 
 	<!-- Autopilot VEC/PCD ACL Switch -->
@@ -98,6 +150,19 @@
 		</center>
 		<axis><y>-1</y></axis>
 	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-ap-alt</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_afcs.afcs_altitude_engage_toggle()</script>
+			</binding>
+		</action>
+	</animation>
 
 	<!-- Autopilot HDG GT Switch -->
 	<animation>
@@ -111,6 +176,32 @@
 			<z-m>0.0038</z-m>
 		</center>
 		<axis><y>-1</y></axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-ap-hdg-up</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_afcs.afcs_heading_switch(1)</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-ap-hdg-down</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_afcs.afcs_heading_switch(-1)</script>
+			</binding>
+		</action>
 	</animation>
 
 

@@ -1,14 +1,15 @@
 AC3Db
 MATERIAL "ac3dmat1" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.2 0.2 0.2  shi 128  trans 0
+MATERIAL "ac3dmat1" rgb 0 0 0  amb 0 0 0  emis 0 0 0  spec 0 0 0  shi 0  trans 1
 OBJECT world
 kids 1
 OBJECT group
 name "afcs"
-loc 0.0193317 0.00819101 -0.00180489
-kids 2
+loc -0.00972025 0.00740873 -0.0162734
+kids 3
 OBJECT group
 name "switches"
-loc 0.0192998 0.0068721 -0.00180489
+loc 0.0483517 0.00765438 0.0126636
 kids 7
 OBJECT poly
 name "vec-acl-switch"
@@ -1026,7 +1027,7 @@ refs 3
 kids 0
 OBJECT poly
 name "mount"
-loc -0.0192998 -0.0068721 0.00180489
+loc 0.00975215 -0.00608982 0.0162734
 texture "afcs.rgb"
 crease 45.000000
 numvert 84
@@ -1798,4 +1799,152 @@ refs 8
 81 0.0175781 -0.0049315
 82 0.966752 -0.00663166
 83 0.989057 0.0222811
+kids 0
+OBJECT group
+name "hotspots"
+loc -0.0581039 -0.00156457 -0.028937
+kids 8
+OBJECT poly
+name "hotspot-sas-yaw"
+loc -0.0382781 0 -0.0411412
+crease 45.000000
+numvert 4
+0.108597 0 0.0362399
+0.108597 0 0.054188
+0.0713272 0 0.054188
+0.0713272 0 0.0362399
+numsurf 1
+SURF 0x10
+mat 1
+refs 4
+3 1 1
+2 0 1
+1 0 0
+0 1 0
+kids 0
+OBJECT poly
+name "hotspot-sas-roll"
+loc -0.0382781 0 0.00118449
+crease 45.000000
+numvert 4
+0.0713272 0 0.0362399
+0.0713272 0 0.054188
+0.108597 0 0.054188
+0.108597 0 0.0362399
+numsurf 1
+SURF 0x10
+mat 1
+refs 4
+0 1 1
+1 0 1
+2 0 0
+3 1 0
+kids 0
+OBJECT poly
+name "hotspot-sas-pitch"
+loc -0.0382781 0 0.0445631
+crease 45.000000
+numvert 4
+0.108597 0 0.0362399
+0.108597 0 0.054188
+0.0713272 0 0.054188
+0.0713272 0 0.0362399
+numsurf 1
+SURF 0x10
+mat 1
+refs 4
+3 1 1
+2 0 1
+1 0 0
+0 1 0
+kids 0
+OBJECT poly
+name "hotspot-ap-engage"
+loc 0.00467932 0 -0.0449316
+crease 45.000000
+numvert 4
+0.0713272 0 0.0362399
+0.0713272 0 0.054188
+0.108597 0 0.054188
+0.108597 0 0.0362399
+numsurf 1
+SURF 0x10
+mat 1
+refs 4
+0 1 1
+1 0 1
+2 0 0
+3 1 0
+kids 0
+OBJECT poly
+name "hotspot-ap-hdg-up"
+loc 0.0445766 0 -0.0125029
+crease 45.000000
+numvert 4
+0.0478527 0 0.0362399
+0.0478527 0 0.054188
+0.03143 0 0.054188
+0.03143 0 0.0362399
+numsurf 1
+SURF 0x10
+mat 1
+refs 4
+3 1 1
+2 0 1
+1 0 0
+0 1 0
+kids 0
+OBJECT poly
+name "hotspot-ap-hdg-down"
+loc 0.0562199 0 -0.0125029
+crease 45.000000
+numvert 4
+0.037475 0 0.0362399
+0.037475 0 0.054188
+0.0570564 0 0.054188
+0.0570564 0 0.0362399
+numsurf 1
+SURF 0x10
+mat 1
+refs 4
+0 1 1
+1 0 1
+2 0 0
+3 1 0
+kids 0
+OBJECT poly
+name "hotspot-ap-alt"
+loc 0.00467932 0 0.0176094
+crease 45.000000
+numvert 4
+0.108597 0 0.0362399
+0.108597 0 0.054188
+0.0713272 0 0.054188
+0.0713272 0 0.0362399
+numsurf 1
+SURF 0x10
+mat 1
+refs 4
+3 1 1
+2 0 1
+1 0 0
+0 1 0
+kids 0
+OBJECT poly
+name "hotspot-ap-vec-pcd"
+loc 0.00467932 0 0.0477217
+crease 45.000000
+numvert 4
+0.0713272 0 0.0362399
+0.0713272 0 0.054188
+0.108597 0 0.054188
+0.108597 0 0.0362399
+numsurf 1
+SURF 0x10
+mat 1
+refs 4
+0 1 1
+1 0 1
+2 0 0
+3 1 0
 kids 0

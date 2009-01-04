@@ -127,6 +127,38 @@
 			<z>1</z>
 		</axis>
 	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-tcn-mode-left</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.3</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>sim/model/f-14b/controls/instrumentation/tacan/mode</property>
+				<step>-1</step>
+				<min>0</min>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-tcn-mode-right</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.3</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>sim/model/f-14b/controls/instrumentation/tacan/mode</property>
+				<step>1</step>
+				<max>4</max>
+			</binding>
+		</action>
+	</animation>
 
 	<animation>
 		<type>rotate</type>
@@ -148,6 +180,38 @@
 			<z>1</z>
 		</axis>
 	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-tcn-chan-left</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/tacan/frequencies/selected-channel</property>
+				<step>-1</step>
+				<min>1</min>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-tcn-chan-right</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/tacan/frequencies/selected-channel</property>
+				<step>1</step>
+				<max>126</max>
+			</binding>
+		</action>
+	</animation>
 
 	<animation>
 		<type>rotate</type>
@@ -164,6 +228,19 @@
 			<y>1</y>
 			<z>0</z>
 		</axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-tcn-xy</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>f14_instruments.tacan_XYtoggle()</script>
+			</binding>
+		</action>
 	</animation>
 
 

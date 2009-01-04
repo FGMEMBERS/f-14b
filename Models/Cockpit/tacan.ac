@@ -1,15 +1,16 @@
 AC3Db
 MATERIAL "ac3dmat1" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.2 0.2 0.2  shi 128  trans 0
 MATERIAL "ac3dmat12" rgb 0.266667 0.266667 0.266667  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.2 0.2 0.2  shi 128  trans 0
+MATERIAL "ac3dmat1" rgb 0 0 0  amb 0 0 0  emis 0 0 0  spec 0 0 0  shi 0  trans 1
 OBJECT world
 kids 1
 OBJECT group
 name "tacan"
-loc 0.000512052 -0.00192986 0.00617547
-kids 17
+loc -0.00880658 0.00208628 0.00833745
+kids 18
 OBJECT poly
 name "nogo-lamp"
-loc -0.0274784 0.00305698 0.027304
+loc -0.0181598 -0.000959161 0.025142
 texture "divs-instr.rgb"
 crease 180.000000
 numvert 25
@@ -202,7 +203,7 @@ refs 3
 kids 0
 OBJECT poly
 name "go-lamp"
-loc -0.0274784 0.00305698 0.0409538
+loc -0.0181598 -0.000959161 0.0387918
 texture "divs-instr.rgb"
 crease 180.000000
 numvert 25
@@ -395,7 +396,7 @@ refs 3
 kids 0
 OBJECT poly
 name "mount"
-loc -0.000475585 -0.00019575 -0.00611274
+loc 0.00884304 -0.00421189 -0.00827472
 texture "tacan.rgb"
 crease 180.000000
 numvert 37
@@ -662,7 +663,7 @@ refs 4
 kids 0
 OBJECT poly
 name "xy-switch"
-loc 0.0133119 0.00764926 -0.0172482
+loc 0.0226305 0.00363312 -0.0194102
 texture "divs-instr.rgb"
 crease 45.000000
 numvert 17
@@ -791,7 +792,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mode-switch"
-loc -0.0193482 0.0076583 -0.0172482
+loc -0.0100296 0.00364216 -0.0194102
 texture "divs-instr.rgb"
 crease 45.000000
 numvert 17
@@ -920,7 +921,7 @@ refs 3
 kids 0
 OBJECT poly
 name "chan-knob"
-loc 0.0134755 0.00906605 0.0288972
+loc 0.0227941 0.00504991 0.0267352
 texture "divs-instr.rgb"
 crease 45.000000
 numvert 51
@@ -1308,7 +1309,7 @@ refs 3
 kids 0
 OBJECT poly
 name "mode-knob"
-loc 0.0204761 0.00764956 -0.0536471
+loc 0.0297947 0.00363342 -0.0558091
 texture "divs-instr.rgb"
 crease 45.000000
 numvert 81
@@ -1941,7 +1942,7 @@ refs 3
 kids 0
 OBJECT poly
 name "Y-sign"
-loc 0.026862 0.00192986 -0.0172022
+loc 0.0361806 -0.00208628 -0.0193642
 texture "tacan.rgb"
 crease 45.000000
 numvert 11
@@ -2020,7 +2021,7 @@ refs 3
 kids 0
 OBJECT poly
 name "X-sign"
-loc 0.026862 0.00192986 -0.0172022
+loc 0.0361806 -0.00208628 -0.0193642
 texture "tacan.rgb"
 crease 45.000000
 numvert 11
@@ -2099,7 +2100,7 @@ refs 3
 kids 0
 OBJECT poly
 name "go-lamp-off"
-loc -0.0274784 0.00305698 0.0409927
+loc -0.0181598 -0.000959161 0.0388307
 texture "divs-instr.rgb"
 crease 180.000000
 numvert 25
@@ -2292,7 +2293,7 @@ refs 4
 kids 0
 OBJECT poly
 name "nogo-lamp-off"
-loc -0.0274784 0.00305698 0.0272986
+loc -0.0181598 -0.000959161 0.0251366
 texture "divs-instr.rgb"
 crease 180.000000
 numvert 25
@@ -2485,7 +2486,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disp_bkg"
-loc -0.0130255 0.000649311 0.012293
+loc -0.00370687 -0.00336683 0.010131
 crease 45.000000
 numvert 4
 -0.00684529 0 0.0213743
@@ -2503,7 +2504,7 @@ refs 4
 kids 0
 OBJECT poly
 name "vol-knob"
-loc -0.0192473 0.00787788 -0.0544858
+loc -0.00992867 0.00386174 -0.0566478
 texture "tacan.rgb"
 crease 45.000000
 numvert 21
@@ -2662,7 +2663,7 @@ refs 3
 kids 0
 OBJECT poly
 name "drum-1"
-loc -0.0087061 0.00208275 0.0332207
+loc 0.000612529 -0.00193339 0.0310587
 texture "altimeter-gauge.rgb"
 crease 45.000000
 numvert 4
@@ -2681,7 +2682,7 @@ refs 4
 kids 0
 OBJECT poly
 name "drum-2"
-loc -0.0025824 0.00208275 0.0332207
+loc 0.00673623 -0.00193339 0.0310587
 texture "altimeter-gauge.rgb"
 crease 45.000000
 numvert 4
@@ -2700,7 +2701,7 @@ refs 4
 kids 0
 OBJECT poly
 name "drum-3"
-loc 0.0035412 0.00208275 0.0332207
+loc 0.0128598 -0.00193339 0.0310587
 texture "altimeter-gauge.rgb"
 crease 45.000000
 numvert 4
@@ -2719,7 +2720,7 @@ refs 4
 kids 0
 OBJECT poly
 name "test-button"
-loc -0.0222444 0.0047349 0.0054929
+loc -0.0129258 0.000718758 0.00333092
 texture "tacan.rgb"
 crease 45.000000
 numvert 21
@@ -2875,4 +2876,98 @@ refs 4
 9 0.354297 0.386719
 10 0.357422 0.386719
 20 0.357422 0.449219
+kids 0
+OBJECT group
+name "hotspots"
+loc -0.0674023 0.000849003 -0.0629943
+kids 5
+OBJECT poly
+name "hotspot-tcn-xy"
+loc 0.0131323 0 -0.00496735
+crease 45.000000
+numvert 4
+0.0627948 0 0.0386088
+0.0627948 0 0.0577302
+0.0956063 0 0.0577302
+0.0956063 0 0.0386088
+numsurf 1
+SURF 0x10
+mat 2
+refs 4
+0 1 1
+1 0 1
+2 0 0
+3 1 0
+kids 0
+OBJECT poly
+name "hotspot-tcn-mode-right"
+loc 0.0178252 0 -0.051193
+crease 45.000000
+numvert 4
+0.0956063 0 0.0386088
+0.0956063 0 0.0577302
+0.0627948 0 0.0577302
+0.0627948 0 0.0386088
+numsurf 1
+SURF 0x10
+mat 2
+refs 4
+3 1 1
+2 0 1
+1 0 0
+0 1 0
+kids 0
+OBJECT poly
+name "hotspot-tcn-mode-left"
+loc 0.0178252 0 -0.0310133
+crease 45.000000
+numvert 4
+0.0627948 0 0.0386089
+0.0627948 0 0.0577302
+0.0956063 0 0.0577302
+0.0956063 0 0.0386089
+numsurf 1
+SURF 0x10
+mat 2
+refs 4
+0 1 1
+1 0 1
+2 0 0
+3 1 0
+kids 0
+OBJECT poly
+name "hotspot-tcn-chan-right"
+loc -0.0243914 0 0.0302119
+crease 45.000000
+numvert 4
+0.135946 0 0.040504
+0.135946 0 0.0605639
+0.0892901 0 0.0605639
+0.0892901 0 0.040504
+numsurf 1
+SURF 0x10
+mat 2
+refs 4
+3 1 1
+2 0 1
+1 0 0
+0 1 0
+kids 0
+OBJECT poly
+name "hotspot-tcn-chan-left"
+loc -0.0243914 0 0.0569618
+crease 45.000000
+numvert 4
+0.0892901 0 0.040504
+0.0892901 0 0.0605639
+0.135946 0 0.0605639
+0.135946 0 0.040504
+numsurf 1
+SURF 0x10
+mat 2
+refs 4
+0 1 1
+1 0 1
+2 0 0
+3 1 0
 kids 0
