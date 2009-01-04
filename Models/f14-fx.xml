@@ -325,7 +325,8 @@
 		<type>textranslate</type>
 		<object-name>ShockWave</object-name>
 		<property>/f-14/burner</property>
-		<factor>-0.123046875</factor>
+		<!--<factor>-0.123046875</factor>-->
+		<factor>-0.23437</factor>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -361,7 +362,7 @@
 		<type>textranslate</type>
 		<object-name>ManeuverVortexL</object-name>
 		<property>/f-14/burner</property>
-		<factor>-0.0439453125</factor>
+		<factor>-0.082031250</factor>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -393,7 +394,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>ManeuverVortexL</object-name>
-		<property>/f-14/wing-bend</property>
+		<property>surface-positions/wing-fold-pos-norm</property>
 		<factor>-7.0</factor>
 		<center>
 			<x-m>1.247</x-m>
@@ -435,7 +436,7 @@
 		<type>textranslate</type>
 		<object-name>ManeuverVortexR</object-name>
 		<property>/f-14/burner</property>
-		<factor>-0.0439453125</factor>
+		<factor>-0.082031250</factor>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -463,7 +464,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>ManeuverVortexR</object-name>
-		<property>/f-14/wing-bend</property>
+		<property>surface-positions/wing-fold-pos-norm</property>
 		<factor>7.0</factor>
 		<center>
 			<x-m>1.247</x-m>
