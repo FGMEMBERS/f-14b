@@ -314,7 +314,7 @@ var fuel_update = func {
 		Left_Sump.set_level( left_sump_level                       - amount_left_sump );
 		Left_Proportioner.set_level( Left_Proportioner.get_level() + amount_left_sump );
 	}
-	# Transfer from left sump to left proportioner (left feed line).
+	# Transfer from right sump to right proportioner (right feed line).
 	if ( Right_Proportioner.get_ullage() > 0 ) {
 		right_sump_level = Right_Sump.get_level();
 		amount_right_sump = Right_Proportioner.get_ullage();
@@ -687,7 +687,7 @@ Tank = {
 		me.transfering.setBoolValue(transfering);
 	},
 	get_amount : func (dt, ullage) {
-		var amount = (flowrate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt * 1 ;
+		var amount = (flowrate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt;
 		if(amount > me.level_gal_us.getValue()) {
 			amount = me.level_gal_us.getValue();
 		} 
@@ -778,7 +778,7 @@ Prop = {
 		}
 	},
 	get_amount : func (dt, ullage) {
-		var amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt * 1 ;
+		var amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt;
 		if(amount > me.level_gal_us.getValue()) {
 			amount = me.level_gal_us.getValue();
 		}
@@ -800,7 +800,7 @@ Prop = {
 	jettisonFuel : func (dt) {
 		var amount = 0;
 		if(me.get_level() > 0 and me.get_running()) {
-			amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt * 1 ;			
+			amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt;			
 			if(amount > max_instant_dumprate_lbs) { # Deal with low frame rates.
 				amount = max_instant_dumprate_lbs;
 			}
