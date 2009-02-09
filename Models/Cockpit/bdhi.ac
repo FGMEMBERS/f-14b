@@ -359,7 +359,7 @@ kids 0
 OBJECT poly
 name "range-drum-1"
 loc -0.00141423 0.000840514 0.0020629
-texture "altimeter-gauge.rgb"
+texture "altimeter-gauge.png"
 crease 45.000000
 numvert 4
 0.00499515 -0.00353577 -0.00710142
@@ -378,7 +378,7 @@ kids 0
 OBJECT poly
 name "range-drum-2"
 loc -0.00141423 0.00572854 0.00115082
-texture "altimeter-gauge.rgb"
+texture "altimeter-gauge.png"
 crease 45.000000
 numvert 4
 0.00496828 0.000808001 -0.00296104
@@ -397,7 +397,7 @@ kids 0
 OBJECT poly
 name "range-drum-3"
 loc -0.00141423 0.0106165 0.000304625
-texture "altimeter-gauge.rgb"
+texture "altimeter-gauge.png"
 crease 45.000000
 numvert 4
 0.00499515 -0.00353577 -0.00537209
@@ -864,7 +864,7 @@ kids 2
 OBJECT poly
 name "bevel"
 loc -0.00166344 -0.0199683 0.0193918
-texture "radar-alti-mount.rgb"
+texture "radar-altimeter-mount.png"
 crease 45.000000
 numvert 128
 0.00788471 0.0475089 0.000507604
@@ -1672,7 +1672,7 @@ kids 0
 OBJECT poly
 name "case"
 loc 0.00166344 0.0199683 -0.0193918
-texture "radar-alti-mount.rgb"
+texture "radar-altimeter-mount.png"
 crease 45.000000
 numvert 44
 -0.00291972 0.0445466 -0.0238898

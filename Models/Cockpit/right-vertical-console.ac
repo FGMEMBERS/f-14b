@@ -5421,7 +5421,7 @@ kids 3
 OBJECT poly
 name "drum-1"
 loc -0.000118286 0.0073361 0.00929477
-texture "altimeter-gauge.rgb"
+texture "altimeter-gauge.png"
 crease 45.000000
 numvert 4
 -0.00862351 0.138855 -0.0023747
@@ -5440,7 +5440,7 @@ kids 0
 OBJECT poly
 name "drum-2"
 loc -0.000118286 0.0073361 0.0166277
-texture "altimeter-gauge.rgb"
+texture "altimeter-gauge.png"
 crease 45.000000
 numvert 4
 -0.00867831 0.147795 0.00307864
@@ -5459,7 +5459,7 @@ kids 0
 OBJECT poly
 name "drum-3"
 loc -0.000118286 0.0073361 0.0241535
-texture "altimeter-gauge.rgb"
+texture "altimeter-gauge.png"
 crease 45.000000
 numvert 4
 -0.00862351 0.138855 -0.00376453
