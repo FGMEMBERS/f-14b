@@ -542,7 +542,7 @@
 
 		<!-- Warnings tones -->
 		<low-alt-warning>
-			<name>stall-warning</name>
+			<name>low-alt-warning</name>
 			<path>Aircraft/f-14b/Sounds/low-alt-warning.wav</path>
 			<mode>once</mode>
 			<volume>

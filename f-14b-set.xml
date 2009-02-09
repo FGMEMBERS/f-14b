@@ -3,6 +3,7 @@
 <PropertyList>
 
 	<sim>
+		<!-- version tarball 20090104 -->
 		<description>Grumman F-14B </description>
 		<author>Enrique Laso - Alexis Bory</author>
 		<status>production</status>
@@ -405,9 +406,10 @@
 					<acls>
 						<engaged type="bool">false</engaged>
 					</acls>
-					<clock>
+					<!-- <clock>
 						<chronometer-on type="bool">false</chronometer-on>
-					</clock>
+						<reset-state type="bool">true</reset-state>
+					</clock> -->
 					<g-meter>
 						<g-max archive="y" type="double">1</g-max>
 						<g-min archive="y" type="double">1</g-min>
@@ -509,7 +511,7 @@
 
 		<rendering>
 			<camera-group>
-				<znear type="double">0.25</znear>
+				<znear type="double">0.20</znear>
 			</camera-group>
 			<redout>
 				<parameters>
