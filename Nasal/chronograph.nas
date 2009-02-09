@@ -2,9 +2,9 @@
 
 # One button elapsed counter 
 
-var chrono_onoff = props.globals.getNode("sim/model/f-14b/instrumentation/clock/chronometer-on");
-var reset_state = props.globals.getNode("sim/model/f-14b/instrumentation/clock/reset-state", 1);
-var elapsed_sec = props.globals.getNode("sim/model/f-14b/instrumentation/clock/elapsed-sec", 1);
+var chrono_onoff = props.globals.getNode("instrumentation/clock/chronometer-on",1);
+var reset_state = props.globals.getNode("instrumentation/clock/reset-state",1);
+var elapsed_sec = props.globals.getNode("instrumentation/clock/elapsed-sec", 1);
 var indicated_sec = props.globals.getNode("instrumentation/clock/indicated-sec");
 
 aircraft.data.add("/instrumentation/clock/offset-sec");
@@ -19,29 +19,38 @@ var click = func {
 	var reset = reset_state.getBoolValue();
 	if ( ! on ) {
 		if ( ! reset ) {
-			# had been former started and stoped, now, has to be reset.
+			# Had been former started and stoped, now, has to be reset.
 			offset = 0;
 			elapsed_sec.setValue( 0 );
 			reset_state.setBoolValue( 1 );
 		} else {
-			# is not started but allready reset, start it.
+			# Is not started but allready reset, start it.
 			chrono_onoff.setBoolValue( 1 );
 			reset_state.setBoolValue( 0 );
 			offset = indicated_sec.getValue();
 		}
 	} else {
-		# stop it
+		# Stop it.
 		chrono_onoff.setBoolValue( 0 );
 		reset_state.setBoolValue( 0 );
 	}
 }
 
 var update_chrono = func {
-	# also called from main loop.
 	var on = chrono_onoff.getBoolValue();
 	if ( on ) {
 		var i_sec = indicated_sec.getValue();
-		var e_sec = i_sec -offset;
+		var e_sec = i_sec - offset;
 		elapsed_sec.setValue( e_sec );
 	}
 }
+
+# Uncomment the following if update_chrono() has to be launched standalone.
+# Otherwise launch update_chrono() from a centralized loop which save some
+# CPU cycles.
+
+#var chrono_loop = func {
+#	update_chrono();
+#	settimer(chrono_loop, 0.1);
+#}
+#settimer(chrono_loop, 0.5);
