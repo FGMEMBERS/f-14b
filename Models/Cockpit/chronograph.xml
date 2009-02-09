@@ -38,7 +38,7 @@
 	<animation> 
 		<type>rotate</type>
 		<object-name>SecondHand</object-name>
-		<property>sim/model/f-14b/instrumentation/clock/elapsed-sec</property>
+		<property>instrumentation/clock/elapsed-sec</property>
 		<factor>6</factor>
 		<axis> 
 			<x>-1</x>
@@ -49,7 +49,7 @@
 	<animation> 
 		<type>rotate</type>
 		<object-name>ElapsedMinutesHand</object-name>
-		<property>sim/model/f-14b/instrumentation/clock/elapsed-sec</property>
+		<property>instrumentation/clock/elapsed-sec</property>
 		<factor>0.1</factor>
 		<axis> 
 			<x>-1</x>
@@ -58,6 +58,89 @@
 		</axis>
 	</animation>
 
+	<!-- Clock Setting Knob -->
+	<animation>
+		<name>time-offset-left-fine</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>time-offset-left</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/clock/offset-sec</property>
+				<step>-60</step>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>time-offset-left-hours</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>time-offset-left</object-name>
+		<action>
+			<button>1</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/clock/offset-sec</property>
+				<step>-3600</step>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>time-offset-right-fine</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>time-offset-right</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/clock/offset-sec</property>
+				<step>60</step>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>time-offset-right-hours</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>time-offset-right</object-name>
+		<action>
+			<button>1</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/clock/offset-sec</property>
+				<step>3600</step>
+			</binding>
+		</action>
+	</animation>
+
+	<!-- Chronometer Start Stop Button -->
+	<animation>
+		<name>start-stop-reset</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>chronometer-button</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+<!--########### change f14_chronograph by the name you declared the script
+	########### chronograph.nas in your -set.xml file #################### -->
+				<script>f14_chronograph.click()</script>
+			</binding>
+		</action>
+	</animation>
 
 	<!-- lighting -->
 	<animation> 
