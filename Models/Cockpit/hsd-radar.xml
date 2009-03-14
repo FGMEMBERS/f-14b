@@ -78,7 +78,7 @@
 		<in-range>ai/models/multiplayer[0]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[0]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[0]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[0]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[0]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[0]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[0]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[0]/radar/carrier</carrier>
@@ -263,7 +263,7 @@
 		<in-range>ai/models/multiplayer[1]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[1]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[1]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[1]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[1]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[1]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[1]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[1]/radar/carrier</carrier>
@@ -448,7 +448,7 @@
 		<in-range>ai/models/multiplayer[2]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[2]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[2]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[2]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[2]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[2]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[2]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[2]/radar/carrier</carrier>
@@ -634,7 +634,7 @@
 		<in-range>ai/models/multiplayer[3]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[3]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[3]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[3]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[3]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[3]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[3]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[3]/radar/carrier</carrier>
@@ -821,7 +821,7 @@
 		<in-range>ai/models/multiplayer[4]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[4]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[4]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[4]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[4]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[4]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[4]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[4]/radar/carrier</carrier>
@@ -1008,7 +1008,7 @@
 		<in-range>ai/models/multiplayer[5]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[5]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[5]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[5]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[5]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[5]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[5]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[5]/radar/carrier</carrier>
@@ -1194,7 +1194,7 @@
 		<in-range>ai/models/multiplayer[6]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[6]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[6]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[6]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[6]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[6]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[6]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[6]/radar/carrier</carrier>
@@ -1380,7 +1380,7 @@
 		<in-range>ai/models/multiplayer[7]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[7]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[7]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[7]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[7]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[7]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[7]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[7]/radar/carrier</carrier>
@@ -1567,7 +1567,7 @@
 		<in-range>ai/models/multiplayer[8]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[8]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[8]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[8]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[8]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[8]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[8]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[8]/radar/carrier</carrier>
@@ -1753,7 +1753,7 @@
 		<in-range>ai/models/multiplayer[9]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[9]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[9]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[9]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[9]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[9]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[9]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[9]/radar/carrier</carrier>
@@ -1940,7 +1940,7 @@
 		<in-range>ai/models/multiplayer[10]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[10]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[10]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[10]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[10]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[10]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[10]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[10]/radar/carrier</carrier>
@@ -2127,7 +2127,7 @@
 		<in-range>ai/models/multiplayer[11]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[11]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[11]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[11]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[11]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[11]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[11]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[11]/radar/carrier</carrier>
@@ -2313,7 +2313,7 @@
 		<in-range>ai/models/multiplayer[12]/radar/in-range</in-range>
 		<display>ai/models/multiplayer[12]/radar/display</display>
 		<bearing-deg>ai/models/multiplayer[12]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/multiplayer[12]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/multiplayer[12]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/multiplayer[12]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/multiplayer[12]/radar/rounded-alt-ft</rounded-alt-ft>
 		<carrier>ai/models/multiplayer[12]/radar/carrier</carrier>
@@ -2499,7 +2499,7 @@
 		<in-range>ai/models/tanker[0]/radar/in-range</in-range>
 		<display>ai/models/tanker[0]/radar/display</display>
 		<bearing-deg>ai/models/tanker[0]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/tanker[0]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/tanker[0]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/tanker[0]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/tanker[0]/radar/rounded-alt-ft</rounded-alt-ft>
 	</TK1>
@@ -2660,7 +2660,7 @@
 		<in-range>ai/models/tanker[1]/radar/in-range</in-range>
 		<display>ai/models/tanker[1]/radar/display</display>
 		<bearing-deg>ai/models/tanker[1]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/tanker[1]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/tanker[1]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/tanker[1]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/tanker[1]/radar/rounded-alt-ft</rounded-alt-ft>
 	</TK2>
@@ -2821,7 +2821,7 @@
 		<in-range>ai/models/tanker[2]/radar/in-range</in-range>
 		<display>ai/models/tanker[2]/radar/display</display>
 		<bearing-deg>ai/models/tanker[2]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/tanker[2]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/tanker[2]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/tanker[2]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/tanker[2]/radar/rounded-alt-ft</rounded-alt-ft>
 	</TK3>
@@ -2983,7 +2983,7 @@
 		<in-range>ai/models/tanker[3]/radar/in-range</in-range>
 		<display>ai/models/tanker[3]/radar/display</display>
 		<bearing-deg>ai/models/tanker[3]/radar/bearing-deg</bearing-deg>
-		<draw-range-nm>ai/models/tanker[3]/radar/draw-range-nm</draw-range-nm>
+		<draw-range-nm>ai/models/tanker[3]/radar/tid-draw-range-nm</draw-range-nm>
 		<true-heading-deg>ai/models/tanker[3]/orientation/true-heading-deg</true-heading-deg>
 		<rounded-alt-ft>ai/models/tanker[3]/radar/rounded-alt-ft</rounded-alt-ft>
 	</TK4>
