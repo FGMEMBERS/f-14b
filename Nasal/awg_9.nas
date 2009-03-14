@@ -217,7 +217,6 @@ var Target = {
 		obj.string = "ai/models/" ~ obj.type ~ "[" ~ obj.index ~ "]";
 		obj.deviation = nil;
 
-		append(Target.list, obj);
 		return obj;
 	},
 	get_heading : func {
