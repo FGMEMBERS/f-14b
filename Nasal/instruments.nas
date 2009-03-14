@@ -1,4 +1,4 @@
-var UPDATE_PERIOD = 0.1;
+var UPDATE_PERIOD = 0.05;
 
 
 
@@ -251,23 +251,27 @@ var cnt = 0;
 
 var main_loop = func {
 	cnt += 1;
-	# done each 0.1 sec.
-	inc_ticker();
-	local_mag_deviation();
-	tacan_update();
-	tacan_dev_indicator();
-	f14_hud.update_hud();
-	g_min_max();
-	f14_chronograph.update_chrono();
-	afcs_filters();
-	radar2.watch_aimp_models();
-	if (( cnt == 3 ) or ( cnt == 6 )) {
-		# done each 0.3 sec.
-		f14.fuel_update();
-		if ( cnt == 6 ) {
-			# done each 0.6 sec.
-			nav1_freq_update();
-			cnt = 0;
+	# done each 0.05 sec.
+	awg_9.rdr_loop();
+	var a = cnt / 2;
+	if ( ( a ) == int( a )) {
+		# done each 0.1 sec.
+		inc_ticker();
+		local_mag_deviation();
+		tacan_update();
+		tacan_dev_indicator();
+		f14_hud.update_hud();
+		g_min_max();
+		f14_chronograph.update_chrono();
+		afcs_filters();
+		if (( cnt == 6 ) or ( cnt == 12 )) {
+			# done each 0.3 sec.
+			f14.fuel_update();
+			if ( cnt == 12 ) {
+				# done each 0.6 sec.
+				nav1_freq_update();
+				cnt = 0;
+			}
 		}
 	}
 	settimer(main_loop, UPDATE_PERIOD);
@@ -282,7 +286,7 @@ var init = func {
 	ticker.setDoubleValue(0);
 	tacan_switch_init();
 	radardist.init();
-	radar2.init();
+	awg_9.init();
 	an_arc_182v.init();
 	an_arc_159v1.init();
 	setprop("controls/switches/radar_init", 0);
