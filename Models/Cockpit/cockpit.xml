@@ -437,6 +437,16 @@
 	</model>
 
 	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/ddd-radar.xml</path>
+		<offsets>
+			<x-m>-4.2267</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>0.2392</z-m>
+			<pitch-deg>-12.4</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/stdby-adi2.xml</path>
 		<offsets>
 			<x-m>-4.2230</x-m>
