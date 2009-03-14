@@ -16,24 +16,6 @@
 		</condition>
 	</animation>
 
-	<!-- screen background -->
-	<animation>
-		<type>select</type>
-		<object-name>screen-bkg</object-name>
-		<condition>
-			<property>sim/model/f-14b/controls/radar-awg-9/on-off</property>
-		</condition>
-	</animation>
-	<animation>
-		<type>select</type>
-		<object-name>screen-bkg-off</object-name>
-		<condition>
-			<not>
-				<property>sim/model/f-14b/controls/radar-awg-9/on-off</property>
-			</not>
-		</condition>
-	</animation>
-
 	<animation>
 		<type>select</type>
 		<object-name>rng-disp-200</object-name>
@@ -180,6 +162,20 @@
 			<property>sim/model/f-14b/instrumentation/radar-awg-9/display-rdr</property>
 		</condition>
 	</animation>
+	<animation>
+		<name>display-rdr</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>display-rdr</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>sim/model/f-14b/instrumentation/radar-awg-9/display-rdr</property>
+			</binding>
+		</action>
+	</animation>
 	<animation> 
 		<object-name>ir-light-on</object-name>
 		<type>select</type>
@@ -278,16 +274,7 @@
 			<blue>0.08</blue>
 		</emission>
 	</animation>
-	<animation>
-		<object-name>screen-bkg</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
-			<red>0.0</red>
-			<green>0.9</green>
-			<blue>0.0</blue>
-		</emission>
-	</animation>
+
 
 	<animation>
 		<object-name>modes-buttons-on</object-name>
