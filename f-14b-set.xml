@@ -304,6 +304,7 @@
 					</pilots-displays>
 					<radar-awg-9>
 						<on-off type="bool">true</on-off>
+						<display-rdr type="bool">true</display-rdr>
 						<brightness type="double">1</brightness>
 					</radar-awg-9>
 					<SAS>
@@ -624,7 +625,7 @@
 				<y-offset-m archive="y">0.43</y-offset-m>
 				<z-offset-m archive="y">-3.58</z-offset-m>
 				<pitch-offset-deg>-23</pitch-offset-deg>
-				<default-field-of-view-deg>57</default-field-of-view-deg>
+				<default-field-of-view-deg>55</default-field-of-view-deg>
 				<limits>
 					<enabled type="bool">true</enabled>
 					<left>
@@ -1039,6 +1040,7 @@
 			<switch-position type="int">1</switch-position>
 		</tacan>
 		<radar>
+			<az-field type="double">120</az-field>
 			<enabled type="bool">true</enabled>			
 			<range type="double">120</range>
 			<radar2-range type="double">50</radar2-range>
@@ -1064,6 +1066,9 @@
 		<radar2>
 			<file>Aircraft/Instruments-3d/radar2/radar2.nas</file>
 		</radar2>
+		<awg_9>
+			<file>Aircraft/f-14b/Nasal/awg_9.nas</file>
+		</awg_9>
 		<an_arc_182v>
 			<file>Aircraft/f-14b/Nasal/an-arc-182v.nas</file>
 		</an_arc_182v>
