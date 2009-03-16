@@ -196,72 +196,156 @@
 		<type>select</type>
 		<object-name>pd-stt-light-on</object-name>
 		<condition>
-			<equals>
-				<property>sim/model/f-14b/instrumentation/radar-awg-9/mode</property>
-				<value>PDSTT</value>
-			</equals>
+			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pd-stt</property>
 		</condition>
 	</animation>
+	<animation>
+		<name>pd-stt</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>pd-stt</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.wcs_mode_sel("pd-stt")</script>
+			</binding>
+		</action>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>pulse-stt-light-on</object-name>
 		<condition>
-			<equals>
-				<property>sim/model/f-14b/instrumentation/radar-awg-9/mode</property>
-				<value>PSTT</value>
-			</equals>
+			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-stt</property>
 		</condition>
 	</animation>
+	<animation>
+		<name>pulse-stt</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>pulse-stt</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.wcs_mode_sel("pulse-stt")</script>
+			</binding>
+		</action>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>pd-srch-light-on</object-name>
 		<condition>
-			<equals>
-				<property>sim/model/f-14b/instrumentation/radar-awg-9/mode</property>
-				<value>PDS</value>
-			</equals>
+			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pd-srch</property>
 		</condition>
 	</animation>
+	<animation>
+		<name>pd-srch</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>pd-srch</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.wcs_mode_sel("pd-srch")</script>
+			</binding>
+		</action>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>rws-light-on</object-name>
 		<condition>
-			<equals>
-				<property>sim/model/f-14b/instrumentation/radar-awg-9/mode</property>
-				<value>RWS</value>
-			</equals>
+			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/rws</property>
 		</condition>
 	</animation>
+	<animation>
+		<name>rws</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>rws</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.wcs_mode_sel("rws")</script>
+			</binding>
+		</action>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>tws-auto-light-on</object-name>
 		<condition>
-			<equals>
-				<property>sim/model/f-14b/instrumentation/radar-awg-9/mode</property>
-				<value>TWSA</value>
-			</equals>
+			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-auto</property>
 		</condition>
 	</animation>
+	<animation>
+		<name>tws-auto</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>tws-auto</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.wcs_mode_sel("tws-auto")</script>
+			</binding>
+		</action>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>tws-man-light-on</object-name>
 		<condition>
-			<equals>
-				<property>sim/model/f-14b/instrumentation/radar-awg-9/mode</property>
-				<value>TWSM</value>
-			</equals>
+			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-man</property>
 		</condition>
 	</animation>
+	<animation>
+		<name>tws-man</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>tws-man</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.wcs_mode_sel("tws-man")</script>
+			</binding>
+		</action>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>pulse-srch-light-on</object-name>
 		<condition>
-			<equals>
-				<property>sim/model/f-14b/instrumentation/radar-awg-9/mode</property>
-				<value>PS</value>
-			</equals>
+			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-srch</property>
 		</condition>
 	</animation>
+	<animation>
+		<name>pulse-srch</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>pulse-srch</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.wcs_mode_sel("pulse-srch")</script>
+			</binding>
+		</action>
+	</animation>
+
 
 	<!-- lighting -->
 	<animation>
