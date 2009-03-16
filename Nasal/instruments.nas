@@ -261,6 +261,7 @@ var main_loop = func {
 		tacan_update();
 		tacan_dev_indicator();
 		f14_hud.update_hud();
+		awg_9.hud_nearest_tgt();
 		g_min_max();
 		f14_chronograph.update_chrono();
 		afcs_filters();
