@@ -74,6 +74,17 @@
 <!-- Pilot's Instruments                                                 -->
 <!-- ******************************************************************* -->
 
+	<!-- HUD -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/hud.xml</path>
+		<offsets>
+			<x-m>-5.8991</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>0.3375</z-m>
+		</offsets>
+		<pitch-deg>-5</pitch-deg>
+	</model>
+
 	<!-- Stick -->
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/stick.xml</path>
