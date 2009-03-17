@@ -6,10 +6,13 @@ var DisplayRdr  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-a
 var HudTgtHDisplay  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-display", 1);
 var HudTgtHDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-horizontal-deviation", 1);
 var HudTgtVDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-vertical-deviation", 1);
+var HudCombinedDevDeg  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/combined_dev_deg", 1);
 var AzField = props.globals.getNode("instrumentation/radar/az-field", 1);
 var RangeRadar2 = props.globals.getNode("instrumentation/radar/radar2-range");
 var OurAlt = props.globals.getNode("position/altitude-ft");
 var OurHdg = props.globals.getNode("orientation/heading-deg");
+var OurRoll = props.globals.getNode("orientation/roll-deg");
+var OurPitch = props.globals.getNode("orientation/pitch-deg");
 var EcmOn = props.globals.getNode("instrumentation/ecm/on-off", 1);
 
 var az_fld = AzField.getValue();
@@ -19,6 +22,7 @@ var swp_deg_last = 0; # Used to get sweep direction.
 var swp_spd      = 1.7; 
 var swp_dir      = nil; # Sweep direction, 0 to left, 1 to right.
 var swp_dir_last = 0;
+var ddd_screen_width = 0.0844; # 0.0844m : length of the max azimuth range on the DDD screen.
 var my_radarcorr = 0;
 var wcs_mode = "pulse-srch";
 var nearest_rng  = 0;
@@ -144,7 +148,7 @@ var az_scan = func() {
 			if ( u_rng < horizon and radardist.radis(u.string, my_radarcorr) and u_rng <= range_radar2) {
 
 				# Compute mp position in our DDD display. (Bearing/horizontal + Range/Vertical).
-				u.set_relative_bearing( 0.0844 / az_fld * u.deviation ); # 0.0844m : length of the azimuth range on the DDD screen.
+				u.set_relative_bearing( ddd_screen_width / az_fld * u.deviation );
 				var factor_range_radar = 0.0657 / range_radar2; # 0.0657m : length of the distance range on the DDD screen.
 				u.set_ddd_draw_range_nm( factor_range_radar * u_rng );
 				u_fading = 1;
@@ -169,10 +173,6 @@ var az_scan = func() {
 		u.set_fading(u_fading);
 	}
 	
-	
-
-
-
 	swp_deg_last = swp_deg;
 	swp_dir_last = swp_dir;
 	cnt += 0.05;
@@ -183,24 +183,38 @@ var hud_nearest_tgt = func() {
 	# Computes nearest_u position in the HUD
 	if ( nearest_u != nil ) {
 		if ( wcs_mode == "tws-auto" and nearest_u.get_display() ) {
-			var u_dev_bgrd = (90 - nearest_u.get_deviation(our_true_heading)) * D2R;
+			var u_dev_brad = (90 - nearest_u.get_deviation(our_true_heading)) * D2R;
 			var u_elev = nearest_u.get_elevation();
-			var u_elev_bgrd = (90 - u_elev) * D2R;
-			var u_raw_horiz_dev = 0.7186 / ( math.sin(u_dev_bgrd) / math.cos(u_dev_bgrd) );# 0.7186m : half width of virtual HUD screen.
-			var u_raw_vert_dev = 0.7186 / ( math.sin(u_elev_bgrd) / math.cos(u_elev_bgrd) );
-			var raw_a = math.atan2(u_raw_horiz_dev, u_raw_vert_dev) * globals.R2D; # -90° left, 0° up, 90° right, +/- 180° down
+			var u_elev_brad = (90 - u_elev) * D2R;
+			# Deviation length on the HUD, raw (at level flight):
+			var raw_horiz_dev = 0.7186 / ( math.sin(u_dev_brad) / math.cos(u_dev_brad) );# 0.7186m : distance eye <-> virtual HUD screen.
+			var raw_vert_dev = 0.7186 / ( math.sin(u_elev_brad) / math.cos(u_elev_brad) );
+			# Angle between HUD center <-> target pos on the HUD segment and Horizon, at level flight. -90° left, 0° up, 90° right, +/- 180° down 
+			var raw_combined_dev_deg = math.atan2( raw_horiz_dev, raw_vert_dev ) * R2D;
+			# Corrected with own a/c roll:
+			var combined_dev_deg = raw_combined_dev_deg - OurRoll.getValue();
+			# Lenght HUD center <-> target pos on the HUD segment:
+			var raw_combined_dev_length = math.sqrt( (raw_horiz_dev*raw_horiz_dev) + (raw_vert_dev*raw_vert_dev) );
+			# Deviation due to own a/c pitch:
+			var pitch = OurPitch.getValue();
+			var pitchb_rad = ( 90 - pitch ) * D2R;
+			var pitch_dev = 0.7186 / (math.sin(pitchb_rad) / math.cos(pitchb_rad));
 
-			if ( u_raw_horiz_dev > 0.105 ) { u_raw_horiz_dev = 0.105 }
-			if ( u_raw_horiz_dev < -0.105 ) { u_raw_horiz_dev = -0.105 }
-			if ( u_raw_vert_dev > 0.105 ) { u_raw_vert_dev = 0.105 }
-			if ( u_raw_vert_dev < -0.115 ) { u_raw_vert_dev = -0.115 }
+			# Deviation length on the HUD, final:
+			var vert_dev = (math.sin( ( 90 - combined_dev_deg) * D2R ) * raw_combined_dev_length) - pitch_dev;
+			var horiz_dev = math.cos( ( 90 - combined_dev_deg) * D2R ) * raw_combined_dev_length;
 
-			print(raw_a);
-			HudTgtHDev.setValue(u_raw_horiz_dev);
-			HudTgtVDev.setValue(u_raw_vert_dev);
+			if ( vert_dev > 0.105 ) { vert_dev = 0.105 }
+			if ( vert_dev < -0.105 ) { vert_dev = -0.105 }
+			if ( horiz_dev > 0.105 ) { horiz_dev = 0.105 }
+			if ( horiz_dev < -0.105 ) { horiz_dev = -0.105 }
+
+			HudTgtHDev.setValue(horiz_dev);
+			HudTgtVDev.setValue(vert_dev);
 			HudTgtHDisplay.setBoolValue(1);
-			######### offset sweep to follow the target ##########
+			######### TODO: offset sweep to follow the target ##########
 		} else {
+			HudCombinedDevDeg.setValue(0);
 			HudTgtHDev.setValue(0);
 			HudTgtVDev.setValue(0);
 			HudTgtHDisplay.setBoolValue(0);
@@ -265,8 +279,10 @@ wcs_mode_sel = func(mode) {
 	}
 	if ( wcs_mode == "pulse-srch" ) {
 		AzField.setValue(120);
+		ddd_screen_width = 0.0844;
 	} else {
 		AzField.setValue(60);
+		ddd_screen_width = 0.0422;
 	}
 }
 
