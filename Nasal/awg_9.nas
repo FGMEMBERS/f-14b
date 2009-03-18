@@ -294,7 +294,6 @@ var Target = {
 		obj.Alt = c.getNode("position/altitude-ft");
 		obj.AcType = c.getNode("sim/model/ac-type");
 
-		obj.InRange = obj.RdrProp.getNode("in-range");
 		obj.Range = obj.RdrProp.getNode("range-nm");
 		obj.RangeScore = obj.RdrProp.getNode("range-score", 1);
 		obj.Bearing = obj.RdrProp.getNode("bearing-deg");
