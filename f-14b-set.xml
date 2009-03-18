@@ -132,6 +132,14 @@
 				<desc>Toggles Radar Standby Mode</desc>
 			</key>
 			<key>
+				<name>Ctrl-m</name>
+				<desc>Enables Radar TWS AUTO Mode</desc>
+			</key>
+			<key>
+				<name>Ctrl-n</name>
+				<desc>Enables Radar PULSE SRCH Mode</desc>
+			</key>
+			<key>
 				<name>Ctrl-v</name>
 				<desc>Back to Pilot's View or toggle Pilot's and RIO View.</desc>
 			</key>
@@ -176,7 +184,7 @@
 			<line>that is Direction Finder displayed with the single needle in both BDHIs. You have Comm *or* DF. Storing frequencies (up to 20 channels) a- PRESET</line>
 			<line>select the desired chan, b- READ tune the desired frequency, c- LOAD stores the frequency in the previously selected chan.</line>
 			<line>UHF: Located on the pilot's left console, 225-400 Mhz. ADF is not enabled on this radio.</line>
-			<line></line>
+			<line>__________________________________________________</line>
 
 		</help>
 
@@ -842,6 +850,24 @@
 				<binding>
 					<command>nasal</command>
 					<script>f14_afcs.afcs_heading_switch(0);</script>
+				</binding>
+			</key>
+
+			<key n="13">
+				<name>Ctrl-m</name>
+				<desc>Enables Radar TWS AUTO Mode</desc>
+				<binding>
+					<command>nasal</command>
+					<script>awg_9.wcs_mode_sel("tws-auto")</script>
+				</binding>
+			</key>
+
+			<key n="14">
+				<name>Ctrl-n</name>
+				<desc>Enables Radar PULSE SRCH Mode</desc>
+				<binding>
+					<command>nasal</command>
+					<script>awg_9.wcs_mode_sel("pulse-srch")</script>
 				</binding>
 			</key>
 
