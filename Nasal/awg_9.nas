@@ -23,6 +23,7 @@ var swp_spd      = 1.7;
 var swp_dir      = nil; # Sweep direction, 0 to left, 1 to right.
 var swp_dir_last = 0;
 var ddd_screen_width = 0.0844; # 0.0844m : length of the max azimuth range on the DDD screen.
+var range_radar2 = 0;
 var my_radarcorr = 0;
 var wcs_mode = "pulse-srch";
 var nearest_rng  = 0;
@@ -68,7 +69,7 @@ var rdr_loop = func() {
 }
 
 var az_scan = func() {
-	# Done each 0.05 sec. Called from Instruments.nas
+	# Done each 0.05 sec. Called from instruments.nas
 
 	# Antena az scan.
 	var fld_frac = az_fld / 120;
@@ -89,6 +90,8 @@ var az_scan = func() {
 	if (swp_dir != swp_dir_last) {
 		# Transient when changing az scan field 
 		az_fld = AzField.getValue();
+		range_radar2 = RangeRadar2.getValue();
+		if ( range_radar2 == 0 ) { range_radar2 = 0.00000001 }
 		# Reset nearest_range_score
 		nearest_rng = nil;
 
@@ -104,22 +107,25 @@ var az_scan = func() {
 				u_ecm_signal_norm  = 0;
 				u_radar_standby = 0;
 				u_ecm_type_num = 0;
-				if ( u.get_in_range() and u.Range != nil) {
+				if ( u.Range != nil) {
 					var u_rng = u.get_range();
-					u.get_deviation(our_true_heading);
-					if ( u.deviation > l_az_fld  and  u.deviation < r_az_fld ) {
-						append(tgts_list, u);
+					if (u_rng < range_radar2 ) {
+						##### We should take own aircraft roll and pitch here, and save later HUD pitch issues.
+						u.get_deviation(our_true_heading);
+						if ( u.deviation > l_az_fld  and  u.deviation < r_az_fld ) {
+							append(tgts_list, u);
+						} else {
+							u.set_display(0);
+						}
+						ecm_on = EcmOn.getValue();
+						# Test if target has a radar. Compute if we are illuminated. This propery used by ECM
+						# over MP should be standardized, like "ai/models/multiplayer[0]/radar/radar-standby"
+						if ( ecm_on and u.get_rdr_standby() == 0) {
+							rwr(u);	# TODO: overide display when alert.
+						}
 					} else {
 						u.set_display(0);
 					}
-					ecm_on = EcmOn.getValue();
-					# Test if target has a radar. Compute if we are illuminated. This propery used by ECM
-					# over MP should be standardized, like "ai/models/multiplayer[0]/radar/radar-standby"
-					if ( ecm_on and u.get_rdr_standby() == 0) {
-						rwr(u);	# TODO: overide display when alert.
-					}
-				} else {
-					u.set_display(0);
 				}
 			}
 		}
@@ -143,36 +149,28 @@ var az_scan = func() {
 			or ( ! swp_dir and swp_deg <= u.deviation and u.deviation < swp_deg_last )) {
 			var horizon = u.get_horizon( our_alt );
 			var u_rng = u.get_range();
-			range_radar2 = RangeRadar2.getValue();
-			if ( range_radar2 == 0 ) { range_radar2 = 0.00000001 }
-			if ( u_rng < horizon and radardist.radis(u.string, my_radarcorr) and u_rng <= range_radar2) {
-
+			if ( u_rng < horizon and radardist.radis(u.string, my_radarcorr)) {
 				# Compute mp position in our DDD display. (Bearing/horizontal + Range/Vertical).
 				u.set_relative_bearing( ddd_screen_width / az_fld * u.deviation );
 				var factor_range_radar = 0.0657 / range_radar2; # 0.0657m : length of the distance range on the DDD screen.
 				u.set_ddd_draw_range_nm( factor_range_radar * u_rng );
 				u_fading = 1;
 				u_display = 1;
-
-				# Compute mp position in our TID display. (PPI like display, normaly targets are display only when locked.)
+				# Compute mp position in our TID display. (PPI like display, normaly targets are displayed only when locked.)
 				factor_range_radar = 0.15 / range_radar2; # 0.15m : length of the radius range on the TID screen.
 				u.set_tid_draw_range_nm( factor_range_radar * u_rng );
 				# Compute first digit of mp altitude rounded to nearest thousand. (labels).
 				u.set_rounded_alt( rounding1000( u.get_altitude() ) / 1000 );
-
 				# Check if u = nearest echo.
 				if ( nearest_rng == nil or u_rng < nearest_rng) {
 					nearest_u = u;
 					nearest_rng = u_rng;
 				}
-
 			}
 			u.set_display(u_display);
-
 		}
 		u.set_fading(u_fading);
-	}
-	
+	}	
 	swp_deg_last = swp_deg;
 	swp_dir_last = swp_dir;
 	cnt += 0.05;
@@ -196,6 +194,7 @@ var hud_nearest_tgt = func() {
 			# Lenght HUD center <-> target pos on the HUD segment:
 			var raw_combined_dev_length = math.sqrt( (raw_horiz_dev*raw_horiz_dev) + (raw_vert_dev*raw_vert_dev) );
 			# Deviation due to own a/c pitch:
+			#### TODO: Fix the pitch issue when inverted flight.
 			var pitch = OurPitch.getValue();
 			var pitchb_rad = ( 90 - pitch ) * D2R;
 			var pitch_dev = 0.7186 / (math.sin(pitchb_rad) / math.cos(pitchb_rad));
@@ -341,11 +340,6 @@ var Target = {
 	},
 	get_elevation : func {
 		return me.Elevation.getValue();
-	},
-	get_in_range : func {
-		var in_range = me.InRange.getValue(); 
-		if ( in_range == nil ) { in_range = 0 }
-		return in_range;
 	},
 	get_range : func {
 		return me.Range.getValue();
