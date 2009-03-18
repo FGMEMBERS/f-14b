@@ -25,6 +25,42 @@
 			<property>instrumentation/radar/radar-standby</property>
 		</condition>
 	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>pulse-srch</object-name>
+		<condition>
+			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-srch</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>tws-auto</object-name>
+		<condition>
+			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-auto</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>az-field-120</object-name>
+		<condition>
+			<equals>
+				<property>instrumentation/radar/az-field</property>
+				<value>120</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>az-field-60</object-name>
+		<condition>
+			<equals>
+				<property>instrumentation/radar/az-field</property>
+				<value>60</value>
+			</equals>
+		</condition>
+	</animation>
+
+
 
 	<animation>
 		<type>select</type>
@@ -3145,16 +3181,7 @@
 			<blue>0.0</blue>
 		</emission>
 	</animation>
-	<!--<animation>
-		<object-name>MP1</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
-			<red>0.0</red>
-			<green>0.9</green>
-			<blue>0.0</blue>
-		</emission>
-	</animation>-->
+
 
 
 </PropertyList>
