@@ -522,6 +522,15 @@
 		</offsets>
 	</model>
 
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/rio-tid-radar.xml</path>
+		<offsets>
+			<x-m>-4.2346</x-m>
+			<y-m>0.0000</y-m>
+			<z-m>-0.0569</z-m>
+			<pitch-deg>-24.4</pitch-deg>
+		</offsets>
+	</model>
 
 	<!-- Right Instrument Panel -->
 
