@@ -199,7 +199,7 @@
 			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pd-stt</property>
 		</condition>
 	</animation>
-	<animation>
+	<!-- <animation>
 		<name>pd-stt</name>
 		<type>pick</type>
 		<visible>true</visible>
@@ -212,7 +212,7 @@
 				<script>awg_9.wcs_mode_sel("pd-stt")</script>
 			</binding>
 		</action>
-	</animation>
+	</animation> -->
 
 	<animation>
 		<type>select</type>
@@ -221,7 +221,7 @@
 			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-stt</property>
 		</condition>
 	</animation>
-	<animation>
+	<!-- <animation>
 		<name>pulse-stt</name>
 		<type>pick</type>
 		<visible>true</visible>
@@ -234,7 +234,7 @@
 				<script>awg_9.wcs_mode_sel("pulse-stt")</script>
 			</binding>
 		</action>
-	</animation>
+	</animation> -->
 
 	<animation>
 		<type>select</type>
@@ -243,7 +243,7 @@
 			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pd-srch</property>
 		</condition>
 	</animation>
-	<animation>
+	<!-- <animation>
 		<name>pd-srch</name>
 		<type>pick</type>
 		<visible>true</visible>
@@ -256,7 +256,7 @@
 				<script>awg_9.wcs_mode_sel("pd-srch")</script>
 			</binding>
 		</action>
-	</animation>
+	</animation> -->
 
 	<animation>
 		<type>select</type>
@@ -265,7 +265,7 @@
 			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/rws</property>
 		</condition>
 	</animation>
-	<animation>
+	<!-- <animation>
 		<name>rws</name>
 		<type>pick</type>
 		<visible>true</visible>
@@ -278,7 +278,7 @@
 				<script>awg_9.wcs_mode_sel("rws")</script>
 			</binding>
 		</action>
-	</animation>
+	</animation> -->
 
 	<animation>
 		<type>select</type>
@@ -309,7 +309,7 @@
 			<property>sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-man</property>
 		</condition>
 	</animation>
-	<animation>
+	<!-- <animation>
 		<name>tws-man</name>
 		<type>pick</type>
 		<visible>true</visible>
@@ -322,7 +322,7 @@
 				<script>awg_9.wcs_mode_sel("tws-man")</script>
 			</binding>
 		</action>
-	</animation>
+	</animation> -->
 
 	<animation>
 		<type>select</type>
