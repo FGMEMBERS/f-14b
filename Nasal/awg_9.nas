@@ -147,6 +147,8 @@ var az_scan = func() {
 		if ( u_fading < 0 ) { u_fading = 0 }
 		if (( swp_dir and swp_deg_last < u.deviation and u.deviation <= swp_deg )
 			or ( ! swp_dir and swp_deg <= u.deviation and u.deviation < swp_deg_last )) {
+			u.get_heading();
+			u.get_bearing();
 			var horizon = u.get_horizon( our_alt );
 			var u_rng = u.get_range();
 			if ( u_rng < horizon and radardist.radis(u.string, my_radarcorr)) {
@@ -293,36 +295,46 @@ var Target = {
 		obj.Heading = c.getNode("orientation/true-heading-deg");
 		obj.Alt = c.getNode("position/altitude-ft");
 		obj.AcType = c.getNode("sim/model/ac-type");
-
-		obj.Range = obj.RdrProp.getNode("range-nm");
-		obj.RangeScore = obj.RdrProp.getNode("range-score", 1);
-		obj.Bearing = obj.RdrProp.getNode("bearing-deg");
-		obj.RelBearing = obj.RdrProp.getNode("ddd-relative-bearing", 1);
-		obj.Elevation = obj.RdrProp.getNode("elevation-deg");
-		obj.Carrier = obj.RdrProp.getNode("carrier", 1);
-		obj.EcmSignal = obj.RdrProp.getNode("ecm-signal", 1);
-		obj.EcmSignalNorm = obj.RdrProp.getNode("ecm-signal-norm", 1);
-		obj.EcmTypeNum = obj.RdrProp.getNode("ecm_type_num", 1);
-		obj.Display = obj.RdrProp.getNode("display", 1);
-		obj.Fading = obj.RdrProp.getNode("ddd-echo-fading", 1);
-		obj.DddDrawRangeNm = obj.RdrProp.getNode("ddd-draw-range-nm", 1);
-		obj.TidDrawRangeNm = obj.RdrProp.getNode("tid-draw-range-nm", 1);
-		obj.RoundedAlt = obj.RdrProp.getNode("rounded-alt-ft", 1);
-
-		obj.RadarStandby = c.getNode("sim/multiplay/generic/int[2]");
-
 		obj.type = c.getName();
 		obj.index = c.getIndex();
 		obj.string = "ai/models/" ~ obj.type ~ "[" ~ obj.index ~ "]";
+		obj.shortstring = obj.type ~ "[" ~ obj.index ~ "]";
+
+
+		obj.InstrTgts = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/targets", 1);
+		obj.TgtsFiles = obj.InstrTgts.getNode(obj.shortstring, 1);
+
+		obj.Range          = obj.RdrProp.getNode("range-nm");
+		obj.Bearing        = obj.RdrProp.getNode("bearing-deg");
+		obj.Elevation      = obj.RdrProp.getNode("elevation-deg");
+		obj.BBearing       = obj.TgtsFiles.getNode("bearing-deg", 1);
+		obj.BHeading       = obj.TgtsFiles.getNode("true-heading-deg", 1);
+		obj.RangeScore     = obj.TgtsFiles.getNode("range-score", 1);
+		obj.RelBearing     = obj.TgtsFiles.getNode("ddd-relative-bearing", 1);
+		obj.Carrier        = obj.TgtsFiles.getNode("carrier", 1);
+		obj.EcmSignal      = obj.TgtsFiles.getNode("ecm-signal", 1);
+		obj.EcmSignalNorm  = obj.TgtsFiles.getNode("ecm-signal-norm", 1);
+		obj.EcmTypeNum     = obj.TgtsFiles.getNode("ecm_type_num", 1);
+		obj.Display        = obj.TgtsFiles.getNode("display", 1);
+		obj.Fading         = obj.TgtsFiles.getNode("ddd-echo-fading", 1);
+		obj.DddDrawRangeNm = obj.TgtsFiles.getNode("ddd-draw-range-nm", 1);
+		obj.TidDrawRangeNm = obj.TgtsFiles.getNode("tid-draw-range-nm", 1);
+		obj.RoundedAlt     = obj.TgtsFiles.getNode("rounded-alt-ft", 1);
+
+		obj.RadarStandby = c.getNode("sim/multiplay/generic/int[2]");
+
 		obj.deviation = nil;
 
 		return obj;
 	},
 	get_heading : func {
-		return me.Heading.getValue();
-	},
+		var n = me.Heading.getValue();
+		me.BHeading.setValue(n);
+		return n;	},
 	get_bearing : func {
-		return me.Bearing.getValue();
+		var n = me.Bearing.getValue();
+		me.BBearing.setValue(n);
+		return n;
 	},
 	set_relative_bearing : func(n) {
 		me.RelBearing.setValue(n);
@@ -344,10 +356,14 @@ var Target = {
 		return me.Range.getValue();
 	},
 	get_horizon : func(own_alt) {
-		if ( own_alt < 0 ) { own_alt = 0.001 }
 		var tgt_alt = me.get_altitude();
-		if ( tgt_alt < 0 ) { tgt_alt = 0.001 }
-		return radardist.radar_horizon( own_alt, tgt_alt );
+		if ( tgt_alt != nil ) {
+			if ( own_alt < 0 ) { own_alt = 0.001 }
+			if ( tgt_alt < 0 ) { tgt_alt = 0.001 }
+			return radardist.radar_horizon( own_alt, tgt_alt );
+		} else {
+			return(0);
+		}
 	},
 	check_carrier_type : func {
 		var type = "none";
