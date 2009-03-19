@@ -113,21 +113,16 @@
 
 	<MP1> <!--Group MP1 -->
 		<object-name>mp1</object-name>
-		<in-range>ai/models/multiplayer[0]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[0]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[0]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[0]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[0]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[0]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[0]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[0]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[0]/ddd-echo-fading</ddd-echo-fading>
 	</MP1>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP1/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP1/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP1/display"/>
 				<value>true</value>
@@ -165,21 +160,16 @@
 
 	<MP2> <!--Group MP2 -->
 		<object-name>mp2</object-name>
-		<in-range>ai/models/multiplayer[1]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[1]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[1]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[1]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[1]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[1]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[1]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[1]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[1]/ddd-echo-fading</ddd-echo-fading>
 	</MP2>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP2/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP2/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP2/display"/>
 				<value>true</value>
@@ -217,21 +207,16 @@
 
 	<MP3> <!--Group MP3 -->
 		<object-name>mp3</object-name>
-		<in-range>ai/models/multiplayer[2]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[2]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[2]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[2]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[2]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[2]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[2]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[2]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[2]/ddd-echo-fading</ddd-echo-fading>
 	</MP3>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP3/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP3/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP3/display"/>
 				<value>true</value>
@@ -269,21 +254,16 @@
 
 	<MP4> <!--Group MP4 -->
 		<object-name>mp4</object-name>
-		<in-range>ai/models/multiplayer[3]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[3]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[3]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[3]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[3]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[3]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[3]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[3]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[3]/ddd-echo-fading</ddd-echo-fading>
 	</MP4>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP4/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP4/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP4/display"/>
 				<value>true</value>
@@ -321,21 +301,16 @@
 
 	<MP5> <!--Group MP5 -->
 		<object-name>mp5</object-name>
-		<in-range>ai/models/multiplayer[4]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[4]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[4]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[4]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[4]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[4]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[4]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[4]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[4]/ddd-echo-fading</ddd-echo-fading>
 	</MP5>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP5/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP5/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP5/display"/>
 				<value>true</value>
@@ -373,21 +348,16 @@
 
 	<MP6> <!--Group MP6 -->
 		<object-name>mp6</object-name>
-		<in-range>ai/models/multiplayer[5]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[5]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[5]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[5]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[5]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[5]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[5]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[5]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[5]/ddd-echo-fading</ddd-echo-fading>
 	</MP6>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP6/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP6/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP6/display"/>
 				<value>true</value>
@@ -425,21 +395,16 @@
 
 	<MP7> <!--Group MP7 -->
 		<object-name>mp7</object-name>
-		<in-range>ai/models/multiplayer[6]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[6]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[6]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[6]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[6]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[6]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[6]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[6]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[6]/ddd-echo-fading</ddd-echo-fading>
 	</MP7>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP7/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP7/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP7/display"/>
 				<value>true</value>
@@ -477,21 +442,16 @@
 
 	<MP8> <!--Group MP8 -->
 		<object-name>mp8</object-name>
-		<in-range>ai/models/multiplayer[7]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[7]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[7]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[7]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[7]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[7]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[7]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[7]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[7]/ddd-echo-fading</ddd-echo-fading>
 	</MP8>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP8/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP8/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP8/display"/>
 				<value>true</value>
@@ -529,21 +489,16 @@
 
 	<MP9> <!--Group MP9 -->
 		<object-name>mp9</object-name>
-		<in-range>ai/models/multiplayer[8]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[8]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[8]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[8]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[8]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[8]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[8]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[8]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[8]/ddd-echo-fading</ddd-echo-fading>
 	</MP9>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP9/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP9/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP9/display"/>
 				<value>true</value>
@@ -581,21 +536,16 @@
 
 	<MP10> <!--Group MP10 -->
 		<object-name>mp10</object-name>
-		<in-range>ai/models/multiplayer[9]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[9]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[9]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[9]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[9]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[9]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[9]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[9]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[9]/ddd-echo-fading</ddd-echo-fading>
 	</MP10>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP10/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP10/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP10/display"/>
 				<value>true</value>
@@ -633,21 +583,16 @@
 
 	<MP11> <!--Group MP11 -->
 		<object-name>mp11</object-name>
-		<in-range>ai/models/multiplayer[10]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[10]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[10]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[10]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[10]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[10]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[10]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[10]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[10]/ddd-echo-fading</ddd-echo-fading>
 	</MP11>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP11/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP11/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP11/display"/>
 				<value>true</value>
@@ -685,21 +630,16 @@
 
 	<MP12> <!--Group MP12 -->
 		<object-name>mp12</object-name>
-		<in-range>ai/models/multiplayer[11]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[11]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[11]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[11]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[11]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[11]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[11]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[11]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[11]/ddd-echo-fading</ddd-echo-fading>
 	</MP12>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP12/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP12/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP12/display"/>
 				<value>true</value>
@@ -737,21 +677,16 @@
 
 	<MP13> <!--Group MP13 -->
 		<object-name>mp13</object-name>
-		<in-range>ai/models/multiplayer[12]/radar/in-range</in-range>
-		<display>ai/models/multiplayer[12]/radar/display</display>
-		<ddd-draw-range>ai/models/multiplayer[12]/radar/ddd-draw-range-nm</ddd-draw-range>
-		<ddd-relative-bearing>ai/models/multiplayer[12]/radar/ddd-relative-bearing</ddd-relative-bearing>
-		<ddd-echo-fading>ai/models/multiplayer[12]/radar/ddd-echo-fading</ddd-echo-fading>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[12]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[12]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[12]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[12]/ddd-echo-fading</ddd-echo-fading>
 	</MP13>
 
 	<animation>
 		<type>select</type>
 		<object-name alias="../../MP13/object-name"/>
 		<condition>
-			<equals>
-				<property alias="../../../../MP13/in-range"/>
-				<value>true</value>
-			</equals>
 			<equals>
 				<property alias="../../../../MP13/display"/>
 				<value>true</value>
@@ -788,6 +723,242 @@
 	</animation>
 
 
+	<TK1> <!--Group TK1 -->
+		<object-name>tk1</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[0]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[0]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[0]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[0]/ddd-echo-fading</ddd-echo-fading>
+	</TK1>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../TK1/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../TK1/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../TK1/object-name"/>
+		<property alias="../../TK1/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../TK1/object-name"/>
+		<property alias="../../TK1/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../TK1/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../TK1/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+
+	<TK2> <!--Group TK2 -->
+		<object-name>tk2</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[1]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[1]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[1]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[1]/ddd-echo-fading</ddd-echo-fading>
+	</TK2>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../TK2/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../TK2/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../TK2/object-name"/>
+		<property alias="../../TK2/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../TK2/object-name"/>
+		<property alias="../../TK2/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../TK2/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../TK2/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+
+	<TK3> <!--Group TK3 -->
+		<object-name>tk3</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[2]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[2]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[2]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[2]/ddd-echo-fading</ddd-echo-fading>
+	</TK3>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../TK3/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../TK3/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../TK3/object-name"/>
+		<property alias="../../TK3/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../TK3/object-name"/>
+		<property alias="../../TK3/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../TK3/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../TK3/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+	<TK4> <!--Group TK4 -->
+		<object-name>tk4</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[3]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[3]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[3]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[3]/ddd-echo-fading</ddd-echo-fading>
+	</TK4>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../TK4/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../TK4/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../TK4/object-name"/>
+		<property alias="../../TK4/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../TK4/object-name"/>
+		<property alias="../../TK4/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../TK4/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../TK4/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+	<TK5> <!--Group TK5 -->
+		<object-name>tk5</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[4]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[4]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[4]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[4]/ddd-echo-fading</ddd-echo-fading>
+	</TK5>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../TK5/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../TK5/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../TK5/object-name"/>
+		<property alias="../../TK5/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../TK5/object-name"/>
+		<property alias="../../TK5/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../TK5/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../TK5/ddd-echo-fading"/>
+		</transparency>
+	</animation>
 
 	<!-- lighting -->
 	<animation>
