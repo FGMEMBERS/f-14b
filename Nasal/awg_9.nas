@@ -6,6 +6,7 @@ var DisplayRdr  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-a
 var HudTgtHDisplay  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-display", 1);
 var HudTgtHDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-horizontal-deviation", 1);
 var HudTgtVDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-vertical-deviation", 1);
+var HudTgt  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target", 1);
 var HudCombinedDevDeg  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/combined_dev_deg", 1);
 var AzField = props.globals.getNode("instrumentation/radar/az-field", 1);
 var RangeRadar2 = props.globals.getNode("instrumentation/radar/radar2-range");
@@ -183,6 +184,7 @@ var hud_nearest_tgt = func() {
 	# Computes nearest_u position in the HUD
 	if ( nearest_u != nil ) {
 		if ( wcs_mode == "tws-auto" and nearest_u.get_display() ) {
+			var u_target = nearest_u.type ~ "[" ~ nearest_u.index ~ "]";			
 			var u_dev_brad = (90 - nearest_u.get_deviation(our_true_heading)) * D2R;
 			var u_elev = nearest_u.get_elevation();
 			var u_elev_brad = (90 - u_elev) * D2R;
@@ -213,6 +215,7 @@ var hud_nearest_tgt = func() {
 			HudTgtHDev.setValue(horiz_dev);
 			HudTgtVDev.setValue(vert_dev);
 			HudTgtHDisplay.setBoolValue(1);
+			HudTgt.setValue(u_target);
 			######### TODO: offset sweep to follow the target ##########
 		} else {
 			HudCombinedDevDeg.setValue(0);
@@ -295,12 +298,13 @@ wcs_mode_toggle = func() {
 	if ( wcs_mode == "pulse-srch" ) {
 		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-srch", 0);
 		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-auto", 1);
-		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode", "tws-auto");
+		wcs_mode = "tws-auto";
 		AzField.setValue(60);
 		ddd_screen_width = 0.0422;
-	} else {
+	} elsif ( wcs_mode == "tws-auto" ) {
 		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-auto", 0);
-		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode", "pulse-srch");
+		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-srch", 1);
+		wcs_mode = "pulse-srch";
 		AzField.setValue(120);
 		ddd_screen_width = 0.0844;
 	}
