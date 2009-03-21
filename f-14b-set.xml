@@ -853,21 +853,15 @@
 				</binding>
 			</key>
 
-			<key n="13">
-				<name>Ctrl-m</name>
-				<desc>Enables Radar TWS AUTO Mode</desc>
-				<binding>
-					<command>nasal</command>
-					<script>awg_9.wcs_mode_sel("tws-auto")</script>
-				</binding>
-			</key>
+			<!-- <key n="13">
+				<name>Ctrl-m</name> used for rudder only on vista ??? -->
 
 			<key n="14">
 				<name>Ctrl-n</name>
-				<desc>Enables Radar PULSE SRCH Mode</desc>
+				<desc>Toggles Radar PULSE SRCH / TWS AUTO Modes</desc>
 				<binding>
 					<command>nasal</command>
-					<script>awg_9.wcs_mode_sel("pulse-srch")</script>
+					<script>awg_9.wcs_mode_toggle()</script>
 				</binding>
 			</key>
 
