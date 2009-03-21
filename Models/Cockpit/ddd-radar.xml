@@ -723,6 +723,295 @@
 	</animation>
 
 
+	<MP14> <!--Group MP14 -->
+		<object-name>mp14</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[13]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[13]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[13]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[13]/ddd-echo-fading</ddd-echo-fading>
+	</MP14>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP14/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP14/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../MP14/object-name"/>
+		<property alias="../../MP14/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../MP14/object-name"/>
+		<property alias="../../MP14/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../MP14/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../MP14/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+
+	<MP15> <!--Group MP15 -->
+		<object-name>mp15</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[14]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[14]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[14]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[14]/ddd-echo-fading</ddd-echo-fading>
+	</MP15>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP15/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP15/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../MP15/object-name"/>
+		<property alias="../../MP15/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../MP15/object-name"/>
+		<property alias="../../MP15/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../MP15/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../MP15/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+
+	<MP16> <!--Group MP16 -->
+		<object-name>mp16</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[15]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[15]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[15]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[15]/ddd-echo-fading</ddd-echo-fading>
+	</MP16>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP16/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP16/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../MP16/object-name"/>
+		<property alias="../../MP16/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../MP16/object-name"/>
+		<property alias="../../MP16/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../MP16/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../MP16/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+
+	<MP17> <!--Group MP17 -->
+		<object-name>mp17</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[16]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[16]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[16]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[16]/ddd-echo-fading</ddd-echo-fading>
+	</MP17>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP17/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP17/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../MP17/object-name"/>
+		<property alias="../../MP17/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../MP17/object-name"/>
+		<property alias="../../MP17/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../MP17/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../MP17/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+
+	<MP18> <!--Group MP18 -->
+		<object-name>mp18</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[17]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[17]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[17]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[17]/ddd-echo-fading</ddd-echo-fading>
+	</MP18>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP18/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP18/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../MP18/object-name"/>
+		<property alias="../../MP18/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../MP18/object-name"/>
+		<property alias="../../MP18/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../MP18/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../MP18/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+
+	<MP19> <!--Group MP19 -->
+		<object-name>mp19</object-name>
+		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[18]/display</display>
+		<ddd-draw-range>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[18]/ddd-draw-range-nm</ddd-draw-range>
+		<ddd-relative-bearing>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[18]/ddd-relative-bearing</ddd-relative-bearing>
+		<ddd-echo-fading>sim/model/f-14b/instrumentation/radar-awg-9/targets/multiplayer[18]/ddd-echo-fading</ddd-echo-fading>
+	</MP19>
+
+	<animation>
+		<type>select</type>
+		<object-name alias="../../MP19/object-name"/>
+		<condition>
+			<equals>
+				<property alias="../../../../MP19/display"/>
+				<value>true</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name alias="../../MP19/object-name"/>
+		<property alias="../../MP19/ddd-relative-bearing"/>
+		<axis><y>1</y></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name alias="../../MP19/object-name"/>
+		<property alias="../../MP19/ddd-draw-range"/>
+		<condition>
+			<not><property>instrumentation/radar/radar-standby</property></not>
+		</condition>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<object-name alias="../../MP19/object-name"/>
+		<type>material</type>
+		<emission>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
+			<red>0.0</red>
+			<green>1</green>
+			<blue>0.0</blue>
+		</emission>
+		<transparency>
+			<alpha-prop alias="../../../MP19/ddd-echo-fading"/>
+		</transparency>
+	</animation>
+
+
+
 	<TK1> <!--Group TK1 -->
 		<object-name>tk1</object-name>
 		<display>sim/model/f-14b/instrumentation/radar-awg-9/targets/tanker[0]/display</display>

@@ -5,11 +5,11 @@ OBJECT world
 kids 1
 OBJECT group
 name "ddd"
-loc 0.00058075 -0.0358722 -5.14585e-05
-kids 23
+loc 0.000695245 -0.0373424 -3.30328e-05
+kids 29
 OBJECT poly
 name "screen-bkg-off"
-loc -0.00331595 0.0253281 -0.000818841
+loc -0.00343044 0.0267983 -0.000837267
 texture "hsd-bkg.png"
 crease 45.000000
 numvert 4
@@ -28,7 +28,7 @@ refs 4
 kids 0
 OBJECT poly
 name "screen-bkg"
-loc -0.00331595 0.0253281 -0.000818841
+loc -0.00343044 0.0267983 -0.000837267
 texture "hsd-bkg.png"
 crease 45.000000
 numvert 4
@@ -47,7 +47,7 @@ refs 4
 kids 0
 OBJECT poly
 name "horizon-line"
-loc -0.00058075 0.025198 -6.75701e-05
+loc -0.000695245 0.0266682 -8.59958e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -66,7 +66,7 @@ refs 4
 kids 0
 OBJECT poly
 name "radar-sweep"
-loc -0.00194162 0.0250195 0.000117559
+loc -0.00205611 0.0264897 9.91333e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -85,7 +85,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp1"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -104,7 +104,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp2"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -123,7 +123,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp3"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -142,7 +142,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp4"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -161,7 +161,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp5"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -180,7 +180,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp6"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -199,7 +199,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp7"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -218,7 +218,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp8"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -237,7 +237,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp9"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -256,7 +256,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp10"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -275,7 +275,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp11"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -294,7 +294,7 @@ refs 4
 kids 0
 OBJECT poly
 name "mp12"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -313,7 +313,121 @@ refs 4
 kids 0
 OBJECT poly
 name "mp13"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
+texture "rio-detail-display-radar.png"
+crease 45.000000
+numvert 4
+0 -0.000906225 -0.00263436
+0 -0.000906225 0.00263436
+0 0.000906225 0.00263436
+0 0.000906225 -0.00263436
+numsurf 1
+SURF 0x30
+mat 1
+refs 4
+3 0.0672835 0.224552
+2 0.044827 0.224552
+1 0.044827 0.210547
+0 0.0672835 0.210547
+kids 0
+OBJECT poly
+name "mp14"
+loc 0.000438897 -0.00563582 7.06318e-05
+texture "rio-detail-display-radar.png"
+crease 45.000000
+numvert 4
+0 0.000906225 -0.00263436
+0 0.000906225 0.00263436
+0 -0.000906225 0.00263436
+0 -0.000906225 -0.00263436
+numsurf 1
+SURF 0x30
+mat 1
+refs 4
+0 0.0672835 0.224552
+1 0.044827 0.224552
+2 0.044827 0.210547
+3 0.0672835 0.210547
+kids 0
+OBJECT poly
+name "mp15"
+loc 0.000438897 -0.00563582 7.06318e-05
+texture "rio-detail-display-radar.png"
+crease 45.000000
+numvert 4
+0 -0.000906225 -0.00263436
+0 -0.000906225 0.00263436
+0 0.000906225 0.00263436
+0 0.000906225 -0.00263436
+numsurf 1
+SURF 0x30
+mat 1
+refs 4
+3 0.0672835 0.224552
+2 0.044827 0.224552
+1 0.044827 0.210547
+0 0.0672835 0.210547
+kids 0
+OBJECT poly
+name "mp16"
+loc 0.000438897 -0.00563582 7.06318e-05
+texture "rio-detail-display-radar.png"
+crease 45.000000
+numvert 4
+0 0.000906225 -0.00263436
+0 0.000906225 0.00263436
+0 -0.000906225 0.00263436
+0 -0.000906225 -0.00263436
+numsurf 1
+SURF 0x30
+mat 1
+refs 4
+0 0.0672835 0.224552
+1 0.044827 0.224552
+2 0.044827 0.210547
+3 0.0672835 0.210547
+kids 0
+OBJECT poly
+name "mp17"
+loc 0.000438897 -0.00563582 7.06318e-05
+texture "rio-detail-display-radar.png"
+crease 45.000000
+numvert 4
+0 -0.000906225 -0.00263436
+0 -0.000906225 0.00263436
+0 0.000906225 0.00263436
+0 0.000906225 -0.00263436
+numsurf 1
+SURF 0x30
+mat 1
+refs 4
+3 0.0672835 0.224552
+2 0.044827 0.224552
+1 0.044827 0.210547
+0 0.0672835 0.210547
+kids 0
+OBJECT poly
+name "mp18"
+loc 0.000438897 -0.00563582 7.06318e-05
+texture "rio-detail-display-radar.png"
+crease 45.000000
+numvert 4
+0 0.000906225 -0.00263436
+0 0.000906225 0.00263436
+0 -0.000906225 0.00263436
+0 -0.000906225 -0.00263436
+numsurf 1
+SURF 0x30
+mat 1
+refs 4
+0 0.0672835 0.224552
+1 0.044827 0.224552
+2 0.044827 0.210547
+3 0.0672835 0.210547
+kids 0
+OBJECT poly
+name "mp19"
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -332,7 +446,7 @@ refs 4
 kids 0
 OBJECT poly
 name "tk1"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -351,7 +465,7 @@ refs 4
 kids 0
 OBJECT poly
 name "tk2"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -370,7 +484,7 @@ refs 4
 kids 0
 OBJECT poly
 name "tk3"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -389,7 +503,7 @@ refs 4
 kids 0
 OBJECT poly
 name "tk4"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -408,7 +522,7 @@ refs 4
 kids 0
 OBJECT poly
 name "tk5"
-loc 0.000553392 -0.00710603 8.90575e-05
+loc 0.000438897 -0.00563582 7.06318e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
@@ -427,7 +541,7 @@ refs 4
 kids 0
 OBJECT poly
 name "frame"
-loc -0.000806787 0.0270349 -1.53415e-05
+loc -0.000921282 0.0285051 -3.37672e-05
 texture "rio-detail-display-radar.png"
 crease 45.000000
 numvert 4
