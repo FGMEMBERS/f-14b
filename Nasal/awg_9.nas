@@ -286,6 +286,7 @@ wcs_mode_sel = func(mode) {
 		ddd_screen_width = 0.0422;
 	}
 }
+
 wcs_mode_toggle = func() {
 	# Temporarely toggles between the first 2 available modes.
 	foreach (var n; props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode").getChildren()) {
@@ -294,11 +295,12 @@ wcs_mode_toggle = func() {
 	if ( wcs_mode == "pulse-srch" ) {
 		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-srch", 0);
 		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-auto", 1);
+		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode", "tws-auto");
 		AzField.setValue(60);
 		ddd_screen_width = 0.0422;
 	} else {
 		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-auto", 0);
-		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-srch", 1);
+		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode", "pulse-srch");
 		AzField.setValue(120);
 		ddd_screen_width = 0.0844;
 	}
