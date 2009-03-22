@@ -624,7 +624,15 @@ var refuel_probe_switch_down = func() {
 	}
 	if ( sw == 0 ) { f14.RefuelProbeTargetPosition = 0.0; }
 }
-
+var refuel_probe_switch_cycle = func() {
+	var sw = getprop("sim/model/f-14b/controls/fuel/refuel-probe-switch");
+	if ( sw < 2 ) { refuel_probe_switch_up() }
+	if ( sw == 2 ) {
+		sw = 0;
+		setprop("sim/model/f-14b/controls/fuel/refuel-probe-switch", sw);
+		f14.RefuelProbeTargetPosition = 0.0;	
+	}
+}
 
 # Internaly save levels at reinit. This is a workaround:
 # reinit shouldn't try to reload the levels from the -set file.
