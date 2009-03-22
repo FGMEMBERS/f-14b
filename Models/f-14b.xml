@@ -88,26 +88,6 @@
 		</offsets>
 	</model>
 
-<!-- Hotspots-Pilot's Main Panel Up Left -->
-	<panel>
-		<name>hotspot-pilot-main-panel-up-L</name>
-		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-main-panel-up-L.xml</path>
-		<top-left>
-			<x-m>-5.8567</x-m>
-			<y-m>-0.3715</y-m>
-			<z-m>0.1278</z-m>
-		</top-left>
-		<bottom-left>
-			<x-m>-5.7897</x-m>
-			<y-m>-0.3715</y-m>
-			<z-m>-0.1282</z-m>
-		</bottom-left>
-		<bottom-right>
-			<x-m>-5.7897</x-m>
-			<y-m>-0.1211</y-m>
-			<z-m>-0.1282</z-m>
-		</bottom-right>
-	</panel>
 
 	<!-- Hotspots-Pilot's Vertical Console Left -->
 	<panel>
