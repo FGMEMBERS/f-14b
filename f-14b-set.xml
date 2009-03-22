@@ -1033,10 +1033,10 @@
 
 			<key n="117">
 				<name>u</name>
-				<desc>Toggle refuelling probe</desc>
+				<desc>Cycles through the 3 refuelling probe switch positions</desc>
 				<binding>
 					<command>nasal</command>
-					<script>f14.toggleProbe();</script>
+					<script>f14.refuel_probe_switch_cycle();</script>
 				</binding>
 			</key>
 
