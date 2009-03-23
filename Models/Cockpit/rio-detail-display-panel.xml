@@ -349,7 +349,7 @@
 
 	<!-- lighting -->
 	<animation>
-		<object-name>mount</object-name>
+		<object-name>ddd-mount</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
@@ -381,9 +381,27 @@
 		</emission>
 	</animation>
 	<animation>
-		<object-name>knobs</object-name>
-		<object-name>rng-buttons</object-name>
 		<object-name>elev</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>knobs</object-name>
+		<type>material</type>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.55</red>
+			<green>0.24</green>
+			<blue>0.10</blue>
+		</emission>
+	</animation>
+	<animation>
+		<object-name>rng-buttons</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
