@@ -316,10 +316,6 @@ setlistener("/sim/signals/reinit", func (reinit) {
 aircraft.light.new("sim/model/f-14b/lighting/warn-medium-lights-switch", [0.3, 0.2]);
 setprop("sim/model/f-14b/lighting/warn-medium-lights-switch/enabled", 1);
 
-# warning lights fast speed flasher
-# -----------------------------------
-#aircraft.light.new("sim/model/f-14b/lighting/warn-fast-lights-switch", [0.1, 0.1]);
-#setprop("sim/model/f-14b/controls/lighting/warn-fast-lights-switch/enabled", 1);
 
 # Old Fashioned Radio Button Selector
 # -----------------------------------
