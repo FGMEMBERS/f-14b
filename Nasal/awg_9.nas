@@ -201,7 +201,7 @@ var hud_nearest_tgt = func() {
 			# Lenght HUD center <-> target pos on the HUD:
 			var combined_dev_length = math.sqrt((h_dev*h_dev)+(v_dev*v_dev));
 
-			# clamp and squeeze the top of the display area so the target follox the egg shaped HUD limits.
+			# clamp and squeeze the top of the display area so the target follow the egg shaped HUD limits.
 			var clamp = 0.105;
 			var abs_combined_dev_deg = math.abs( combined_dev_deg );
 			if ( abs_combined_dev_deg >= 0 and abs_combined_dev_deg < 90 ) {
