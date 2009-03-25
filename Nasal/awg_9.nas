@@ -7,6 +7,8 @@ var HudTgtHDisplay  = props.globals.getNode("sim/model/f-14b/instrumentation/rad
 var HudTgtHDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-horizontal-deviation", 1);
 var HudTgtVDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-vertical-deviation", 1);
 var HudTgt  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target", 1);
+var HudTgtTDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-deviation", 1);
+var HudTgtTDeg  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-angle", 1);
 var HudCombinedDevDeg  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/combined_dev_deg", 1);
 var AzField = props.globals.getNode("instrumentation/radar/az-field", 1);
 var RangeRadar2 = props.globals.getNode("instrumentation/radar/radar2-range");
@@ -185,46 +187,51 @@ var hud_nearest_tgt = func() {
 	if ( nearest_u != nil ) {
 		if ( wcs_mode == "tws-auto" and nearest_u.get_display() ) {
 			var u_target = nearest_u.type ~ "[" ~ nearest_u.index ~ "]";			
-			var u_dev_brad = (90 - nearest_u.get_deviation(our_true_heading)) * D2R;
-			var u_elev = nearest_u.get_elevation();
-			var u_elev_brad = (90 - u_elev) * D2R;
-			# Deviation length on the HUD, raw (at level flight):
-			var raw_horiz_dev = 0.7186 / ( math.sin(u_dev_brad) / math.cos(u_dev_brad) );# 0.7186m : distance eye <-> virtual HUD screen.
-			var raw_vert_dev = 0.7186 / ( math.sin(u_elev_brad) / math.cos(u_elev_brad) );
-			# Angle between HUD center <-> target pos on the HUD segment and Horizon, at level flight. -90° left, 0° up, 90° right, +/- 180° down 
-			var raw_combined_dev_deg = math.atan2( raw_horiz_dev, raw_vert_dev ) * R2D;
-			# Corrected with own a/c roll:
-			var combined_dev_deg = raw_combined_dev_deg - OurRoll.getValue();
-			# Lenght HUD center <-> target pos on the HUD segment:
-			var raw_combined_dev_length = math.sqrt( (raw_horiz_dev*raw_horiz_dev) + (raw_vert_dev*raw_vert_dev) );
-			# Deviation due to own a/c pitch:
-			#### TODO: Fix the pitch issue when inverted flight.
-			var pitch = OurPitch.getValue();
-			var pitchb_rad = ( 90 - pitch ) * D2R;
-			var pitch_dev = 0.7186 / (math.sin(pitchb_rad) / math.cos(pitchb_rad));
+			var our_pitch = OurPitch.getValue();
+			var u_dev_rad = (90 - nearest_u.get_deviation(our_true_heading)) * D2R;
+			var u_elev_rad = (90 - nearest_u.get_total_elevation(our_pitch)) * D2R;
+			# Deviation length on the HUD (at level flight), 0.6686m = distance eye <-> virtual HUD screen.
+			var h_dev = 0.6686 / ( math.sin(u_dev_rad) / math.cos(u_dev_rad) );
+			var v_dev = 0.6686 / ( math.sin(u_elev_rad) / math.cos(u_elev_rad) );
+			# Angle between HUD center/top <-> HUD center/target position.
+			# -90° left, 0° up, 90° right, +/- 180° down. 
+			var dev_deg =  math.atan2( h_dev, v_dev ) * R2D;
+			# Correction with own a/c roll.
+			var combined_dev_deg = dev_deg - OurRoll.getValue();
+			# Lenght HUD center <-> target pos on the HUD:
+			var combined_dev_length = math.sqrt((h_dev*h_dev)+(v_dev*v_dev));
 
-			# Deviation length on the HUD, final:
-			var vert_dev = (math.sin( ( 90 - combined_dev_deg) * D2R ) * raw_combined_dev_length) - pitch_dev;
-			var horiz_dev = math.cos( ( 90 - combined_dev_deg) * D2R ) * raw_combined_dev_length;
+			# clamp and squeeze the top of the display area so the target follox the egg shaped HUD limits.
+			var clamp = 0.105;
+			var abs_combined_dev_deg = math.abs( combined_dev_deg );
+			if ( abs_combined_dev_deg >= 0 and abs_combined_dev_deg < 90 ) {
+				var coef = ( 90 - abs_combined_dev_deg ) * 0.00075;
+				if ( coef > 0.050 ) { coef = 0.050 }
+				clamp -= coef; 
+			}
+			if ( combined_dev_length > clamp ) {
+				combined_dev_length = clamp;
+				Clamp_Blinker.blink();
+			} else {
+				Clamp_Blinker.cont();
+			}
 
-			if ( vert_dev > 0.105 ) { vert_dev = 0.105 }
-			if ( vert_dev < -0.105 ) { vert_dev = -0.105 }
-			if ( horiz_dev > 0.105 ) { horiz_dev = 0.105 }
-			if ( horiz_dev < -0.105 ) { horiz_dev = -0.105 }
-
-			HudTgtHDev.setValue(horiz_dev);
-			HudTgtVDev.setValue(vert_dev);
+			HudTgtTDeg.setValue(combined_dev_deg);
+			HudTgtTDev.setValue(combined_dev_length);
 			HudTgtHDisplay.setBoolValue(1);
 			HudTgt.setValue(u_target);
 			######### TODO: offset sweep to follow the target ##########
 		} else {
-			HudCombinedDevDeg.setValue(0);
-			HudTgtHDev.setValue(0);
-			HudTgtVDev.setValue(0);
+			HudTgtTDeg.setValue(0);
+			HudTgtTDev.setValue(0);
 			HudTgtHDisplay.setBoolValue(0);
 		}
 	}
 }
+# HUD clamped target blinker
+Clamp_Blinker = aircraft.light.new("sim/model/f-14b/lighting/warn-fast-lights-switch", [0.1, 0.1]);
+setprop("sim/model/f-14b/lighting/warn-fast-lights-switch/enabled", 1);
+
 
 # ECM: Radar Warning Receiver
 rwr = func(u) {
@@ -268,6 +275,12 @@ var deviation_normdeg = func(our_heading, target_bearing) {
 	return(dev_norm);
 }
 
+var normdeg90 = func( a ) {
+	a < 0 ? -a : a;
+	while (a > 90) a -= 90;
+	return(a);
+}
+
 var rounding1000 = func(n) {
 	var a = int( n / 1000 );
 	var l = ( a + 0.5 ) * 1000;
@@ -309,6 +322,7 @@ wcs_mode_toggle = func() {
 		ddd_screen_width = 0.0844;
 	}
 }
+
 
 # Target class
 var Target = {
@@ -372,8 +386,9 @@ var Target = {
 	get_altitude : func {
 		return me.Alt.getValue();
 	},
-	get_elevation : func {
-		return me.Elevation.getValue();
+	get_total_elevation : func(own_pitch) {
+		me.deviation =  - deviation_normdeg(own_pitch, me.Elevation.getValue());
+		return me.deviation;
 	},
 	get_range : func {
 		return me.Range.getValue();
@@ -382,6 +397,10 @@ var Target = {
 		var tgt_alt = me.get_altitude();
 		if ( tgt_alt != nil ) {
 			if ( own_alt < 0 ) { own_alt = 0.001 }
+			if ( debug.isnan(tgt_alt)) {
+				print("####### nan ########");
+				return(0);
+			}
 			if ( tgt_alt < 0 ) { tgt_alt = 0.001 }
 			return radardist.radar_horizon( own_alt, tgt_alt );
 		} else {
