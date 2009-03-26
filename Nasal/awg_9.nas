@@ -19,6 +19,8 @@ var OurPitch = props.globals.getNode("orientation/pitch-deg");
 var EcmOn = props.globals.getNode("instrumentation/ecm/on-off", 1);
 
 var az_fld = AzField.getValue();
+var l_az_fld = 0;
+var r_az_fld = 0;
 var swp_fac      = nil; # Scan azimuth deviation, normalized (-1 --> 1).
 var swp_deg      = nil; # Scan azimuth deviation, in degree.
 var swp_deg_last = 0; # Used to get sweep direction.
@@ -29,6 +31,8 @@ var ddd_screen_width = 0.0844; # 0.0844m : length of the max azimuth range on th
 var range_radar2 = 0;
 var my_radarcorr = 0;
 var wcs_mode = "pulse-srch";
+var tmp_nearest_rng  = nil;
+var tmp_nearest_u    = nil;
 var nearest_rng  = 0;
 var nearest_u    = nil;
 
@@ -95,8 +99,11 @@ var az_scan = func() {
 		az_fld = AzField.getValue();
 		range_radar2 = RangeRadar2.getValue();
 		if ( range_radar2 == 0 ) { range_radar2 = 0.00000001 }
-		# Reset nearest_range_score
-		nearest_rng = nil;
+		# reset nearest_range score
+		nearest_u = tmp_nearest_u;
+		nearest_rng = tmp_nearest_rng;
+		tmp_nearest_rng = nil;
+		tmp_nearest_u = nil;
 
 		# Antena scan direction change. Max every 2 seconds. Reads the whole MP_list.
 		tgts_list = [];
@@ -167,9 +174,9 @@ var az_scan = func() {
 				# Compute first digit of mp altitude rounded to nearest thousand. (labels).
 				u.set_rounded_alt( rounding1000( u.get_altitude() ) / 1000 );
 				# Check if u = nearest echo.
-				if ( nearest_rng == nil or u_rng < nearest_rng) {
-					nearest_u = u;
-					nearest_rng = u_rng;
+				if ( tmp_nearest_rng == nil or u_rng < tmp_nearest_rng) {
+					tmp_nearest_u = u;
+					tmp_nearest_rng = u_rng;
 				}
 			}
 			u.set_display(u_display);
@@ -185,7 +192,7 @@ var az_scan = func() {
 var hud_nearest_tgt = func() {
 	# Computes nearest_u position in the HUD
 	if ( nearest_u != nil ) {
-		if ( wcs_mode == "tws-auto" and nearest_u.get_display() ) {
+		if ( wcs_mode == "tws-auto" and nearest_u.get_display() and nearest_u.deviation > l_az_fld  and  nearest_u.deviation < r_az_fld ) {
 			var u_target = nearest_u.type ~ "[" ~ nearest_u.index ~ "]";			
 			var our_pitch = OurPitch.getValue();
 			var u_dev_rad = (90 - nearest_u.get_deviation(our_true_heading)) * D2R;
@@ -220,13 +227,13 @@ var hud_nearest_tgt = func() {
 			HudTgtTDev.setValue(combined_dev_length);
 			HudTgtHDisplay.setBoolValue(1);
 			HudTgt.setValue(u_target);
+			return;
 			######### TODO: offset sweep to follow the target ##########
-		} else {
-			HudTgtTDeg.setValue(0);
-			HudTgtTDev.setValue(0);
-			HudTgtHDisplay.setBoolValue(0);
 		}
 	}
+	HudTgtTDeg.setValue(0);
+	HudTgtTDev.setValue(0);
+	HudTgtHDisplay.setBoolValue(0);
 }
 # HUD clamped target blinker
 Clamp_Blinker = aircraft.light.new("sim/model/f-14b/lighting/warn-fast-lights-switch", [0.1, 0.1]);
@@ -275,11 +282,7 @@ var deviation_normdeg = func(our_heading, target_bearing) {
 	return(dev_norm);
 }
 
-var normdeg90 = func( a ) {
-	a < 0 ? -a : a;
-	while (a > 90) a -= 90;
-	return(a);
-}
+
 
 var rounding1000 = func(n) {
 	var a = int( n / 1000 );
