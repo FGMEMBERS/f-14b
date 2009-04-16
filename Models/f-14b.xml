@@ -88,7 +88,6 @@
 		</offsets>
 	</model>
 
-
 	<!-- Hotspots-Pilot's Vertical Console Left -->
 	<panel>
 		<name>hotspot-pilot-vertical-console-L</name>
@@ -222,8 +221,12 @@
 	</model>
 
 <!-- ******************************************************************* -->
-<!-- External loads                                                            -->
+<!-- External loads                                                      -->
 <!-- ******************************************************************* -->
+
+	<model>
+		<path>Aircraft/f-14b/Models/Stores/ext-stores.xml</path>
+	</model>
 
 	<!-- External Tanks -->
 	<model>
