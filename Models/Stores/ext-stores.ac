@@ -12,7 +12,7 @@ kids 26
 OBJECT poly
 name "mk-83-6"
 loc -1.07563 -1.84357 -0.518878
-texture "MK-83/mk-83.png"
+texture "mk-83/mk-83.png"
 crease 45.000000
 numvert 195
 -1.48854 -0.000491858 -0.000897706
@@ -2055,7 +2055,7 @@ kids 0
 OBJECT poly
 name "mk-83-5"
 loc 3.26486 -1.84359 -0.518875
-texture "MK-83/mk-83.png"
+texture "mk-83/mk-83.png"
 crease 45.000000
 numvert 195
 -1.26377 0.081582 -0.0813938
@@ -4098,7 +4098,7 @@ kids 0
 OBJECT poly
 name "mk-83-4"
 loc 3.26486 -1.84359 0.530849
-texture "MK-83/mk-83.png"
+texture "mk-83/mk-83.png"
 crease 45.000000
 numvert 195
 -1.48854 -0.000491858 -0.000897706
@@ -6141,7 +6141,7 @@ kids 0
 OBJECT poly
 name "mk-83-3"
 loc -1.17563 -1.84359 0.530849
-texture "MK-83/mk-83.png"
+texture "mk-83/mk-83.png"
 crease 45.000000
 numvert 195
 -1.26377 0.081582 -0.0813938
