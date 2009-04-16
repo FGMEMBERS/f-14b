@@ -119,8 +119,8 @@ var init_fuel_system = func {
 
 	L_Ext_Select_State = props.globals.getNode("consumables/fuel/tank[8]/selected");
 	R_Ext_Select_State = props.globals.getNode("consumables/fuel/tank[9]/selected");
-	l_ext_select_state = L_Ext_Select_State.getValue();
-	r_ext_select_state = R_Ext_Select_State.getValue();
+	l_ext_select_state = L_Ext_Select_State.getBoolValue();
+	r_ext_select_state = R_Ext_Select_State.getBoolValue();
 
 	#tanks ("name", number, initial connection status)
 	FWD_Fuselage   = Tank.new("FWD fuselage", 0, 1);   # 4700 lbs
@@ -133,6 +133,9 @@ var init_fuel_system = func {
 	Right_Wing     = Tank.new("R wing", 7, 1);     # 2000 lbs
 	Left_External  = Tank.new("L external", 8, l_ext_select_state);  # 2000 lbs
 	Right_External = Tank.new("R external", 9, r_ext_select_state); # 2000 lbs
+
+	if ( ! l_ext_select_state ) { Left_External.set_level(0) }
+	if ( ! r_ext_select_state ) { Right_External.set_level(0) }
 
 	#proportioners ("name", number, initial connection status, operational status)
 	Left_Proportioner	= Prop.new("L feed line", 10, 1, 1); # 10 lbs
@@ -670,8 +673,9 @@ Tank = {
 		obj.level_gal_us = obj.prop.getNode("level-gal_us", 1);
 		obj.level_lbs = obj.prop.getNode("level-lbs", 1);
 		obj.transfering = obj.prop.getNode("transfering", 1);
-		obj.prop.getChild("selected", 0, 1).setBoolValue(connect);
-		obj.prop.getChild("transfering", 0, 1).setBoolValue(0);
+		obj.transfering.setBoolValue(0);
+		obj.selected = obj.prop.getNode("selected", 1);
+		obj.selected.setBoolValue(connect);
 		obj.ppg.setDoubleValue(6.3);
 
 		append(Tank.list, obj);
@@ -693,6 +697,9 @@ Tank = {
 	},
 	set_transfering : func (transfering){
 		me.transfering.setBoolValue(transfering);
+	},
+	set_selected : func (sel){
+		me.selected.setBoolValue(sel);
 	},
 	get_amount : func (dt, ullage) {
 		var amount = (flowrate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt;

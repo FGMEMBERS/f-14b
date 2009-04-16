@@ -1,77 +1,172 @@
-# Automaticaly empties (or loads) corresponding Yasim tanks when deselecting
-# (or selecting) external tanks in the Fuel and Payload Menu, or when jettisoning
-# external tanks.
+var ExtTanks = props.globals.getNode("sim/model/f-14b/systems/external-loads/external-tanks");
+var WeaponsSet = props.globals.getNode("sim/model/f-14b/systems/external-loads/external-load-set");
+var S0 = nil;
+var S1 = nil;
+var S2 = nil;
+var S3 = nil;
+var S4 = nil;
+var S5 = nil;
+var S6 = nil;
+var S7 = nil;
+var S8 = nil;
+var S9 = nil;
+var droptank_node = props.globals.getNode("sim/ai/aircraft/impact/droptank", 1);
 
-var station_2_last_select_state = getprop("sim/weight[2]/selected");
-var station_7_last_select_state = getprop("sim/weight[7]/selected");
+var ext_loads_dlg = gui.Dialog.new("dialog","Aircraft/f-14b/Dialogs/external-loads.xml");
 
-var station = func(i) {
-	var sta = "sim/weight[" ~ i ~ "]";
-	var sta_node = props.globals.getNode(sta);
-	var sta_selected_node = sta_node.getNode("selected");
-	var sta_selected = sta_selected_node.getValue();
-	if ((i == 2) and (station_2_last_select_state != sta_selected )) {
-		# Station[2] --> Yasim tank[8].
-		update_ext_tank("consumables/fuel/tank[8]", sta_selected);
-	} elsif ((i == 7) and (station_2_last_select_state != sta_selected)) {
-		# Station[7] --> Yasim tank[9].
-		update_ext_tank("consumables/fuel/tank[9]", sta_selected);
+
+var ext_loads_init = func() {
+	S0 = Station.new(0, 0);
+	S1 = Station.new(1, 0);
+	S2 = Station.new(2, 1);
+	S3 = Station.new(3, 2);
+	S4 = Station.new(4, 3);
+	S5 = Station.new(5, 4);
+	S6 = Station.new(6, 5);
+	S7 = Station.new(7, 6);
+	S8 = Station.new(8, 7);
+	S9 = Station.new(9, 7);
+}
+
+var ext_loads_set = func(s) {
+	# Clean, FAD, FAD light, FAD heavy, Bombcat
+	WeaponsSet.setValue(s);
+	if ( s == "Clean" ) {
+		S0.set_type("-");
+		S1.set_type("-");
+		S1.set_weight_lb(0);
+		S3.set_type("-");
+		S3.set_weight_lb(0);
+		S4.set_type("-");
+		S4.set_weight_lb(0);
+		S5.set_type("-");
+		S5.set_weight_lb(0);
+		S6.set_type("-");
+		S6.set_weight_lb(0);
+		S8.set_type("-");
+		S9.set_type("-");
+		S9.set_weight_lb(0);
+	} elsif ( s == "FAD" ) {
+		S0.set_type("AIM-9");
+		S1.set_type("AIM-7");
+		S1.set_weight_lb(53 + 340 + 191 + 510); # AIM-9rail, wing pylon, AIM-9M, AIM-7M 
+		S3.set_type("AIM-54");
+		S3.set_weight_lb(300 + 1020); # central pylon, AIM-54 
+		S4.set_type("AIM-54");
+		S4.set_weight_lb(300 + 1020); # central pylon, AIM-54 
+		S5.set_type("AIM-54");
+		S5.set_weight_lb(300 + 1020); # central pylon, AIM-54 
+		S6.set_type("AIM-54");
+		S6.set_weight_lb(300 + 1020); # central pylon, AIM-54 
+		S8.set_type("AIM-7");
+		S9.set_type("AIM-9");
+		S9.set_weight_lb(53 + 340 + 191 + 510); # AIM-9rail, wing pylon, AIM-9M, AIM-7M 
+	} elsif ( s == "FAD light" ) {
+		S0.set_type("AIM-9");
+		S1.set_type("AIM-9");
+		S1.set_weight_lb(53 + 340 + 191 + 53 + 191); # AIM-9rail, wing pylon, AIM-9M, AIM-9rail, AIM-9M 
+		S3.set_type("AIM-7");
+		S3.set_weight_lb(510); # AIM-7 
+		S4.set_type("AIM-7");
+		S4.set_weight_lb(510); # AIM-7 
+		S5.set_type("AIM-7");
+		S5.set_weight_lb(510); # AIM-7 
+		S6.set_type("AIM-7");
+		S6.set_weight_lb(510); # AIM-7 
+		S8.set_type("AIM-9");
+		S9.set_type("AIM-9");
+		S9.set_weight_lb(53 + 340 + 191 + 53 + 191); # AIM-9rail, wing pylon, AIM-9M, AIM-9rail, AIM-9M 
+	} elsif ( s == "FAD heavy" ) {
+		S0.set_type("AIM-9");
+		S1.set_type("AIM-54");
+		S1.set_weight_lb(53 + 340 + 191 + 60 + 1020); # AIM-9rail, wing pylon, AIM-9M, AIM-54launcher, AIM-54 
+		S3.set_type("AIM-54");
+		S3.set_weight_lb(300 + 1020); # central pylon, AIM-54 
+		S4.set_type("AIM-54");
+		S4.set_weight_lb(300 + 1020); # central pylon, AIM-54 
+		S5.set_type("AIM-54");
+		S5.set_weight_lb(300 + 1020); # central pylon, AIM-54 
+		S6.set_type("AIM-54");
+		S6.set_weight_lb(300 + 1020); # central pylon, AIM-54 
+		S8.set_type("AIM-54");
+		S9.set_type("AIM-9");
+		S9.set_weight_lb(53 + 340 + 191 + 60 + 1020); # AIM-9rail, wing pylon, AIM-9M, AIM-54launcher, AIM-54 
+	} elsif ( s == "Bombcat" ) {
+		S0.set_type("AIM-9");
+		S1.set_type("AIM-7");
+		S1.set_weight_lb(53 + 340 + 191 + 510); # AIM-9rail, wing pylon, AIM-9M, AIM-7M 
+		S3.set_type("MK-83");
+		S3.set_weight_lb(300 + 1000); # central pylon, MK-83 
+		S4.set_type("MK-83");
+		S4.set_weight_lb(300 + 1000); # central pylon, MK-83 
+		S5.set_type("MK-83");
+		S5.set_weight_lb(300 + 1000); # central pylon, MK-83 
+		S6.set_type("MK-83");
+		S6.set_weight_lb(300 + 1000); # central pylon, MK-83 
+		S8.set_type("AIM-7");
+		S9.set_type("AIM-9");
+		S9.set_weight_lb(53 + 340 + 191 + 510); # AIM-9rail, wing pylon, AIM-9M, AIM-7M 
 	}
 }
 
-var update_ext_tank = func(tank, selected) {
-	#print ("update_ext_tank()");
-	var tank_node = props.globals.getNode(tank);
-	if (selected == "none") {
-		tank_node.getNode("level-gal_us", 1).setValue(0);
-		tank_node.getNode("level-lbs", 1).setValue(0);
-		tank_node.getNode("selected", 1).setBoolValue(0);
+# Empties (or loads) corresponding Yasim tanks when de-selecting (or selecting)
+# external tanks in the External Loads Menu, or when jettisoning external tanks.
+# See fuel-system.nas for Left_External.set_level(), Left_External.set_selected()
+# and such.
+
+var toggle_ext_tank_selected = func() {
+	var ext_tanks = ! ExtTanks.getBoolValue();
+	ExtTanks.setBoolValue( ext_tanks );
+	if ( ext_tanks ) {
+		S2.set_type("external tank");
+		S7.set_type("external tank");
+		S2.set_weight_lb(250);            # lbs, empty tank weight.
+		S7.set_weight_lb(250);
+		Left_External.set_level(267);     # US gals, tank fuel contents.
+		Right_External.set_level(267);
+		Left_External.set_selected(1);
+		Right_External.set_selected(1);
 	} else {
-		tank_node.getNode("level-gal_us", 1).setValue(267);
-		tank_node.getNode("level-lbs", 1).setValue(1714.219);
-		tank_node.getNode("selected", 1).setBoolValue(1);
+		S2.set_type("-");
+		S7.set_type("-");
+		S2.set_weight_lb(0);
+		S7.set_weight_lb(0);
+		Left_External.set_level(0);
+		Right_External.set_level(0);
+		Left_External.set_selected(0);
+		Right_External.set_selected(0);
 	}
 }
-
-
-
-
-
-setlistener("sim/weight[2]/selected", func { station(2); });
-setlistener("sim/weight[7]/selected", func { station(7); });
-
-
 
 
 # Emergency jettison:
 # -------------------
-#var emerg_jettison_button = props.globals.getNode("sim/model/f-14b/controls/armament/emerg-jettison-switch");
 
 var emerg_jettison = func {
-	#if ( ! emerg_jettison_button.getBoolValue() ) {
-		#emerg_jettison_button.setBoolValue(1);
-		setprop("sim/model/f-14b/instrumentation/warnings/master-caution", 1);
-		if (getprop("sim/weight[2]/selected") == "1800 lbs Fuel Tank") {
-			setprop("sim/weight[2]/selected", "none");
-			setprop("controls/armament/station[2]/jettison-all", 1);
-		}
-		if (getprop("sim/weight[7]/selected") == "1800 lbs Fuel Tank") {
-			setprop("sim/weight[7]/selected", "none");
-			setprop("controls/armament/station[7]/jettison-all", 1);
-		}
-	#} else {
-		#emerg_jettison_button.setBoolValue(0);
-	#}
+	setprop("sim/model/f-14b/instrumentation/warnings/master-caution", 1);
+	if (S2.get_type() == "external tank") {
+		S2.set_type("-");
+		S2.set_weight_lb(0);
+		setprop("controls/armament/station[2]/jettison-all", 1);
+		Left_External.set_level(0);
+		Left_External.set_selected(0);
+	}
+	if (S7.get_type() == "external tank") {
+		S7.set_type("-");
+		S7.set_weight_lb(0);
+		setprop("controls/armament/station[7]/jettison-all", 1);
+		Right_External.set_level(0);
+		Right_External.set_selected(0);
+	}
+	ExtTanks.setBoolValue(0);
 }
 
 # Puts the jettisoned tanks models on the ground after impact (THX Vivian Mezza).
-var droptank_node = props.globals.getNode("sim/ai/aircraft/impact/droptank", 1);
 
 var droptanks = func(n) {
 	if (WOW) { setprop("sim/model/f-14b/controls/armament/tanks-ground-sound", 1) }
 	var droptank = droptank_node.getValue();
 	var node = props.globals.getNode(n.getValue(), 1);
-	#print (" droptank ", droptank, " lon " , node.getNode("impact/longitude-deg").getValue(),);
 	geo.put_model("Aircraft/f-14b/Models/Stores/Ext-Tanks/exttank-submodel.xml",
 		node.getNode("impact/latitude-deg").getValue(),
 		node.getNode("impact/longitude-deg").getValue(),
@@ -83,3 +178,34 @@ var droptanks = func(n) {
 }
 
 setlistener( "sim/ai/aircraft/impact/droptank", droptanks );
+
+
+
+Station = {
+	new : func (number, weight_number){
+		var obj = {parents : [Station] };
+		obj.prop = props.globals.getNode("sim/model/f-14b/systems/external-loads/").getChild ("station", number , 1);
+		obj.type = obj.prop.getNode("type", 1);
+		obj.weight = props.globals.getNode("sim").getChild ("weight", weight_number , 1);
+		obj.weight_lb = obj.weight.getNode("weight-lb");
+		append(Station.list, obj);
+		return obj;
+	},
+	set_type : func (t) {
+		me.type.setValue(t);
+	},
+	get_type : func () {
+		return me.type.getValue();	
+	},
+	add_weight_lb : func (t) {
+		w = me.weight_lb.getValue();
+		me.weight_lb.setValue( w + t );
+	},
+	set_weight_lb : func (t) {
+		me.weight_lb.setValue(t);	
+	},
+	get_weight_lb : func () {
+		return me.weight_lb.getValue();	
+	},
+	list : [],
+};

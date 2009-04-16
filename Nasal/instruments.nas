@@ -152,28 +152,17 @@ var Rw_lvl_gal_us     = props.globals.getNode("consumables/fuel/tank[7]/level-ga
 var Le_lvl_gal_us     = props.globals.getNode("consumables/fuel/tank[8]/level-gal_us", 1);
 var Re_lvl_gal_us     = props.globals.getNode("consumables/fuel/tank[9]/level-gal_us", 1);
 aircraft.data.add(	bingo,
-					fwd_lvl,
-					aft_lvl,
-					Lbb_lvl,
-					Lsp_lvl,
-					Rbb_lvl,
-					Rsp_lvl,
-					Lw_lvl,
-					Rw_lvl,
-					Le_lvl,
-					Re_lvl,
-					fwd_lvl_gal_us,
-					aft_lvl_gal_us,
-					Lbb_lvl_gal_us,
-					Lsp_lvl_gal_us,
-					Rbb_lvl_gal_us,
-					Rsp_lvl_gal_us,
-					Lw_lvl_gal_us,
-					Rw_lvl_gal_us,
-					Le_lvl_gal_us,
-					Re_lvl_gal_us,
-					"sim/weight[2]/selected",
-					"sim/weight[7]/selected"
+					fwd_lvl, aft_lvl, Lbb_lvl, Lsp_lvl, Rbb_lvl, Rsp_lvl, Lw_lvl,
+					Rw_lvl, Le_lvl, Re_lvl,
+					fwd_lvl_gal_us, aft_lvl_gal_us, Lbb_lvl_gal_us, Lsp_lvl_gal_us,
+					Rbb_lvl_gal_us, Rsp_lvl_gal_us, Lw_lvl_gal_us, Rw_lvl_gal_us,
+					Le_lvl_gal_us, Re_lvl_gal_us,
+					"sim/model/f-14b/systems/external-loads/station[2]/type",
+					"sim/model/f-14b/systems/external-loads/station[7]/type",
+					"consumables/fuel/tank[8]/selected",
+					"consumables/fuel/tank[9]/selected",
+					"sim/model/f-14b/systems/external-loads/external-tanks",
+					"sim/weight[1]/weight-lb","sim/weight[6]/weight-lb"
 				);
 
 
@@ -281,8 +270,9 @@ var main_loop = func {
 
 # Init ####################
 var init = func {
-	print("Initializing F-14B Instruments System");
+	print("Initializing F-14B Systems");
 	aircraft.data.load();
+	f14.ext_loads_init();
 	f14.init_fuel_system();
 	ticker.setDoubleValue(0);
 	tacan_switch_init();
