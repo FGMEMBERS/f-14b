@@ -3,19 +3,16 @@
 #----------------------------------------------------------------------------
 
 #Constants
-var TransitionMach = 1.0;
-var HiMach = 1.3;
-
-var LoMachDrag = 0.5;
+var TransitionMach     = 1.0;
+var HiMach             = 1.3;
+var LoMachDrag         = 0.5;
 var TransitionMachDrag = 1.0;
-var HiMachDrag = 0.0;
+var HiMachDrag         = 0.0;
 
 var HiDragFactor = (HiMachDrag - TransitionMachDrag) / (HiMach - TransitionMach);
 var HiMachDragOrigin = TransitionMachDrag - TransitionMach * HiDragFactor;
 
 var SpeedBrakesIncrement = 0.2;
-
-# Variables
 var SpeedBrakes = 0;
 var gearExtension = nil;
 
@@ -47,9 +44,9 @@ var computeDrag = func {
 	LoDragFactor = ( TransitionMachDrag - LoMachDrag ) / TransitionMach;
 	if ( CurrentMach == nil ) { CurrentMach = 0.0 }
 	if ( CurrentMach <= TransitionMach ) {
-		 setprop ("/f-14/drag", CurrentMach * LoDragFactor + LoMachDrag);
+		setprop ("/f-14/drag", CurrentMach * LoDragFactor + LoMachDrag);
 	} elsif (CurrentMach <= HiMach) {
-		 setprop ("/f-14/drag", CurrentMach * HiDragFactor + TransitionMachDrag);
+		setprop ("/f-14/drag", CurrentMach * HiDragFactor + TransitionMachDrag);
 	} else {
 		setprop ("/f-14/drag", 0.0);
 	}
