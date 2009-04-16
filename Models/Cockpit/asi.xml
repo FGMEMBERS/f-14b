@@ -130,6 +130,78 @@
 		</axis>
 	</animation>
 
+<!-- Air Speed Indicator's Bug Setting -->
+	<animation>
+		<name>asi-bug-left-fine</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>asi-bug-left</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed-limit-bug</property>
+				<step>-10</step>
+				<min>225</min>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>asi-bug-left-coarse</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>asi-bug-left</object-name>
+		<action>
+			<button>1</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed-limit-bug</property>
+				<step>-50</step>
+				<min>225</min>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<name>asi-bug-right-fine</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>asi-bug-right</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed-limit-bug</property>
+				<step>10</step>
+				<max>850</max>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>asi-bug-right-coarse</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>asi-bug-right</object-name>
+		<action>
+			<button>1</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>sim/model/f-14b/instrumentation/airspeed-indicator/safe-speed-limit-bug</property>
+				<step>50</step>
+				<max>850</max>
+			</binding>
+		</action>
+	</animation>
+
+
 	<!-- Lightning -->
 	<animation>
 		<object-name>mount</object-name>
