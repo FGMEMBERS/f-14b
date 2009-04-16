@@ -90,9 +90,7 @@
 		<!-- Drag correction -->
 		<spoiler start="0.1" end="0.9" lift="1.0" drag="25.0"/>
 		<control-input axis="/controls/flight/speedbrake" control="FLAP0"/>
-		<control-input axis="/controls/flight/speedbrake" 
-			src0="-1" src1="1" dst0="1" dst1="-1"
-			control="FLAP1"/>
+		<control-input axis="/controls/flight/speedbrake" src0="-1" src1="1" dst0="1" dst1="-1" control="FLAP1"/>
 		<control-input axis="/f-14/drag" control="SPOILER"/>
 		<control-output control="FLAP0" prop="/surface-positions/speedbrake-pos-norm"/>
 		<control-speed control="FLAP0" transition-time="2.0"/>
@@ -191,7 +189,7 @@
 <!-- Landing gear +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
 	<!-- Nose -->
-	<gear x="4.581" y="0.00" z="-3.18" compression="0.8" spring="0.5" damp="2" initial-load="0">
+	<gear x="4.581" y="0.00" z="-3.18" compression="0.5" spring="0.5" damp="1" initial-load="0">
 		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
 		<control-output control="EXTEND" prop="/gear/gear[0]/position-norm"/>
 		<control-speed control="EXTEND" transition-time="4"/>
@@ -201,7 +199,7 @@
 	</gear>
 
 	<!-- Left main -->
-	<gear x="-2.357" y="2.444" z="-3.67" compression="1.2" spring="0.41" damp="2" initial-load="0">
+	<gear x="-2.357" y="2.444" z="-3.47" compression="0.8" spring="0.41" damp="1" initial-load="0">
 		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
 		<control-input axis="/controls/gear/brake-left" control="BRAKE"/>
 		<control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
@@ -210,7 +208,7 @@
 	</gear>
 
 	<!-- Right main -->
-	<gear x="-2.357" y="-2.444" z="-3.67" compression="1.2" spring="0.41" damp="2" initial-load="0">
+	<gear x="-2.357" y="-2.444" z="-3.47" compression="0.8" spring="0.41" damp="1" initial-load="0">
 		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
 		<control-input axis="/controls/gear/brake-right" control="BRAKE"/>
 		<control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
@@ -236,9 +234,15 @@
 	<tank x="-1.291" y="0.98" z="-0.58" jet="true" capacity="10"/>   <!-- Left Feed Line -->
 	<tank x="-1.291" y="-0.98" z="-0.58" jet="true" capacity="10"/>  <!-- Right  Feed Line -->
 
-	<!-- External Tanks empty weight -->
-	<weight x="1.05" y="1.41" z="-2.18" size="0.28" mass-prop="sim/weight[0]/weight-lb"/>
-	<weight x="1.05" y="-1.41" z="-2.18" size="0.28" mass-prop="sim/weight[1]/weight-lb"/>
+	<!-- External Loads Weight -->
+	<weight x="0.74" y="3.30" z="-1.50" size="0.28" mass-prop="sim/weight[0]/weight-lb"/>
+	<weight x="1.05" y="1.41" z="-2.18" size="0.28" mass-prop="sim/weight[1]/weight-lb"/><!-- Left External    -->
+	<weight x="-1.30" y="0.52" z="-1.80" size="0.28" mass-prop="sim/weight[2]/weight-lb"/>
+	<weight x="3.20" y="0.52" z="-1.80" size="0.28" mass-prop="sim/weight[3]/weight-lb"/>
+	<weight x="3.20" y="-0.52" z="-1.80" size="0.28" mass-prop="sim/weight[4]/weight-lb"/>
+	<weight x="-1.30" y="-0.52" z="-1.80" size="0.28" mass-prop="sim/weight[5]/weight-lb"/>
+	<weight x="1.05" y="-1.41" z="-2.18" size="0.28" mass-prop="sim/weight[6]/weight-lb"/><!-- Right External   -->
+	<weight x="0.74" y="-3.30" z="-1.50" size="0.28" mass-prop="sim/weight[7]/weight-lb"/>
 
 <!-- Weight distribution ++++++++++++++++++++++++++++++++++++++++++++++++ -->
 

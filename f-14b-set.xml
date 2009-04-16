@@ -497,6 +497,40 @@
 					<utilities>
 						<numeral-1 type="int">1</numeral-1>
 					</utilities>
+					<external-loads>
+						<external-load-set type="string">Clean</external-load-set>
+						<external-tanks type="bool">false</external-tanks>
+						<station n="0">
+							<type type="string">-</type>
+						</station>
+						<station n="1">
+							<type type="string">-</type>
+						</station>
+						<station n="2">
+							<type type="string">-</type>
+						</station>
+						<station n="3">
+							<type type="string">-</type>
+						</station>
+						<station n="4">
+							<type type="string">-</type>
+						</station>
+						<station n="5">
+							<type type="string">-</type>
+						</station>
+						<station n="6">
+							<type type="string">-</type>
+						</station>
+						<station n="7">
+							<type type="string">-</type>
+						</station>
+						<station n="8">
+							<type type="string">-</type>
+						</station>
+						<station n="9">
+							<type type="string">-</type>
+						</station>
+					</external-loads>
 				</systems>
 				<wings>
 					<left-wing-torn type="bool">false</left-wing-torn>
@@ -545,7 +579,7 @@
 		<menubar>
 			<default>
 				<menu n="50">
-					<label>Tomcat controls</label>
+					<label>Tomcat Controls</label>
 					<item n="0">
 						<label>Repair Airframe</label>
 						<binding>
@@ -554,17 +588,24 @@
 						</binding>
 					</item>
 					<item n="1">
+						<label>External Loads</label>
+							<binding>
+							<command>nasal</command>
+							<script>f14.ext_loads_dlg.open()</script>
+						</binding>
+					</item>
+					<item n="2">
 						<label>Select Livery</label>
 						<binding>
 							<command>nasal</command>
 							<script>aircraft.livery.dialog.toggle()</script>
 						</binding>
 					</item>
-					<item n="2">
+					<item n="3">
 						<label>Toggle Heat Blur</label>
 						<binding>
 							<command>nasal</command>
-							<script>f14.switchHeatBlur();</script>
+							<script>f14.switchHeatBlur()</script>
 						</binding>
 					</item>
 				</menu>
@@ -658,68 +699,36 @@
 		</view>
 
 		<weight n="0">
-			<name>Station 1A</name>
+			<name>left wing pylon</name>
 			<weight-lb type="float">0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
 		</weight>
 		<weight n="1">
-			<name>Station 1B</name>
+			<name>left external tank</name>
 			<weight-lb type="float">0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
 		</weight>
 		<weight n="2">
-			<name>Station 2</name>
-			<tank>8</tank> <!-- FDM tank index on this pylon -->
+			<name>left fwd pylon</name>
 			<weight-lb type="float">0</weight-lb>
-			<selected>1800 lbs Fuel Tank</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
-			<opt><name>1800 lbs Fuel Tank</name><lbs>250</lbs><gals>267</gals></opt>
 		</weight>
 		<weight n="3">
-			<name>Station 3</name>
+			<name>left aft pylon</name>
 			<weight-lb type="float">0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
 		</weight>
 		<weight n="4">
-			<name>Station 4</name>
+			<name>right aft pylon</name>
 			<weight-lb type="float">0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
 		</weight>
 		<weight n="5">
-			<name>Station 5</name>
+			<name>right fwd pylon</name>
 			<weight-lb type="float">0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
 		</weight>
 		<weight n="6">
-			<name>Station 6</name>
+			<name>right external tank</name>
 			<weight-lb type="float">0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
 		</weight>
 		<weight n="7">
-			<name>Station 7</name>
-			<tank>9</tank> <!-- FDM tank index on this pylon -->
+			<name>right wing pylon</name>
 			<weight-lb type="float">0</weight-lb>
-			<selected>1800 lbs Fuel Tank</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
-			<opt><name>1800 lbs Fuel Tank</name><lbs>250</lbs><gals>267</gals></opt>
-		</weight>
-		<weight n="8">
-			<name>Station 8B</name>
-			<weight-lb type="float">0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
-		</weight>
-		<weight n="9">
-			<name>Pylon 8A</name>
-			<weight-lb type="float">0</weight-lb>
-			<selected>none</selected>
-			<opt><name>none</name><lbs>0</lbs></opt>
 		</weight>
 
 	</sim>
@@ -770,10 +779,12 @@
 			<tank n="8">
 				<name>L external</name>
 				<kill-when-empty type="bool">false</kill-when-empty>
+				<selected type="bool">false</selected>
 			</tank>
 			<tank n="9">
 				<name>R external</name>
 				<kill-when-empty type="bool">false</kill-when-empty>
+				<selected type="bool">false</selected>
 			</tank>
 			<tank n="10">
 				<name>L feed line</name>
@@ -824,7 +835,7 @@
 
 	<input>
 		<keyboard n="0" include="../../Input/Keyboard/carrier-bindings.xml">
-		<multikey include="Models/Cockpit/radios-multikey.xml"/>
+			<multikey include="Models/Cockpit/radios-multikey.xml"/>
 
 			<key n="1">
 				<name>CTRL-a</name>

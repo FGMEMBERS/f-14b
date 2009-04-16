@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>external_loads</name>
+	<layout>vbox</layout>
+	<default-padding>4</default-padding>
+	<modal>false</modal>
+
+	<text>
+		<label>External Loads</label>
+	</text>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+		<text>
+			<label>Weapons Set : </label>
+		</text>
+		<text>
+			<label>xxxxxxxxxxxxxxxxxx</label>
+			<live>true</live>
+			<property>sim/model/f-14b/systems/external-loads/external-load-set</property>
+		</text>
+	</group>
+
+		<empty>
+			<pref-height>6</pref-height>
+		</empty>
+		<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<group>
+			<layout>vbox</layout>
+			<default-padding>2</default-padding>
+			<width>160</width>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S0 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[0]/type</property>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S1 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[1]/type</property>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S2 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[2]/type</property>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S3 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[3]/type</property>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S4 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[4]/type</property>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S5 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[5]/type</property>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S6 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[6]/type</property>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S7 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[7]/type</property>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S8 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[8]/type</property>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<text>
+					<label>S9 : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<property>sim/model/f-14b/systems/external-loads/station[9]/type</property>
+				</text>
+			</group>
+		</group>
+
+		<empty>
+			<pref-width>100</pref-width>
+		</empty>
+
+		<group>
+			<layout>vbox</layout>
+			<default-padding>0</default-padding>
+			<halign>right</halign>
+			<button>
+				<legend>Clean</legend>
+				<equal>true</equal>
+				<binding>
+					<command>nasal</command>
+					<script>f14.ext_loads_set("Clean")</script>
+				</binding>
+			</button>
+			<button>
+				<legend>FAD</legend>
+				<equal>true</equal>
+				<binding>
+					<command>nasal</command>
+					<script>f14.ext_loads_set("FAD")</script>
+				</binding>
+			</button>
+			<button>
+				<legend>FAD light</legend>
+				<equal>true</equal>
+				<binding>
+					<command>nasal</command>
+					<script>f14.ext_loads_set("FAD light")</script>
+				</binding>
+			</button>
+			<button>
+				<legend>FAD heavy</legend>
+				<equal>true</equal>
+				<binding>
+					<command>nasal</command>
+					<script>f14.ext_loads_set("FAD heavy")</script>
+				</binding>
+			</button>
+			<button>
+				<legend>Bombcat</legend>
+				<equal>true</equal>
+				<binding>
+					<command>nasal</command>
+					<script>f14.ext_loads_set("Bombcat")</script>
+				</binding>
+			</button>
+		</group>
+
+	</group>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+	<hrule/>
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<checkbox>
+		<label>External Fuel Tanks</label>
+		<property>sim/model/f-14b/systems/external-loads/external-tanks</property>
+		<live>true</live>
+		<binding>
+			<command>nasal</command>
+			<script>f14.toggle_ext_tank_selected()</script>
+		</binding>
+	</checkbox>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+	<hrule/>
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+</PropertyList>

@@ -9,8 +9,8 @@
 		<object-name>exttank</object-name>
 		<condition>   
 			<equals>
-				<property>sim/weight[2]/selected</property>
-				<value>1800 lbs Fuel Tank</value>
+				<property>sim/model/f-14b/systems/external-loads/station[2]/type</property>
+				<value>external tank</value>
 			</equals>
 		</condition>
 	</animation>
