@@ -1,5 +1,7 @@
 var ExtTanks = props.globals.getNode("sim/model/f-14b/systems/external-loads/external-tanks");
 var WeaponsSet = props.globals.getNode("sim/model/f-14b/systems/external-loads/external-load-set");
+var WeaponsWeight = props.globals.getNode("sim/model/f-14b/systems/external-loads/weapons-weight", 1);
+var PylonsWeight = props.globals.getNode("sim/model/f-14b/systems/external-loads/pylons-weight", 1);
 var S0 = nil;
 var S1 = nil;
 var S2 = nil;
@@ -26,12 +28,16 @@ var ext_loads_init = func() {
 	S7 = Station.new(7, 6);
 	S8 = Station.new(8, 7);
 	S9 = Station.new(9, 7);
+	setprop("sim/menubar/default/menu[5]/item[0]/enabled", 0);
 }
+
 
 var ext_loads_set = func(s) {
 	# Clean, FAD, FAD light, FAD heavy, Bombcat
 	WeaponsSet.setValue(s);
 	if ( s == "Clean" ) {
+		PylonsWeight.setValue(0);
+		WeaponsWeight.setValue(0);
 		S0.set_type("-");
 		S1.set_type("-");
 		S1.set_weight_lb(0);
@@ -47,6 +53,8 @@ var ext_loads_set = func(s) {
 		S9.set_type("-");
 		S9.set_weight_lb(0);
 	} elsif ( s == "FAD" ) {
+		PylonsWeight.setValue(53 + 340 + 1200 + 53 + 340);
+		WeaponsWeight.setValue(191 + 510 + 1020 + 1020 + 1020 + 1020 + 510 + 191);
 		S0.set_type("AIM-9");
 		S1.set_type("AIM-7");
 		S1.set_weight_lb(53 + 340 + 191 + 510); # AIM-9rail, wing pylon, AIM-9M, AIM-7M 
@@ -62,6 +70,8 @@ var ext_loads_set = func(s) {
 		S9.set_type("AIM-9");
 		S9.set_weight_lb(53 + 340 + 191 + 510); # AIM-9rail, wing pylon, AIM-9M, AIM-7M 
 	} elsif ( s == "FAD light" ) {
+		PylonsWeight.setValue(53 + 340 + 53 + 53 + 53 + 340);
+		WeaponsWeight.setValue(191 + 510 + 510 + 510 + 510 + 510 + 510 + 191);
 		S0.set_type("AIM-9");
 		S1.set_type("AIM-9");
 		S1.set_weight_lb(53 + 340 + 191 + 53 + 191); # AIM-9rail, wing pylon, AIM-9M, AIM-9rail, AIM-9M 
@@ -77,9 +87,11 @@ var ext_loads_set = func(s) {
 		S9.set_type("AIM-9");
 		S9.set_weight_lb(53 + 340 + 191 + 53 + 191); # AIM-9rail, wing pylon, AIM-9M, AIM-9rail, AIM-9M 
 	} elsif ( s == "FAD heavy" ) {
+		PylonsWeight.setValue(53 + 340 + 90 + 1200 + 53 + 340 + 90);
+		WeaponsWeight.setValue(191 + 1020 + 1020 + 1020 + 1020 + 1020 + 1020 + 191);
 		S0.set_type("AIM-9");
 		S1.set_type("AIM-54");
-		S1.set_weight_lb(53 + 340 + 191 + 60 + 1020); # AIM-9rail, wing pylon, AIM-9M, AIM-54launcher, AIM-54 
+		S1.set_weight_lb(53 + 340 + 191 + 90 + 1020); # AIM-9rail, wing pylon, AIM-9M, AIM-54launcher, AIM-54 
 		S3.set_type("AIM-54");
 		S3.set_weight_lb(300 + 1020); # central pylon, AIM-54 
 		S4.set_type("AIM-54");
@@ -90,8 +102,10 @@ var ext_loads_set = func(s) {
 		S6.set_weight_lb(300 + 1020); # central pylon, AIM-54 
 		S8.set_type("AIM-54");
 		S9.set_type("AIM-9");
-		S9.set_weight_lb(53 + 340 + 191 + 60 + 1020); # AIM-9rail, wing pylon, AIM-9M, AIM-54launcher, AIM-54 
+		S9.set_weight_lb(53 + 340 + 191 + 90 + 1020); # AIM-9rail, wing pylon, AIM-9M, AIM-54launcher, AIM-54 
 	} elsif ( s == "Bombcat" ) {
+		PylonsWeight.setValue(53 + 340 + 90 + 1200 + 53 + 340 + 90);
+		WeaponsWeight.setValue(191 + 510 + 1000 + 1000 + 1000 + 1000 + 510 + 191);
 		S0.set_type("AIM-9");
 		S1.set_type("AIM-7");
 		S1.set_weight_lb(53 + 340 + 191 + 510); # AIM-9rail, wing pylon, AIM-9M, AIM-7M 

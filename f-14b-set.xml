@@ -588,7 +588,7 @@
 						</binding>
 					</item>
 					<item n="1">
-						<label>External Loads</label>
+						<label>Fuel and Stores</label>
 							<binding>
 							<command>nasal</command>
 							<script>f14.ext_loads_dlg.open()</script>
