@@ -2,6 +2,7 @@ var ExtTanks = props.globals.getNode("sim/model/f-14b/systems/external-loads/ext
 var WeaponsSet = props.globals.getNode("sim/model/f-14b/systems/external-loads/external-load-set");
 var WeaponsWeight = props.globals.getNode("sim/model/f-14b/systems/external-loads/weapons-weight", 1);
 var PylonsWeight = props.globals.getNode("sim/model/f-14b/systems/external-loads/pylons-weight", 1);
+var WeaponsString = props.globals.getNode("sim/multiplay/generic/string[0]", 1);
 var S0 = nil;
 var S1 = nil;
 var S2 = nil;
@@ -29,6 +30,10 @@ var ext_loads_init = func() {
 	S8 = Station.new(8, 7);
 	S9 = Station.new(9, 7);
 	setprop("sim/menubar/default/menu[5]/item[0]/enabled", 0);
+	foreach (var S; Station.list) {
+		S.set_type(S.get_type()); # initialize scode.
+	}
+	update_wpstring();
 }
 
 
@@ -121,6 +126,7 @@ var ext_loads_set = func(s) {
 		S9.set_type("AIM-9");
 		S9.set_weight_lb(53 + 340 + 191 + 510); # AIM-9rail, wing pylon, AIM-9M, AIM-7M 
 	}
+	update_wpstring();
 }
 
 # Empties (or loads) corresponding Yasim tanks when de-selecting (or selecting)
@@ -150,8 +156,29 @@ var toggle_ext_tank_selected = func() {
 		Left_External.set_selected(0);
 		Right_External.set_selected(0);
 	}
+	update_wpstring();
 }
 
+var update_wpstring = func {
+	var wpstring = "";
+	foreach (var S; Station.list) {
+		wpstring = wpstring ~ S.scode;
+	}
+	var set = WeaponsSet.getValue();
+	if ( set == "FAD" ) {
+		set = "fa";
+	} elsif ( set == "FAD light" ) {
+		set = "fl";
+	} elsif ( set == "FAD heavy" ) {
+		set = "fh";
+	} elsif ( set == "Bombcat" ) {
+		set = "bc";
+	} else {
+		set = "cl";
+	}
+	wpstring = wpstring ~ set;
+	WeaponsString.setValue(wpstring);
+}
 
 # Emergency jettison:
 # -------------------
@@ -173,6 +200,7 @@ var emerg_jettison = func {
 		Right_External.set_selected(0);
 	}
 	ExtTanks.setBoolValue(0);
+	update_wpstring();
 }
 
 # Puts the jettisoned tanks models on the ground after impact (THX Vivian Mezza).
@@ -202,11 +230,26 @@ Station = {
 		obj.type = obj.prop.getNode("type", 1);
 		obj.weight = props.globals.getNode("sim").getChild ("weight", weight_number , 1);
 		obj.weight_lb = obj.weight.getNode("weight-lb");
+		obj.scode = "ep";
 		append(Station.list, obj);
 		return obj;
 	},
 	set_type : func (t) {
 		me.type.setValue(t);
+		me.scode = "";
+		if ( t == "AIM-9" ) {
+			me.scode = "A9";
+		} elsif ( t == "AIM-54" ) {
+			me.scode = "A5";
+		} elsif ( t == "AIM-7" ) {
+			me.scode = "A7";
+		} elsif ( t == "MK-83" ) {
+			me.scode = "L3";
+		} elsif ( t == "external tank" ) {
+			me.scode = "TK";
+		} else {
+			me.scode = "ep";
+		}
 	},
 	get_type : func () {
 		return me.type.getValue();	

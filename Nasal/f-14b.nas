@@ -129,6 +129,7 @@ var lighting_collision_generic = props.globals.getNode("sim/multiplay/generic/in
 var lighting_position_generic  = props.globals.getNode("sim/multiplay/generic/int[4]");
 var left_wing_torn_generic     = props.globals.getNode("sim/multiplay/generic/int[5]");
 var right_wing_torn_generic    = props.globals.getNode("sim/multiplay/generic/int[6]");
+# sim/multiplay/generic/string[0] used by external loads, see ext_stores.nas.
 
 var toggleAccess = func {
 	if (DoorsTargetPosition == 0.0) DoorsTargetPosition = 1.0;

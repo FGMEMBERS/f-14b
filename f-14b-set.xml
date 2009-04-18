@@ -174,9 +174,6 @@
 			<line>or iddle (68% rpm) or raising the landig gear handle or when weight on wheels.</line> 
 			<line>When disengaged the AUTO THROT caution light (on the left side of the HUD) illuminates for 10 seconds.</line>
 			<line>__________________________________________________</line>
-			<line>External fuel tanks ?</line>
-			<line>Menu > Equipment > Fuel and Payload... Select stations 2 and 7.</line>
-			<line>__________________________________________________</line>
 			<line>FUEL: First time you fly the f-14b, the tanks have a 10% level. When exiting the level will be stored for the next session. However when </line>
 			<line>reseting Flightgear, the stored level can be lost.</line>
 			<line>__________________________________________________</line>
@@ -556,6 +553,7 @@
 				<int n="4" type="int">0</int>    <!-- position lights -->
 				<int n="5" type="int">0</int>    <!-- left wing torn -->
 				<int n="6" type="int">0</int>    <!-- right wing torn -->
+				<string n="0" type="string">epepepepepepepepepepcl</string>    <!-- external weapons -->
 			</generic>
 		</multiplay>
 

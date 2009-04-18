@@ -6,13 +6,46 @@
 
 	<nasal>
 		<load>
+			var self = cmdarg();
+
 			var livery_update = aircraft.livery_update.new(
-			"Aircraft/f-14b/Models/Liveries", 10,
-			func { print("f-14b livery update") });
+				"Aircraft/f-14b/Models/Liveries", 10 );
+
+			var f14wps = setlistener(self.getNode("sim/multiplay/generic/string[0]", 1), func {
+				var wpstr = self.getNode("sim/multiplay/generic/string[0]").getValue();
+				var Wnode = self.getNode("sim/model/f-14b/systems/external-loads", 1);
+				var c = 0;
+				var s = 0;
+				for (; c &lt; size(wpstr); c += 1) {
+					var o = "";
+					var str = chr(wpstr[c]);
+					c += 1;
+					str = str ~ chr(wpstr[c]);
+					if ( s &lt;= 9 ) {
+						if ( str == "A9" ) { o = "AIM-9" }
+						elsif ( str == "A7") { o = "AIM-7" }
+						elsif ( str == "A5") { o = "AIM-54" }
+						elsif ( str == "L3") { o = "MK-83" }
+						elsif ( str == "TK") { o = "external tank" }
+						elsif ( str == "ep") { o = "-" }
+						var Station = Wnode.getChild ("station", s , 1);
+						Station.getNode("type").setValue(o);
+					} else {
+						if ( str == "cl" ) { o = "Clean" }
+						elsif ( str == "fa") { o = "FAD" }
+						elsif ( str == "fl") { o = "FAD light" }
+						elsif ( str == "fh") { o = "FAD heavy" }
+						elsif ( str == "bc") { o = "Bombcat" }
+						Wnode.getNode("external-load-set", 1).setValue(o);
+					}
+					s += 1;
+				}
+			}, 1, 0);
 		</load>
 
 		<unload>
 			livery_update.stop();
+			removelistener(f14wps);
 		</unload>
 	</nasal>
 
