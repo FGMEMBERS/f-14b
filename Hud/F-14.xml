@@ -66,7 +66,7 @@
 		<pointer-type>fixed</pointer-type>
 	</tape>
 
- <tape>
+	<tape>
 		<name>radio altitude</name>
 		<x>60</x>
 		<y>-95</y>
@@ -79,63 +79,59 @@
 			<max>1.5</max>
 			<min>0.0</min>
 		</input>
+		<option>right</option>
+		<label-gap-width>0</label-gap-width>
+		<major-divisions>1.0</major-divisions>
+		<minor-divisions>0.25</minor-divisions>
+		<display-span>1.5</display-span>
+		<format>%1.0f</format>
+		<tick-bottom>false</tick-bottom>
+		<tick-top>false</tick-top>
+		<tick-right>false</tick-right>
+		<tick-left>false</tick-left>
+		<cap-bottom>false</cap-bottom>
+		<cap-top>false</cap-top>
+		<cap-right>false</cap-right>
+		<cap-left>false</cap-left>
+		<marker-offset>10</marker-offset>
+		<enable-pointer>true</enable-pointer>
+		<pointer-type>fixed</pointer-type>
+		<tick-type>bullet</tick-type>
+	</tape>
 
-  <option>right</option>
-  <label-gap-width>0</label-gap-width>
+	<tape>
+		<name>vertical speed</name>
+		<x>-60</x>
+		<y>-95</y>
+		<width>10</width>
+		<height>100</height>
+		<option>vertical</option>
+		<input>
+			<property>velocities/vertical-speed-fps</property>
+			<factor>0.06</factor>
+			<max>1.9</max>
+			<min>-1.9</min>
+		</input>
+		<option>left</option>
+		<label-gap-width>0</label-gap-width>
 
-  <major-divisions>1.0</major-divisions>
-  <minor-divisions>0.25</minor-divisions>
-  <display-span>1.5</display-span>
-  <format>%1.0f</format>
+		<major-divisions>1.0</major-divisions>
+		<minor-divisions>0.5</minor-divisions>
+		<display-span>4.0</display-span>
+		<format>%1.0f</format>
 
-  <tick-bottom>false</tick-bottom>
-  <tick-top>false</tick-top>
-  <tick-right>false</tick-right>
-  <tick-left>false</tick-left>
-  <cap-bottom>false</cap-bottom>
-  <cap-top>false</cap-top>
-  <cap-right>false</cap-right>
-  <cap-left>false</cap-left>
-  <marker-offset>10</marker-offset>
-  <enable-pointer>true</enable-pointer>
-  <pointer-type>fixed</pointer-type>
-  <tick-type>bullet</tick-type>
-
- </tape>
-   
- <tape>
-   <name>vertical speed</name>
-	<x>-60</x>
-	<y>-95</y>
-	<width>10</width>
-	<height>100</height>
-	<option>vertical</option>
-	<input>
-		<property>velocities/vertical-speed-fps</property>
-		<factor>0.06</factor>
-		<max>1.9</max>
-		<min>-1.9</min>
-	</input>
-  <option>left</option>
-  <label-gap-width>0</label-gap-width>
-
-  <major-divisions>1.0</major-divisions>
-  <minor-divisions>0.5</minor-divisions>
-  <display-span>4.0</display-span>
-  <format>%1.0f</format>
-
-  <tick-bottom>false</tick-bottom>
-  <tick-top>false</tick-top>
-  <tick-right>false</tick-right>
-  <tick-left>false</tick-left>
-  <cap-bottom>false</cap-bottom>
-  <cap-top>false</cap-top>
-  <cap-right>false</cap-right>
-  <cap-left>false</cap-left>
-  <marker-offset>10</marker-offset>
-  <enable-pointer>true</enable-pointer>
-  <pointer-type>fixed</pointer-type>
-  <tick-type>bullet</tick-type>
-</tape>
+		<tick-bottom>false</tick-bottom>
+		<tick-top>false</tick-top>
+		<tick-right>false</tick-right>
+		<tick-left>false</tick-left>
+		<cap-bottom>false</cap-bottom>
+		<cap-top>false</cap-top>
+		<cap-right>false</cap-right>
+		<cap-left>false</cap-left>
+		<marker-offset>10</marker-offset>
+		<enable-pointer>true</enable-pointer>
+		<pointer-type>fixed</pointer-type>
+		<tick-type>bullet</tick-type>
+	</tape>
 
 </PropertyList>
