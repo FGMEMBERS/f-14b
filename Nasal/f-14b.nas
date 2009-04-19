@@ -327,22 +327,8 @@ var updateFCS = func {
 }
 
 
-
-var registerBurner = func {settimer (updateBurner, 0.04);}
-
-var Burner = 0;
-setprop ("f-14/burner", Burner);
-
-var updateBurner = func {
-	Burner +=1;
-	if (Burner == 3) Burner = 0;
-	setprop ("f-14/burner", Burner); 
-	registerBurner();
-}
-
 var startProcess = func {
 	settimer (updateFCS, 1.0);
-	settimer (updateBurner, 1.0);
 	position_flash_init();
 }
 

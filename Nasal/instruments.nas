@@ -235,6 +235,13 @@ var afcs_filters = func {
 	vs_pid_pgain.setDoubleValue(p_pgain/10);
 }
 
+
+# Afterburners FX counter #
+var burner = 0;
+var BurnerN = props.globals.getNode("sim/model/f-14b/fx/burner", 1);
+BurnerN.setValue(burner);
+
+
 # Main loop ###############
 var cnt = 0;
 
@@ -243,6 +250,11 @@ var main_loop = func {
 	# done each 0.05 sec.
 	awg_9.rdr_loop();
 	var a = cnt / 2;
+
+	burner +=1;
+	if ( burner == 3 ) { burner = 0 }
+	BurnerN.setValue(burner);
+
 	if ( ( a ) == int( a )) {
 		# done each 0.1 sec.
 		inc_ticker();

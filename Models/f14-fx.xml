@@ -234,7 +234,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>InnerFlameR</object-name>
-		<property>/f-14/burner</property>
+		<property>sim/model/f-14b/fx/burner</property>
 		<factor>-0.0673828125</factor>
 		<axis>
 			<x>0</x>
@@ -246,7 +246,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>InnerFlameL</object-name>
-		<property>/f-14/burner</property>
+		<property>sim/model/f-14b/fx/burner</property>
 		<factor>-0.0673828125</factor>
 		<axis>
 			<x>0</x>
@@ -324,7 +324,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>ShockWave</object-name>
-		<property>/f-14/burner</property>
+		<property>sim/model/f-14b/fx/burner</property>
 		<!--<factor>-0.123046875</factor>-->
 		<factor>-0.23437</factor>
 		<axis>
@@ -361,7 +361,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>ManeuverVortexL</object-name>
-		<property>/f-14/burner</property>
+		<property>sim/model/f-14b/fx/burner</property>
 		<factor>-0.082031250</factor>
 		<axis>
 			<x>0</x>
@@ -435,7 +435,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>ManeuverVortexR</object-name>
-		<property>/f-14/burner</property>
+		<property>sim/model/f-14b/fx/burner</property>
 		<factor>-0.082031250</factor>
 		<axis>
 			<x>0</x>
