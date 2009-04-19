@@ -4,6 +4,9 @@
 
 	<path>f14.ac</path>
 
+<!-- ******************************************************************* -->
+<!-- Liveries and External Loads                                         -->
+<!-- ******************************************************************* -->
 	<nasal>
 		<load>
 			var self = cmdarg();
@@ -13,6 +16,7 @@
 
 			var f14wps = setlistener(self.getNode("sim/multiplay/generic/string[0]", 1), func {
 				var wpstr = self.getNode("sim/multiplay/generic/string[0]").getValue();
+				if ( wpstr == nil ) { wpstr = "epepepepepepepepepepcl" }
 				var Wnode = self.getNode("sim/model/f-14b/systems/external-loads", 1);
 				var c = 0;
 				var s = 0;
@@ -1525,7 +1529,7 @@
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
 			<entry><ind>1</ind><dep>-25</dep></entry>
-		</interpolation>	
+		</interpolation>
 		<center>
 			<x-m>-3.324</x-m>
 			<y-m>0.212</y-m>
