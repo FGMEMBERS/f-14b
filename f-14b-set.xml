@@ -329,6 +329,9 @@
 						<on-off type="bool">0</on-off>
 					</VDI>
 				</controls>
+				<fx>
+					<burner type="int">0</burner>
+				</fx>
 				<instrumentation>
 					<airspeed-indicator>
 						<safe-speed-limit-bug type="double">830</safe-speed-limit-bug>
@@ -467,9 +470,6 @@
 					<position-wing-factor type="int">0</position-wing-factor>
 					<position-tail-factor type="int">0</position-tail-factor>
 				</lighting>
-				<modeling>
-					<show-canopy type="bool">false</show-canopy>
-				</modeling>
 				<systems>
 					<afcs>
 						<engaged type="bool">false</engaged>
