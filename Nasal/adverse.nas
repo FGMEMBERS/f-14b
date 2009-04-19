@@ -34,7 +34,7 @@ var fixAirframe = func {
 	MaxGreached = 0.0;
 	MinGreached = 0.0;
 	ResidualBend = 0.0;
-	FailureAileron =0.0;
+	FailureAileron = 0.0;
 	setprop ("sim/model/f-14b/wings/left-wing-torn", LeftWingTorn);
 	setprop ("sim/model/f-14b/wings/right-wing-torn", RightWingTorn);
 }
@@ -95,11 +95,8 @@ var computeAdverse = func {
 	if (Alpha < 25.0) {
 		setprop ("/controls/flight/adverse/pitch", 0.5 * SASpitch + ElevatorTrim + FlutterPitch);
 		setprop ("/controls/flight/adverse/roll", 0.5 * SASroll + FailureAileron);
-		setprop ("/controls/flight/adverse/yaw",  0.0);
 	} else {
 		setprop ("/controls/flight/adverse/pitch", - 1.0 + FlutterPitch);
 		setprop ("/controls/flight/adverse/roll", getprop ("/orientation/yaw-rate-degps") / 60 + FailureAileron);
-		# setprop ("/controls/flight/adverse/yaw", - getprop ("/orientation/roll-rate-degps") / 60.0 );
-		setprop ("/controls/flight/adverse/yaw", 0.0);
 	}
 }
