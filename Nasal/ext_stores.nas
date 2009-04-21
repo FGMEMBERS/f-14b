@@ -206,7 +206,7 @@ var emerg_jettison = func {
 # Puts the jettisoned tanks models on the ground after impact (THX Vivian Mezza).
 
 var droptanks = func(n) {
-	if (WOW) { setprop("sim/model/f-14b/controls/armament/tanks-ground-sound", 1) }
+	if (wow) { setprop("sim/model/f-14b/controls/armament/tanks-ground-sound", 1) }
 	var droptank = droptank_node.getValue();
 	var node = props.globals.getNode(n.getValue(), 1);
 	geo.put_model("Aircraft/f-14b/Models/Stores/Ext-Tanks/exttank-submodel.xml",

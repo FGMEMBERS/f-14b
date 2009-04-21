@@ -221,11 +221,22 @@ aircraft.data.add(
 var hsd_mode_node = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/hsd-mode-nav");
 
 
-# AFCS Filters ############
+# Afterburners FX counter #
+var burner = 0;
+var BurnerN = props.globals.getNode("sim/model/f-14b/fx/burner", 1);
+BurnerN.setValue(burner);
+
+
+# AFCS ####################
+
+# Commons vars:
+var Mach = props.globals.getNode("velocities/mach");
+var mach = 0;
+
+# Filters
 var pitch_pid_pgain = props.globals.getNode("sim/model/f-14b/systems/afcs/pitch-pid-pgain", 1);
 var vs_pid_pgain = props.globals.getNode("sim/model/f-14b/systems/afcs/vs-pid-pgain", 1);
 var p_pgain = 0;
-var mach = 0;
 
 var afcs_filters = func {
 	mach = f14.CurrentMach + 0.01;
@@ -236,10 +247,55 @@ var afcs_filters = func {
 }
 
 
-# Afterburners FX counter #
-var burner = 0;
-var BurnerN = props.globals.getNode("sim/model/f-14b/fx/burner", 1);
-BurnerN.setValue(burner);
+# Drag Computation
+var Drag = props.globals.getNode("sim/model/f-14b/systems/fdm/drag");
+var GearPos = props.globals.getNode("gear/gear[1]/position-norm");
+var SpeedBrake = props.globals.getNode("controls/flight/speedbrake", 1);
+
+controls.stepSpoilers = 
+var TransitionMach     = 1;
+var HiMach             = 1.3;
+var LoMachDrag         = 0.5;
+var TransitionMachDrag = 1;
+var HiMachDrag         = 0;
+
+var HiDragFactor = (HiMachDrag - TransitionMachDrag) / (HiMach - TransitionMach);
+var HiMachDragOrigin = TransitionMachDrag - TransitionMach * HiDragFactor;
+
+var sb_i = 0.2;
+
+controls.stepSpoilers = func(s) {
+	var sb = SpeedBrake.getValue();
+	if ( s == 1 ) {
+		sb += sb_i;
+		if ( sb > 1 ) { sb = 1 }
+		SpeedBrake.setValue(sb);
+	} elsif ( s == -1 ) {
+		sb -= sb_i;
+		if ( sb < 0 ) { sb = 0 }
+		SpeedBrake.setValue(sb);
+	}
+}
+
+var compute_drag = func {
+	var gearpos = GearPos.getValue();
+	if ( gearpos != nil ) {
+		if ( gearpos > 0.8 ) {
+			LoMachDrag = 1;
+		} else {
+			LoMachDrag = 0.5;
+		}
+	}
+	LoDragFactor = ( TransitionMachDrag - LoMachDrag ) / TransitionMach;
+	if ( mach <= TransitionMach ) {
+		Drag.setValue(mach * LoDragFactor + LoMachDrag);
+	} elsif (mach <= HiMach) {
+		Drag.setValue(mach * HiDragFactor + TransitionMachDrag);
+	} else {
+		Drag.setValue(0);
+	}
+}
+
 
 
 # Main loop ###############
@@ -247,6 +303,7 @@ var cnt = 0;
 
 var main_loop = func {
 	cnt += 1;
+	mach = Mach.getValue();
 	# done each 0.05 sec.
 	awg_9.rdr_loop();
 	var a = cnt / 2;
@@ -256,7 +313,7 @@ var main_loop = func {
 	BurnerN.setValue(burner);
 
 	if ( ( a ) == int( a )) {
-		# done each 0.1 sec.
+		# done each 0.1 sec, cnt even.
 		inc_ticker();
 		local_mag_deviation();
 		tacan_update();
@@ -275,6 +332,9 @@ var main_loop = func {
 				cnt = 0;
 			}
 		}
+	} else {
+		# done each 0.1 sec, cnt odd.
+		compute_drag ();
 	}
 	settimer(main_loop, UPDATE_PERIOD);
 }
@@ -301,9 +361,9 @@ var init = func {
 	settimer(main_loop, 0.5);
 }
 
-setlistener("/sim/signals/fdm-initialized", init);
+setlistener("sim/signals/fdm-initialized", init);
 
-setlistener("/sim/signals/reinit", func (reinit) {
+setlistener("sim/signals/reinit", func (reinit) {
 	if (reinit.getValue()) {
 		f14.internal_save_fuel();
 	} else {

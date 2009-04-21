@@ -14,13 +14,6 @@ var AutoSweep = true;
 var OverSweep = false;
 var WingSweep = 0.0; #Normalised wing sweep
 
-#----------------------------------------------------------------------------
-# flap computer
-#----------------------------------------------------------------------------
-
-# Variables
-
-var FlapsCommand = 0;
 
 #----------------------------------------------------------------------------
 # Nozzle opening
@@ -63,9 +56,9 @@ setprop ("/controls/flight/yasim-spoilers", 0.0);
 # SAS
 #----------------------------------------------------------------------------
 
-var OldPitchInput = 0.0;
-var SASpitch = 0.0;
-var SASroll = 0.0;
+var OldPitchInput = 0;
+var SASpitch = 0;
+var SASroll = 0;
 
 #----------------------------------------------------------------------------
 # General aircraft values
@@ -75,17 +68,13 @@ var SASroll = 0.0;
 var ThrottleIdle = 0.05;
 
 # Variables
-var CurrentMach = 0.0;
-var CurrentAlt = 0.0;
-var CurrentIAS = 0.0;
-var WOW = true;
-var Alpha = 0.0;
-var Throttle = 0.0;
-var ElevatorTrim = 0.0;
+var CurrentMach = 0;
+var CurrentAlt = 0;
+var CurrentIAS = 0;
+var Alpha = 0;
+var Throttle = 0;
+var ElevatorTrim = 0;
 
-# Set properties
 
-setprop ("/controls/flight/auxFlaps", 0.0);
-setprop ("/controls/flight/flapscommand", 0.0);
 
 

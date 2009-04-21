@@ -61,7 +61,7 @@ var computeNozzles = func {
 	if (Throttle < ThrottleIdle) {
 		if (getprop ("gear/gear[0]/position-norm") == 1.0) {
 		#gear down
-			if (WOW) {
+			if (wow) {
 				idleNozzleTarget = 1.0;
 			} else {
 				idleNozzleTarget = 0.26;
@@ -107,7 +107,7 @@ var computeAPC = func {
 	var t1 = throttle_1.getValue();
 	if (APCengaged.getBoolValue()) { 
 		# TODO override throttles
-		if ( WOW or !gear_down.getBoolValue()
+		if ( wow or !gear_down.getBoolValue()
 		or t0 > 0.76 or t0 < 0.08
 		or t1 > 0.76 or t1 < 0.08 ) {
 			APC_off()
@@ -127,7 +127,7 @@ var toggleAPC = func {
 }
 
 var APC_on = func {
-	if ( ! WOW and gear_down.getBoolValue()) {
+	if ( ! wow and gear_down.getBoolValue()) {
 		APCengaged.setBoolValue(1);
 		disengaged_light.setBoolValue(0);
 		setprop ("autopilot/locks/aoa", "APC");

@@ -6,7 +6,7 @@ var NWScutoffSpeed = 80.0; #knots
 var computeNWS = func {
 	var NWS_light = 0;
 	var NWS = 0.0;
-	if ( WOW ) {
+	if ( wow ) {
 		var gs = getprop("velocities/groundspeed-kt");
 		if (gs == nil) gs = 0.0;
 		var rudderInput = getprop("controls/flight/rudder");
@@ -26,7 +26,7 @@ setprop("sim/model/f-14b/instrumentation/gears/nose-wheel-steering-warnlight", N
 # undercarriage retraction when on ground.
 
 controls.gearDown = func(v) {
-    if (v < 0 and ! WOW) {
+    if (v < 0 and ! wow) {
       setprop("/controls/gear/gear-down", 0);
     } elsif (v > 0) {
       setprop("/controls/gear/gear-down", 1);
@@ -70,7 +70,7 @@ var listen_launchbar = nil;
 listen_launchbar = setlistener( "gear/launchbar/state", func { settimer(update_launchbar, 0.05) },0 ,0 );
 
 var update_launchbar = func() {
-	if ( getprop("gear/launchbar/position-norm") == 1 and ! WOW ) {
+	if ( getprop("gear/launchbar/position-norm") == 1 and ! wow ) {
 		removelistener( listen_launchbar );
 		setprop("controls/gear/launchbar", "false");
 		setprop("controls/gear/launchbar", "true");

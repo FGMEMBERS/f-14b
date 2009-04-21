@@ -11,7 +11,7 @@
 		<object-name>HeatBlurR</object-name>
 		<object-name>HeatBlurL</object-name>
 		<condition>
-			<property>f-14/heat-blur-on</property>
+			<property>sim/model/f-14b/fx/heat-blur-on</property>
 		</condition>
 	</animation>
 
@@ -353,7 +353,7 @@
 				<value>5000.0</value>
 			</less-than>
 			<not>
-				<property>/f-14/left-wing-torn</property>
+				<property>sim/model/f-14b/wings/left-wing-torn</property>
 			</not>
 		</condition>
 	</animation>
@@ -427,7 +427,7 @@
 				<value>5000.0</value>
 			</less-than>
 			<not>
-				<property>/f-14/right-wing-torn</property>
+				<property>sim/model/f-14b/wings/right-wing-torn</property>
 			</not>
 		</condition>
 	</animation>

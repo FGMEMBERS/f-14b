@@ -60,7 +60,7 @@ var ap_hdg_lock  = props.globals.getNode("autopilot/locks/heading");
 
 # Raw input smoothing filter
 var raw_elev           = props.globals.getNode("controls/flight/elevator");
-var raw_aileron        = props.globals.getNode("/controls/flight/aileron");
+var raw_aileron        = props.globals.getNode("controls/flight/aileron");
 var smooth_elev_node   = props.globals.getNode("sim/model/f-14b/controls/flight/sas-elevator", 1);
 var last_elev          = 0;
 var elev_smooth_factor = 0.1;
@@ -75,13 +75,13 @@ var CurrentTrim   = 0.0;
 var trimUp = func {
 	CurrentTrim += TrimIncrement;
 	if (CurrentTrim > 1.0) CurrentTrim = 1.0;
-	setprop ("/controls/flight/elevator-trim", CurrentTrim);
+	setprop ("controls/flight/elevator-trim", CurrentTrim);
 }
 
 trimDown = func {
 	CurrentTrim -= TrimIncrement;
 	if (CurrentTrim < -1.0) CurrentTrim = -1.0;
-	setprop ("/controls/flight/elevator-trim", CurrentTrim);
+	setprop ("controls/flight/elevator-trim", CurrentTrim);
 }
 
 
@@ -91,7 +91,7 @@ trimDown = func {
 var dt_mva_vec = [0,0,0,0,0,0,0];
 
 var computeSAS = func {
-	var airspeed = getprop ("/velocities/airspeed-kt");
+	var airspeed = getprop ("velocities/airspeed-kt");
 	squaredAirspeed = airspeed * airspeed;
 
 	raw_e = raw_elev.getValue();
@@ -132,7 +132,7 @@ var computeSAS = func {
 	# ------------
 	# Roll PID computation
 	if ( f14_afcs.ap_lock_att != 1 ) {
-		RollVarError = RollVarTarget - getprop ("/orientation/roll-deg");
+		RollVarError = RollVarTarget - getprop ("orientation/roll-deg");
 
 		rollBias = PreviousRollBias 
 				+ RollKp * (RollVarError - RollPIDpreviousError);
@@ -146,20 +146,20 @@ var computeSAS = func {
 		if (rollBias > RollMaxOutput) rollBias = RollMaxOutput;
 		if (rollBias < RollMinOutput) rollBias = RollMinOutput;
 
-		SASroll = (getprop ("/controls/flight/aileron") + rollBias + getprop ("/controls/flight/aileron-trim")) * ! OverSweep;   
+		SASroll = (getprop ("controls/flight/aileron") + rollBias + getprop ("controls/flight/aileron-trim")) * ! OverSweep;   
 		if (airspeed > RollLoSpeed)
 			SASroll = SASroll * ( (RollLoSpeed * RollLoSpeed) / squaredAirspeed );
 
-		setprop ("/controls/flight/SAS-roll", SASroll);
+		setprop ("controls/flight/SAS-roll", SASroll);
 	}
 
 
 	# Pitch Channel
 	# -------------
 	# Compute pitch rate to feed PID controller
-	fakePitchRate = getprop ("/orientation/pitch-rate-degps");
-	currentHeading = getprop ("/orientation/heading-deg");
-	roll = getprop("/orientation/roll-deg");
+	fakePitchRate = getprop ("orientation/pitch-rate-degps");
+	currentHeading = getprop ("orientation/heading-deg");
+	roll = getprop("orientation/roll-deg");
 
 	if (currentHeading != nil and PreviousHeading != nil and fakePitchRate !=nil and roll!=nil) {
 		headingRate = (currentHeading - PreviousHeading) / deltaT;
@@ -211,7 +211,7 @@ var computeSAS = func {
 	}
 
 	# ITS: Integrated Trim System, computes pitch trim bias due to flaps. 
-	currentFlaps =  getprop ("/surface-positions/aux-flap-pos-norm");
+	currentFlaps =  getprop ("surface-positions/aux-flap-pos-norm");
 	if (currentFlaps == nil) currentFlaps = 0.0;
 	flapsTrim = 0.20 * currentFlaps;
 
@@ -235,14 +235,14 @@ var computeSAS = func {
 	if (airspeed > PitchLoSpeed)
 		SASpitch = SASpitch * ( (PitchLoSpeed * PitchLoSpeed) / squaredAirspeed );
 
-	setprop ("/controls/flight/SAS-pitch", SASpitch);
+	setprop ("controls/flight/SAS-pitch", SASpitch);
 
 
 
 	# Yaw Channel
 	# -----------
 	# Yaw PID computation
-	YawVarError = YawVarTarget - getprop ("/orientation/side-slip-deg");
+	YawVarError = YawVarTarget - getprop ("orientation/side-slip-deg");
 	yawBias = PreviousYawBias 
 			+ YawKp * (YawVarError - YawPIDpreviousError)
 			+ YawKi * deltaT * YawVarError
@@ -255,13 +255,13 @@ var computeSAS = func {
 	if (yawBias > YawMaxOutput) yawBias = YawMaxOutput;
 	if (yawBias < YawMinOutput) yawBias = YawMinOutput;
 
-	yawInput = getprop ("/controls/flight/rudder");
+	yawInput = getprop ("controls/flight/rudder");
 	radalt =  getprop ("position/altitude-agl-ft");
 
 	if (yawInput < 0.1 and yawInput > -0.1 and radalt > 50.0) #agl when on carrier deck ?
 		yawInput += yawBias;
 
-	setprop ("/controls/flight/SAS-yaw", yawInput);
+	setprop ("controls/flight/SAS-yaw", yawInput);
 
 
 

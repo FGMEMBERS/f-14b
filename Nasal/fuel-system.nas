@@ -82,7 +82,7 @@ LeftEngine.getNode("out-of-fuel", 1);
 RightEngine.getNode("out-of-fuel", 1);
 
 var DumpValve         = props.globals.getNode("sim/model/f-14b/controls/fuel/dump-valve", 1);
-var RefuelProbeSwitch = props.globals.getNode("sim/model/f-14b/controls/fuel/refuel-probe-switch");
+var RprobeSw = props.globals.getNode("sim/model/f-14b/controls/fuel/refuel-probe-switch");
 var TotalFuelLbs  = props.globals.getNode("consumables/fuel/total-fuel-lbs", 1);
 var TotalFuelGals = props.globals.getNode("consumables/fuel/total-fuel-gals", 1);
 
@@ -194,7 +194,7 @@ var fuel_update = func {
 	}
 
 
-	if ( RefuelProbeSwitch.getValue() > 0 ) {
+	if ( RprobeSw.getValue() > 0 ) {
 		# Check refueling tanker available and contact
 		var tankers = [];
 		if (ai_enabled) {
@@ -234,7 +234,7 @@ var fuel_update = func {
 				if ( amount_to_left_aft > remaining_max_flow ) { amount_to_left_aft = remaining_max_flow }
 				remaining_max_flow -= amount_to_left_aft;			
 			}
-			if ( RefuelProbeSwitch.getValue() == 2 ) {
+			if ( RprobeSw.getValue() == 2 ) {
 				left_external_ullage = Left_External.get_ullage();
 				left_wing_ullage = Left_Wing.get_ullage();
 				if (( l_ext_select_state ) and ( left_external_ullage > 0 ) and ( remaining_max_flow > 0 )) {
@@ -271,7 +271,7 @@ var fuel_update = func {
 				if ( amount_to_right_fwd > remaining_max_flow ) { amount_to_right_fwd = remaining_max_flow }
 				remaining_max_flow -= amount_to_right_fwd;			
 			}
-			if ( RefuelProbeSwitch.getValue() == 2 ) {
+			if ( RprobeSw.getValue() == 2 ) {
 				right_external_ullage = Right_External.get_ullage();
 				right_wing_ullage = Right_Wing.get_ullage();
 				if (( r_ext_select_state ) and ( right_external_ullage > 0 ) and ( remaining_max_flow > 0 )) {
@@ -595,7 +595,7 @@ var fuel_dump_switch_toggle = func() {
 	var sw = getprop("sim/model/f-14b/controls/fuel/dump-switch");
 	if ( !sw ) {
 		setprop("sim/model/f-14b/controls/fuel/dump-switch", 1);
-		if (( !WOW ) and (getprop("surface-positions/speedbrake-pos-norm") == 0 )) {
+		if (( !wow ) and (getprop("surface-positions/speedbrake-pos-norm") == 0 )) {
 			fuel_dump_on();
 		} else { settimer(func { fuel_dump_off() }, 0.1) } 
 	} else { fuel_dump_off() }
@@ -611,31 +611,40 @@ var fuel_dump_off = func() {
 }
 
 
+
+
+
+var r_probe = aircraft.door.new("sim/model/f-14b/refuel/", 1);
+var RprobePos        = props.globals.getNode("sim/model/f-14b/refuel/position-norm", 1);
+var RprobePosGeneric = props.globals.getNode("sim/multiplay/generic/float[6]");
+RprobePosGeneric.alias(RprobePos);
+
 var refuel_probe_switch_up = func() {
-	var sw = getprop("sim/model/f-14b/controls/fuel/refuel-probe-switch");
+	var sw = RprobeSw.getValue();
 	if ( sw < 2 ) {
 		sw += 1;
-		setprop("sim/model/f-14b/controls/fuel/refuel-probe-switch", sw);
+		RprobeSw.setValue(sw);
 	}
-	f14.RefuelProbeTargetPosition = 1.0;
+	r_probe.open();
 }
 var refuel_probe_switch_down = func() {
-	var sw = getprop("sim/model/f-14b/controls/fuel/refuel-probe-switch");
+	var sw = RprobeSw.getValue();
 	if ( sw > 0 ) {
 		sw -= 1;
-		setprop("sim/model/f-14b/controls/fuel/refuel-probe-switch", sw);
+		RprobeSw.setValue(sw);
 	}
-	if ( sw == 0 ) { f14.RefuelProbeTargetPosition = 0.0; }
+	if ( sw == 0 ) { r_probe.close(); }
 }
 var refuel_probe_switch_cycle = func() {
-	var sw = getprop("sim/model/f-14b/controls/fuel/refuel-probe-switch");
+	var sw = RprobeSw.getValue();
 	if ( sw < 2 ) { refuel_probe_switch_up() }
 	if ( sw == 2 ) {
 		sw = 0;
-		setprop("sim/model/f-14b/controls/fuel/refuel-probe-switch", sw);
-		f14.RefuelProbeTargetPosition = 0.0;	
+		RprobeSw.setValue(sw);
+		r_probe.close();	
 	}
 }
+
 
 # Internaly save levels at reinit. This is a workaround:
 # reinit shouldn't try to reload the levels from the -set file.

@@ -1,17 +1,12 @@
-# f-14b.nas
+# Utilities #########
 
-#===========================================================================
-# Utilities 
-#===========================================================================
-
-# Lighting ===========================================================
+# Lighting 
 
 # Collision lights flasher
 var anti_collision_switch = props.globals.getNode("sim/model/f-14b/controls/lighting/anti-collision-switch");
 aircraft.light.new("sim/model/f-14b/lighting/anti-collision", [0.09, 1.20], anti_collision_switch);
 
 # Navigation lights steady/flash dimmed/bright
-# ------------------------
 var position_flash_sw = props.globals.getNode("sim/model/f-14b/controls/lighting/position-flash-switch");
 var position = aircraft.light.new("sim/model/f-14b/lighting/position", [0.08, 1.15]);
 setprop("/sim/model/f-14b/lighting/position/enabled", 1);
@@ -72,33 +67,41 @@ var position_flash_init  = func {
 		position.switch(1);
 	}
 }
-#============================================================================
-# Flight control system 
-#============================================================================
 
-#----------------------------------------------------------------------------
+
+# Canopy switch animation and canopy move. Toggle keystroke and 2 positions switch.
+var cnpy = aircraft.door.new("canopy", 4);
+var cswitch = props.globals.getNode("sim/model/f-14b/controls/canopy/canopy-switch", 1);
+var pos = props.globals.getNode("canopy/position-norm");
+
+var canopyswitch = func(v) {
+	var p = pos.getValue();
+	if (v == 2 ) {
+		if ( p < 1 ) {
+			v = 1;
+		} elsif ( p >= 1 ) {
+			v = -1;
+		}
+	}
+	if (v < 0) {
+		cswitch.setValue(1);
+		cnpy.close();
+	} elsif (v > 0) {
+		cswitch.setValue(-1);
+		cnpy.open();
+	}
+}
+
+
+# Flight control system ######################### 
+
 # timedMotions
-#----------------------------------------------------------------------------
 
 var CurrentLeftSpoiler = 0.0;
 var CurrentRightSpoiler = 0.0;
 var CurrentInnerLeftSpoiler = 0.0;
 var CurrentInnerRightSpoiler = 0.0;
-
-
 var SpoilerSpeed = 1.0; # full extension in 1 second
-
-var DoorsTargetPosition = 0.0;
-var DoorsPosition = 0.0;
-var DoorsSpeed = 0.2;
-setprop ("canopy/position-norm", DoorsPosition);
-
-
-var RefuelProbeTargetPosition = 0.0;
-var RefuelProbePosition = 0.0;
-var RefuelProbeSpeed = 0.5;
-setprop ("sim/model/f-14b/refuel/probe-position", RefuelProbePosition);
-
 var currentSweep = 0.0;
 var SweepSpeed = 0.3;
 
@@ -109,7 +112,6 @@ var aux_flap_output    = props.globals.getNode("surface-positions/aux-flap-pos-n
 var slat_output        = props.globals.getNode("surface-positions/slats-pos-norm", 1);
 var left_elev_output   = props.globals.getNode("surface-positions/left-elevator-pos-norm", 1);
 var right_elev_output  = props.globals.getNode("surface-positions/right-elevator-pos-norm", 1);
-var refuel_output      = props.globals.getNode("sim/model/f-14b/refuel/probe-position", 1);
 var lighting_collision = props.globals.getNode("sim/model/f-14b/lighting/anti-collision/state", 1);
 var lighting_position  = props.globals.getNode("sim/model/f-14b/lighting/position/state", 1);
 var radar_standby      = props.globals.getNode("instrumentation/radar/radar-standby");
@@ -121,7 +123,6 @@ var aux_flap_generic   = props.globals.getNode("sim/multiplay/generic/float[2]")
 var slat_generic       = props.globals.getNode("sim/multiplay/generic/float[3]");
 var left_elev_generic  = props.globals.getNode("sim/multiplay/generic/float[4]");
 var right_elev_generic = props.globals.getNode("sim/multiplay/generic/float[5]");
-var refuel_generic     = props.globals.getNode("sim/multiplay/generic/float[6]");
 var fuel_dump_generic  = props.globals.getNode("sim/multiplay/generic/int[0]");
 # sim/multiplay/generic/int[1] used by formation slimmers.
 var radar_standby_generic      = props.globals.getNode("sim/multiplay/generic/int[2]");
@@ -130,22 +131,6 @@ var lighting_position_generic  = props.globals.getNode("sim/multiplay/generic/in
 var left_wing_torn_generic     = props.globals.getNode("sim/multiplay/generic/int[5]");
 var right_wing_torn_generic    = props.globals.getNode("sim/multiplay/generic/int[6]");
 # sim/multiplay/generic/string[0] used by external loads, see ext_stores.nas.
-
-var toggleAccess = func {
-	if (DoorsTargetPosition == 0.0) DoorsTargetPosition = 1.0;
-	else DoorsTargetPosition = 0.0;
-	}
-
-var toggleProbe = func {
-	if (RefuelProbeTargetPosition == 0.0) RefuelProbeTargetPosition = 1.0;
-	else RefuelProbeTargetPosition = 0.0;
-}
-
-
-var switchHeatBlur = func {
-	if (getprop ("f-14/heat-blur-on")) setprop ("f-14/heat-blur-on", false);
-	else setprop ("f-14/heat-blur-on", true);
-}
 
 
 
@@ -203,69 +188,43 @@ var timedMotions = func {
 		}
 	}
 
-	# Refuel Probe
-	if (RefuelProbePosition > RefuelProbeTargetPosition) {
-		RefuelProbePosition -= RefuelProbeSpeed * deltaT;
-		if (RefuelProbePosition < RefuelProbeTargetPosition) {
-			RefuelProbePosition = RefuelProbeTargetPosition;
+	# Engine nozzles
+	if (Nozzle1 > Nozzle1Target) {
+		Nozzle1 -= NozzleSpeed * deltaT;
+		if (Nozzle1 < Nozzle1Target) {
+			Nozzle1 = Nozzle1Target;
 		}
-	} elsif (RefuelProbePosition < RefuelProbeTargetPosition) {
-		RefuelProbePosition += RefuelProbeSpeed * deltaT;
-		if (RefuelProbePosition > RefuelProbeTargetPosition) {
-			RefuelProbePosition = RefuelProbeTargetPosition;
+	} elsif (Nozzle1 < Nozzle1Target) {
+		Nozzle1 += NozzleSpeed * deltaT;
+		if (Nozzle1 > Nozzle1Target) {
+			Nozzle1 = Nozzle1Target;
 		}
 	}
 
+	if (Nozzle2 > Nozzle2Target) {
+		Nozzle2 -= NozzleSpeed * deltaT;
+		if (Nozzle2 < Nozzle2Target) {
+			Nozzle2 = Nozzle2Target;
+		}
+	} elsif (Nozzle2 < Nozzle2Target) {
+		Nozzle2 += NozzleSpeed * deltaT;
+		if (Nozzle2 > Nozzle2Target) {
+			Nozzle2 = Nozzle2Target;
+		}
+	}
 
-    #---------------------------------
-    if (DoorsPosition > DoorsTargetPosition)
-    {
-     DoorsPosition -= DoorsSpeed * deltaT;
-     if (DoorsPosition < DoorsTargetPosition) DoorsPosition = DoorsTargetPosition;
-    }
-    elsif (DoorsPosition < DoorsTargetPosition)
-    {
-     DoorsPosition += DoorsSpeed * deltaT;
-     if (DoorsPosition > DoorsTargetPosition) DoorsPosition = DoorsTargetPosition;
-    } #end if (DoorsPosition > DoorsTargetPosition )
-
-    #---------------------------------
-    if (Nozzle1 > Nozzle1Target)
-    {
-     Nozzle1 -= NozzleSpeed * deltaT;
-     if (Nozzle1 < Nozzle1Target) Nozzle1 = Nozzle1Target;
-    }
-    elsif (Nozzle1 < Nozzle1Target)
-    {
-     Nozzle1 += NozzleSpeed * deltaT;
-     if (Nozzle1 > Nozzle1Target) Nozzle1 = Nozzle1Target;
-    } #end if (Nozzle1 > Nozzle1Target)
-
-    #---------------------------------
-    if (Nozzle2 > Nozzle2Target)
-    {
-     Nozzle2 -= NozzleSpeed * deltaT;
-     if (Nozzle2 < Nozzle2Target) Nozzle2 = Nozzle2Target;
-    }
-    elsif (Nozzle2 < Nozzle2Target)
-    {
-     Nozzle2 += NozzleSpeed * deltaT;
-     if (Nozzle2 > Nozzle2Target) Nozzle2 = Nozzle2Target;
-
-    } #end if (Nozzle2 > Nozzle2Target)
-
-    #---------------------------------
-    if (currentSweep > WingSweep)
-    {
-     currentSweep -= SweepSpeed * deltaT;
-     if (currentSweep < WingSweep) currentSweep = WingSweep;
-    }
-    elsif (currentSweep < WingSweep)
-    {
-     currentSweep += SweepSpeed * deltaT;
-     if (currentSweep > WingSweep) currentSweep = WingSweep;
-
-    } #end if (Nozzle2 > Nozzle2Target)
+	# Wing Sweep
+	if (currentSweep > WingSweep) {
+		currentSweep -= SweepSpeed * deltaT;
+		if (currentSweep < WingSweep) {
+			currentSweep = WingSweep;
+		}
+	} elsif (currentSweep < WingSweep) {
+		currentSweep += SweepSpeed * deltaT;
+		if (currentSweep > WingSweep) {
+			currentSweep = WingSweep;
+		}
+	}
 
 	setprop ("surface-positions/left-spoilers", CurrentLeftSpoiler);
 	setprop ("surface-positions/right-spoilers", CurrentRightSpoiler);
@@ -273,8 +232,6 @@ var timedMotions = func {
 	setprop ("surface-positions/inner-right-spoilers", CurrentInnerRightSpoiler);
 	setprop ("engines/engine[0]/nozzle-pos-norm", Nozzle1);
 	setprop ("engines/engine[1]/nozzle-pos-norm", Nozzle2);
-	setprop ("canopy/position-norm", DoorsPosition);
-	setprop ("sim/model/f-14b/refuel/probe-position", RefuelProbePosition);
 	setprop ("surface-positions/wing-pos-norm", currentSweep);
 	setprop ("controls/flight/wing-sweep", WingSweep);
 
@@ -284,7 +241,6 @@ var timedMotions = func {
 	slat_generic.setDoubleValue(slat_output.getValue());
 	left_elev_generic.setDoubleValue(left_elev_output.getValue());
 	right_elev_generic.setDoubleValue(right_elev_output.getValue());
-	refuel_generic.setDoubleValue(refuel_output.getValue());
 	radar_standby_generic.setIntValue(radar_standby.getValue());
 	lighting_collision_generic.setIntValue(lighting_collision.getValue());
 	lighting_position_generic.setIntValue(lighting_position.getValue() * position_intens);
@@ -297,6 +253,7 @@ var timedMotions = func {
 #----------------------------------------------------------------------------
 # FCS update
 #----------------------------------------------------------------------------
+var wow = 1;
 
 var registerFCS = func {settimer (updateFCS, 0);}
 
@@ -305,7 +262,7 @@ var updateFCS = func {
 	CurrentIAS = getprop ("/velocities/airspeed-kt");
 	CurrentMach = getprop ("/velocities/mach");
 	CurrentAlt = getprop ("/position/altitude-ft");
-	WOW = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
+	wow = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
 	Alpha = getprop ("/orientation/alpha-deg");
 	Throttle = getprop ("/controls/engines/engine/throttle");
 	ElevatorTrim = getprop ("/controls/flight/elevator-trim");
@@ -313,7 +270,6 @@ var updateFCS = func {
 
 	#update functions
 	f14.computeSweep ();
-	f14.computeDrag ();
 	f14.computeFlaps ();
 	f14.computeSpoilers ();
 	f14.computeNozzles ();

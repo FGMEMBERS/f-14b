@@ -91,7 +91,7 @@
 		<spoiler start="0.1" end="0.9" lift="1.0" drag="25.0"/>
 		<control-input axis="/controls/flight/speedbrake" control="FLAP0"/>
 		<control-input axis="/controls/flight/speedbrake" src0="-1" src1="1" dst0="1" dst1="-1" control="FLAP1"/>
-		<control-input axis="/f-14/drag" control="SPOILER"/>
+		<control-input axis="sim/model/f-14b/systems/fdm/drag" control="SPOILER"/>
 		<control-output control="FLAP0" prop="/surface-positions/speedbrake-pos-norm"/>
 		<control-speed control="FLAP0" transition-time="2.0"/>
 		<control-speed control="FLAP1" transition-time="2.0"/>

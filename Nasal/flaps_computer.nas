@@ -2,30 +2,28 @@
 # Flaps computer     
 #----------------------------------------------------------------------------
 
-# Constants
-var FlapsClean = 0;
-var FlapsToLdg = 1;
+var m_slat_lo      = 7.7;          # Maneuver slats low alpha threshold.
+var m_slat_hi      = 10.5;         # Maneuver slats high alpha threshold.
+var m_flap_ext     = 0.286;        # Maneuver flaps extension.
+var max_m_slat_ext = 0.41;         # Maximum maneuver slats extension.
+var lms_coef       = 0.146428571;  # Linear maneuver slats extension coeff:
+# maximum maneuver slats extension / maneuver slats high alpha threshold - maneuver slats low alpha threshold.
 
-var ManeuverSlatLoAlphaThreshold = 7.7;
-var ManeuverSlatHiAlphaThreshold = 10.5;
-var ManeuverFlapExtension = 0.286;
-var MaxManeuverSlatExtension = 0.41;
-var LinearManeuverSlatExtensionCoeff = MaxManeuverSlatExtension
-                                   /
-                                   (ManeuverSlatHiAlphaThreshold 
-                                   -
-                                   ManeuverSlatLoAlphaThreshold);
+var FlapsCmd     = props.globals.getNode("controls/flight/flapscommand", 1);
+var AuxFlapsCmd  = props.globals.getNode("/controls/flight/auxFlaps", 1);
+var SlatsCmd     = props.globals.getNode("controls/flight/slats", 1);
+var MainFlapsCmd = props.globals.getNode("controls/flight/mainFlaps", 1);
 
-var wow = props.globals.getNode("gear/gear/wow");
+FlapsCmd.setValue(0);
+AuxFlapsCmd.setValue(0);
 
-# Functions
 
 # Hijack the generic flaps command so everybody's joystick flap command works
 # for the F-14 too. 
-controls.flapsDown = func(step) {
-	if (step == 1) {
+controls.flapsDown = func(s) {
+	if (s == 1) {
 		lowerFlaps();
-	} elsif (step == -1) {
+	} elsif (s == -1) {
 		raiseFlaps();
 	} else {
 		return;
@@ -34,63 +32,52 @@ controls.flapsDown = func(step) {
 
 
 var lowerFlaps = func {
-	FlapsCommand = getprop ("controls/flight/flapscommand");
-	# wing sweep interlock
-	if (WingSweep > 0.05) { return }
-	if (FlapsCommand < FlapsToLdg) {
-		FlapsCommand += 1;
-		setprop ("controls/flight/flapscommand", FlapsCommand);
+	if ( WingSweep < 0.05 and FlapsCmd.getValue() < 1 ) {
+		FlapsCmd.setValue(1); # Landing.
 	}
-
 }
 
 var raiseFlaps = func {
-	FlapsCommand = getprop ("controls/flight/flapscommand");
-	if (FlapsCommand > FlapsClean) {
-		FlapsCommand -= 1;
-		setprop ("controls/flight/flapscommand", FlapsCommand);
+	if ( FlapsCmd.getValue() > 0 ) {
+		FlapsCmd.setValue(0); # Clean.
 		DLCactive = false;
 		DLC_Engaged.setBoolValue(0);
-		setprop("controls/flight/DLC",0.0);
+		setprop("controls/flight/DLC", 0);
 	}
 }
 
 
 var computeFlaps = func {
-	if (CurrentMach == nil) { CurrentMach = 0.0 } 
-	if (CurrentAlt == nil) { CurrentAlt = 0.0 }
-	if (Alpha == nil) { Alpha = 0.0 }
-	FlapsCommand = getprop ("controls/flight/flapscommand");
-
-	if (CurrentAlt > 30000.0) {
-		maneuverSlatsCutoffMach = 0.85;
-	} else {
-		maneuverSlatsCutoffMach = 0.5 +  CurrentAlt * 0.35 / 30000;
+	if (CurrentMach == nil) { CurrentMach = 0 } 
+	if (CurrentAlt == nil) { CurrentAlt = 0 }
+	if (Alpha == nil) { Alpha = 0 }
+	var fc = FlapsCmd.getValue();
+	var m_slat_cutoff  = 0.85; # Maneuver slats cutoff mach.
+	if ( CurrentAlt < 30000.0 ) {
+		m_slat_cutoff = 0.5 + CurrentAlt * 0.000011667; # 0.5 + CurrentAlt * 0.35 / 30000;
 	}
-	# Lock flaps if sweep is not at 20 degrees
-	if (FlapsCommand == FlapsClean) {
-		setprop ("controls/flight/auxFlaps", 0.0);
-		if (CurrentMach <= maneuverSlatsCutoffMach and ! wow.getBoolValue()) {
-			if (Alpha > ManeuverSlatLoAlphaThreshold and Alpha <= ManeuverSlatHiAlphaThreshold) {
-				setprop ("controls/flight/mainFlaps", ManeuverFlapExtension);
-				setprop ("controls/flight/slats", 
-					(Alpha - ManeuverSlatLoAlphaThreshold) 
-					* LinearManeuverSlatExtensionCoeff);
-			} elsif (Alpha > ManeuverSlatHiAlphaThreshold) {
-				setprop ("controls/flight/mainFlaps", ManeuverFlapExtension);
-				setprop ("controls/flight/slats", MaxManeuverSlatExtension);
+	# TODO: Lock flaps if sweep is not at 20 degrees.
+	if ( fc == 0 ) {
+		AuxFlapsCmd.setValue(0);
+		if ( CurrentMach <= m_slat_cutoff and ! wow ) {
+			if ( Alpha > m_slat_lo and Alpha <= m_slat_hi ) {
+				MainFlapsCmd.setValue( m_flap_ext );
+				SlatsCmd.setValue( ( Alpha - m_slat_lo ) * lms_coef );
+			} elsif ( Alpha > m_slat_hi ) {
+				MainFlapsCmd.setValue( m_flap_ext );
+				SlatsCmd.setValue( max_m_slat_ext );
 			} else {
-				setprop ("controls/flight/mainFlaps", 0.0);
-				setprop ("controls/flight/slats", 0.0);
+				MainFlapsCmd.setValue(0);
+				SlatsCmd.setValue(0);
 			}
 		} else {
-			setprop ("controls/flight/mainFlaps", 0.0);
-			setprop ("controls/flight/slats", 0.0);
+			MainFlapsCmd.setValue(0);
+			SlatsCmd.setValue(0);
 		}
 	}
-	if (FlapsCommand == FlapsToLdg) {
-		setprop ("controls/flight/mainFlaps", 1.0);
-		setprop ("controls/flight/auxFlaps", 1.0);
-		setprop ("controls/flight/slats", 1.0);
+	if ( fc == 1 ) {
+		MainFlapsCmd.setValue(1);
+		AuxFlapsCmd.setValue(1);
+		SlatsCmd.setValue(1);
 	}
 }

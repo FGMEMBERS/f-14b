@@ -331,6 +331,7 @@
 				</controls>
 				<fx>
 					<burner type="int">0</burner>
+					<heat-blur-on type="bool">false</heat-blur-on>
 				</fx>
 				<instrumentation>
 					<airspeed-indicator>
@@ -479,6 +480,9 @@
 						<engaged type="bool">false</engaged>
 						<self-disengaged-light type="bool">0</self-disengaged-light>
 					</apc>
+					<fdm>
+						<drag type="double">0</drag>
+					</fdm>
 					<gun>
 						<rounds type="int">200</rounds>
 					</gun>
@@ -602,8 +606,8 @@
 					<item n="3">
 						<label>Toggle Heat Blur</label>
 						<binding>
-							<command>nasal</command>
-							<script>f14.switchHeatBlur()</script>
+							<command>toggle</command>
+							<property>sim/model/f-14b/fx/heat-blur-on</property>
 						</binding>
 					</item>
 				</menu>
@@ -821,16 +825,6 @@
 		</engine>
 	</engines>
 
-	<f-14>
-		<SAS>
-			<engaged>true</engaged>
-			<pitch-bias type="float">0.0</pitch-bias>
-			<yaw-bias type="float">0.0</yaw-bias>
-			<roll-bias type="float">0.0</roll-bias>
-		</SAS>
-		<heat-blur-on type="bool">false</heat-blur-on>
-	</f-14>
-
 	<input>
 		<keyboard n="0" include="../../Input/Keyboard/carrier-bindings.xml">
 			<multikey include="Models/Cockpit/radios-multikey.xml"/>
@@ -971,15 +965,6 @@
 				</binding>
 			</key>
 
-			<key n="83">
-				<name>S</name>
-				<desc>Decrease speed brakes</desc>
-				<binding>
-					<command>nasal</command>
-					<script>f14.speedBrakesIn();</script>
-				</binding>
-			</key>
-
 			<key n="97">
 				<name>a</name>
 				<desc>toggle APC</desc>
@@ -1005,7 +990,7 @@
 				<desc>Open canopy and access ladder</desc>
 				<binding>
 					<command>nasal</command>
-					<script>f14.toggleAccess();</script>
+					<script>f14.canopyswitch(2);</script>
 				</binding>
 			</key>
 
@@ -1028,15 +1013,6 @@
 					<min>-1</min>
 					<max>2</max>
 					<wrap>true</wrap>
-				</binding>
-			</key>
-
-			<key n="115">
-				<name>s</name>
-				<desc>Increase speed brakes</desc>
-				<binding>
-					<command>nasal</command>
-					<script>f14.speedBrakesOut();</script>
 				</binding>
 			</key>
 
@@ -1112,7 +1088,6 @@
 			<file>Aircraft/f-14b/Nasal/liveries.nas</file>
 			<file>Aircraft/f-14b/Nasal/f14_globals.nas</file>
 			<file>Aircraft/f-14b/Nasal/flaps_computer.nas</file>
-			<file>Aircraft/f-14b/Nasal/drag_computer.nas</file>   
 			<file>Aircraft/f-14b/Nasal/engines.nas</file>
 			<file>Aircraft/f-14b/Nasal/sweep_computer.nas</file>
 			<file>Aircraft/f-14b/Nasal/gear.nas</file>

@@ -93,10 +93,10 @@ var computeWingBend = func {
 var computeAdverse = func {
 	computeWingBend ();
 	if (Alpha < 25.0) {
-		setprop ("/controls/flight/adverse/pitch", 0.5 * SASpitch + ElevatorTrim + FlutterPitch);
-		setprop ("/controls/flight/adverse/roll", 0.5 * SASroll + FailureAileron);
+		setprop ("controls/flight/adverse/pitch", 0.5 * SASpitch + ElevatorTrim + FlutterPitch);
+		setprop ("controls/flight/adverse/roll", 0.5 * SASroll + FailureAileron);
 	} else {
-		setprop ("/controls/flight/adverse/pitch", - 1.0 + FlutterPitch);
-		setprop ("/controls/flight/adverse/roll", getprop ("/orientation/yaw-rate-degps") / 60 + FailureAileron);
+		setprop ("controls/flight/adverse/pitch", - 1.0 + FlutterPitch);
+		setprop ("controls/flight/adverse/roll", getprop ("/orientation/yaw-rate-degps") / 60 + FailureAileron);
 	}
 }

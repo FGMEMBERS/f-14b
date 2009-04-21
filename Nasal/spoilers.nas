@@ -7,22 +7,21 @@
 # control on approach
 #----------------------------------------------------------------------------
 
-
 # Constants
 var MaxFlightSpoilers = 0.7;
-var SpoilersMinima = 0.0;
+var SpoilersMinima = 0;
 
 # Functions
 
 var toggleDLC = func {
-	if (!DLCactive and (getprop ("/controls/flight/flapscommand") >= FlapsToLdg)) {
+	if ( !DLCactive and ( FlapsCmd.getValue() >= 1 ) ) {
 		DLCactive = true;
 		DLC_Engaged.setBoolValue(1);
 		setprop("controls/flight/DLC", 0.3);
 	} else {
 		DLCactive = false;
 		DLC_Engaged.setBoolValue(0);
-		setprop("controls/flight/DLC", 0.0);
+		setprop("controls/flight/DLC", 0);
 	}
 }
 
@@ -43,13 +42,13 @@ var computeSpoilers = func {
 	# Compute a bias to reduce spoilers extension from full extension at sweep = 20deg
 	# to no extension past 56 deg
 	if (WingSweep > 0.8) {
-		wingSweepBias = 0.0;
+		wingSweepBias = 0;
 	} else {
 		wingSweepBias = 1.0 - (WingSweep * 1.25); 
 	}
 
 	# Ground spoiler activation  
-	if ((groundSpoilersArmed and !WOW) or (WOW and !GroundSpoilersLatchedClosed and groundSpoilersArmed)) {
+	if ((groundSpoilersArmed and !wow) or (wow and !GroundSpoilersLatchedClosed and groundSpoilersArmed)) {
 		GroundSpoilersLatchedClosed = false;
 	} else {
 		GroundSpoilersLatchedClosed = true;
@@ -57,13 +56,13 @@ var computeSpoilers = func {
 
 	if (groundSpoilersArmed and ! GroundSpoilersLatchedClosed and Throttle < ThrottleIdle ) { 
 		# if weight on wheels or ground spoilers deployed (in case of hard bounce)
-		if (GroundSpoilersDeployed or WOW) {
+		if (GroundSpoilersDeployed or wow) {
 			GroundSpoilersDeployed = true;
-			LeftSpoilersTarget = 1.0 * wingSweepBias;
-			RightSpoilersTarget = 1.0 * wingSweepBias;
-			InnerLeftSpoilersTarget = 1.0 * wingSweepBias; 
-			InnerRightSpoilersTarget = 1.0 * wingSweepBias;
-			setprop ("controls/flight/yasim-spoilers", 1.0 * wingSweepBias);
+			LeftSpoilersTarget = wingSweepBias;
+			RightSpoilersTarget = wingSweepBias;
+			InnerLeftSpoilersTarget = wingSweepBias; 
+			InnerRightSpoilersTarget = wingSweepBias;
+			setprop ("controls/flight/yasim-spoilers", wingSweepBias);
 			return;
 		}
 	}
@@ -76,17 +75,17 @@ var computeSpoilers = func {
 	# If wings are swept back, or the aircraft is on the ground, Direct Lift
 	# Control is deactivated
 	if (WingSweep > 0.05) {
-		DLC = 0.0; # TODO: add a condition on weight on wheels
+		DLC = 0; # TODO: add a condition on weight on wheels
 	} else {
 		DLC = getprop("controls/flight/DLC")
 	}
 
 	#spoilers are depressed -4 degrees when flaps are out
-	if (getprop ("controls/flight/flapscommand") != nil) {
-		if (getprop ("controls/flight/flapscommand") == FlapsToLdg) {
+	var fc = FlapsCmd.getValue();
+	if ( fc != nil ) {
+		SpoilersMinima = 0;
+		if ( fc == 1 ) { # Flaps out.
 			SpoilersMinima = -0.073;
-		} else {
-			SpoilersMinima = 0.0;
 		}
 		LeftSpoilersTarget = rollCommand * wingSweepBias * MaxFlightSpoilers + SpoilersMinima;
 		RightSpoilersTarget = (-rollCommand) * wingSweepBias * MaxFlightSpoilers + SpoilersMinima;

@@ -2607,7 +2607,7 @@
 		<property>sim/multiplay/generic/float[6]</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>0.0</dep></entry>
-			<entry><ind>0.05</ind><dep>-100.0</dep></entry>
+			<entry><ind>0.3</ind><dep>-100.0</dep></entry>
 			<entry><ind>0.7</ind><dep>-100.0</dep></entry>
 			<entry><ind>1.0</ind><dep>0.0</dep></entry>
 		</interpolation>

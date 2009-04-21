@@ -15,7 +15,7 @@ var SweepVsMachHi = 60.0;
 # Functions
 
 var toggleOversweep = func {
-	if ( WOW and ! OverSweep ) {
+	if ( wow and ! OverSweep ) {
 		# Flaps/sweep interlock
 		#do not move the wings until auxiliary flaps are in.
 		if (getprop ("surface-positions/aux-flap-pos-norm") > 0.05) return;
