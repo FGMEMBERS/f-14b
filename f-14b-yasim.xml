@@ -109,9 +109,7 @@
 		<flap1 start="0.5" end="1" lift="2.0" drag="1.5"/>
 		<control-input axis="/controls/flight/SAS-pitch" control="FLAP0"/>
 		<control-input axis="/controls/flight/elevator-trim" control="FLAP0"/> 
-		<control-input axis="/controls/flight/SAS-roll"
-			src0="-1" src1="1" dst0="-0.5" dst1="0.5"
-			control="FLAP0" split="true"/>
+		<control-input axis="/controls/flight/SAS-roll" src0="-1" src1="1" dst0="-0.7" dst1="0.7" control="FLAP0" split="true"/>
 		<control-input axis="/controls/flight/adverse/pitch" control="FLAP1"/>
 		<control-input axis="/controls/flight/adverse/roll" control="FLAP1" split="true"/>
 		<control-output control="FLAP0" side="left" prop="/surface-positions/left-elevator-pos-norm"/>

@@ -2,106 +2,97 @@
 # Stability Augmentation System
 #----------------------------------------------------------------------------
 
-# Constants
 var D2R = math.pi / 180;
 
+var t_increment     = 0.0075;
+var PitchLoSpeed    = 230;
+var roll_lo_speed   = 400;
+var roll_lo_speed_sqr = roll_lo_speed * roll_lo_speed;
+var p_kp            = -0.05;
+var e_smooth_factor = 0.1;
+var a_smooth_factor = 0.1;
+var r_smooth_factor = 0.2;
+var p_max           = 0.2;
+var p_min           = -0.2;
+var max_e           = 1;
+var min_e           = 0.5;
 
-var PitchLoSpeed     = 230.0;
-var RollLoSpeed      = 400.0;
-var PreviousHeading  = 0.0;
-var PreviousSlip     = 0.0;
-
-# Pid constants
-var PitchVarTarget   =  0.0;
-var PitchKp          = -0.05;
-var PitchKi          =  0.0;
-var PitchKd          =  0.0;
-
-var RollVarTarget    =  0.0;
-var RollKp           =  0.005;
-var RollKi           =  0.0;
-var RollKd           =  0.0;
-
-var YawVarTarget     =  0.0;
-var YawKp            =  0.01;
-var YawKi            =  0.0;
-var YawKd            =  0.0;
-
-var PreviousPitchBias  = 0.0;
-var PreviousRollBias   = 0.0;
-var PreviousYawBias    = 0.0;
-
-# Derivative
-var PitchPIDpreviousError = 0.0;
-var PitchPIDppError       = 0.0;
-var RollPIDpreviousError  = 0.0;
-var RollPIDppError        = 0.0;
-var YawPIDpreviousError   = 0.0;
-var YawPIDppError         = 0.0;
-
-# Limiters
-var PitchMaxOutput   =  0.2;
-var PitchMinOutput   = -0.2;
-var MaxPitchElevator =  1.0;
-var MinPitchElevator =  0.5;
-var RollMaxOutput    =  0.01;
-var RollMinOutput    = -0.01;
-var YawMaxOutput     =  0.3;
-var YawMinOutput     = -0.3;
-
+# Orientation and velocities
+var Roll       = props.globals.getNode("orientation/roll-deg");
+var PitchRate  = props.globals.getNode("orientation/pitch-rate-degps", 1);
+var YawRate    = props.globals.getNode("orientation/yaw-rate-degps", 1);
+var AirSpeed   = props.globals.getNode("velocities/airspeed-kt");
 # SAS and Autopilot Controls
-var SASpitch_on = props.globals.getNode("sim/model/f-14b/controls/SAS/pitch");
-var SASroll_on  = props.globals.getNode("sim/model/f-14b/controls/SAS/roll");
-var SASyaw_on   = props.globals.getNode("sim/model/f-14b/controls/SAS/yaw");
-var steering    = 0.0;
+var SasPitchOn = props.globals.getNode("sim/model/f-14b/controls/SAS/pitch");
+var SasRollOn  = props.globals.getNode("sim/model/f-14b/controls/SAS/roll");
+var SasYawOn   = props.globals.getNode("sim/model/f-14b/controls/SAS/yaw");
 # Autopilot Locks
-var ap_alt_lock  = props.globals.getNode("autopilot/locks/altitude");
-var ap_hdg_lock  = props.globals.getNode("autopilot/locks/heading");
+var ap_alt_lock   = props.globals.getNode("autopilot/locks/altitude");
+var ap_hdg_lock   = props.globals.getNode("autopilot/locks/heading");
+# Inputs
+var RawElev       = props.globals.getNode("controls/flight/elevator");
+var RawAileron    = props.globals.getNode("controls/flight/aileron");
+var RawRudder     = props.globals.getNode("controls/flight/rudder");
+var AileronTrim   = props.globals.getNode("controls/flight/aileron-trim");
+var ElevatorTrim  = props.globals.getNode("controls/flight/elevator-trim");
+var SmoothElev    = props.globals.getNode("sim/model/f-14b/controls/flight/sas-elevator", 1);
+var SmoothAileron = props.globals.getNode("sim/model/f-14b/controls/flight/sas-aileron", 1);
+var SmoothRudder  = props.globals.getNode("sim/model/f-14b/controls/flight/sas-rudder", 1);
+var Flaps         = props.globals.getNode("surface-positions/aux-flap-pos-norm", 1);
+var WSweep        = props.globals.getNode("surface-positions/wing-pos-norm", 1);
+var Dlc           = props.globals.getNode("controls/flight/DLC", 1);
+# Outputs
+var SasRoll       = props.globals.getNode("controls/flight/SAS-roll");
+var SasPitch      = props.globals.getNode("controls/flight/SAS-pitch", 1);
+var SasYaw        = props.globals.getNode("controls/flight/SAS-yaw", 1);
 
-# Raw input smoothing filter
-var raw_elev           = props.globals.getNode("controls/flight/elevator");
-var raw_aileron        = props.globals.getNode("controls/flight/aileron");
-var smooth_elev_node   = props.globals.getNode("sim/model/f-14b/controls/flight/sas-elevator", 1);
-var last_elev          = 0;
-var elev_smooth_factor = 0.1;
+var airspeed       = 0;
+var airspeed_sqr   = 0;
+var last_e         = 0;
+var last_p_var_err = 0;
+var p_input        = 0;
+var last_p_bias    = 0;
+var last_a         = 0;
+var last_r         = 0;
+var w_sweep        = 0;
+var e_trim         = 0;
+var steering       = 0;
+var dt_mva_vec     = [0,0,0,0,0,0,0];
 
 
 # Elevator Trim
-# -------------
-var MaxTrimRate   = 0.015;
-var TrimIncrement = 0.0075;
-var CurrentTrim   = 0.0;
+if ( ElevatorTrim.getValue() != nil ) { e_trim = ElevatorTrim.getValue() }
 
 var trimUp = func {
-	CurrentTrim += TrimIncrement;
-	if (CurrentTrim > 1.0) CurrentTrim = 1.0;
-	setprop ("controls/flight/elevator-trim", CurrentTrim);
+	e_trim += (airspeed < 120.0) ? t_increment : t_increment * 14400 / airspeed_sqr;
+	if (e_trim > 1) { e_trim = 1 }
+	ElevatorTrim.setValue(e_trim);
 }
 
-trimDown = func {
-	CurrentTrim -= TrimIncrement;
-	if (CurrentTrim < -1.0) CurrentTrim = -1.0;
-	setprop ("controls/flight/elevator-trim", CurrentTrim);
+var trimDown = func {
+	e_trim -= (airspeed < 120.0) ? t_increment : t_increment * 14400 / airspeed_sqr;
+	if (e_trim < -1) { e_trim = -1 }
+	ElevatorTrim.setValue(e_trim);
 }
 
 
 
 # Stability Augmentation System
-# -----------------------------
-var dt_mva_vec = [0,0,0,0,0,0,0];
 
 var computeSAS = func {
-	var airspeed = getprop ("velocities/airspeed-kt");
-	squaredAirspeed = airspeed * airspeed;
-
-	raw_e = raw_elev.getValue();
-	raw_a = raw_aileron.getValue();
+	var roll         = Roll.getValue();
+	var roll_rad     = roll * 0.017453293;
+	airspeed         = AirSpeed.getValue();
+	airspeed_sqr = airspeed * airspeed;
+	var raw_e        = RawElev.getValue();
+	var raw_a        = RawAileron.getValue();
+	var a_trim       = AileronTrim.getValue();
+	var w_sweep      = WSweep.getValue();
+	var o_sweep = ( w_sweep != nil and w_sweep > 1.01 ) ? 1 : 0;
 	steering = ((raw_e > 0.05 or -0.05 > raw_e) or (raw_a > 0.01 or -0.01 > raw_a)) ? 1 : 0;
-
 	mvaf_dT = (dt_mva_vec[0]+dt_mva_vec[1]+dt_mva_vec[2]+dt_mva_vec[3]+dt_mva_vec[4]+dt_mva_vec[5]+dt_mva_vec[6])/7;
 	pop(dt_mva_vec);
 	dt_mva_vec = [deltaT] ~ dt_mva_vec;
-
 	# Temporarly disengage Autopilot when control stick steering or when 7 frames average fps < 10.
 	# Simple mode, Attitude: pitch and roll.
 	# f14_afcs.ap_lock_att:
@@ -128,141 +119,71 @@ var computeSAS = func {
 	}
 
 
-	# Roll Channel
-	# ------------
-	# Roll PID computation
 	if ( f14_afcs.ap_lock_att != 1 ) {
-		RollVarError = RollVarTarget - getprop ("orientation/roll-deg");
 
-		rollBias = PreviousRollBias 
-				+ RollKp * (RollVarError - RollPIDpreviousError);
-				#+ RollKi * deltaT * RollVarError # unused: RollKi = 0
-				#+ RollKd * (RollVarError - 2* RollPIDpreviousError + RollPIDppError) / deltaT; # unused: RollKd = 0
-
-		RollPIDpreviousError = RollVarError;
-		RollPIDppError = RollPIDpreviousError;
-		PreviousRollBias = rollBias;
-
-		if (rollBias > RollMaxOutput) rollBias = RollMaxOutput;
-		if (rollBias < RollMinOutput) rollBias = RollMinOutput;
-
-		SASroll = (getprop ("controls/flight/aileron") + rollBias + getprop ("controls/flight/aileron-trim")) * ! OverSweep;   
-		if (airspeed > RollLoSpeed)
-			SASroll = SASroll * ( (RollLoSpeed * RollLoSpeed) / squaredAirspeed );
-
-		setprop ("controls/flight/SAS-roll", SASroll);
-	}
-
-
-	# Pitch Channel
-	# -------------
-	# Compute pitch rate to feed PID controller
-	fakePitchRate = getprop ("orientation/pitch-rate-degps");
-	currentHeading = getprop ("orientation/heading-deg");
-	roll = getprop("orientation/roll-deg");
-
-	if (currentHeading != nil and PreviousHeading != nil and fakePitchRate !=nil and roll!=nil) {
-		headingRate = (currentHeading - PreviousHeading) / deltaT;
-		PreviousHeading = currentHeading;
-		phiDot = fakePitchRate * math.cos (roll*D2R) + headingRate * math.sin (roll*D2R);
-		# phiDot = pitch_rate_degps * cos(roll) + yaw_rate_degps * sin(roll)
-	} else {
-		phiDot = 0.0;
-	}
-
-	if (SASpitch_on.getValue()) {
-
-
-		# 1) Exponential Filter smoothing the longitudinal input.		
-		var filtered_move = (raw_e - last_elev) * elev_smooth_factor;
-		smooth_elev = last_elev + filtered_move;
-		last_elev = smooth_elev;
-		smooth_elev_node.setDoubleValue(smooth_elev);
-
-		if ( deltaT < 0.06 ) {
-			# 2) PID Bias Filter based on current attitude change rate.
-			var PitchVarError = PitchVarTarget - phiDot; # PitchVarTarget: adjustment variable, normaly set to 0.0
-			pitchBias = PreviousPitchBias 
-					+ PitchKp * (PitchVarError - PitchPIDpreviousError);
-					#+ PitchKi * deltaT * PitchVarError # unused: PitchKi = 0
-					#+ PitchKd * (PitchVarError - 2* PitchPIDpreviousError + PitchPIDppError) / deltaT; # unused: PitchKd = 0
-
-			PitchPIDpreviousError = PitchVarError;
-			PitchPIDppError = PitchPIDpreviousError;
-			PreviousPitchBias = pitchBias;
-
-			if (pitchBias > PitchMaxOutput) pitchBias = PitchMaxOutput;
-			if (pitchBias < PitchMinOutput) pitchBias = PitchMinOutput;
+		# Roll Channel
+		var sas_roll = 0;
+		# Exponential Filter smoothing lateral input, then quadratic law.		
+		if (SasRollOn.getValue()) {
+			smooth_a = last_a + ((raw_a - last_a) * a_smooth_factor);
+			last_a = smooth_a;
+			sas_roll = (smooth_a + a_trim) ; 
+			if (airspeed > roll_lo_speed) {
+				sas_roll = sas_roll * roll_lo_speed_sqr / airspeed_sqr;
+			}
 		} else {
-			pitchBias = 0;
+			sas_roll = raw_a + a_trim * ! o_sweep;   
 		}
-	} else {
-		pitchBias = 0;
-		smooth_elev = raw_e;
+		SasRoll.setValue(sas_roll);
+
+		# Pitch Channel
+		var pitch_rate = PitchRate.getValue();
+		var yaw_rate   = YawRate.getValue();
+		var p_bias     = 0;
+		var smooth_e   = raw_e;
+		var dlc_trim   = 0;
+		if (SasPitchOn.getValue()) {
+			# 1) Exponential Filter smoothing longitudinal input.		
+			smooth_e = last_e + ((raw_e - last_e) * e_smooth_factor);
+			last_e = smooth_e;
+			SmoothElev.setValue(smooth_e);
+			if ( deltaT < 0.06 ) {
+				# 2) Proportional Bias Filter based on current attitude change rate.
+				var p_var_err = - ((pitch_rate * math.cos(roll_rad)) + (yaw_rate * math.sin(roll_rad)));
+				p_bias = last_p_bias + p_kp * (p_var_err - last_p_var_err);
+				last_p_var_err = p_var_err;
+				last_p_bias = p_bias;
+				if (p_bias > p_max) { p_bias = p_max } elsif (p_bias < p_min) { p_bias = p_min }
+			}
+			dlc_trim = 0.08 * Dlc.getValue(); # DLC: Direct Lift Control (depends on SAS).
+		}
+		flaps =  Flaps.getValue();
+		if ( flaps == nil) { flaps = 0 }
+		var flaps_trim = 0.2 * flaps; # ITS: Integrated Trim System.
+		p_input = smooth_e + p_bias - (flaps_trim + dlc_trim);
+		# Longitudinal authority limit, mechanicaly "handled".
+		if (p_input > 0) {
+			p_input *= min_e * ! o_sweep;
+		} else {
+			p_input *= max_e * ! o_sweep;
+		}
+		# Quadratic Law
+		if (airspeed > PitchLoSpeed) p_input *= (PitchLoSpeed * PitchLoSpeed) / airspeed_sqr;
+		SasPitch.setValue(p_input);
+		SASpitch = p_input; # Used by adverse.nas 
+
 	}
-	# Sums 1) and 2).
-	pitchInput = smooth_elev + pitchBias;
-
-	# Adapt trim rate to speed.
-	if (airspeed < 120.0) { 
-		TrimIncrement = MaxTrimRate;
-	} else {
-		TrimIncrement = MaxTrimRate * 14400 / squaredAirspeed;
-	}
-
-	# ITS: Integrated Trim System, computes pitch trim bias due to flaps. 
-	currentFlaps =  getprop ("surface-positions/aux-flap-pos-norm");
-	if (currentFlaps == nil) currentFlaps = 0.0;
-	flapsTrim = 0.20 * currentFlaps;
-
-	# DLC: Direct Lift Control (depends on SAS).
-	if (SASpitch_on.getValue()) {
-		DLCTrim = 0.08 * getprop ("controls/flight/DLC");	
-	} else { 
-		DLCTrim = 0.0
-	}
-	pitchInput -= flapsTrim + DLCTrim;
-
-	# Longitudinal authority limit
-	# Mechanicaly "handled".
-	if (pitchInput > 0) {
-		SASpitch = pitchInput * MinPitchElevator * ! OverSweep;
-	} else {
-		SASpitch = pitchInput * MaxPitchElevator * ! OverSweep;
-	}
-
-	# Quadratic Law
-	if (airspeed > PitchLoSpeed)
-		SASpitch = SASpitch * ( (PitchLoSpeed * PitchLoSpeed) / squaredAirspeed );
-
-	setprop ("controls/flight/SAS-pitch", SASpitch);
-
 
 
 	# Yaw Channel
-	# -----------
-	# Yaw PID computation
-	YawVarError = YawVarTarget - getprop ("orientation/side-slip-deg");
-	yawBias = PreviousYawBias 
-			+ YawKp * (YawVarError - YawPIDpreviousError)
-			+ YawKi * deltaT * YawVarError
-			+ YawKd * (YawVarError - 2* YawPIDpreviousError + YawPIDppError) / deltaT;
-
-	YawPIDpreviousError = YawVarError;
-	YawPIDppError = YawPIDpreviousError;
-	PreviousYawBias = yawBias;
-
-	if (yawBias > YawMaxOutput) yawBias = YawMaxOutput;
-	if (yawBias < YawMinOutput) yawBias = YawMinOutput;
-
-	yawInput = getprop ("controls/flight/rudder");
-	radalt =  getprop ("position/altitude-agl-ft");
-
-	if (yawInput < 0.1 and yawInput > -0.1 and radalt > 50.0) #agl when on carrier deck ?
-		yawInput += yawBias;
-
-	setprop ("controls/flight/SAS-yaw", yawInput);
-
-
+	var raw_r      = RawRudder.getValue();
+	var smooth_r   = raw_r;
+	var y_bias     = 0;
+	if (SasYawOn.getValue()) {
+		smooth_r = last_r + ((raw_r - last_r) * r_smooth_factor);
+		last_r = smooth_r;
+		SmoothRudder.setValue(smooth_r);
+	}
+	SasYaw.setValue(smooth_r);
 
 }

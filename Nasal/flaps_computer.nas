@@ -56,7 +56,6 @@ var computeFlaps = func {
 	if ( CurrentAlt < 30000.0 ) {
 		m_slat_cutoff = 0.5 + CurrentAlt * 0.000011667; # 0.5 + CurrentAlt * 0.35 / 30000;
 	}
-	# TODO: Lock flaps if sweep is not at 20 degrees.
 	if ( fc == 0 ) {
 		AuxFlapsCmd.setValue(0);
 		if ( CurrentMach <= m_slat_cutoff and ! wow ) {
