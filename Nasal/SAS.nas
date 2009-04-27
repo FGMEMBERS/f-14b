@@ -2,10 +2,10 @@
 # Stability Augmentation System
 #----------------------------------------------------------------------------
 
-var D2R = math.pi / 180;
-
+var D2R             = math.pi / 180;
 var t_increment     = 0.0075;
-var PitchLoSpeed    = 230;
+var p_lo_speed      = 230;
+var p_lo_speed_sqr  = p_lo_speed * p_lo_speed;
 var roll_lo_speed   = 400;
 var roll_lo_speed_sqr = roll_lo_speed * roll_lo_speed;
 var p_kp            = -0.05;
@@ -35,12 +35,9 @@ var RawAileron    = props.globals.getNode("controls/flight/aileron");
 var RawRudder     = props.globals.getNode("controls/flight/rudder");
 var AileronTrim   = props.globals.getNode("controls/flight/aileron-trim");
 var ElevatorTrim  = props.globals.getNode("controls/flight/elevator-trim");
-var SmoothElev    = props.globals.getNode("sim/model/f-14b/controls/flight/sas-elevator", 1);
-var SmoothAileron = props.globals.getNode("sim/model/f-14b/controls/flight/sas-aileron", 1);
-var SmoothRudder  = props.globals.getNode("sim/model/f-14b/controls/flight/sas-rudder", 1);
+var Dlc           = props.globals.getNode("controls/flight/DLC", 1);
 var Flaps         = props.globals.getNode("surface-positions/aux-flap-pos-norm", 1);
 var WSweep        = props.globals.getNode("surface-positions/wing-pos-norm", 1);
-var Dlc           = props.globals.getNode("controls/flight/DLC", 1);
 # Outputs
 var SasRoll       = props.globals.getNode("controls/flight/SAS-roll");
 var SasPitch      = props.globals.getNode("controls/flight/SAS-pitch", 1);
@@ -78,16 +75,15 @@ var trimDown = func {
 
 
 # Stability Augmentation System
-
 var computeSAS = func {
-	var roll         = Roll.getValue();
-	var roll_rad     = roll * 0.017453293;
-	airspeed         = AirSpeed.getValue();
+	var roll     = Roll.getValue();
+	var roll_rad = roll * 0.017453293;
+	airspeed     = AirSpeed.getValue();
 	airspeed_sqr = airspeed * airspeed;
-	var raw_e        = RawElev.getValue();
-	var raw_a        = RawAileron.getValue();
-	var a_trim       = AileronTrim.getValue();
-	var w_sweep      = WSweep.getValue();
+	var raw_e    = RawElev.getValue();
+	var raw_a    = RawAileron.getValue();
+	var a_trim   = AileronTrim.getValue();
+	var w_sweep = WSweep.getValue();
 	var o_sweep = ( w_sweep != nil and w_sweep > 1.01 ) ? 1 : 0;
 	steering = ((raw_e > 0.05 or -0.05 > raw_e) or (raw_a > 0.01 or -0.01 > raw_a)) ? 1 : 0;
 	mvaf_dT = (dt_mva_vec[0]+dt_mva_vec[1]+dt_mva_vec[2]+dt_mva_vec[3]+dt_mva_vec[4]+dt_mva_vec[5]+dt_mva_vec[6])/7;
@@ -146,7 +142,6 @@ var computeSAS = func {
 			# 1) Exponential Filter smoothing longitudinal input.		
 			smooth_e = last_e + ((raw_e - last_e) * e_smooth_factor);
 			last_e = smooth_e;
-			SmoothElev.setValue(smooth_e);
 			if ( deltaT < 0.06 ) {
 				# 2) Proportional Bias Filter based on current attitude change rate.
 				var p_var_err = - ((pitch_rate * math.cos(roll_rad)) + (yaw_rate * math.sin(roll_rad)));
@@ -158,7 +153,7 @@ var computeSAS = func {
 			dlc_trim = 0.08 * Dlc.getValue(); # DLC: Direct Lift Control (depends on SAS).
 		}
 		flaps =  Flaps.getValue();
-		if ( flaps == nil) { flaps = 0 }
+		if ( flaps == nil) flaps = 0;
 		var flaps_trim = 0.2 * flaps; # ITS: Integrated Trim System.
 		p_input = smooth_e + p_bias - (flaps_trim + dlc_trim);
 		# Longitudinal authority limit, mechanicaly "handled".
@@ -168,21 +163,18 @@ var computeSAS = func {
 			p_input *= max_e;
 		}
 		# Quadratic Law
-		if (airspeed > PitchLoSpeed) p_input *= (PitchLoSpeed * PitchLoSpeed) / airspeed_sqr;
+		if (airspeed > p_lo_speed) p_input *= p_lo_speed_sqr / airspeed_sqr;
 		SasPitch.setValue(p_input * ! o_sweep);
 		SASpitch = p_input; # Used by adverse.nas 
 
 	}
 
-
 	# Yaw Channel
-	var raw_r      = RawRudder.getValue();
-	var smooth_r   = raw_r;
-	var y_bias     = 0;
+	var raw_r    = RawRudder.getValue();
+	var smooth_r = raw_r;
 	if (SasYawOn.getValue()) {
 		smooth_r = last_r + ((raw_r - last_r) * r_smooth_factor);
 		last_r = smooth_r;
-		SmoothRudder.setValue(smooth_r);
 	}
 	SasYaw.setValue(smooth_r);
 

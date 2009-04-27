@@ -19,16 +19,7 @@
 		<type>rotate</type>
 		<object-name>compass-card</object-name>
 		<property>orientation/heading-magnetic-deg</property>
-		<center>
-			<x-m>0.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.0</z-m>
-		</center>
-		<axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
+		<axis><x>1</x></axis>
 	</animation>
 
 	<animation>
@@ -42,16 +33,7 @@
 		<type>rotate</type>
 		<object-name>needle-1</object-name>
 		<property>orientation/heading-magnetic-deg</property>
-		<center>
-			<x-m>0.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.0</z-m>
-		</center>
-		<axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
+		<axis><x>1</x></axis>
 	</animation>
 	<animation>
 		<type>rotate</type>
@@ -63,16 +45,7 @@
 				<value>3</value>
 			</equals>
 		</condition>
-		<center>
-			<x-m>0.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.0</z-m>
-		</center>
-		<axis>
-			<x>-1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
+		<axis><x>-1</x></axis>
 	</animation>
 
 	<animation>
@@ -88,16 +61,7 @@
 		<type>rotate</type>
 		<object-name>needle-1-off</object-name>
 		<property>orientation/heading-magnetic-deg</property>
-		<center>
-			<x-m>0.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.0</z-m>
-		</center>
-		<axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
+		<axis><x>1</x></axis>
 	</animation>
 
 
@@ -105,32 +69,14 @@
 		<type>rotate</type>
 		<object-name>needle-2</object-name>
 		<property>orientation/heading-magnetic-deg</property>
-		<center>
-			<x-m>0.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.0</z-m>
-		</center>
-		<axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
+		<axis><x>1</x></axis>
 	</animation>
 
 	<animation>
 		<type>rotate</type>
 		<object-name>needle-2</object-name>
 		<property>sim/model/f-14b/instrumentation/tacan/indicated-mag-bearing-deg</property>
-		<center>
-			<x-m>0.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.0</z-m>
-		</center>
-		<axis>
-			<x>-1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
+		<axis><x>-1</x></axis>
 	</animation>
 
 <!-- tacan distance digital display -->
@@ -141,16 +87,7 @@
 		<factor>0.1</factor>
 		<offset>-1</offset>
 		<step>1</step>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0</z-m>
-		</center>
-		<axis>
-			<x>0</x>
-			<y>-1</y>
-			<z>0</z>
-		</axis>
+		<axis><y>-1</y></axis>
 	</animation>
 
 	<animation>
@@ -160,16 +97,7 @@
 		<factor>0.01</factor>
 		<offset>-10</offset>
 		<step>10</step>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0</z-m>
-		</center>
-		<axis>
-			<x>0</x>
-			<y>-1</y>
-			<z>0</z>
-		</axis>
+		<axis><y>-1</y></axis>
 	</animation>
 
 	<animation>
@@ -179,16 +107,7 @@
 		<factor>0.001</factor>
 		<offset>-100</offset>
 		<step>100</step>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0</z-m>
-		</center>
-		<axis>
-			<x>0</x>
-			<y>-1</y>
-			<z>0</z>
-		</axis>
+		<axis><y>-1</y></axis>
 	</animation>
 
 	<animation>
@@ -201,11 +120,7 @@
 			<y-m>0.0110</y-m>
 			<z-m>-0.0191</z-m>
 		</center>
-		<axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
+		<axis><x>1</x></axis>
 	</animation>
 
 	<!-- lighting -->
@@ -299,7 +214,7 @@
 	<animation>
 		<type>range</type>
 		<min-m>0</min-m>
-		<max-m>50</max-m>
+		<max-m>10</max-m>
 	</animation>
 
 </PropertyList>
