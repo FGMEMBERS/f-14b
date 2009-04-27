@@ -45,13 +45,9 @@ var computeWingBend = func {
 	if (currentG >= MaxGreached) MaxGreached = currentG;
 	if (currentG <= MinGreached) MinGreached = currentG;
 	if (MaxGreached > MaxG and MaxGreached < UltimateMaxG) {
-		WingSweepLocked = true;
-		FlapsLocked = true;
 		ResidualBend = ResidualBendFactor * (MaxGreached - MaxG);
 	}
 	if (MinGreached < MinG and MinGreached > UltimateMinG) {
-		WingSweepLocked = true;
-		FlapsLocked = true;
 		ResidualBend = ResidualBendFactor * (MaxGreached - MaxG);
 	}
 	#tear one wing if ultimate limits are exceeded
