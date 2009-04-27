@@ -764,7 +764,7 @@
   <type>rotate</type>
   <object-name>StabilatorL</object-name>
   <property>sim/multiplay/generic/float[4]</property>
-  <factor>25.0</factor>
+  <factor>19.0</factor>
   <center>
    <x-m>6.158</x-m>
    <y-m>-2.325</y-m>
@@ -781,7 +781,7 @@
   <type>rotate</type>
   <object-name>StabilatorR</object-name>
   <property>sim/multiplay/generic/float[5]</property>
-  <factor>25.0</factor>
+  <factor>19.0</factor>
   <center>
    <x-m>6.158</x-m>
    <y-m>2.325</y-m>

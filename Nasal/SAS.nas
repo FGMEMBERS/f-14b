@@ -132,9 +132,9 @@ var computeSAS = func {
 				sas_roll = sas_roll * roll_lo_speed_sqr / airspeed_sqr;
 			}
 		} else {
-			sas_roll = raw_a + a_trim * ! o_sweep;   
+			sas_roll = raw_a + a_trim;   
 		}
-		SasRoll.setValue(sas_roll);
+		SasRoll.setValue(sas_roll * ! o_sweep);
 
 		# Pitch Channel
 		var pitch_rate = PitchRate.getValue();
@@ -163,13 +163,13 @@ var computeSAS = func {
 		p_input = smooth_e + p_bias - (flaps_trim + dlc_trim);
 		# Longitudinal authority limit, mechanicaly "handled".
 		if (p_input > 0) {
-			p_input *= min_e * ! o_sweep;
+			p_input *= min_e;
 		} else {
-			p_input *= max_e * ! o_sweep;
+			p_input *= max_e;
 		}
 		# Quadratic Law
 		if (airspeed > PitchLoSpeed) p_input *= (PitchLoSpeed * PitchLoSpeed) / airspeed_sqr;
-		SasPitch.setValue(p_input);
+		SasPitch.setValue(p_input * ! o_sweep);
 		SASpitch = p_input; # Used by adverse.nas 
 
 	}
