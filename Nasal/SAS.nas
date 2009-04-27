@@ -2,7 +2,6 @@
 # Stability Augmentation System
 #----------------------------------------------------------------------------
 
-var D2R             = math.pi / 180;
 var t_increment     = 0.0075;
 var p_lo_speed      = 230;
 var p_lo_speed_sqr  = p_lo_speed * p_lo_speed;
@@ -62,13 +61,13 @@ if ( ElevatorTrim.getValue() != nil ) { e_trim = ElevatorTrim.getValue() }
 
 var trimUp = func {
 	e_trim += (airspeed < 120.0) ? t_increment : t_increment * 14400 / airspeed_sqr;
-	if (e_trim > 1) { e_trim = 1 }
+	if (e_trim > 1) e_trim = 1;
 	ElevatorTrim.setValue(e_trim);
 }
 
 var trimDown = func {
 	e_trim -= (airspeed < 120.0) ? t_increment : t_increment * 14400 / airspeed_sqr;
-	if (e_trim < -1) { e_trim = -1 }
+	if (e_trim < -1) e_trim = -1;
 	ElevatorTrim.setValue(e_trim);
 }
 
