@@ -257,19 +257,10 @@ var afcs_filters = func {
 
 
 # Drag Computation
-var Drag = props.globals.getNode("sim/model/f-14b/systems/fdm/drag");
-var GearPos = props.globals.getNode("gear/gear[1]/position-norm");
+var Drag       = props.globals.getNode("sim/model/f-14b/systems/fdm/drag");
+var GearPos    = props.globals.getNode("gear/gear[1]/position-norm");
 var SpeedBrake = props.globals.getNode("controls/flight/speedbrake", 1);
-
-controls.stepSpoilers = 
-var TransitionMach     = 1;
-var HiMach             = 1.3;
-var LoMachDrag         = 0.5;
-var TransitionMachDrag = 1;
-var HiMachDrag         = 0;
-
-var HiDragFactor = (HiMachDrag - TransitionMachDrag) / (HiMach - TransitionMach);
-var HiMachDragOrigin = TransitionMachDrag - TransitionMach * HiDragFactor;
+var AB         = props.globals.getNode("engines/engine/afterburner", 1);
 
 var sb_i = 0.2;
 
@@ -288,20 +279,17 @@ controls.stepSpoilers = func(s) {
 
 var compute_drag = func {
 	var gearpos = GearPos.getValue();
-	if ( gearpos != nil ) {
-		if ( gearpos > 0.8 ) {
-			LoMachDrag = 1;
-		} else {
-			LoMachDrag = 0.5;
-		}
+	var ab = AB.getValue();
+	var gear_drag = 0;
+	if ( gearpos > 0.8 ) {
+		gear_drag = mach * 0.5;
 	}
-	LoDragFactor = ( TransitionMachDrag - LoMachDrag ) / TransitionMach;
-	if ( mach <= TransitionMach ) {
-		Drag.setValue(mach * LoDragFactor + LoMachDrag);
-	} elsif (mach <= HiMach) {
-		Drag.setValue(mach * HiDragFactor + TransitionMachDrag);
+	if ( mach <= 1 ) {
+		Drag.setValue(mach);
+	} elsif (mach <= 1.3) {
+		Drag.setValue(((math.sin((mach * 11)-0.6) * 0.5) + 1 - ( ab * 2 )) + gear_drag );
 	} else {
-		Drag.setValue(0);
+		Drag.setValue((math.sin((mach * 0.7)+0.25) * 1.6) - ( ab * 1.5));
 	}
 }
 
@@ -340,11 +328,11 @@ var main_loop = func {
 		}
 	} else {
 		# done each 0.1 sec, cnt odd.
-		compute_drag ();
 		awg_9.hud_nearest_tgt();
 		if (( cnt == 5 ) or ( cnt == 11 )) {
 			# done each 0.3 sec.
 			afcs_filters();
+			compute_drag();
 			#if ( cnt == 11 ) {
 				# done each 0.6 sec.
 
