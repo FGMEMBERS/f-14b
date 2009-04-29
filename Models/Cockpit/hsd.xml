@@ -78,10 +78,27 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>tacan-bearing</object-name>
-		<property>sim/model/f-14b/instrumentation/tacan/indicated-mag-bearing-deg</property>
+		<property>instrumentation/tacan/indicated-mag-bearing-deg</property>
 		<axis><x>-1</x></axis>
 	</animation>
 
+	<animation>
+		<type>select</type>
+		<object-name>deviation-bar</object-name>
+		<condition>
+			<property>instrumentation/tacan/in-range</property>
+			<or>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>1</value>
+				</equals>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>2</value>
+				</equals>
+			</or>
+		</condition>
+	</animation>
 	<animation>
 		<type>rotate</type>
 		<object-name>course-group</object-name>
@@ -107,6 +124,31 @@
 		</interpolation>
 		<axis><y>1</y></axis>
 	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>miles-drums-off</object-name>
+		<condition>
+			<not>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>2</value>
+				</equals>
+			</not>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>miles-drums-on</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+				<value>2</value>
+			</equals>
+		</condition>
+	</animation>
+
+
 
 	<animation>
 		<type>textranslate</type>

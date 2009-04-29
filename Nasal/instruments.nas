@@ -1,129 +1,138 @@
 var UPDATE_PERIOD = 0.05;
 
 
-
-
-
 # TACAN: nav[1]
-# ------------- 
 var nav1_back = 0;
-setlistener( "instrumentation/tacan/switch-position", func {nav1_freq_update();} );
 
-var tc              = props.globals.getNode("instrumentation/tacan/");
-var tc_sw_pos       = tc.getNode("switch-position");
-var tc_freq         = tc.getNode("frequencies");
-var tc_true_hdg     = props.globals.getNode("instrumentation/tacan/indicated-bearing-true-deg");
-var tc_mag_hdg      = props.globals.getNode("sim/model/f-14b/instrumentation/tacan/indicated-mag-bearing-deg", 1);
-var heading_offset  = props.globals.getNode("instrumentation/heading-indicator-fg/offset-deg");
-var tcn_ident       = props.globals.getNode("instrumentation/tacan/ident");
-var vtc_ident       = props.globals.getNode("instrumentation/nav[1]/nav-id");
-var from_flag       = props.globals.getNode("sim/model/f-14b/instrumentation/hsd/from-flag", 1);
-var to_flag         = props.globals.getNode("sim/model/f-14b/instrumentation/hsd/to-flag", 1);
-var cdi_deflection  = props.globals.getNode("sim/model/f-14b/instrumentation/hsd/needle-deflection", 1);
-var vtc_from_flag   = props.globals.getNode("instrumentation/nav[1]/from-flag");
-var vtc_to_flag     = props.globals.getNode("instrumentation/nav[1]/to-flag");
-var vtc_deflection  = props.globals.getNode("instrumentation/nav[1]/heading-needle-deflection");
-var course_radial   = props.globals.getNode("instrumentation/nav[1]/radials/selected-deg");
-aircraft.data.add(course_radial);
+var Tc               = props.globals.getNode("instrumentation/tacan");
+var Vtc              = props.globals.getNode("instrumentation/nav[1]");
+var Hsd              = props.globals.getNode("sim/model/f-14b/instrumentation/hsd", 1);
+var TcFreqs          = Tc.getNode("frequencies");
+var TcTrueHdg        = Tc.getNode("indicated-bearing-true-deg");
+var TcMagHdg         = Tc.getNode("indicated-mag-bearing-deg", 1);
+var TcIdent          = Tc.getNode("ident");
+var TcServ           = Tc.getNode("serviceable");
+var TcXY             = Tc.getNode("frequencies/selected-channel[4]");
+var VtcIdent         = Vtc.getNode("nav-id");
+var VtcFromFlag      = Vtc.getNode("from-flag");
+var VtcToFlag        = Vtc.getNode("to-flag");
+var VtcHdgDeflection = Vtc.getNode("heading-needle-deflection");
+var VtcRadialDeg     = Vtc.getNode("radials/selected-deg");
+var HsdFromFlag      = Hsd.getNode("from-flag", 1);
+var HsdToFlag        = Hsd.getNode("to-flag", 1);
+var HsdCdiDeflection = Hsd.getNode("needle-deflection", 1);
+var TcXYSwitch       = props.globals.getNode("sim/model/f-14b/instrumentation/tacan/xy-switch", 1);
+var TcModeSwitch     = props.globals.getNode("sim/model/f-14b/instrumentation/tacan/mode", 1);
+var TrueHdg          = props.globals.getNode("orientation/heading-deg");
+var MagHdg           = props.globals.getNode("orientation/heading-magnetic-deg");
+var MagDev           = props.globals.getNode("orientation/local-mag-dev", 1);
 
-# compute the local magnetic deviation #######
-var true_hdg_deg  = props.globals.getNode("orientation/heading-deg");
-var mag_hdg_deg   = props.globals.getNode("orientation/heading-magnetic-deg");
-var local_mag_dev = props.globals.getNode("sim/model/f-14b/instrumentation/orientation/local-mag-dev", 1);
 var mag_dev = 0;
+var tc_mode = 0;
 
+aircraft.data.add(VtcRadialDeg, TcModeSwitch);
+
+
+# Compute local magnetic deviation.
 var local_mag_deviation = func {
-	var true_hdg = true_hdg_deg.getValue();
-	var mag_hdg = mag_hdg_deg.getValue();
-	mag_dev = geo.normdeg( mag_hdg - true_hdg );
-	if ( mag_dev > 180 ) { mag_dev -= 360 }
-	local_mag_dev.setDoubleValue( mag_dev ); 
+	var true = TrueHdg.getValue();
+	var mag = MagHdg.getValue();
+	mag_dev = geo.normdeg( mag - true );
+	if ( mag_dev > 180 ) mag_dev -= 360;
+	MagDev.setValue(mag_dev); 
 }
 
-# get a magnetic tacan bearing ###############
 
-var tacan_update = func {
-	var tc_true_bearing = tc_true_hdg.getValue();
-	var tc_mag_bearing = geo.normdeg( tc_true_bearing + mag_dev );
-	if ( tc_true_bearing != 0 ) {
-		tc_mag_hdg.setDoubleValue( tc_mag_bearing );
-	} else {
-		tc_mag_hdg.setDoubleValue( 0.0 );
-	}
-}
-
-# set nav[1] so we can use radials from a TACAN station #######
+# Set nav[1] so we can use radials from a TACAN station.
 var nav1_freq_update = func {
-	if ( tc_sw_pos.getValue() == 1 ) {
-		#print("nav1_freq_updat etc_sw_pos = 1");
+	if ( tc_mode != 0 and tc_mode != 4 ) {
 		var tacan_freq = getprop( "instrumentation/tacan/frequencies/selected-mhz" );
 		var nav1_freq = getprop( "instrumentation/nav[1]/frequencies/selected-mhz" );
 		var nav1_back = nav1_freq;
 		setprop("instrumentation/nav[1]/frequencies/selected-mhz", tacan_freq);
 	} else {
-	setprop("instrumentation/nav[1]/frequencies/selected-mhz", nav1_back);
+		setprop("instrumentation/nav[1]/frequencies/selected-mhz", nav1_back);
 	}
 }
 
-# Get TACAN radials on HSD's Course Deviation Indicator ########
-# CDI works with ils OR tacan OR vortac (which freq is tuned from the tacan panel)
-var tacan_dev_indicator = func {
-	var tcn = tc_sw_pos.getValue();
-	if ( tcn ) {
-		var tcnid = tcn_ident.getValue();
-		var vtcid = vtc_ident.getValue();
-		if ( tcnid == vtcid ) {
-			# we have a VORTAC
-			from_flag.setBoolValue(vtc_from_flag.getBoolValue());
-			to_flag.setBoolValue(vtc_to_flag.getBoolValue());
-			cdi_deflection.setValue(vtc_deflection.getValue());
+var tacan_update = func {
+	var tc_mode = TcModeSwitch.getValue();
+	if ( tc_mode != 0 and tc_mode != 4 ) {
+
+		# Get magnetic tacan bearing.
+		var true_bearing = TcTrueHdg.getValue();
+		var mag_bearing = geo.normdeg( true_bearing + mag_dev );
+		if ( true_bearing != 0 ) {
+			TcMagHdg.setDoubleValue( mag_bearing );
 		} else {
-			# we have a legacy TACAN
+			TcMagHdg.setDoubleValue(0);
+		}
+
+		# Get TACAN radials on HSD's Course Deviation Indicator.
+		# CDI works with ils OR tacan OR vortac (which freq is tuned from the tacan panel).
+		var tcnid = TcIdent.getValue();
+		var vtcid = VtcIdent.getValue();
+		if ( tcnid == vtcid ) {
+			# We have a VORTAC.
+			HsdFromFlag.setBoolValue(VtcFromFlag.getBoolValue());
+			HsdToFlag.setBoolValue(VtcToFlag.getBoolValue());
+			HsdCdiDeflection.setValue(VtcHdgDeflection.getValue());
+		} else {
+			# We have a legacy TACAN.
 			var tcn_toflag = 1;
 			var tcn_fromflag = 0;
-			var tcn_bearing = tc_mag_hdg.getValue();
-			var radial = course_radial.getValue();
-			var delt = tcn_bearing - radial;
-			if ( delt > 180 ) {
-				delt -= 360;
-			} elsif ( delt < -180 ) {
-				delt += 360;
-			}
-			if ( delt > 90 ) {
-				delt -= 180;
+			var tcn_bearing = TcMagHdg.getValue();
+			var radial = VtcRadialDeg.getValue();
+			var d = tcn_bearing - radial;
+			if ( d > 180 ) { d -= 360 } elsif ( d < -180 ) { d += 360 }
+			if ( d > 90 ) {
+				d -= 180;
 				tcn_toflag = 0;
 				tcn_fromflag = 1;
-			} elsif ( delt < - 90 ) {
-				delt += 180;
+			} elsif ( d < - 90 ) {
+				d += 180;
 				tcn_toflag = 0;
 				tcn_fromflag = 1;
 			}
-			if ( delt > 10 ) { delt = 10 };
-			if ( delt < -10 ) { delt = -10 };
-			from_flag.setBoolValue(tcn_fromflag);
-			to_flag.setBoolValue(tcn_toflag);
-			cdi_deflection.setValue(delt);
+			if ( d > 10 ) d = 10 ;
+			if ( d < -10 ) d = -10 ;
+			HsdFromFlag.setBoolValue(tcn_fromflag);
+			HsdToFlag.setBoolValue(tcn_toflag);
+			HsdCdiDeflection.setValue(d);
 		}
 	}
 }
 
-# TACAN XY Switch
-var xy_sign = props.globals.getNode("instrumentation/tacan/frequencies/selected-channel[4]");
-var xy_switch = props.globals.getNode("sim/model/f-14b/controls/instrumentation/tacan/xy-switch", 1);
 
-tacan_switch_init = func {
-	var s = xy_sign.getValue();
-	if (s == "X") { xy_switch.setValue( 0 ) } else { xy_switch.setValue( 1 ) }
+# TACAN mode switch
+var set_tacan_mode = func(s) {
+	var m = TcModeSwitch.getValue();
+	if ( s == 1 and m < 5 ) {
+		m += 1;
+	} elsif ( s == -1 and m > 0 ) {
+		m -= 1;
+	}
+	TcModeSwitch.setValue(m);
+	if ( m == 0 or m == 5 ) {
+		TcServ.setBoolValue(0);
+	} else {
+		TcServ.setBoolValue(1);
+	}
+}
+
+
+# TACAN XY switch
+var tacan_switch_init = func {
+	if (TcXY.getValue() == "X") { TcXYSwitch.setValue( 0 ) } else { TcXYSwitch.setValue( 1 ) }
 }
 
 var tacan_XYtoggle = func {
-	var s = xy_sign.getValue();
-	if ( s == "X" ) {
-		xy_sign.setValue( "Y" );
-		xy_switch.setValue( 1 );
+	if ( TcXY.getValue() == "X" ) {
+		TcXY.setValue( "Y" );
+		TcXYSwitch.setValue( 1 );
 	} else {
-		xy_sign.setValue( "X" );
-		xy_switch.setValue( 0 );
+		TcXY.setValue( "X" );
+		TcXYSwitch.setValue( 0 );
 	}
 }
 
@@ -234,16 +243,16 @@ var Mach = props.globals.getNode("velocities/mach");
 var mach = 0;
 
 # Filters
-var pitch_pid_pgain = props.globals.getNode("sim/model/f-14b/systems/afcs/pitch-pid-pgain", 1);
-var vs_pid_pgain = props.globals.getNode("sim/model/f-14b/systems/afcs/vs-pid-pgain", 1);
-var p_pgain = 0;
+var PitchPidPGain = props.globals.getNode("sim/model/f-14b/systems/afcs/pitch-pid-pgain", 1);
+var VsPidPGain    = props.globals.getNode("sim/model/f-14b/systems/afcs/vs-pid-pgain", 1);
+var pgain = 0;
 
 var afcs_filters = func {
-	mach = f14.CurrentMach + 0.01;
-	p_pgain = -0.01 / ( mach * mach * mach * mach );
-	if ( p_pgain < -0.05 ) { p_pgain = -0.05 }
-	pitch_pid_pgain.setDoubleValue(p_pgain);
-	vs_pid_pgain.setDoubleValue(p_pgain/10);
+	f_mach = mach + 0.01;
+	p_gain = -0.01 / ( f_mach * f_mach * f_mach * f_mach );
+	if ( p_gain < -0.05 ) p_gain = -0.05;
+	PitchPidPGain.setValue(p_gain);
+	VsPidPGain.setValue(p_gain/10);
 }
 
 
@@ -315,19 +324,16 @@ var main_loop = func {
 	if ( ( a ) == int( a )) {
 		# done each 0.1 sec, cnt even.
 		inc_ticker();
-		local_mag_deviation();
 		tacan_update();
-		tacan_dev_indicator();
 		f14_hud.update_hud();
-		awg_9.hud_nearest_tgt();
 		g_min_max();
 		f14_chronograph.update_chrono();
-		afcs_filters();
 		if (( cnt == 6 ) or ( cnt == 12 )) {
 			# done each 0.3 sec.
 			f14.fuel_update();
 			if ( cnt == 12 ) {
 				# done each 0.6 sec.
+				local_mag_deviation();
 				nav1_freq_update();
 				cnt = 0;
 			}
@@ -335,6 +341,15 @@ var main_loop = func {
 	} else {
 		# done each 0.1 sec, cnt odd.
 		compute_drag ();
+		awg_9.hud_nearest_tgt();
+		if (( cnt == 5 ) or ( cnt == 11 )) {
+			# done each 0.3 sec.
+			afcs_filters();
+			#if ( cnt == 11 ) {
+				# done each 0.6 sec.
+
+			#}
+		}
 	}
 	settimer(main_loop, UPDATE_PERIOD);
 }
@@ -347,6 +362,7 @@ var init = func {
 	f14.ext_loads_init();
 	f14.init_fuel_system();
 	ticker.setDoubleValue(0);
+	local_mag_deviation();
 	tacan_switch_init();
 	radardist.init();
 	awg_9.init();
@@ -354,7 +370,7 @@ var init = func {
 	an_arc_159v1.init();
 	setprop("controls/switches/radar_init", 0);
 	# properties to be stored
-	foreach (var f_tc; tc_freq.getChildren()) {
+	foreach (var f_tc; TcFreqs.getChildren()) {
 		aircraft.data.add(f_tc);
 	}
 	# launch

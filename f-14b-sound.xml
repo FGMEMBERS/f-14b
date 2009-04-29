@@ -913,6 +913,77 @@
 			</volume>
 		</tacan-xy-switch-y>
 
+		<tacan-mode-knob-0> 
+			<name>tacan-mode-knob-0</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.20</factor>
+			</volume>
+		</tacan-mode-knob-0>
+		<tacan-mode-knob-1> 
+			<name>tacan-mode-knob-1</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.20</factor>
+			</volume>
+		</tacan-mode-knob-1>
+		<tacan-mode-knob-2> 
+			<name>tacan-mode-knob-2</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>2</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.20</factor>
+			</volume>
+		</tacan-mode-knob-2>
+		<tacan-mode-knob-3> 
+			<name>tacan-mode-knob-3</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>3</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.20</factor>
+			</volume>
+		</tacan-mode-knob-3>
+		<tacan-mode-knob-4> 
+			<name>tacan-mode-knob-4</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/shlock.wav</path>
+			<condition>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>4</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.20</factor>
+			</volume>
+		</tacan-mode-knob-4>
+
 		<an-arc-182v-load-preset> 
 			<name>an-arc-182v-load-preset</name>
 			<mode>once</mode>

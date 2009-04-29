@@ -316,9 +316,6 @@
 						<roll type="bool">true</roll>
 						<yaw type="bool">true</yaw>
 					</SAS>
-					<tacan>
-						<xy-switch type="bool">0</xy-switch>
-					</tacan>
 					<TID>
 						<on-off type="bool">true</on-off>
 						<brightness type="double">1</brightness>
@@ -448,6 +445,7 @@
 						</wcs-mode>
 					</radar-awg-9>
 					<tacan>
+						<xy-switch type="bool">0</xy-switch>
 						<nogo-lamp type="bool">false</nogo-lamp>
 						<go-lamp type="bool">false</go-lamp>
 						<mode type="int">0</mode>

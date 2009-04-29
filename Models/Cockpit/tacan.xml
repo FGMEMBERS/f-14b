@@ -83,7 +83,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>mode-knob</object-name>
-		<property>sim/model/f-14b/controls/instrumentation/tacan/mode</property>
+		<property>sim/model/f-14b/instrumentation/tacan/mode</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
 			<entry><ind>2</ind><dep>-60</dep></entry>
@@ -109,10 +109,8 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.3</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/controls/instrumentation/tacan/mode</property>
-				<step>-1</step>
-				<min>0</min>
+				<command>nasal</command>
+				<script>f14_instruments.set_tacan_mode(-1)</script>
 			</binding>
 		</action>
 	</animation>
@@ -125,10 +123,8 @@
 			<repeatable>true</repeatable>
 			<interval-sec>0.3</interval-sec>
 			<binding>
-				<command>property-adjust</command>
-				<property>sim/model/f-14b/controls/instrumentation/tacan/mode</property>
-				<step>1</step>
-				<max>4</max>
+				<command>nasal</command>
+				<script>f14_instruments.set_tacan_mode(1)</script>
 			</binding>
 		</action>
 	</animation>
@@ -189,7 +185,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>xy-switch</object-name>
-		<property>sim/model/f-14b/controls/instrumentation/tacan/xy-switch</property>
+		<property>sim/model/f-14b/instrumentation/tacan/xy-switch</property>
 		<factor>40</factor>
 		<center>
 			<x-m>0.0160</x-m>

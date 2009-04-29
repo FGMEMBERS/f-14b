@@ -22,6 +22,7 @@
 		<axis><x>1</x></axis>
 	</animation>
 
+	<!-- needle #1 = DF -->
 	<animation>
 		<type>select</type>
 		<object-name>needle-1</object-name>
@@ -65,21 +66,92 @@
 	</animation>
 
 
+	<!-- needle #2 = TACAN -->
+	<animation>
+		<type>select</type>
+		<object-name>needle-2</object-name>
+		<condition>
+			<property>instrumentation/tacan/in-range</property>
+			<or>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>1</value>
+				</equals>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>2</value>
+				</equals>
+			</or>
+		</condition>
+	</animation>
 	<animation>
 		<type>rotate</type>
 		<object-name>needle-2</object-name>
 		<property>orientation/heading-magnetic-deg</property>
 		<axis><x>1</x></axis>
 	</animation>
-
 	<animation>
 		<type>rotate</type>
 		<object-name>needle-2</object-name>
-		<property>sim/model/f-14b/instrumentation/tacan/indicated-mag-bearing-deg</property>
+		<property>instrumentation/tacan/indicated-mag-bearing-deg</property>
 		<axis><x>-1</x></axis>
 	</animation>
 
-<!-- tacan distance digital display -->
+	<animation>
+		<type>select</type>
+		<object-name>needle-2-off</object-name>
+		<condition>
+			<or>
+				<not>
+					<property>instrumentation/tacan/in-range</property>
+				</not>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>0</value>
+				</equals>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>3</value>
+				</equals>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>4</value>
+				</equals>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>needle-2-off</object-name>
+		<property>orientation/heading-magnetic-deg</property>
+		<axis><x>1</x></axis>
+	</animation>
+
+	<!-- tacan distance digital display -->
+	<animation>
+		<type>select</type>
+		<object-name>no-range-flag</object-name>
+		<condition>
+			<or>
+				<not>
+					<property>instrumentation/tacan/in-range</property>
+				</not>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>0</value>
+				</equals>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>1</value>
+				</equals>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+					<value>4</value>
+				</equals>
+			</or>
+		</condition>
+	</animation>
+
 	<animation>
 		<type>textranslate</type>
 		<object-name>range-drum-1</object-name>
