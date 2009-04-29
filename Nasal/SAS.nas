@@ -124,7 +124,7 @@ var computeSAS = func {
 			last_a = smooth_a;
 			sas_roll = (smooth_a + a_trim) ; 
 			if (airspeed > roll_lo_speed) {
-				sas_roll = sas_roll * roll_lo_speed_sqr / airspeed_sqr;
+				sas_roll *= roll_lo_speed_sqr / airspeed_sqr;
 			}
 		} else {
 			sas_roll = raw_a + a_trim;   
@@ -138,11 +138,11 @@ var computeSAS = func {
 		var smooth_e   = raw_e;
 		var dlc_trim   = 0;
 		if (SasPitchOn.getValue()) {
-			# 1) Exponential Filter smoothing longitudinal input.		
+			# Exponential Filter smoothing longitudinal input.		
 			smooth_e = last_e + ((raw_e - last_e) * e_smooth_factor);
 			last_e = smooth_e;
 			if ( deltaT < 0.06 ) {
-				# 2) Proportional Bias Filter based on current attitude change rate.
+				# Proportional Bias Filter based on current attitude change rate.
 				var p_var_err = - ((pitch_rate * math.cos(roll_rad)) + (yaw_rate * math.sin(roll_rad)));
 				p_bias = last_p_bias + p_kp * (p_var_err - last_p_var_err);
 				last_p_var_err = p_var_err;
