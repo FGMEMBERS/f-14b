@@ -129,6 +129,7 @@ var computeSAS = func {
 		} else {
 			sas_roll = raw_a + a_trim;   
 		}
+		SASroll = sas_roll; # Used by adverse.nas
 		SasRoll.setValue(sas_roll * ! o_sweep);
 
 		# Pitch Channel
