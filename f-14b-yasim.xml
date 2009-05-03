@@ -104,7 +104,7 @@
 		taper="0.3" sweep="45" dihedral="-2" camber="-0.01" effectiveness="2.0">
 		<stall aoa="40.0" width="2" peak="1.2"/>
 		<!-- taileron simulation, should be direct control on the incidence of the tailplane -->
-		<flap0 start="0" end="0.5" lift="2.2" drag="1.1"/>
+		<flap0 start="0" end="0.5" lift="2.2" drag="1"/>
 		<!-- used to simulate adverse aerodynamic effects -->
 		<flap1 start="0.5" end="1" lift="2.0" drag="1.5"/>
 		<control-input axis="/controls/flight/SAS-pitch" control="FLAP0"/>
