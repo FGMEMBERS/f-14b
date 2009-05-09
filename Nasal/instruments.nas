@@ -177,13 +177,17 @@ aircraft.data.add(	bingo,
 
 
 # Accelerometer ###########
-var g_curr = props.globals.getNode("accelerations/pilot-g");
-var g_max  = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-max");
-var g_min  = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-min");
+var g_curr  = props.globals.getNode("accelerations/pilot-g");
+var g_max   = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-max");
+var g_min   = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-min");
 aircraft.data.add( g_min, g_max );
+var GMaxMav = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-max-mooving-average", 1);
+GMaxMav.initNode(nil, 0);
+var g_mva_vec     = [0,0,0,0,0];
 
 var g_min_max = func {
-	# records g min and max values
+	# Records g min, g max and 0.5 sec averaged max values. g_min_max(). Has to be
+	# fired every 0.1 sec.
 	var curr = g_curr.getValue();
 	var max = g_max.getValue();
 	var min = g_min.getValue();
@@ -192,6 +196,10 @@ var g_min_max = func {
 	} elsif ( curr <= min ) {
 		g_min.setDoubleValue(curr);
 	}
+	var g_max_mav = (g_mva_vec[0]+g_mva_vec[1]+g_mva_vec[2]+g_mva_vec[3]+g_mva_vec[4])/5;
+	pop(g_mva_vec);
+	g_mva_vec = [curr] ~ g_mva_vec;
+	GMaxMav.setValue(g_max_mav);
 }
 
 # VDI #####################

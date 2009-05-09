@@ -84,11 +84,11 @@ var computeSAS = func {
 	var a_trim   = AileronTrim.getValue();
 	var w_sweep = WSweep.getValue();
 	var o_sweep = ( w_sweep != nil and w_sweep > 1.01 ) ? 1 : 0;
+	# Temporarly disengage Autopilot when control stick steering or when 7 frames average fps < 10.
 	steering = ((raw_e > 0.05 or -0.05 > raw_e) or (raw_a > 0.01 or -0.01 > raw_a)) ? 1 : 0;
-	mvaf_dT = (dt_mva_vec[0]+dt_mva_vec[1]+dt_mva_vec[2]+dt_mva_vec[3]+dt_mva_vec[4]+dt_mva_vec[5]+dt_mva_vec[6])/7;
+	var mvaf_dT = (dt_mva_vec[0]+dt_mva_vec[1]+dt_mva_vec[2]+dt_mva_vec[3]+dt_mva_vec[4]+dt_mva_vec[5]+dt_mva_vec[6])/7;
 	pop(dt_mva_vec);
 	dt_mva_vec = [deltaT] ~ dt_mva_vec;
-	# Temporarly disengage Autopilot when control stick steering or when 7 frames average fps < 10.
 	# Simple mode, Attitude: pitch and roll.
 	# f14_afcs.ap_lock_att:
 	# 0 = attitude not engaged (no autopilot at all).
