@@ -241,17 +241,7 @@
 	</animation>
 
 	<animation>
-		<object-name>needle-1</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>needle-1-off</object-name>
+		<object-name>needles-flags-drums</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
@@ -261,27 +251,6 @@
 		</emission>
 	</animation>
 
-	<animation>
-		<object-name>needle-2</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-
-	<animation>
-		<object-name>drums</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
 
 	<animation>
 		<type>range</type>
