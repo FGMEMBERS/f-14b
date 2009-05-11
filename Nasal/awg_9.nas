@@ -95,17 +95,17 @@ var az_scan = func() {
 	our_alt = OurAlt.getValue();
 
 	if (swp_dir != swp_dir_last) {
-		# Transient when changing az scan field 
+		# Antena scan direction change. Max every 2 seconds. Reads the whole MP_list.
+		# TODO: Transient when changing az scan field 
 		az_fld = AzField.getValue();
 		range_radar2 = RangeRadar2.getValue();
 		if ( range_radar2 == 0 ) { range_radar2 = 0.00000001 }
-		# reset nearest_range score
+		# Reset nearest_range score
 		nearest_u = tmp_nearest_u;
 		nearest_rng = tmp_nearest_rng;
 		tmp_nearest_rng = nil;
 		tmp_nearest_u = nil;
 
-		# Antena scan direction change. Max every 2 seconds. Reads the whole MP_list.
 		tgts_list = [];
 		var raw_list = Mp.getChildren();
 		foreach( var c; raw_list ) {
@@ -120,7 +120,6 @@ var az_scan = func() {
 				if ( u.Range != nil) {
 					var u_rng = u.get_range();
 					if (u_rng < range_radar2 ) {
-						##### We should take own aircraft roll and pitch here, and save later HUD pitch issues.
 						u.get_deviation(our_true_heading);
 						if ( u.deviation > l_az_fld  and  u.deviation < r_az_fld ) {
 							append(tgts_list, u);
@@ -129,9 +128,9 @@ var az_scan = func() {
 						}
 						ecm_on = EcmOn.getValue();
 						# Test if target has a radar. Compute if we are illuminated. This propery used by ECM
-						# over MP should be standardized, like "ai/models/multiplayer[0]/radar/radar-standby"
+						# over MP, should be standardized, like "ai/models/multiplayer[0]/radar/radar-standby".
 						if ( ecm_on and u.get_rdr_standby() == 0) {
-							rwr(u);	# TODO: overide display when alert.
+							rwr(u);	# TODO: override display when alert.
 						}
 					} else {
 						u.set_display(0);
@@ -157,8 +156,8 @@ var az_scan = func() {
 		if ( u_fading < 0 ) { u_fading = 0 }
 		if (( swp_dir and swp_deg_last < u.deviation and u.deviation <= swp_deg )
 			or ( ! swp_dir and swp_deg <= u.deviation and u.deviation < swp_deg_last )) {
-			u.get_heading();
 			u.get_bearing();
+			u.get_heading();
 			var horizon = u.get_horizon( our_alt );
 			var u_rng = u.get_range();
 			if ( u_rng < horizon and radardist.radis(u.string, my_radarcorr)) {
