@@ -56,14 +56,15 @@
 			</orientation>
 			<pitch>
 				<property>engines/engine[0]/afterburner</property>
-				<factor>0.01</factor>
-				<offset>0.15</offset>
+				<factor>1</factor>
+				<offset>0.3</offset>
 			</pitch>
 			<volume>
 				<property>engines/engine[0]/afterburner</property>
-				<factor>0.7</factor>
-				<offset>0.3</offset>
-				<max>1</max>
+				<!--<factor>0.7</factor>-->
+				<factor>1.2</factor>
+				<offset>0.15</offset>
+				<!--<max>1</max>-->
 			</volume>
 		</engine-rumble>
 		<engine-whine-external>
@@ -120,6 +121,28 @@
 				<max>0.7</max>
 			</volume>
 		</engine-whine-internal>
+		<engine-jet-internal>
+			<name>internal-jet</name>
+			<path>Sounds/jet.wav</path>
+			<mode>looped</mode>
+			<condition>
+				<property>sim/current-view/internal</property>
+				<not>
+					<property>engines/engine[0]/out-of-fuel</property>
+				</not>
+			</condition>
+			<pitch>
+				<property>engines/engine[0]/n1</property>
+				<ofset>0.1</ofset>
+				<factor>.0016</factor>
+			</pitch>
+			<volume>
+				<property>engines/engine[0]/thrust-lbs</property>
+				<factor>0.00005</factor>
+				<min>0.1</min>
+				<max>0.9</max>
+			</volume>
+		</engine-jet-internal>
 
 		<!-- Rumble -->
 		<rumble>
@@ -135,7 +158,7 @@
 			</condition>
 			<volume>
 				<property>/velocities/airspeed-kt</property>
-				<factor>.002</factor>
+				<factor>.003</factor>
 			</volume>
 		</rumble>
 
@@ -244,9 +267,9 @@
 					<property>sim/current-view/view-number</property>
 					<value>0</value>
 				</equals>
-					<greater-than>
+				<greater-than>
 					<property>canopy/position-norm</property>
-				<value>0</value>
+					<value>0</value>
 				</greater-than>
 			</condition>
 			<volume>
@@ -254,6 +277,31 @@
 				<factor>0.001</factor>
 			</volume>
 		</wind>
+
+		<!-- Air-brakes -->
+		<air-brakes>
+			<name>air-brakes</name>
+			<mode>looped</mode>
+			<path>Aircraft/f-14b/Sounds/air-brakes.wav</path>
+			<condition>
+				<equals>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</equals>
+				<greater-than>
+					<property>surface-positions/speedbrake-pos-norm</property>
+					<value>0</value>
+				</greater-than>
+			</condition>
+			<volume>
+				<property>velocities/airspeed-kt</property>
+				<factor>0.001</factor>
+			</volume>
+			<volume>
+				<property>surface-positions/speedbrake-pos-norm</property>
+				<factor>1.5</factor>
+			</volume>
+		</air-brakes>
 
 
 		<!-- Squeal -->
@@ -1013,6 +1061,21 @@
 			</volume>
 		</an-arc-159v1-load-preset>
 
+		<!-- radar TWS-AUTO -->
+		<tws-auto> 
+			<name>tws-auto</name>
+			<mode>once</mode>
+			<path>Aircraft/f-14b/Sounds/bibip.wav</path>
+			<condition>
+				<equals>
+					<property>sim/model/f-14b/instrumentation/radar-awg-9/hud/target-display</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<volume> 
+				<factor>0.2</factor>
+			</volume>
+		</tws-auto>
 
 		<!-- External -->
 		<tanks-ground-sound-in> 
