@@ -473,7 +473,7 @@ loc 0.000130512 -0.00310197 -9.21209e-07
 kids 6
 OBJECT poly
 name "MP1hdg"
-loc 0.000466675 0.00172415 2.31368e-05
+loc 0.0680341 0.00172415 2.31368e-05
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -492,7 +492,7 @@ refs 4
 kids 0
 OBJECT poly
 name "MP1symb"
-loc -0.000466682 -0.00108736 -2.31368e-05
+loc 0.0671008 -0.00108736 -2.31368e-05
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -511,7 +511,7 @@ refs 4
 kids 0
 OBJECT poly
 name "MP1symb-carrier"
-loc -0.000466682 -0.00585222 -2.31368e-05
+loc 0.0671008 -0.00585222 -2.31368e-05
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -530,7 +530,7 @@ refs 4
 kids 0
 OBJECT poly
 name "MP1alt0"
-loc 0.000466675 -0.000873938 -0.00705162
+loc 0.0680341 -0.000873938 -0.00705162
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -549,7 +549,7 @@ refs 4
 kids 0
 OBJECT poly
 name "MP1alt1"
-loc 0.000466675 -0.000873938 -0.00705162
+loc 0.0680341 -0.000873938 -0.00705162
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -568,7 +568,7 @@ refs 4
 kids 0
 OBJECT poly
 name "MP1alt2"
-loc 0.000466675 -0.000873938 -0.0126169
+loc 0.0680341 -0.000873938 -0.0126169
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
