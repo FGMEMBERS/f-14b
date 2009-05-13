@@ -1,15 +1,14 @@
 # AWG-9 Radar routines.
 # RWR (Radar Warning Receiver) is computed in the radar loop for better performance
 
+var ElapsedSec  = props.globals.getNode("sim/time/elapsed-sec");
 var SwpFac  = props.globals.getNode("sim/model/f-14b/instrumentation/awg-9/sweep-factor", 1);
 var DisplayRdr  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/display-rdr");
 var HudTgtHDisplay  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-display", 1);
-var HudTgtHDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-horizontal-deviation", 1);
-var HudTgtVDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-vertical-deviation", 1);
 var HudTgt  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target", 1);
 var HudTgtTDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-deviation", 1);
 var HudTgtTDeg  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-angle", 1);
-var HudCombinedDevDeg  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/combined_dev_deg", 1);
+var HudTgtClosureRate = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/closure-rate", 1);
 var AzField = props.globals.getNode("instrumentation/radar/az-field", 1);
 var RangeRadar2 = props.globals.getNode("instrumentation/radar/radar2-range");
 var OurAlt = props.globals.getNode("position/altitude-ft");
@@ -172,6 +171,8 @@ var az_scan = func() {
 				u.set_tid_draw_range_nm( factor_range_radar * u_rng );
 				# Compute first digit of mp altitude rounded to nearest thousand. (labels).
 				u.set_rounded_alt( rounding1000( u.get_altitude() ) / 1000 );
+				# Compute closure rate in Kts.
+				u.get_closure_rate();
 				# Check if u = nearest echo.
 				if ( tmp_nearest_rng == nil or u_rng < tmp_nearest_rng) {
 					tmp_nearest_u = u;
@@ -221,7 +222,11 @@ var hud_nearest_tgt = func() {
 			} else {
 				Clamp_Blinker.cont();
 			}
+			# Clamp closure rate from -200 to +1,000 Kts.
+			var cr = nearest_u.ClosureRate.getValue();
+			if (cr < -200) { cr = 200 } elsif (cr > 1000) { cr = 1000 }
 
+			HudTgtClosureRate.setValue(cr);
 			HudTgtTDeg.setValue(combined_dev_deg);
 			HudTgtTDev.setValue(combined_dev_length);
 			HudTgtHDisplay.setBoolValue(1);
@@ -230,6 +235,7 @@ var hud_nearest_tgt = func() {
 			######### TODO: offset sweep to follow the target ##########
 		}
 	}
+	HudTgtClosureRate.setValue(0);
 	HudTgtTDeg.setValue(0);
 	HudTgtTDev.setValue(0);
 	HudTgtHDisplay.setBoolValue(0);
@@ -359,6 +365,12 @@ var Target = {
 		obj.DddDrawRangeNm = obj.TgtsFiles.getNode("ddd-draw-range-nm", 1);
 		obj.TidDrawRangeNm = obj.TgtsFiles.getNode("tid-draw-range-nm", 1);
 		obj.RoundedAlt     = obj.TgtsFiles.getNode("rounded-alt-ft", 1);
+		obj.TimeLast       = obj.TgtsFiles.getNode("closure-last-time", 1);
+		obj.RangeLast      = obj.TgtsFiles.getNode("closure-last-range-nm", 1);
+		obj.ClosureRate    = obj.TgtsFiles.getNode("closure-rate-kts", 1);
+
+		obj.TimeLast.setValue(ElapsedSec.getValue());
+		obj.RangeLast.setValue(obj.Range.getValue());
 
 		obj.RadarStandby = c.getNode("sim/multiplay/generic/int[2]");
 
@@ -431,7 +443,7 @@ var Target = {
 	set_display : func(n) {
 		me.Display.setBoolValue(n);
 	},
-	get_fading : func {
+	get_fading : func() {
 		var fading = me.Fading.getValue(); 
 		if ( fading == nil ) { fading = 0 }
 		return fading;
@@ -450,6 +462,15 @@ var Target = {
 	},
 	set_rounded_alt : func(n) {
 		me.RoundedAlt.setValue(n);
+	},
+	get_closure_rate : func() {
+		var dt = ElapsedSec.getValue() - me.TimeLast.getValue();
+		var rng = me.Range.getValue();
+		var t_distance = me.RangeLast.getValue() - rng;
+		var cr = t_distance/dt*3600;
+		me.ClosureRate.setValue(cr);
+		me.RangeLast.setValue(rng);
+		return(cr);
 	},
 	list : [],
 };

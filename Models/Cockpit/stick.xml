@@ -11,16 +11,8 @@
 		<object-name>stick-mast</object-name>
 		<property>controls/flight/elevator</property>
 		<factor>20</factor>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0.0153</z-m>
-		</center>
-		<axis>
-			<x>0</x>
-			<y>-1</y>
-			<z>0</z>
-		</axis>
+		<center><z-m>0.0153</z-m></center>
+		<axis><y>-1</y></axis>
 	</animation>
 
 	<animation>
@@ -29,16 +21,8 @@
 		<object-name>stick-roll</object-name>
 		<property>controls/flight/aileron</property>
 		<factor>20</factor>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0.1895</z-m>
-		</center>
-		<axis>
-			<x>-1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
+		<center><z-m>0.1895</z-m></center>
+		<axis><x>-1</x></axis>
 	</animation>
 	<animation>
 		<type>rotate</type>
@@ -54,17 +38,24 @@
 			<y-m>-0.0536</y-m>
 			<z-m>0.1751</z-m>
 		</center>
-		<axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
+		<axis><x>1</x></axis>
 	</animation>
 
 	<animation>
-		<object-name>stick</object-name>
-		<type>noshadow</type>
+		<type>rotate</type>
+		<object-name>arm-selector</object-name>
+		<property>sim/model/f-14b/controls/armament/stick-selector</property>
+		<factor>30</factor>
+		<center>
+			<x-m>0.0842</x-m>
+			<y-m>0</y-m>
+			<z-m>0.4402</z-m>
+		</center>
+		<axis><y>1</y></axis>
 	</animation>
+
+
+	<!-- Lighting -->
 	<animation> 
 		<object-name>stick</object-name>
 		<type>material</type>

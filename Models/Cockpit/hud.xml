@@ -14,9 +14,11 @@
 				<property>sim/current-view/name</property>
 				<value>Cockpit View</value>
 			</equals>
+			<property>sim/hud/visibility[1]</property>
 		</condition>
 	</animation>
 
+	<!-- Diamond -->
 	<animation>
 		<type>select</type>
 		<object-name>lock-1</object-name>
@@ -48,6 +50,81 @@
 		<axis><x>1</x></axis>
 	</animation>
 
+	<!-- Weapons labels -->
+	<animation>
+		<type>select</type>
+		<object-name>master-arm-locked</object-name>
+		<condition>
+			<not>
+				<equals>
+					<property>sim/model/f-14b/controls/armament/master-arm-switch</property>
+					<value>2</value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+					<property>sim/model/f-14b/controls/armament/stick-selector</property>
+					<value>0</value>
+				</equals>
+			</not>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>g-label</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/controls/armament/stick-selector</property>
+				<value>1</value>
+			</equals>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sw-label</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/controls/armament/stick-selector</property>
+				<value>2</value>
+			</equals>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sp-label</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/controls/armament/stick-selector</property>
+				<value>3</value>
+			</equals>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>arm-digit</object-name>
+		<condition>
+			<greater-than>
+				<property>sim/model/f-14b/controls/armament/stick-selector</property>
+				<value>0</value>
+			</greater-than>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>piper</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/controls/armament/stick-selector</property>
+				<value>1</value>
+			</equals>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
 
 
 
@@ -57,12 +134,13 @@
 		<type>material</type>
 		<emission>
 			<factor-prop>sim/model/f-14b/controls/hud/intens</factor-prop>
-			<red>0.5</red>
-			<green>0.8</green>
-			<blue>0.32</blue>
+			<red-prop>sim/hud/color/red</red-prop>
+			<green-prop>sim/hud/color/green</green-prop>
+			<blue-prop>sim/hud/color/blue</blue-prop>
 		</emission>
 		<transparency>
-			<alpha-prop>sim[0]/hud/color/alpha</alpha-prop>
+			<!-- <alpha-prop>sim/hud/color/alpha</alpha-prop> -->
+			<alpha-prop>sim/model/f-14b/controls/hud/intens</alpha-prop>
 		</transparency>
 	</animation>
 

@@ -6,8 +6,9 @@ var GunRateHighLight = props.globals.getNode( "sim/model/f-14b/controls/armament
 var SwCoolOffLight = props.globals.getNode( "sim/model/f-14b/controls/armament/acm-panel-lights/sw-cool-off-light" );
 var MslPrepOffLight = props.globals.getNode( "sim/model/f-14b/controls/armament/acm-panel-lights/msl-prep-off-light" );
 var SystemOnOff = props.globals.getNode( "sim/model/f-14b/controls/armament/system-on-off");
+var StickSelector = props.globals.getNode( "sim/model/f-14b/controls/armament/stick-selector");
 
-
+aircraft.data.add(StickSelector, MasterArmLever, MasterArmSwitch );
 
 var system_start = func {
 	settimer (func { GunRateHighLight.setBoolValue(1); }, 0.3);
@@ -53,4 +54,9 @@ var master_arm_switch = func(a) {
 			system_stop();
 		}
 	}
+}
+
+var arm_selector = func(n) {
+	var master_arm_switch = MasterArmSwitch.getValue();
+
 }
