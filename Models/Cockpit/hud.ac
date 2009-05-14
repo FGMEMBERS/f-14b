@@ -4,11 +4,49 @@ OBJECT world
 kids 1
 OBJECT group
 name "hud"
-loc -3.72529e-08 -0.0713191 -0.000230563
-kids 8
+loc -3.72529e-08 -0.0426698 -0.000144444
+kids 10
+OBJECT poly
+name "tacan-from"
+loc 0 0.0358488 9.22308e-05
+texture "hsd-symbols.rgb"
+crease 45.000000
+numvert 4
+0 0.0339048 -0.00232636
+0 0.0339048 0.00231942
+0 -0.0401745 0.00231942
+0 -0.0401745 -0.00232636
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+0 0.152274 0.753318
+1 0.124963 0.753318
+2 0.124963 0.497471
+3 0.152274 0.497471
+kids 0
+OBJECT poly
+name "tacan-to"
+loc 0 0.0358488 9.22308e-05
+texture "hsd-symbols.rgb"
+crease 45.000000
+numvert 4
+0 -0.0401745 -0.00232636
+0 -0.0401745 0.00231942
+0 0.0339048 0.00231942
+0 0.0339048 -0.00232636
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+3 0.119454 0.753318
+2 0.0921432 0.753318
+1 0.0921432 0.497471
+0 0.119454 0.497471
+kids 0
 OBJECT poly
 name "piper"
-loc 0 0.0925924 0.000250527
+loc 0 0.0639431 0.000164408
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -27,7 +65,7 @@ refs 4
 kids 0
 OBJECT poly
 name "ac-reticle"
-loc 0 0.0649044 0.000253969
+loc 0 0.0362551 0.00016785
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -46,7 +84,7 @@ refs 4
 kids 0
 OBJECT poly
 name "g-label"
-loc 0 -0.0119824 -0.000106767
+loc 0 -0.0406317 -0.000192886
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -65,7 +103,7 @@ refs 4
 kids 0
 OBJECT poly
 name "sw-label"
-loc 0 -0.0119824 -0.000106767
+loc 0 -0.0406317 -0.000192886
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -84,7 +122,7 @@ refs 4
 kids 0
 OBJECT poly
 name "sp-label"
-loc 0 -0.0119824 -0.000106767
+loc 0 -0.0406317 -0.000192886
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -103,7 +141,7 @@ refs 4
 kids 0
 OBJECT poly
 name "lock-1"
-loc 0 0.0718249 0.000239533
+loc 0 0.0431756 0.000153414
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -122,7 +160,7 @@ refs 4
 kids 0
 OBJECT poly
 name "master-arm-locked"
-loc 0 -0.0118441 -0.000102797
+loc 0 -0.0404934 -0.000188916
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4
@@ -141,7 +179,7 @@ refs 4
 kids 0
 OBJECT poly
 name "arm-digit"
-loc 0 -0.0240335 0.000183563
+loc 0 -0.0526828 9.74435e-05
 texture "hsd-symbols.rgb"
 crease 45.000000
 numvert 4

@@ -126,6 +126,72 @@
 		</condition>
 	</animation>
 
+	<!-- Tacan -->
+	<animation>
+		<type>select</type>
+		<object-name>tacan-to</object-name>
+		<condition>
+			<and>
+				<property>sim/model/f-14b/instrumentation/hsd/to-flag</property>
+				<property>instrumentation/tacan/in-range</property>
+				<or>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+						<value>1</value>
+					</equals>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+						<value>2</value>
+					</equals>
+				</or>
+				<property>sim/model/f-14b/controls/pilots-displays/mode/cruise-bt</property>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>tacan-to</object-name>
+		<property>sim/model/f-14b/instrumentation/hsd/needle-deflection</property>
+		<interpolation>
+			<entry><ind>-10</ind><dep>-0.0606</dep></entry>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>10</ind><dep>0.0606</dep></entry>
+		</interpolation>
+		<axis><y>1</y></axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>tacan-from</object-name>
+		<condition>
+			<and>
+				<property>sim/model/f-14b/instrumentation/hsd/from-flag</property>
+				<property>instrumentation/tacan/in-range</property>
+				<or>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+						<value>1</value>
+					</equals>
+					<equals>
+						<property>sim/model/f-14b/instrumentation/tacan/mode</property>
+						<value>2</value>
+					</equals>
+				</or>
+				<property>sim/model/f-14b/controls/pilots-displays/mode/cruise-bt</property>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>tacan-from</object-name>
+		<property>sim/model/f-14b/instrumentation/hsd/needle-deflection</property>
+		<interpolation>
+			<entry><ind>-10</ind><dep>-0.0606</dep></entry>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>10</ind><dep>0.0606</dep></entry>
+		</interpolation>
+		<axis><y>1</y></axis>
+	</animation>
 
 
 	<!-- lighting -->
