@@ -257,14 +257,17 @@ var mach = 0;
 
 # Filters
 var PitchPidPGain = props.globals.getNode("sim/model/f-14b/systems/afcs/pitch-pid-pgain", 1);
+var PitchPidDGain = props.globals.getNode("sim/model/f-14b/systems/afcs/pitch-pid-dgain", 1);
 var VsPidPGain    = props.globals.getNode("sim/model/f-14b/systems/afcs/vs-pid-pgain", 1);
 var pgain = 0;
 
 var afcs_filters = func {
-	f_mach = mach + 0.01;
-	p_gain = -0.01 / ( f_mach * f_mach * f_mach * f_mach );
-	if ( p_gain < -0.05 ) p_gain = -0.05;
+	var f_mach = mach + 0.01;
+	var p_gain = -0.008 / ( f_mach * f_mach * f_mach * f_mach * 1.2);
+	if ( p_gain < -0.04 ) p_gain = -0.04;
+	var d_gain = 0.4 * ( 2.5 - ( mach * 2 ));
 	PitchPidPGain.setValue(p_gain);
+	PitchPidDGain.setValue(d_gain);
 	VsPidPGain.setValue(p_gain/10);
 }
 
