@@ -53,7 +53,7 @@
 			<prop>/controls/flight/SAS-roll</prop>
 		</output>
 		<config>
-			<Kp>0.05</Kp>
+			<Kp>0.038</Kp>
 			<beta>1</beta>
 			<Ti>10</Ti>
 			<Td>0.00000000001</Td>
@@ -113,60 +113,6 @@
 		</config>
 	</pid-controller>
 
-	<!-- True heading hold -->
-	<!--<pi-simple-controller>
-		<name>True Heading Hold</name>
-		<debug>false</debug>
-		<enable>
-			<prop>autopilot/locks/heading</prop>
-			<value>true-heading-hold</value>
-		</enable>
-		<input>
-			<prop>orientation/heading-deg</prop>
-		</input>
-		<reference>
-			<prop>autopilot/settings/heading-deg</prop>
-		</reference>
-		<output>
-			<prop>autopilot/internal/target-roll-deg</prop>
-		</output>
-		<config>
-			<Kp>-1</Kp>
-			<Ki>0</Ki>
-			<u_min>-60.0</u_min>
-			<u_max>60.0</u_max>
-		</config>
-	</pi-simple-controller>
-
-	<pid-controller>
-		<name>True Heading Hold Stage 2</name>
-		<debug>false</debug>
-		<enable>
-			<prop>autopilot/locks/heading</prop>
-			<value>true-heading-hold</value>
-		</enable>
-		<input>
-			<prop>orientation/roll-deg</prop>
-		</input>
-		<reference>
-			<prop>autopilot/internal/target-roll-deg</prop>
-		</reference>
-		<output>
-			<prop>controls/flight/SAS-roll</prop>
-		</output>
-		<config>
-			<Kp>0.05</Kp>
-			<beta>0.000001</beta>
-			<Ti>10</Ti>
-			<Td>0.00000000001</Td>
-			<u_min>-0.3</u_min>
-			<u_max>0.3</u_max>
-		</config>
-	</pid-controller>-->
-
-
-
-
 
 	<!-- =============================================================== -->
 	<!-- Pitch Axis Modes                                                -->
@@ -192,7 +138,8 @@
 		<config>
 			<Kp><prop>sim/model/f-14b/systems/afcs/pitch-pid-pgain</prop></Kp>
 			<Ki>-0.5</Ki>
-			<Kd>0.8</Kd>
+			<!--<Kd>0.8</Kd>-->
+			<Kd><prop>sim/model/f-14b/systems/afcs/pitch-pid-dgain</prop></Kd>
 			<Ti>10.0</Ti>
 			<Td>0.00001</Td>
 			<u_min>-0.1</u_min>
@@ -271,7 +218,7 @@
 			<prop>/controls/flight/elevator-trim</prop>
 		</output>
 		<config>
-			<Kp>-0.002</Kp>
+			<Kp>-0.001</Kp>
 			<Ki>0</Ki>
 			<Kd>0</Kd>	
 			<Ti>10.0</Ti>
