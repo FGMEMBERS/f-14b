@@ -132,12 +132,8 @@
 				<desc>Toggles Radar Standby Mode</desc>
 			</key>
 			<key>
-				<name>Ctrl-m</name>
-				<desc>Enables Radar TWS AUTO Mode</desc>
-			</key>
-			<key>
 				<name>Ctrl-n</name>
-				<desc>Enables Radar PULSE SRCH Mode</desc>
+				<desc>Toggles Radar PULSE SRCH / TWS AUTO Mode</desc>
 			</key>
 			<key>
 				<name>w</name>
@@ -862,9 +858,6 @@
 					<script>f14_afcs.afcs_heading_switch(0);</script>
 				</binding>
 			</key>
-
-			<!-- <key n="13">
-				<name>Ctrl-m</name> used for rudder only on vista ??? -->
 
 			<key n="14">
 				<name>Ctrl-n</name>
