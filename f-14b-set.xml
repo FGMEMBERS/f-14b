@@ -128,7 +128,7 @@
 				<desc>Cycles through HSD modes: radar - compas - ECM (RWR)</desc>
 			</key>
 			<key>
-				<name>Ctrl-r</name>
+				<name>q</name>
 				<desc>Toggles Radar Standby Mode</desc>
 			</key>
 			<key>
@@ -877,15 +877,6 @@
 				</binding>
 			</key>
 
-			<key n="18">
-				<name>Ctrl-r</name>
-				<desc>Toggle radar standby mode</desc>
-				<binding>
-					<command>property-toggle</command>
-					<property>instrumentation/radar/radar-standby</property>
-				</binding>
-			</key>
-
 			<key n="19">
 				<name>Ctrl-s</name>
 				<desc>Toggle ground spoilers armed</desc>
@@ -1013,6 +1004,15 @@
 					<min>-1</min>
 					<max>2</max>
 					<wrap>true</wrap>
+				</binding>
+			</key>
+
+			<key n="113">
+				<name>q</name>
+				<desc>Toggle radar standby mode</desc>
+				<binding>
+					<command>property-toggle</command>
+					<property>instrumentation/radar/radar-standby</property>
 				</binding>
 			</key>
 
