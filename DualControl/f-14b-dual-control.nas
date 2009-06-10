@@ -30,6 +30,8 @@ var pilot_disconnect_copilot = func {
 
 var copilot_connect_pilot = func (pilot) {
 
+	var p = "sim/current-view/name";
+	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 	var p = "instrumentation/altimeter/indicated-altitude-ft";
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 	var p = "instrumentation/altimeter/setting-inhg";
