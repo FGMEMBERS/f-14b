@@ -45,6 +45,9 @@
 					s += 1;
 				}
 			}, 1, 0);
+			
+			var current_view = self.getNode("sim/current-view/name",1);
+			current_view.setValue("Back-seat View");
 		</load>
 
 		<unload>
