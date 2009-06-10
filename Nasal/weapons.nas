@@ -58,5 +58,6 @@ var master_arm_switch = func(a) {
 
 var arm_selector = func(n) {
 	var master_arm_switch = MasterArmSwitch.getValue();
-
+	# update selected WPS type.
+	# if applicable get number of selected MSL.
 }
