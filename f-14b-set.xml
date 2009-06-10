@@ -417,10 +417,9 @@
 					<acls>
 						<engaged type="bool">false</engaged>
 					</acls>
-					<!-- <clock>
-						<chronometer-on type="bool">false</chronometer-on>
-						<reset-state type="bool">true</reset-state>
-					</clock> -->
+					<fuel-gauges>
+						<total type="double">0</total>
+					</fuel-gauges>
 					<g-meter>
 						<g-max archive="y" type="double">1</g-max>
 						<g-min archive="y" type="double">1</g-min>
@@ -561,6 +560,7 @@
 				<int n="5" type="int">0</int>    <!-- left wing torn -->
 				<int n="6" type="int">0</int>    <!-- right wing torn -->
 				<string n="0" type="string">epepepepepepepepepepcl</string>    <!-- external weapons -->
+				<string n="1" type="string">0/0/0/0/false/0/</string>    <!-- instruments -->
 			</generic>
 		</multiplay>
 
