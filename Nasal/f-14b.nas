@@ -114,7 +114,6 @@ var left_elev_output   = props.globals.getNode("surface-positions/left-elevator-
 var right_elev_output  = props.globals.getNode("surface-positions/right-elevator-pos-norm", 1);
 var lighting_collision = props.globals.getNode("sim/model/f-14b/lighting/anti-collision/state", 1);
 var lighting_position  = props.globals.getNode("sim/model/f-14b/lighting/position/state", 1);
-var radar_standby      = props.globals.getNode("instrumentation/radar/radar-standby");
 var left_wing_torn     = props.globals.getNode("sim/model/f-14b/wings/left-wing-torn");
 var right_wing_torn    = props.globals.getNode("sim/model/f-14b/wings/right-wing-torn");
 
@@ -125,7 +124,7 @@ var left_elev_generic  = props.globals.getNode("sim/multiplay/generic/float[4]")
 var right_elev_generic = props.globals.getNode("sim/multiplay/generic/float[5]");
 var fuel_dump_generic  = props.globals.getNode("sim/multiplay/generic/int[0]");
 # sim/multiplay/generic/int[1] used by formation slimmers.
-var radar_standby_generic      = props.globals.getNode("sim/multiplay/generic/int[2]");
+# sim/multiplay/generic/int[2] used by radar standby.
 var lighting_collision_generic = props.globals.getNode("sim/multiplay/generic/int[3]");
 var lighting_position_generic  = props.globals.getNode("sim/multiplay/generic/int[4]");
 var left_wing_torn_generic     = props.globals.getNode("sim/multiplay/generic/int[5]");
@@ -241,7 +240,6 @@ var timedMotions = func {
 	slat_generic.setDoubleValue(slat_output.getValue());
 	left_elev_generic.setDoubleValue(left_elev_output.getValue());
 	right_elev_generic.setDoubleValue(right_elev_output.getValue());
-	radar_standby_generic.setIntValue(radar_standby.getValue());
 	lighting_collision_generic.setIntValue(lighting_collision.getValue());
 	lighting_position_generic.setIntValue(lighting_position.getValue() * position_intens);
 	left_wing_torn_generic.setIntValue(left_wing_torn.getValue());

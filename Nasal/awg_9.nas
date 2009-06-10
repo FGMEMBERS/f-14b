@@ -1,72 +1,84 @@
 # AWG-9 Radar routines.
 # RWR (Radar Warning Receiver) is computed in the radar loop for better performance
 
-var ElapsedSec  = props.globals.getNode("sim/time/elapsed-sec");
-var SwpFac  = props.globals.getNode("sim/model/f-14b/instrumentation/awg-9/sweep-factor", 1);
-var DisplayRdr  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/display-rdr");
-var HudTgtHDisplay  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-display", 1);
-var HudTgt  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target", 1);
-var HudTgtTDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-deviation", 1);
-var HudTgtTDeg  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-angle", 1);
+var ElapsedSec        = props.globals.getNode("sim/time/elapsed-sec");
+var SwpFac            = props.globals.getNode("sim/model/f-14b/instrumentation/awg-9/sweep-factor", 1);
+var DisplayRdr        = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/display-rdr");
+var HudTgtHDisplay    = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-display", 1);
+var HudTgt            = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target", 1);
+var HudTgtTDev        = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-deviation", 1);
+var HudTgtTDeg        = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-angle", 1);
 var HudTgtClosureRate = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/closure-rate", 1);
-var AzField = props.globals.getNode("instrumentation/radar/az-field", 1);
-var RangeRadar2 = props.globals.getNode("instrumentation/radar/radar2-range");
-var OurAlt = props.globals.getNode("position/altitude-ft");
-var OurHdg = props.globals.getNode("orientation/heading-deg");
-var OurRoll = props.globals.getNode("orientation/roll-deg");
-var OurPitch = props.globals.getNode("orientation/pitch-deg");
-var EcmOn = props.globals.getNode("instrumentation/ecm/on-off", 1);
+var AzField           = props.globals.getNode("instrumentation/radar/az-field", 1);
+var RangeRadar2       = props.globals.getNode("instrumentation/radar/radar2-range");
+var RadarStandby      = props.globals.getNode("instrumentation/radar/radar-standby");
+var RadarStandbyMP    = props.globals.getNode("sim/multiplay/generic/int[2]");
+var OurAlt            = props.globals.getNode("position/altitude-ft");
+var OurHdg            = props.globals.getNode("orientation/heading-deg");
+var OurRoll           = props.globals.getNode("orientation/roll-deg");
+var OurPitch          = props.globals.getNode("orientation/pitch-deg");
+var EcmOn             = props.globals.getNode("instrumentation/ecm/on-off", 1);
 
-var az_fld = AzField.getValue();
-var l_az_fld = 0;
-var r_az_fld = 0;
-var swp_fac      = nil; # Scan azimuth deviation, normalized (-1 --> 1).
-var swp_deg      = nil; # Scan azimuth deviation, in degree.
-var swp_deg_last = 0; # Used to get sweep direction.
-var swp_spd      = 1.7; 
-var swp_dir      = nil; # Sweep direction, 0 to left, 1 to right.
-var swp_dir_last = 0;
-var ddd_screen_width = 0.0844; # 0.0844m : length of the max azimuth range on the DDD screen.
-var range_radar2 = 0;
-var my_radarcorr = 0;
-var wcs_mode = "pulse-srch";
-var tmp_nearest_rng  = nil;
-var tmp_nearest_u    = nil;
-var nearest_rng  = 0;
-var nearest_u    = nil;
+var az_fld            = AzField.getValue();
+var l_az_fld          = 0;
+var r_az_fld          = 0;
+var swp_fac           = nil;    # Scan azimuth deviation, normalized (-1 --> 1).
+var swp_deg           = nil;    # Scan azimuth deviation, in degree.
+var swp_deg_last      = 0;      # Used to get sweep direction.
+var swp_spd           = 1.7; 
+var swp_dir           = nil;    # Sweep direction, 0 to left, 1 to right.
+var swp_dir_last      = 0;
+var ddd_screen_width  = 0.0844; # 0.0844m : length of the max azimuth range on the DDD screen.
+var range_radar2      = 0;
+var my_radarcorr      = 0;
+var our_radar_stanby  = 0;
+var wcs_mode          = "pulse-srch";
+var tmp_nearest_rng   = nil;
+var tmp_nearest_u     = nil;
+var nearest_rng       = 0;
+var nearest_u         = nil;
 
-var our_true_heading = 0;
-var our_alt = 0;
+var our_true_heading  = 0;
+var our_alt           = 0;
 
 var Mp = props.globals.getNode("ai/models");
-var mp_i      = 0;
-var mp_count   = 0;
-var mp_list = [];
-var tgts_list = [];
-var cnt = 0;
+var mp_i              = 0;
+var mp_count          = 0;
+var mp_list           = [];
+var tgts_list         = [];
+var cnt               = 0;
 
 # ECM warnings.
 var EcmAlert1 = props.globals.getNode("instrumentation/ecm/alert-type1", 1);
 var EcmAlert2 = props.globals.getNode("instrumentation/ecm/alert-type2", 1);
-var ecm_alert1      = 0;
-var ecm_alert2      = 0;
-var ecm_alert1_last = 0;
-var ecm_alert2_last = 0;
-var u_ecm_signal  = 0;
-var u_ecm_signal_norm  = 0;
-var u_radar_standby = 0;
-var u_ecm_type_num = 0;
+var ecm_alert1        = 0;
+var ecm_alert2        = 0;
+var ecm_alert1_last   = 0;
+var ecm_alert2_last   = 0;
+var u_ecm_signal      = 0;
+var u_ecm_signal_norm = 0;
+var u_radar_standby   = 0;
+var u_ecm_type_num    = 0;
 
 init = func() {
 	var our_ac_name = getprop("sim/aircraft");
 	my_radarcorr = radardist.my_maxrange( our_ac_name ); # in kilometers
-}
+
+	}
 
 # Main loop ###############
+# Done each 0.05 sec. Called from instruments.nas
 var rdr_loop = func() {
 	var display_rdr = DisplayRdr.getBoolValue();
 	if ( display_rdr ) {
 		az_scan();
+		our_radar_stanby = RadarStandby.getValue();
+		var bs = getprop("sim/aircraft");
+		if ( bs == "f-14b-bs") {
+			#our_radar_stanby = 1;  # Back seater's radar doesn't emit.
+		}
+		RadarStandbyMP.setIntValue(our_radar_stanby); # Tell over MP if
+			# our radar is scaning or is in stanby.
 	} elsif ( size(tgts_list) > 0 ) {
 		foreach( u; tgts_list ) {
 			u.set_display(0);
@@ -75,7 +87,6 @@ var rdr_loop = func() {
 }
 
 var az_scan = func() {
-	# Done each 0.05 sec. Called from instruments.nas
 
 	# Antena az scan.
 	var fld_frac = az_fld / 120;
@@ -108,17 +119,22 @@ var az_scan = func() {
 		tgts_list = [];
 		var raw_list = Mp.getChildren();
 		foreach( var c; raw_list ) {
+			# FIXME: At that time a multiplayer node may have been deleted while still
+			# existing as a displayable target in the radar targets nodes.
 			var type = c.getName();
+			if (!c.getNode("valid", 1).getValue()) {
+				continue;
+			}
 			var HaveRadarNode = c.getNode("radar");
 			if (type == "multiplayer" or type == "tanker" and HaveRadarNode != nil) {
 				var u = Target.new(c);
-				u_ecm_signal  = 0;
-				u_ecm_signal_norm  = 0;
-				u_radar_standby = 0;
-				u_ecm_type_num = 0;
-				if ( u.Range != nil) {
+				u_ecm_signal      = 0;
+				u_ecm_signal_norm = 0;
+				u_radar_standby   = 0;
+				u_ecm_type_num    = 0;
+				if ( u.Range != nil ) {
 					var u_rng = u.get_range();
-					if (u_rng < range_radar2 ) {
+					if (u_rng < range_radar2  and u.not_acting == 0 ) {
 						u.get_deviation(our_true_heading);
 						if ( u.deviation > l_az_fld  and  u.deviation < r_az_fld ) {
 							append(tgts_list, u);
@@ -341,12 +357,38 @@ var Target = {
 		obj.Alt = c.getNode("position/altitude-ft");
 		obj.AcType = c.getNode("sim/model/ac-type");
 		obj.type = c.getName();
+		obj.Callsign = c.getNode("callsign");
 		obj.index = c.getIndex();
 		obj.string = "ai/models/" ~ obj.type ~ "[" ~ obj.index ~ "]";
 		obj.shortstring = obj.type ~ "[" ~ obj.index ~ "]";
+		
+		# Remote back-seater don't emit and are invisible. FIXME: This is going to be handled by radardist ASAP.		
+		obj.not_acting = 0;
+		var remote_bs_string = c.getNode("sim/multiplay/generic/string[1]").getValue();
+		if ( remote_bs_string != nil ) {
+		var l = split(";", remote_bs_string);
+			if ( size(l) > 0 ) {
+				if ( l[0] == "f-14b-bs" ) {
+					obj.not_acting = 1;
+				}
+			}
+		}
 
-
+		var bs = getprop("sim/aircraft");
 		obj.InstrTgts = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/targets", 1);
+		if ( bs == "f-14b-bs") {
+			if  ( BS_instruments.Pilot != nil ) {
+				# Local back-seater has a different radar-awg-9 folder.
+				obj.InstrTgts = BS_instruments.Pilot.getNode("sim/model/f-14b/instrumentation/radar-awg-9/targets", 1);
+				# Local back-seater does not see its pilot's aircraft.
+				var target_callsign = obj.Callsign.getValue();
+				var p_callsign = BS_instruments.Pilot.getNode("callsign").getValue();
+				if ( target_callsign == p_callsign ) {
+					obj.not_acting = 1;
+				}
+			}
+		}	
+
 		obj.TgtsFiles = obj.InstrTgts.getNode(obj.shortstring, 1);
 
 		obj.Range          = obj.RdrProp.getNode("range-nm");

@@ -100,6 +100,8 @@ var tacan_update = func {
 			HsdToFlag.setBoolValue(tcn_toflag);
 			HsdCdiDeflection.setValue(d);
 		}
+	} else {
+		TcMagHdg.setDoubleValue(0);
 	}
 }
 
@@ -135,7 +137,6 @@ var tacan_XYtoggle = func {
 		TcXYSwitch.setValue( 0 );
 	}
 }
-
 
 
 # Save fuel state ###############
@@ -310,14 +311,43 @@ var compute_drag = func {
 }
 
 
+# Send type and basic instruments data over MP for backseaters.
+var ACString = props.globals.getNode("sim/aircraft");
+var InstrString = props.globals.getNode("sim/multiplay/generic/string[1]", 1);
+var IAS = props.globals.getNode("instrumentation/airspeed-indicator/indicated-speed-kt");
+var FuelTotal = props.globals.getNode("sim/model/f-14b/instrumentation/fuel-gauges/total");
+var TcBearing = props.globals.getNode("instrumentation/tacan/indicated-mag-bearing-deg");
+var TcInRange = props.globals.getNode("instrumentation/tacan/in-range");
+var TcRange = props.globals.getNode("instrumentation/tacan/indicated-distance-nm");
+instruments_data_export = func {
+	# Aircraft variant
+	var ac_string      = ACString.getValue();
+	# Air Speed indicator.
+	var ias            = sprintf( "%01.2f", IAS.getValue());
+	# Fuel Totalizer.
+	var fuel_total     = sprintf( "%01.2f", FuelTotal.getValue());
+	# BDHI.
+	var tc_mode        = TcModeSwitch.getValue();
+	var tc_bearing     = sprintf( "%01.2f", TcBearing.getValue());
+	var tc_in_range    = TcInRange.getValue() ? "true" : "false";
+	var tc_range       = sprintf( "%01.2f", TcRange.getValue());
+	var l_s = [ac_string, ias, mach, fuel_total, tc_mode, tc_bearing, tc_in_range, tc_range];
+	var str = "";
+	foreach( s ; l_s ) {
+		str = str ~ s ~ ";";
+	}
+	InstrString.setValue(str);
+
+}
+
 
 # Main loop ###############
 var cnt = 0;
 
 var main_loop = func {
 	cnt += 1;
-	mach = Mach.getValue();
 	# done each 0.05 sec.
+	mach = Mach.getValue();
 	awg_9.rdr_loop();
 	var a = cnt / 2;
 
@@ -345,6 +375,7 @@ var main_loop = func {
 	} else {
 		# done each 0.1 sec, cnt odd.
 		awg_9.hud_nearest_tgt();
+		instruments_data_export();
 		if (( cnt == 5 ) or ( cnt == 11 )) {
 			# done each 0.3 sec.
 			afcs_filters();
