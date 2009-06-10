@@ -6,12 +6,18 @@
 
 	<animation>
 		<type>select</type>
-		<object-name>details</object-name>
+		<object-name>detail-inside-back</object-name>
 		<condition>
-			<equals>
-				<property>sim/current-view/name</property>
-				<value>RIO View</value>
-			</equals>
+			<or>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>RIO View</value>
+				</equals>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>Back-seat View</value>
+				</equals>
+			</or>
 		</condition>
 	</animation>
 	<animation>

@@ -7,10 +7,16 @@
 		<type>select</type>
 		<object-name>stdby-adi</object-name>
 		<condition>
-			<equals>
-				<property>sim/current-view/name</property>
-				<value>RIO View</value>
-			</equals>
+			<or>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>RIO View</value>
+				</equals>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>Back-seat View</value>
+				</equals>
+			</or>
 		</condition>
 	</animation>
 

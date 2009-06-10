@@ -20,6 +20,12 @@
 					<value>RIO View</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>Back-seat View</value>
+				</equals>
+			</not>
 		</condition>
 	</animation>
 

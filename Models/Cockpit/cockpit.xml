@@ -5,6 +5,22 @@
 
 	<path>group-cockpit.ac</path>
 
+	<!--<animation>
+		<type>select</type>
+		<object-name>group-cockpit</object-name>
+		<condition>
+			<or>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>RIO View</value>
+				</equals>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>Back-seat View</value>
+				</equals>
+			</or>
+		</condition>
+	</animation>-->
 
 	<!-- Pilot and Seat -->
 	<model>

@@ -15,8 +15,18 @@
 					<property>sim/current-view/name</property>
 					<value>RIO View</value>
 				</equals>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>Back-seat View</value>
+				</equals>
 			</not>
 		</condition>
+	</animation>
+	
+	<animation>
+		<type>range</type>
+		<min-m>3</min-m>
+		<max-m>150</max-m>
 	</animation>
 
 </PropertyList>
