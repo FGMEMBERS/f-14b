@@ -8,32 +8,14 @@
 		<type>select</type>
 		<object-name>detail-inside-back</object-name>
 		<condition>
-			<or>
-				<equals>
-					<property>sim/current-view/name</property>
-					<value>RIO View</value>
-				</equals>
-				<equals>
-					<property>sim/current-view/name</property>
-					<value>Back-seat View</value>
-				</equals>
-			</or>
-		</condition>
-	</animation>
-	<animation>
-		<type>select</type>
-		<object-name>fake-hsd</object-name>
-		<condition>
 			<not>
 				<equals>
 					<property>sim/current-view/name</property>
-					<value>RIO View</value>
+					<value>Cockpit View</value>
 				</equals>
 			</not>
 		</condition>
 	</animation>
-
-
 
 	<!--<animation> 
 		<object-name>mount</object-name>
