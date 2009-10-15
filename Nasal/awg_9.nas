@@ -313,6 +313,31 @@ var rounding1000 = func(n) {
 }
 
 # Controls
+
+var range_control = func(n) {
+	# 1(+), -1(-), 5, 10, 20, 50, 100, 200
+	var range_radar = RangeRadar2.getValue();
+	if ( n == 1 ) {
+		if ( range_radar == 5 ) { range_radar = 10 }
+		elsif ( range_radar == 10 ) { range_radar = 20 }
+		elsif ( range_radar == 20 ) { range_radar = 50 }
+		elsif ( range_radar == 50 ) { range_radar = 100 }
+		else { range_radar = 200 }
+	} elsif (n == -1 ) {
+		if ( range_radar == 200 ) { range_radar = 100 }
+		elsif ( range_radar == 100 ) { range_radar = 50 }
+		elsif ( range_radar == 50 ) { range_radar = 20 }
+		elsif ( range_radar == 20 ) { range_radar = 10 } 
+		else { range_radar = 5  }
+	} elsif (n == 5 ) { range_radar = 5 }
+	elsif (n == 10 ) { range_radar = 10 }
+	elsif (n == 20 ) { range_radar = 20 }
+	elsif (n == 50 ) { range_radar = 50 }
+	elsif (n == 100 ) { range_radar = 100 }
+	elsif (n == 200 ) { range_radar = 200 }
+	RangeRadar2.setValue(range_radar);
+}
+
 wcs_mode_sel = func(mode) {
 	foreach (var n; props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode").getChildren()) {
 		n.setBoolValue(n.getName() == mode);
