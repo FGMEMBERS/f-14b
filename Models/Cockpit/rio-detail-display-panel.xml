@@ -22,6 +22,93 @@
 		</condition>
 	</animation>
 
+	<!-- Range Buttons Pick Animations -->
+	<animation>
+		<name>rng-5</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>rng-5</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.range_control(5);</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>rng-10</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>rng-10</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.range_control(10);</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>rng-20</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>rng-20</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.range_control(20);</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>rng-50</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>rng-50</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.range_control(50);</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>rng-100</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>rng-100</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.range_control(100);</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<name>rng-200</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>rng-200</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>awg_9.range_control(200);</script>
+			</binding>
+		</action>
+	</animation>
+
+	<!-- Range Display -->
 	<animation>
 		<type>select</type>
 		<object-name>rng-disp-200</object-name>
@@ -98,6 +185,21 @@
 				</equals>
 			</or>
 		</condition>
+	</animation>
+
+	<animation>
+		<name>display-rdr</name>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>display-rdr</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>sim/model/f-14b/instrumentation/radar-awg-9/display-rdr</property>
+			</binding>
+		</action>
 	</animation>
 
 	<!-- warning lights -->
