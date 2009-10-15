@@ -81,7 +81,6 @@
 		</output>
 		<config>
 			<Kp>-1</Kp>
-			<Ki>0</Ki>
 			<u_min>-55.0</u_min><!-- +/-2 min. 360 turn at cruise config. -->
 			<u_max>55.0</u_max>
 		</config>
@@ -121,7 +120,7 @@
 	<!--Pitch Hold -->
 	<pid-controller>
 		<name>Pitch hold</name>
-		<debug>false</debug>
+		<debug>true</debug>
 		<enable>
 			<prop>/autopilot/locks/altitude</prop>
 			<value>pitch-hold</value>
@@ -137,9 +136,6 @@
 		</output>
 		<config>
 			<Kp><prop>sim/model/f-14b/systems/afcs/pitch-pid-pgain</prop></Kp>
-			<Ki>-0.5</Ki>
-			<!--<Kd>0.8</Kd>-->
-			<Kd><prop>sim/model/f-14b/systems/afcs/pitch-pid-dgain</prop></Kd>
 			<Ti>10.0</Ti>
 			<Td>0.00001</Td>
 			<u_min>-0.1</u_min>
@@ -167,8 +163,6 @@
 		</output>
 		<config>
 			<Kp><prop>sim/model/f-14b/systems/afcs/vs-pid-pgain</prop></Kp>
-			<Ki>-0.05</Ki>
-			<Kd>0</Kd>
 			<beta>0.1</beta>
 			<Ti>10.0</Ti>
 			<Td>0.00001</Td>
@@ -196,7 +190,6 @@
 		</output>
 		<config>
 			<Kp>0.15</Kp>
-			<Ki>0</Ki>
 			<u_min>-33.34</u_min><!-- 2000ft per nimute -->
 			<u_max>33.34</u_max>
 		</config>
@@ -219,8 +212,6 @@
 		</output>
 		<config>
 			<Kp>-0.001</Kp>
-			<Ki>0</Ki>
-			<Kd>0</Kd>	
 			<Ti>10.0</Ti>
 			<Td>0.00001</Td>
 			<u_min>-0.1</u_min>
