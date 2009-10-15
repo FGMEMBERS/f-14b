@@ -73,7 +73,7 @@
 				<h>42</h>
 				<binding>
 					<command>nasal</command>
-					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "to-bt")</script>
+					<script>f14_instruments.sel_displays_main_mode("sim/model/f-14b/controls/pilots-displays/mode", "to-bt")</script>
 				</binding>
 			</action>
 
@@ -86,7 +86,7 @@
 				<h>42</h>
 				<binding>
 					<command>nasal</command>
-					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "cruise-bt")</script>
+					<script>f14_instruments.sel_displays_main_mode("sim/model/f-14b/controls/pilots-displays/mode", "cruise-bt")</script>
 				</binding>
 			</action>
 
@@ -99,7 +99,7 @@
 				<h>42</h>
 				<binding>
 					<command>nasal</command>
-					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "aa-bt")</script>
+					<script>f14_instruments.sel_displays_main_mode("sim/model/f-14b/controls/pilots-displays/mode", "aa-bt")</script>
 				</binding>
 			</action>
 
@@ -112,7 +112,7 @@
 				<h>42</h>
 				<binding>
 					<command>nasal</command>
-					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "ag-bt")</script>
+					<script>f14_instruments.sel_displays_main_mode("sim/model/f-14b/controls/pilots-displays/mode", "ag-bt")</script>
 				</binding>
 			</action>
 
@@ -125,7 +125,7 @@
 				<h>42</h>
 				<binding>
 					<command>nasal</command>
-					<script>f14_instruments.radio_bt_sel("sim/model/f-14b/controls/pilots-displays/mode", "ldg-bt")</script>
+					<script>f14_instruments.sel_displays_main_mode("sim/model/f-14b/controls/pilots-displays/mode", "ldg-bt")</script>
 				</binding>
 			</action>
 
