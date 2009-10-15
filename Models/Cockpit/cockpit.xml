@@ -570,6 +570,28 @@
 		</offsets>
 	</model>
 
+	<!-- Right Console -->
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/hsd2.xml</path>
+		<offsets>
+			<x-m>-4.1635</x-m>
+			<y-m>0.4228</y-m>
+			<z-m>-0.2300</z-m>
+			<pitch-deg>-32.4</pitch-deg>
+			<heading-deg>-8.8</heading-deg>
+			<roll-deg>6</roll-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/rio-ecm-display.xml</path>
+		<offsets>
+			<x-m>-4.0150</x-m>
+			<y-m>0.3918</y-m>
+			<z-m>-0.3390</z-m>
+			<roll-deg>23.2</roll-deg>
+		</offsets>
+	</model>
 
 <!-- ******************************************************************* -->
 <!-- Specials                                                            -->
