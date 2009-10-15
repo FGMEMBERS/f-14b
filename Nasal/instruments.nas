@@ -319,11 +319,21 @@ var FuelTotal = props.globals.getNode("sim/model/f-14b/instrumentation/fuel-gaug
 var TcBearing = props.globals.getNode("instrumentation/tacan/indicated-mag-bearing-deg");
 var TcInRange = props.globals.getNode("instrumentation/tacan/in-range");
 var TcRange = props.globals.getNode("instrumentation/tacan/indicated-distance-nm");
+
+var SteerModeAwl = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/steer/awl-bt");
+var SteerModeDest = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/steer/dest-bt");
+var SteerModeMan = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/steer/man-bt");
+var SteerModeTcn = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/steer/tacan-bt");
+var SteerModeVec = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/steer/vec-bt");
+var SteerModeCode = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/steer-submode-code");
+
 instruments_data_export = func {
 	# Aircraft variant
 	var ac_string      = ACString.getValue();
 	# Air Speed indicator.
 	var ias            = sprintf( "%01.2f", IAS.getValue());
+	#Mach
+	var s_mach         = sprintf( "%01.2f", mach);
 	# Fuel Totalizer.
 	var fuel_total     = sprintf( "%01.2f", FuelTotal.getValue());
 	# BDHI.
@@ -331,7 +341,10 @@ instruments_data_export = func {
 	var tc_bearing     = sprintf( "%01.2f", TcBearing.getValue());
 	var tc_in_range    = TcInRange.getValue() ? "true" : "false";
 	var tc_range       = sprintf( "%01.2f", TcRange.getValue());
-	var l_s = [ac_string, ias, mach, fuel_total, tc_mode, tc_bearing, tc_in_range, tc_range];
+	# Steer Submode Code
+	steer_mode_code = SteerModeCode.getValue();
+
+	var l_s = [ac_string, ias, s_mach, fuel_total, tc_mode, tc_bearing, tc_in_range, tc_range, steer_mode_code];
 	var str = "";
 	foreach( s ; l_s ) {
 		str = str ~ s ~ ";";
@@ -430,14 +443,26 @@ aircraft.light.new("sim/model/f-14b/lighting/warn-medium-lights-switch", [0.3, 0
 setprop("sim/model/f-14b/lighting/warn-medium-lights-switch/enabled", 1);
 
 
-# Old Fashioned Radio Button Selector
+# Old Fashioned Radio Button Selectors
 # -----------------------------------
 # Where group is the parent node that contains the radio state nodes as children.
 
-radio_bt_sel = func(group, which) {
+sel_displays_main_mode = func(group, which) {
 	foreach (var n; props.globals.getNode(group).getChildren()) {
 		n.setBoolValue(n.getName() == which);
 	}
+}
+
+sel_displays_sub_mode = func(group, which) {
+	foreach (var n; props.globals.getNode(group).getChildren()) {
+		n.setBoolValue(n.getName() == which);
+	}
+	var steer_mode_code = 0;
+	if ( SteerModeDest.getBoolValue() ) { steer_mode_code = 1 }
+	elsif ( SteerModeMan.getBoolValue() ) { steer_mode_code = 2 }
+	elsif ( SteerModeTcn.getBoolValue() ) { steer_mode_code = 3 }
+	elsif ( SteerModeVec.getBoolValue() ) { steer_mode_code = 4 }
+	SteerModeCode.setValue(steer_mode_code);
 }
 
 
