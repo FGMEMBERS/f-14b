@@ -120,7 +120,7 @@
 	<!--Pitch Hold -->
 	<pid-controller>
 		<name>Pitch hold</name>
-		<debug>true</debug>
+		<debug>false</debug>
 		<enable>
 			<prop>/autopilot/locks/altitude</prop>
 			<value>pitch-hold</value>
