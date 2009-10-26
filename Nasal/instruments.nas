@@ -338,7 +338,11 @@ instruments_data_export = func {
 	var fuel_total     = sprintf( "%01.2f", FuelTotal.getValue());
 	# BDHI.
 	var tc_mode        = TcModeSwitch.getValue();
-	var tc_bearing     = sprintf( "%01.2f", TcBearing.getValue());
+	if ( TcBearing.getValue() != nil ) {
+		var tc_bearing  = sprintf( "%01.2f", TcBearing.getValue());
+	} else {
+		var tc_bearing  = "0.00";
+	}
 	var tc_in_range    = TcInRange.getValue() ? "true" : "false";
 	var tc_range       = sprintf( "%01.2f", TcRange.getValue());
 	# Steer Submode Code
