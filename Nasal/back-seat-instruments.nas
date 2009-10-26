@@ -28,7 +28,7 @@ instruments_data_import = func {
 	#print (str);
 	if ( str != nil ) {
 		var l = split(";", str);
-		# ac_string, ias, mach, fuel_total, tc_mode, tc_bearing, tc_in_range, tc_range.
+		# ac_string, ias, mach, fuel_total, tc_mode, tc_bearing, tc_in_range, tc_range, steer_mode_code.
 		if ( size(l) > 1 ) {
 			Pilot.getNode("sim/aircraft", 1).setValue( l[0] );
 			Pilot.getNode("instrumentation/airspeed-indicator/indicated-speed-kt").setValue( l[1] );
@@ -38,6 +38,8 @@ instruments_data_import = func {
 			Pilot.getNode("instrumentation/tacan/indicated-mag-bearing-deg").setValue( l[5] );
 			Pilot.getNode("instrumentation/tacan/in-range").setBoolValue( l[6] );
 			Pilot.getNode("instrumentation/tacan/indicated-distance-nm").setValue( l[7] );
+			var SteerSubmodeCode = Pilot.getNode("sim/model/f-14b/controls/pilots-displays/steer-submode-code", 1);
+			SteerSubmodeCode.setValue( l[8] );
 		}
 	}
 }

@@ -3,7 +3,7 @@
 <PropertyList>
 
 	<sim>
-		<!-- version tarball 20090104 -->
+		
 		<description>Grumman F-14B </description>
 		<author>Enrique Laso - Alexis Bory</author>
 		<status>production</status>
@@ -297,25 +297,30 @@
 					</HSD>
 					<pilots-displays>
 						<mode>
-							<to-bt type="bool">false</to-bt>
-							<cruise-bt type="bool">true</cruise-bt>
 							<aa-bt type="bool">false</aa-bt>
 							<ag-bt type="bool">false</ag-bt>
+							<cruise-bt type="bool">true</cruise-bt>
 							<ldg-bt type="bool">false</ldg-bt>
+							<to-bt type="bool">false</to-bt>
 						</mode>
 						<steer>
-							<man-bt type="bool">false</man-bt>
-							<tacan-bt type="bool">true</tacan-bt>
-							<awl-bt type="bool">false</awl-bt>
-							<dest-bt type="bool">false</dest-bt>
-							<vec-bt type="bool">false</vec-bt>
+							<awl-bt type="bool">false</awl-bt><!-- 0 -->
+							<dest-bt type="bool">false</dest-bt><!-- 1 -->
+							<man-bt type="bool">false</man-bt><!-- 2 -->
+							<tacan-bt type="bool">true</tacan-bt><!-- 3 -->
+							<vec-bt type="bool">false</vec-bt><!-- 4 -->
 						</steer>
-						<hsd-mode-nav type="int">1</hsd-mode-nav><!-- 1=NAV, 0=TID, -1=ECM -->
+						<steer-submode-code type="int">3</steer-submode-code>
+						<hsd-mode-nav type="int">1</hsd-mode-nav><!-- 1 = NAV, 0 = TID, -1 = ECM -->
 					</pilots-displays>
 					<radar-awg-9>
 						<on-off type="bool">true</on-off>
 						<brightness type="double">1</brightness>
 					</radar-awg-9>
+					<rio-ecm-display>
+						<mode-ecm-nav type="bool">false</mode-ecm-nav><!-- false = NAV, true = ECM -->
+						<!-- steer-submode-code selected by the pilot -->
+					</rio-ecm-display>
 					<SAS>
 						<pitch type="bool">true</pitch>
 						<roll type="bool">true</roll>
@@ -934,7 +939,7 @@
 				<desc>Decrease Radar Range</desc>
 				<binding>
 					<command>nasal</command>
-					<script>f14.radar_range_control(-1);</script>
+					<script>awg_9.range_control(-1);</script>
 				</binding>
 			</key>
 
@@ -952,7 +957,7 @@
 				<desc>Increase Radar Range</desc>
 				<binding>
 					<command>nasal</command>
-					<script>f14.radar_range_control(1);</script>
+					<script>awg_9.range_control(1);</script>
 				</binding>
 			</key>
 
