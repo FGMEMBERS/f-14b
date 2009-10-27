@@ -389,12 +389,15 @@ var Target = {
 		
 		# Remote back-seater don't emit and are invisible. FIXME: This is going to be handled by radardist ASAP.		
 		obj.not_acting = 0;
-		var remote_bs_string = c.getNode("sim/multiplay/generic/string[1]").getValue();
-		if ( remote_bs_string != nil ) {
-		var l = split(";", remote_bs_string);
-			if ( size(l) > 0 ) {
-				if ( l[0] == "f-14b-bs" ) {
-					obj.not_acting = 1;
+		var Remote_Bs_String = c.getNode("sim/multiplay/generic/string[1]");
+		if ( Remote_Bs_String != nil ) {
+			var rbs = Remote_Bs_String.getValue();
+			if ( rbs != nil ) {
+				var l = split(";", rbs);
+				if ( size(l) > 0 ) {
+					if ( l[0] == "f-14b-bs" ) {
+						obj.not_acting = 1;
+					}
 				}
 			}
 		}
