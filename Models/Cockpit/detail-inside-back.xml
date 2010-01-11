@@ -8,12 +8,16 @@
 		<type>select</type>
 		<object-name>detail-inside-back</object-name>
 		<condition>
-			<not>
+			<or>
 				<equals>
 					<property>sim/current-view/name</property>
-					<value>Cockpit View</value>
+					<value>RIO View</value>
 				</equals>
-			</not>
+				<equals>
+					<property>sim/current-view/name</property>
+					<value>Back-seat View</value>
+				</equals>
+			</or>
 		</condition>
 	</animation>
 
