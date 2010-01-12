@@ -104,7 +104,7 @@
 		taper="0.3" sweep="45" dihedral="-2" camber="-0.01" effectiveness="2.0">
 		<stall aoa="40.0" width="2" peak="1.2"/>
 		<!-- taileron simulation, should be direct control on the incidence of the tailplane -->
-		<flap0 start="0" end="0.5" lift="2.2" drag="1"/>
+		<flap0 start="0" end="0.5" lift="1.7" drag="1"/>
 		<!-- used to simulate adverse aerodynamic effects -->
 		<flap1 start="0.5" end="1" lift="2.0" drag="1.5"/>
 		<control-input axis="/controls/flight/SAS-pitch" control="FLAP0"/>
@@ -190,8 +190,8 @@
 		<control-speed control="STEER" transition-time="0.5"/>
 	</gear>
 
-	<!-- Left main -->
-	<gear x="-2.357" y="2.444" z="-3.47" compression="0.8" spring="0.41" damp="1" initial-load="0">
+	<!-- Left main x="-2.357"-->
+	<gear x="-2.70" y="2.444" z="-3.47" compression="0.8" spring="0.41" damp="1" initial-load="0">
 		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
 		<control-input axis="/controls/gear/brake-left" control="BRAKE"/>
 		<control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
@@ -200,7 +200,7 @@
 	</gear>
 
 	<!-- Right main -->
-	<gear x="-2.357" y="-2.444" z="-3.47" compression="0.8" spring="0.41" damp="1" initial-load="0">
+	<gear x="-2.70" y="-2.444" z="-3.47" compression="0.8" spring="0.41" damp="1" initial-load="0">
 		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
 		<control-input axis="/controls/gear/brake-right" control="BRAKE"/>
 		<control-input axis="/controls/gear/brake-parking" control="BRAKE"/>
