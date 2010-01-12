@@ -338,10 +338,10 @@
 
 		<!-- Views -->
 		<view n="0">
-		<!-- Pilot's position. -->
+		<!-- RIO's position. -->
 			<name>Back-seat View</name>
 			<type>lookfrom</type>
-			<internal type="bool">false</internal>
+			<internal type="bool">true</internal>
 			<config>
 				<from-model type="bool">false</from-model>
 				<from-model-idx type="int">0</from-model-idx>
@@ -351,8 +351,6 @@
 				<eye-heading-deg-path>/orientation/heading-deg</eye-heading-deg-path>
 				<eye-pitch-deg-path>/orientation/pitch-deg</eye-pitch-deg-path>
 				<eye-roll-deg-path>/orientation/roll-deg</eye-roll-deg-path>
-				<!-- x/y/z == right/up/back -->
-				<!--<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>-->
 				<x-offset-m archive="y">0.0</x-offset-m>
 				<y-offset-m archive="y">0.43</y-offset-m>
 				<z-offset-m archive="y">-3.58</z-offset-m>
@@ -374,9 +372,9 @@
 			</config>
 		</view>
 
-		<view n="100">
+		<!-- <view n="100"> -->
 		<!-- Pilot's position. -->
-			<name>Pilot View</name>
+			<!-- <name>Pilot View</name>
 			<type>lookfrom</type>
 			<internal type="bool">true</internal>
 			<config>
@@ -388,53 +386,50 @@
 				<eye-heading-deg-path>/orientation/heading-deg</eye-heading-deg-path>
 				<eye-pitch-deg-path>/orientation/pitch-deg</eye-pitch-deg-path>
 				<eye-roll-deg-path>/orientation/roll-deg</eye-roll-deg-path>
-				<!-- x/y/z == right/up/back -->
-				<!--<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>-->
 				<x-offset-m archive="y">0.0</x-offset-m>
 				<y-offset-m archive="y">0.43</y-offset-m>
-				<z-offset-m archive="y">-3.58</z-offset-m>
-				<pitch-offset-deg>-23</pitch-offset-deg>
+				<z-offset-m archive="y">-5.58</z-offset-m>
+				<pitch-offset-deg>-14.7</pitch-offset-deg>
 				<default-field-of-view-deg>55</default-field-of-view-deg>
 				<limits>
 					<enabled type="bool">true</enabled>
 					<left>
-						<heading-max-deg type="double">161</heading-max-deg>
-						<x-offset-max-m type="double">0.25</x-offset-max-m>
-						<x-offset-threshold-deg type="double">45</x-offset-threshold-deg>
+						<heading-max-deg type="double">140</heading-max-deg>
+						<x-offset-max-m type="double">0.20</x-offset-max-m>
+						<x-offset-threshold-deg type="double">25</x-offset-threshold-deg>
 					</left>
 					<right>
-						<heading-max-deg type="double">161</heading-max-deg>
-						<x-offset-max-m type="double">0.25</x-offset-max-m>
-						<x-offset-threshold-deg type="double">45</x-offset-threshold-deg>
+						<heading-max-deg type="double">140</heading-max-deg>
+						<x-offset-max-m type="double">0.20</x-offset-max-m>
+						<x-offset-threshold-deg type="double">25</x-offset-threshold-deg>
 					</right>
 				</limits>
 			</config>
-		</view>
+		</view> -->
 
-		<!-- Move the center of the external views. -->
 		<view n="1">
 			<config>
-				<target-z-offset-m archive="y">0.0</target-z-offset-m>
+				<at-model type="bool">false</at-model>
 			</config>
 		</view>
 		<view n="2">
 			<config>
-				<target-z-offset-m archive="y">0.0</target-z-offset-m>
+				<at-model type="bool">false</at-model>
 			</config>
 		</view>
 		<view n="3">
 			<config>
-				<target-z-offset-m archive="y">0.0</target-z-offset-m>
+				<at-model type="bool">false</at-model>
 			</config>
 		</view>
 		<view n="5">
 			<config>
-				<target-z-offset-m archive="y">0.0</target-z-offset-m>
+				<at-model type="bool">false</at-model>
 			</config>
 		</view>
 		<view n="6">
 			<config>
-				<target-z-offset-m archive="y">0.0</target-z-offset-m>
+				<at-model type="bool">false</at-model>
 			</config>
 		</view>
 
