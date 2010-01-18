@@ -27,6 +27,12 @@
 			<texture>Liveries/topbottom2.swordmen.png</texture>
 		</livery-topbottom2>
 
+		<livery-patch>
+			<name type="string">swordmen</name>
+			<index type="int">0</index>
+			<texture>Liveries/patch.swordmen.png</texture>
+		</livery-patch>
+
 		</model>
 	</sim>
 </PropertyList>

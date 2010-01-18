@@ -27,6 +27,13 @@
 			<texture>Liveries/topbottom2.redrippers2.png</texture>
 		</livery-topbottom2>
 
+		<livery-patch>
+			<name type="string">redrippers2</name>
+			<index type="int">1</index>
+			<texture>Liveries/patch.redrippers2.png</texture>
+		</livery-patch>
+
+
 		</model>
 	</sim>
 </PropertyList>
