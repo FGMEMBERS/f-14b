@@ -238,6 +238,10 @@
 				<file type="string">checkmates</file>
 				<index type="int">0</index>
 			</livery-topbottom2>
+			<livery-patch>
+				<file type="string">checkmates</file>
+				<index type="int">0</index>
+			</livery-patch>
 			<f-14b>
 				<controls>
 					<AFCS>
