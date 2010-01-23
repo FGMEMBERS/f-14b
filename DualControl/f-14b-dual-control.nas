@@ -62,6 +62,18 @@ var copilot_connect_pilot = func (pilot) {
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 	p = "instrumentation/ecm/on-off";
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
+	p = "sim/model/f-14b/controls/rio-ecm-display/mode-ecm-nav";
+	pilot.getNode(p, 1).alias(props.globals.getNode(p));
+	p = "sim/model/f-14b/controls/HSD/on-off";
+	pilot.getNode(p, 1).alias(props.globals.getNode(p));
+	p = "sim/model/f-14b/instrumentation/hsd/needle-deflection";
+	pilot.getNode(p, 1).alias(props.globals.getNode(p));
+	p = "instrumentation/nav[1]/radials/selected-deg";
+	pilot.getNode(p, 1).alias(props.globals.getNode(p));
+	p = "instrumentation/radar/radar2-range";
+	pilot.getNode(p, 1).alias(props.globals.getNode(p));
+
+
 	return[];
 
 }
