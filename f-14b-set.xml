@@ -569,7 +569,8 @@
 				<int n="5" type="int">0</int>    <!-- left wing torn -->
 				<int n="6" type="int">0</int>    <!-- right wing torn -->
 				<string n="0" type="string">epepepepepepepepepepcl</string>    <!-- external weapons -->
-				<string n="1" type="string">0/0/0/0/false/0/</string>    <!-- instruments -->
+				<string n="1" type="string">xxx</string>    <!-- instruments -->
+				<string n="2" type="string">50</string>    <!-- instruments -->
 			</generic>
 		</multiplay>
 

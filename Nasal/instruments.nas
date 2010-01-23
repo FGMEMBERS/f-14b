@@ -324,14 +324,15 @@ var compute_drag = func {
 }
 
 
-# Send type and basic instruments data over MP for backseaters.
-var ACString = props.globals.getNode("sim/aircraft");
+# Send basic instruments data over MP for backseaters.
 var InstrString = props.globals.getNode("sim/multiplay/generic/string[1]", 1);
+var InstrString2 = props.globals.getNode("sim/multiplay/generic/string[2]", 1);
 var IAS = props.globals.getNode("instrumentation/airspeed-indicator/indicated-speed-kt");
 var FuelTotal = props.globals.getNode("sim/model/f-14b/instrumentation/fuel-gauges/total");
 var TcBearing = props.globals.getNode("instrumentation/tacan/indicated-mag-bearing-deg");
 var TcInRange = props.globals.getNode("instrumentation/tacan/in-range");
 var TcRange = props.globals.getNode("instrumentation/tacan/indicated-distance-nm");
+var RangeRadar2       = props.globals.getNode("instrumentation/radar/radar2-range");
 
 var SteerModeAwl = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/steer/awl-bt");
 var SteerModeDest = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/steer/dest-bt");
@@ -342,20 +343,20 @@ var SteerModeCode = props.globals.getNode("sim/model/f-14b/controls/pilots-displ
 
 instruments_data_export = func {
 	# Air Speed indicator.
-	var ias            = sprintf( "%01.2f", IAS.getValue());
+	var ias            = sprintf( "%01.1f", IAS.getValue());
 	# Mach
-	var s_mach         = sprintf( "%01.2f", mach);
+	var s_mach         = sprintf( "%01.1f", mach);
 	# Fuel Totalizer.
-	var fuel_total     = sprintf( "%01.2f", FuelTotal.getValue());
+	var fuel_total     = sprintf( "%01.0f", FuelTotal.getValue());
 	# BDHI.
 	var tc_mode        = TcModeSwitch.getValue();
 	if ( TcBearing.getValue() != nil ) {
-		var tc_bearing  = sprintf( "%01.2f", TcBearing.getValue());
+		var tc_bearing  = sprintf( "%01.1f", TcBearing.getValue());
 	} else {
 		var tc_bearing  = "0.00";
 	}
 	var tc_in_range    = TcInRange.getValue() ? 1 : 0;
-	var tc_range       = sprintf( "%01.2f", TcRange.getValue());
+	var tc_range       = sprintf( "%01.1f", TcRange.getValue());
 	# Steer Submode Code
 	steer_mode_code = SteerModeCode.getValue();
 	# CDI
@@ -367,8 +368,10 @@ instruments_data_export = func {
 	foreach( s ; l_s ) {
 		str = str ~ s ~ ";";
 	}
-print(str);
+
 	InstrString.setValue(str);
+
+	InstrString2.setValue(sprintf( "%01.0f", RangeRadar2.getValue()));
 
 }
 

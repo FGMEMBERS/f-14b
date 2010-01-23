@@ -199,6 +199,10 @@
 						<safe-speed-limit-bug type="double">830</safe-speed-limit-bug>
 					</airspeed-indicator>
 
+					<hsd>
+						<needle-deflection type="double">0.00</needle-deflection>
+					</hsd>
+
 					<radar>
 						<az-field type="double">120</az-field>
 						<enabled type="bool">true</enabled>

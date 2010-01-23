@@ -51,7 +51,11 @@ instruments_data_import = func {
 			Pilot.getNode("instrumentation/nav[1]/radials/selected-deg", 1).setValue( l[9] );
 
 		}
-
+	}
+	PilotInstrString2 = Pilot.getNode("sim/multiplay/generic/string[2]", 1);
+	var str2 = PilotInstrString2.getValue();
+	if ( str2 != nil ) {
+		Pilot.getNode("instrumentation/radar/radar2-range", 1).setValue(str2);
 	}
 }
 
