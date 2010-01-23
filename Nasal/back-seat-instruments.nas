@@ -35,19 +35,21 @@ instruments_data_import = func {
 	if ( str != nil ) {
 		var l = split(";", str);
 		# Todo: Create the needed nodes only at connection/de-connection time. 
-		# ac_string, ias, mach, fuel_total, tc_mode, tc_bearing, tc_in_range, tc_range, steer_mode_code.
+		# ias, mach, fuel_total, tc_mode, tc_bearing, tc_in_range, tc_range, steer_mode_code, cdi, radial.
 		if ( size(l) > 1 ) {
-			Pilot.getNode("sim/aircraft", 1).setValue( l[0] );
-			Pilot.getNode("sim/aircraft", 1).setValue( l[0] );
-			Pilot.getNode("instrumentation/airspeed-indicator/indicated-speed-kt", 1).setValue( l[1] );
-			Pilot.getNode("velocities/mach", 1).setValue( l[2] );
-			Pilot.getNode("sim/model/f-14b/instrumentation/fuel-gauges/total", 1).setValue( l[3] );
-			Pilot.getNode("sim/model/f-14b/instrumentation/tacan/mode", 1).setValue( l[4] );
-			Pilot.getNode("instrumentation/tacan/indicated-mag-bearing-deg", 1).setValue( l[5] );
-			Pilot.getNode("instrumentation/tacan/in-range", 1).setBoolValue( l[6] );
-			Pilot.getNode("instrumentation/tacan/indicated-distance-nm", 1).setValue( l[7] );
+			Pilot.getNode("instrumentation/airspeed-indicator/indicated-speed-kt", 1).setValue( l[0] );
+			Pilot.getNode("velocities/mach", 1).setValue( l[1] );
+			Pilot.getNode("sim/model/f-14b/instrumentation/fuel-gauges/total", 1).setValue( l[2] );
+			Pilot.getNode("sim/model/f-14b/instrumentation/tacan/mode", 1).setValue( l[3] );
+			Pilot.getNode("instrumentation/tacan/indicated-mag-bearing-deg", 1).setValue( l[4] );
+			Pilot.getNode("instrumentation/tacan/in-range", 1).setBoolValue( l[5] );
+			Pilot.getNode("instrumentation/tacan/indicated-distance-nm", 1).setValue( l[6] );
 			var SteerSubmodeCode = Pilot.getNode("sim/model/f-14b/controls/pilots-displays/steer-submode-code", 1);
-			SteerSubmodeCode.setValue( l[8] );
+			SteerSubmodeCode.setValue( l[7] );
+
+			Pilot.getNode("sim/model/f-14b/instrumentation/hsd/needle-deflection", 1).setValue( l[8] );
+			Pilot.getNode("instrumentation/nav[1]/radials/selected-deg", 1).setValue( l[9] );
+
 		}
 
 	}
@@ -58,7 +60,7 @@ var InstrString = props.globals.getNode("sim/multiplay/generic/string[1]", 1);
 var ACString = props.globals.getNode("sim/aircraft");
 instruments_data_export = func {
 	# Aircraft variant
-	var ac_string      = ACString.getValue();
+	var ac_string = ACString.getValue();
 	var l_s = [ac_string];
 	var str = "";
 	foreach( s ; l_s ) {

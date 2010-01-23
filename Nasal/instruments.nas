@@ -341,11 +341,9 @@ var SteerModeVec = props.globals.getNode("sim/model/f-14b/controls/pilots-displa
 var SteerModeCode = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/steer-submode-code");
 
 instruments_data_export = func {
-	# Aircraft variant
-	var ac_string      = ACString.getValue();
 	# Air Speed indicator.
 	var ias            = sprintf( "%01.2f", IAS.getValue());
-	#Mach
+	# Mach
 	var s_mach         = sprintf( "%01.2f", mach);
 	# Fuel Totalizer.
 	var fuel_total     = sprintf( "%01.2f", FuelTotal.getValue());
@@ -356,16 +354,20 @@ instruments_data_export = func {
 	} else {
 		var tc_bearing  = "0.00";
 	}
-	var tc_in_range    = TcInRange.getValue() ? "true" : "false";
+	var tc_in_range    = TcInRange.getValue() ? 1 : 0;
 	var tc_range       = sprintf( "%01.2f", TcRange.getValue());
 	# Steer Submode Code
 	steer_mode_code = SteerModeCode.getValue();
+	# CDI
+	var cdi = sprintf( "%01.2f", HsdCdiDeflection.getValue());
+	var radial = VtcRadialDeg.getValue();
 
-	var l_s = [ac_string, ias, s_mach, fuel_total, tc_mode, tc_bearing, tc_in_range, tc_range, steer_mode_code];
+	var l_s = [ias, s_mach, fuel_total, tc_mode, tc_bearing, tc_in_range, tc_range, steer_mode_code, cdi, radial];
 	var str = "";
 	foreach( s ; l_s ) {
 		str = str ~ s ~ ";";
 	}
+print(str);
 	InstrString.setValue(str);
 
 }
