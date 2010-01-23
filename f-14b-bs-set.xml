@@ -25,15 +25,6 @@
 				</binding>
 			</key>
 
-			<key n="22">
-				<name>Ctrl-v</name>
-				<desc>Select pilot's view (view 0) or toggle between pilot's and RIO's view</desc>
-				<binding>
-					<command>nasal</command>
-					<script>f14.toggle_cockpit_views();</script>
-				</binding>
-			</key>
-
 			<key n="69">
 				<name>E</name>
 				<desc>Decrease Radar Range</desc>
@@ -52,20 +43,16 @@
 				</binding>
 			</key>
 
-			<!--<key n="104">
+			<key n="104">
 				<name>h</name>
-				<desc>HSD cycle modes</desc>
+				<desc>ECM cycle modes</desc>
 				<binding>
-					<command>property-adjust</command>
-					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
-					<step>1</step>
-					<min>-1</min>
-					<max>2</max>
-					<wrap>true</wrap>
+					<command>nasal</command>
+					<script>BS_instruments.select_ecm_nav()</script>
 				</binding>
 			</key>
 
-			<key n="113">
+			<!--<key n="113">
 				<name>q</name>
 				<desc>Toggle radar standby mode</desc>
 				<binding>
@@ -91,27 +78,6 @@
 			<on-off type="bool">true</on-off>
 		</ecm>
 	</instrumentation>
-
-	<nasal>
-		<dual_control_tools>
-			<file>Aircraft/ZLT-NT/DualControl/dual-control-tools.nas</file>
-		</dual_control_tools>
-		<aircraft_dual_control>
-			<file>Aircraft/f-14b/DualControl/f-14b-dual-control.nas</file>
-		</aircraft_dual_control>
-		<dual_control>
-			<file>Aircraft/ZLT-NT/DualControl/copilot-dual-control.nas</file>
-		</dual_control>
-		<BS_instruments>
-			<file>Aircraft/f-14b/Nasal/back-seat-instruments.nas</file>
-		</BS_instruments>
-		<radardist>
-			<file>Aircraft/Instruments-3d/radardist/radardist.nas</file>
-		</radardist>
-		<awg_9>
-			<file>Aircraft/f-14b/Nasal/awg_9.nas</file>
-		</awg_9>
-	</nasal>
 
 	<sim>
 		<description>F-14b multiplayer back-seater</description>
@@ -158,18 +124,18 @@
 			<title>Grumman F-14B Back Seat (bs) version:</title>
 			<line>NOTE: You will stay standing on the runway until you'll find a f-14b pilot flying in a max. 50NM range.</line>
 			<line>In the Menu 'Tomcat Controls' (Hit F10 if needed) choose 'Select MP-pilot', a small window appears with a list of available pilots.</line>
-			<line>You must choose a currently flying pilot in order to take place in the F-14 back seat. If no pilot, no back seat.</line>
+			<line>You must choose a currently flying pilot in order to take place in the F-14 back seat. If no f-14b pilot, no back seat.</line>
+			<line>As you check the box for an existing pilot, the message "Welcome on board willappear on the screen. You'll will have to wait a bit before the aircraft loads</line>
 			<line>The back seater in a F-14 is called RIO for Radar Intercept Officer. The RIO is not a copilot and there is no flight controls in the rear cockpit.</line>
+			<line>However you will have a working radar, the basic flight instruments, and a compas. ECM is also working.</line>
 			<Line>Also note that this is a very experimental version, it works with every pilot F-14 but most features will need an up to date pilot aircraft. Only a very few instruments will work with an outdated pilot aircraft.</Line>
 			<line>__________________________________________________</line>
 			<!--<line>VHF: Located on the RIO's left console, 3 bands: 30-88 Mhz, 108-174 Mhz, 225-400 Mhz. Modes TR and TR-G set COMM1. Mode DF sets NAV1,</line>
 			<line>that is Direction Finder displayed with the single needle in both BDHIs. You have Comm *or* DF. Storing frequencies (up to 20 channels) a- PRESET</line>
 			<line>select the desired chan, b- READ tune the desired frequency, c- LOAD stores the frequency in the previously selected chan.</line>
 			<line>UHF: Located on the pilot's left console, 225-400 Mhz. ADF is not enabled on this radio.</line>
-			<line>__________________________________________________</line>
-			<line>Displays: HUD: Take Off and Landing mode, Air to Air mode, Cruise mode selectable from the Pilot's Display Panel, down to the right, </line>
-			<line>buttons in column.</line>
-			<line>HUD, VDI (Vertical Display Indicator) and HSD (Horisontal Situation Display) turned ON/OFF from the same panel, lowest switches row.</line>-->
+			<line>__________________________________________________</line>-->
+
 
 		</help>
 
@@ -195,29 +161,36 @@
 
 			<path>Aircraft/f-14b/Models/f-14b-bs.xml</path>
 			<variant type="string">f-14b-bs</variant>
-			
+
 			<f-14b>
 				<controls>
+					<!--<HSD>
+						<on-off type="bool">true</on-off>
+					</HSD>-->
+
+					<pilots-displays>
+						<steer-submode-code type="int">3</steer-submode-code>
+					</pilots-displays>
 
 					<radar-awg-9>
 						<on-off type="bool">true</on-off>
 						<brightness type="double">1</brightness>
 					</radar-awg-9>
 
+					<rio-ecm-display>
+						<mode-ecm-nav type="bool">false</mode-ecm-nav> <!-- false = NAV, true = ECM -->
+						<!-- steer-submode-code selected by the pilot--> 
+					</rio-ecm-display>
+					
 					<TID>
 						<on-off type="bool">true</on-off>
 						<brightness type="double">1</brightness>
 					</TID>
-
-					<pilots-displays>
-						<steer-submode-code type="int">3</steer-submode-code>
-					</pilots-displays>
-
-					<rio-ecm-display>
-						<mode-ecm-nav type="bool">false</mode-ecm-nav><!-- false = NAV, true = ECM -->
-						<!-- steer-submode-code selected by the pilot -->
-					</rio-ecm-display>
-
+					
+					<VDI>
+						<brightness type="double">1</brightness>
+					</VDI>
+					
 				</controls>
 
 				<instrumentation>
@@ -228,7 +201,7 @@
 
 					<radar>
 						<az-field type="double">120</az-field>
-						<enabled type="bool">true</enabled>			
+						<enabled type="bool">true</enabled>
 						<range type="double">120</range>
 						<radar2-range type="double">50</radar2-range>
 						<radar-standby type="int">0</radar-standby>
@@ -354,7 +327,7 @@
 				<x-offset-m archive="y">0.0</x-offset-m>
 				<y-offset-m archive="y">0.43</y-offset-m>
 				<z-offset-m archive="y">-3.58</z-offset-m>
-				<pitch-offset-deg>-23</pitch-offset-deg>
+				<pitch-offset-deg>0</pitch-offset-deg>
 				<default-field-of-view-deg>55</default-field-of-view-deg>
 				<limits>
 					<enabled type="bool">true</enabled>
@@ -433,7 +406,28 @@
 			</config>
 		</view>
 
-
 	</sim>
+
+	<nasal>
+		<dual_control_tools>
+			<file>Aircraft/ZLT-NT/DualControl/dual-control-tools.nas</file>
+		</dual_control_tools>
+		<aircraft_dual_control>
+			<file>Aircraft/f-14b/DualControl/f-14b-dual-control.nas</file>
+		</aircraft_dual_control>
+		<dual_control>
+			<file>Aircraft/ZLT-NT/DualControl/copilot-dual-control.nas</file>
+		</dual_control>
+		<BS_instruments>
+			<file>Aircraft/f-14b/Nasal/back-seat-instruments.nas</file>
+		</BS_instruments>
+		<radardist>
+			<file>Aircraft/Instruments-3d/radardist/radardist.nas</file>
+		</radardist>
+		<awg_9>
+			<file>Aircraft/f-14b/Nasal/awg_9.nas</file>
+		</awg_9>
+	</nasal>
+
 
 </PropertyList>

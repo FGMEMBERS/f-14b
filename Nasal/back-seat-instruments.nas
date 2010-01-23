@@ -19,6 +19,13 @@ var check_pilot_callsign = func() {
 }
 
 
+var select_ecm_nav = func {
+	var ecm_nav_mode = Pilot.getNode("sim/model/f-14b/controls/rio-ecm-display/mode-ecm-nav");
+	ecm_nav_mode.setBoolValue( ! ecm_nav_mode.getBoolValue());
+}
+
+
+
 # Receive basic instruments data over MP from pilot's aircraft.
 var PilotInstrString = nil;
 instruments_data_import = func {
@@ -42,6 +49,7 @@ instruments_data_import = func {
 			var SteerSubmodeCode = Pilot.getNode("sim/model/f-14b/controls/pilots-displays/steer-submode-code", 1);
 			SteerSubmodeCode.setValue( l[8] );
 		}
+
 	}
 }
 

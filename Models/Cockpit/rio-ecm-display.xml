@@ -41,10 +41,10 @@
 		<action>
 			<button>0</button>
 			<repeatable>false</repeatable>
-			<interval-sec>0.1</interval-sec>
+			<interval-sec>0.05</interval-sec>
 			<binding>
-				<command>property-toggle</command>
-				<property>sim/model/f-14b/controls/rio-ecm-display/mode-ecm-nav</property>
+				<command>nasal</command>
+				<script>BS_instruments.select_ecm_nav()</script>
 			</binding>
 		</action>
 	</animation>

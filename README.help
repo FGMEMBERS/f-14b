@@ -16,7 +16,10 @@ Shift E  Decrease Radar Range Display .
 Shift R  Increase Radar Range Display .
 Ctrl r   Toggle Radar Standby Mode . 
 e        Toggle canopy and access ladder .
-h        Cycles through pilot's HSD displays, (compas, radar, RWR) . 
+h        - Cycles through pilot's HSD displays, (compas, radar, ECM) when
+         in pilot view.
+         - Toggles ECM or compas in the RIO ECM display when in RIO view
+         or Back-seater view (RIO with dualcontrol)
 u        Toggle refuelling probe .
 Ctrl o   Toggle oversweep (on ground only, otherwise sweep is automatic) .
 
@@ -45,7 +48,7 @@ pressure is put on the stick and it reengages when the stick is back in the
 center position . Attitude Hold Mode will hold pitch attitudes up to plus or
 minus 30 degrees, and bank angles up to plus or minus 60 degrees .
 It shall be switched off for aerobatics and inverted flight .
-Note that it is still on beta test .
+
 
 
 Autopilot Altitude Mode
@@ -91,6 +94,8 @@ setting or angle of attack .
 
 
 Ground Spoilers Operation
+
+
 
  
 

@@ -1007,12 +1007,14 @@
 				<name>h</name>
 				<desc>HSD cycle modes</desc>
 				<binding>
-					<command>property-adjust</command>
+					<!--<command>property-adjust</command>
 					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
 					<step>1</step>
 					<min>-1</min>
 					<max>2</max>
-					<wrap>true</wrap>
+					<wrap>true</wrap>-->
+					<command>nasal</command>
+					<script>f14_instruments.select_key_ecm_nav();</script>
 				</binding>
 			</key>
 

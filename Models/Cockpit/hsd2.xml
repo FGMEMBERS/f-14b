@@ -30,10 +30,9 @@
 		<type>select</type>
 		<object-name>video</object-name>
 		<condition>
-			<equals>
-				<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
-				<value>1</value>
-			</equals>
+			<not>
+				<property>sim/model/f-14b/controls/rio-ecm-display/mode-ecm-nav</property>
+			</not>
 			<property>sim/model/f-14b/controls/HSD/on-off</property>
 		</condition>
 	</animation>
@@ -60,10 +59,9 @@
 		<type>select</type>
 		<object-name>compass-rose</object-name>
 		<condition>
-			<equals>
-				<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
-				<value>1</value>
-			</equals>
+			<not>
+				<property>sim/model/f-14b/controls/rio-ecm-display/mode-ecm-nav</property>
+			</not>
 		</condition>
 	</animation>
 
@@ -229,7 +227,7 @@
 		<object-name>screen-bkg</object-name>
 		<type>material</type>
 		<emission>
-			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
 			<red>0.0</red>
 			<green>0.9</green>
 			<blue>0.0</blue>
@@ -240,7 +238,7 @@
 		<object-name>video</object-name>
 		<type>material</type>
 		<emission>
-			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
 			<red>0.0</red>
 			<green>0.7</green>
 			<blue>0.0</blue>
@@ -251,7 +249,7 @@
 		<object-name>compass-rose</object-name>
 		<type>material</type>
 		<emission>
-			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
+			<factor-prop>sim/model/f-14b/controls/radar-awg-9/brightness</factor-prop>
 			<red>0.0</red>
 			<green>0.9</green>
 			<blue>0.0</blue>

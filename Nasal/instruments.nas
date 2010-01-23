@@ -138,6 +138,19 @@ var tacan_XYtoggle = func {
 	}
 }
 
+# One key bindings for RIO's ecm display mode or Pilot's hsd depending on the current view name
+var mode_ecm_nav = props.globals.getNode("sim/model/f-14b/controls/rio-ecm-display/mode-ecm-nav");
+var hsd_mode_nav = props.globals.getNode("sim/model/f-14b/controls/pilots-displays/hsd-mode-nav");
+var select_key_ecm_nav = func {
+	var v = getprop("sim/current-view/name");
+	if (v == "RIO View") {
+		mode_ecm_nav.setBoolValue( ! mode_ecm_nav.getBoolValue());
+	} elsif (v == "Cockpit View") {
+		var h = hsd_mode_nav.getValue() + 1;
+		if ( h == 2 ) { h = -1 }
+		hsd_mode_nav.setValue( h )
+	}
+}
 
 # Save fuel state ###############
 var bingo      = props.globals.getNode("sim/model/f-14b/controls/fuel/bingo", 1);
