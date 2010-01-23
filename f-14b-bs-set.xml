@@ -164,9 +164,9 @@
 
 			<f-14b>
 				<controls>
-					<!--<HSD>
+					<HSD>
 						<on-off type="bool">true</on-off>
-					</HSD>-->
+					</HSD>
 
 					<pilots-displays>
 						<steer-submode-code type="int">3</steer-submode-code>
