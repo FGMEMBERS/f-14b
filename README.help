@@ -6,8 +6,8 @@ Home     Increase elevator trim .
 End      Decrease elevator trim .
 f        Lower flaps .
 Shift F  Raise flaps .
-s        Increase speed brakes .
-Shift S  Decrease speed brakes .
+k        Increase speed brakes .
+j        Decrease speed brakes .
 Ctrl s   Toggle ground spoilers armed .
 
 Miscelaneous shortcuts
@@ -90,12 +90,15 @@ Landing Direct Lift Control, (DLC) Operation
 
 During landing approaches, the spoilers and horizontal stabilizers can be
 controled simultaneously to provide glidepath correction without changing power
-setting or angle of attack .
+setting or angle of attack.
 
 
 Ground Spoilers Operation
 
-
+Ground spoilers (that is elevons used as air-brake ) provide aditionnal drag
+immediatly after touch down. Before landing arm the ground spoilers by hiting
+Ctrl-s . After the aircraft hit the runway pull the throttle to idle, then
+the spoilers(elevons) get fully deployed.
 
  
 
