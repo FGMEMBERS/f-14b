@@ -65,15 +65,6 @@
 				<name>R</name>
 				<desc>Increase Radar Range</desc>
 			</key>
-
-			<key>
-				<name>s</name>
-				<desc>Increase speed brakes</desc>
-			</key>
-			<key>
-				<name>S</name>
-				<desc>Decrease speed brakes</desc>
-			</key>
 			<key>
 				<name>Ctrl-s</name>
 				<desc>Toggle ground spoilers armed</desc>
