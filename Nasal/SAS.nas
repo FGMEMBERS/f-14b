@@ -9,7 +9,6 @@ var roll_lo_speed   = 400;
 var roll_lo_speed_sqr = roll_lo_speed * roll_lo_speed;
 var p_kp            = -0.05;
 var e_smooth_factor = 0.1;
-var a_smooth_factor = 0.1;
 var r_smooth_factor = 0.2;
 var p_max           = 0.2;
 var p_min           = -0.2;
@@ -118,11 +117,11 @@ var computeSAS = func {
 
 		# Roll Channel
 		var sas_roll = 0;
-		# Exponential Filter smoothing lateral input, then quadratic law.		
+		# Squares roll input, then applies quadratic law.		
 		if (SasRollOn.getValue()) {
-			smooth_a = last_a + ((raw_a - last_a) * a_smooth_factor);
-			last_a = smooth_a;
-			sas_roll = (smooth_a + a_trim) ; 
+			sas_roll = (raw_a * raw_a);
+			if (raw_a < 0 ) { sas_roll *= -1 }
+			sas_roll += a_trim;
 			if (airspeed > roll_lo_speed) {
 				sas_roll *= roll_lo_speed_sqr / airspeed_sqr;
 			}
