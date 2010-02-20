@@ -8,28 +8,68 @@
 ##
 ###############################################################################
 
-
+# Renaming (almost :)
 var DCT = dual_control_tools;
-
 
 # Pilot/copilot aircraft identifiers. Used by dual_control.
 var pilot_type   = "Aircraft/f-14b/Models/f-14b.xml";
-var copilot_type = "";
+var copilot_type = "Aircraft/f-14b/Models/f-14b-bs.xml";
 
 var copilot_view = "Back-seat View";
 
 props.globals.initNode("/sim/remote/pilot-callsign", "", "STRING");
 
+
+# MP enabled properties.
+# NOTE: These must exist very early during startup - put them
+#       in the -set.xml file.
+
+
+# Useful local property paths.
+
+# Slow state properties for replication.
+
+
+# Pilot MP property mappings and specific copilot connect/disconnect actions.
+
+
+# Used by dual_control to set up the mappings for the pilot.
 var pilot_connect_copilot = func (copilot) {
+
+	return 
+		[
+			# Process received properties.
+
+			# Process properties to send.
+		];
 }
 
 
 var pilot_disconnect_copilot = func {
 }
 
+# Copilot MP property mappings and specific pilot connect/disconnect actions.
 
+
+# Used by dual_control to set up the mappings for the copilot.
 var copilot_connect_pilot = func (pilot) {
+	# Initialize Nasal wrappers for copilot pick anaimations.
+	set_copilot_wrappers(pilot);
 
+	return
+		[
+			# Process received properties.
+
+			# Process properties to send.
+		];
+
+}
+
+var copilot_disconnect_pilot = func {
+}
+
+# Copilot Nasal wrappers
+var set_copilot_wrappers = func (pilot) {
 	var p = "sim/current-view/name";
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 	p = "instrumentation/altimeter/indicated-altitude-ft";
@@ -73,15 +113,5 @@ var copilot_connect_pilot = func (pilot) {
 	p = "instrumentation/radar/radar2-range";
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 
-
-	return[];
-
-}
-
-var copilot_disconnect_pilot = func {
-}
-
-
-var set_copilot_wrappers = func (pilot) {
 }
 
