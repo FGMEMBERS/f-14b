@@ -149,6 +149,23 @@
 		<object-name>Windshield_0</object-name>
 		<object-name>Canopy_0</object-name>
 	</animation>
+    <model>
+        <path>Aircraft/f-14b/Models/Fx/contrail1.xml</path>
+        <offsets>
+		    <x-m>50.0</x-m>
+		    <y-m>-2.5</y-m>
+		    <z-m>-1.5</z-m>
+        </offsets>
+    </model>
+    <model>
+        <path>Aircraft/f-14b/Models/Fx/contrail2.xml</path>
+        <offsets>
+		    <x-m>50.0</x-m>
+		    <y-m>2.5</y-m>
+		    <z-m>-1.5</z-m>
+        </offsets>
+    </model>
+
 <!-- ******************************************************************* -->
 <!-- Cockpit                                                             -->
 <!-- ******************************************************************* -->

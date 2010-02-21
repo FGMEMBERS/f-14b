@@ -14,7 +14,7 @@
 			<heading-deg>0</heading-deg>
 		</offsets>
 
-		<texture>smoke.rgb</texture>
+		<texture>smoke.png</texture>
 
 		<condition>
 			<equals>

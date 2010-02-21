@@ -85,7 +85,7 @@
 	</submodel>
 
 
-	<submodel>
+	<!--<submodel>
 		<name>left engine contrail</name>
 		<model>Models/Geometry/contrail.xml</model>
 		<trigger>/ai/submodels/contrails</trigger>
@@ -127,6 +127,6 @@
 		<cd>0.5</cd>
 		<weight>10</weight>
 		<random>1</random>
-	</submodel>
+	</submodel>-->
 
 </PropertyList>
