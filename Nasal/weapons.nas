@@ -120,7 +120,6 @@ var master_arm_switch = func(a) {
 
 
 var arm_selector = func() {
-    print("arm_selector");
     update_gun_ready();
 	# update selected WPS type.
 	# if applicable get number of selected MSL.
