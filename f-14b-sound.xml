@@ -985,6 +985,19 @@
 			</volume>
 		</tanks-ground-sound-in>
 
+		<!-- M61A1 sound gun -->
+		<gun>
+			<name>gun</name>
+			<mode>looped</mode>
+			<path>Aircraft/f-14b/Sounds/M61A1.wav</path>
+			<condition>
+				<property>sim/model/f-14b/systems/gun/running</property>
+			</condition>
+			<volume>
+				<value>1</value>
+			</volume>
+		</gun>
+
 	</fx>
 
 </PropertyList>

@@ -24,7 +24,7 @@ var select_ecm_nav = func {
 	ecm_nav_mode.setBoolValue( ! ecm_nav_mode.getBoolValue());
 }
 
-
+##
 
 # Receive basic instruments data over MP from pilot's aircraft.
 var PilotInstrString = nil;

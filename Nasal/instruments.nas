@@ -431,6 +431,7 @@ var init = func {
 	aircraft.data.load();
 	f14.ext_loads_init();
 	f14.init_fuel_system();
+	f14_weapons.init();
 	ticker.setDoubleValue(0);
 	local_mag_deviation();
 	tacan_switch_init();

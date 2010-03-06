@@ -131,6 +131,10 @@
 				<desc>Cycles Pilot's Armament Selector</desc>
 			</key>
 			<key>
+				<name>y</name>
+				<desc>Fire M61A1 Vulcan</desc>
+			</key>
+			<key>
 				<name>Ctrl-v</name>
 				<desc>Back to Pilot's View or toggle Pilot's and RIO View.</desc>
 			</key>
@@ -261,6 +265,7 @@
 						<emerg-jettison-switch type="bool">0</emerg-jettison-switch>
 						<master-arm-lever type="bool">0</master-arm-lever>
 						<master-arm-switch type="int">1</master-arm-switch>
+                        <gun-rate-switch type="bool">true</gun-rate-switch>
 						<stick-selector type="int">0</stick-selector>
 						<system-on-off type="bool">false</system-on-off>
 						<tanks-ground-sound type="bool">0</tanks-ground-sound>
@@ -486,7 +491,9 @@
 						<drag type="double">0</drag>
 					</fdm>
 					<gun>
-						<rounds type="int">200</rounds>
+						<rounds type="int">675</rounds>
+                        <running type="bool">false</running>
+                        <ready type="bool">false</ready>
 					</gun>
 					<wing-sweep>
 						<mode>
@@ -806,6 +813,9 @@
 	</consumables>
 
 	<controls>
+        <armament>
+            <trigger type="bool">false</trigger>
+        </armament>
 		<lighting>
 			<instruments-norm type="double">0</instruments-norm>
 			<panel-norm type="double">0</panel-norm>
@@ -966,12 +976,21 @@
 				</binding>
 			</key>
 
+			<key n="99">
+				<name>c</name>
+				<desc>Open canopy and access ladder</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14.canopyswitch(2);</script>
+				</binding>
+			</key>
+
 			<key n="100">
 				<name>d</name>
 				<desc>DLC increase</desc>
 				<binding>
 					<command>property-adjust</command>
-					<property>/controls/flight/DLC</property>
+					<property>controls/flight/DLC</property>
 					<step>0.1</step>
 					<max>1.0</max>
 				</binding>
@@ -979,11 +998,23 @@
 
 			<key n="101">
 				<name>e</name>
-				<desc>Open canopy and access ladder</desc>
+				<desc>Fire GAU-8/A cannon</desc>
 				<binding>
-					<command>nasal</command>
-					<script>f14.canopyswitch(2);</script>
+                    <command>property-assign</command>
+                    <property>controls/armament/trigger</property>
+                    <value>true</value>
+					<!--<command>nasal</command>
+					<script>f14_weapons.fire_gun()</script>-->
 				</binding>
+				<mod-up>
+					<binding>
+                        <command>property-assign</command>
+                        <property>controls/armament/trigger</property>
+                        <value>false</value>
+						<!--<command>nasal</command>
+						<script>f14_weapons.cfire_gun()</script>-->
+					</binding>
+				</mod-up>
 			</key>
 
 			<key n="102">
@@ -999,12 +1030,6 @@
 				<name>h</name>
 				<desc>HSD cycle modes</desc>
 				<binding>
-					<!--<command>property-adjust</command>
-					<property>sim/model/f-14b/controls/pilots-displays/hsd-mode-nav</property>
-					<step>1</step>
-					<min>-1</min>
-					<max>2</max>
-					<wrap>true</wrap>-->
 					<command>nasal</command>
 					<script>f14_instruments.select_key_ecm_nav();</script>
 				</binding>
@@ -1040,6 +1065,25 @@
 					<repeat>false</repeat>
 					<wrap>true</wrap>
 				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>f14_weapons.arm_selector();</script>
+				</binding>
+			</key>
+
+			<key n="121">
+				<name>y</name>
+				<desc>Fire MG</desc>
+				<binding>
+				    <command>nasal</command>
+				    <script>f14_weapons.fire_MG();</script>
+				</binding>
+				<mod-up>
+				    <binding>
+				    <command>nasal</command>
+				    <script>f14_weapons.stop_MG();</script>
+				    </binding>
+				</mod-up>
 			</key>
 
 			<key n="362">
@@ -1089,6 +1133,12 @@
 	</instrumentation>
 
 	<nasal>
+		<dual_control_tools>
+			<file>Aircraft/ZLT-NT/DualControl/dual-control-tools.nas</file>
+		</dual_control_tools>
+		<aircraft_dual_control>
+			<file>Aircraft/f-14b/DualControl/f-14b-dual-control.nas</file>
+		</aircraft_dual_control>
 		<radardist>
 			<file>Aircraft/Instruments-3d/radardist/radardist.nas</file>
 		</radardist>

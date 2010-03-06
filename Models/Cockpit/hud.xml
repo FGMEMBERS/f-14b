@@ -55,19 +55,36 @@
 		<type>select</type>
 		<object-name>master-arm-locked</object-name>
 		<condition>
-			<not>
-				<equals>
-					<property>sim/model/f-14b/controls/armament/master-arm-switch</property>
-					<value>2</value>
-				</equals>
-			</not>
-			<not>
-				<equals>
-					<property>sim/model/f-14b/controls/armament/stick-selector</property>
-					<value>0</value>
-				</equals>
-			</not>
-			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+            <and><or>
+                <and>
+			        <not>
+				        <equals>
+					        <property>sim/model/f-14b/controls/armament/master-arm-switch</property>
+					        <value>2</value>
+				        </equals>
+			        </not>
+			        <not>
+				        <equals>
+					        <property>sim/model/f-14b/controls/armament/stick-selector</property>
+					        <value>0</value>
+				        </equals>
+			        </not>
+                </and>
+                <and>
+ 				    <equals>
+					    <property>sim/model/f-14b/controls/armament/master-arm-switch</property>
+					    <value>2</value>
+				    </equals>
+				    <equals>
+					    <property>sim/model/f-14b/controls/armament/stick-selector</property>
+					    <value>1</value>
+				    </equals>
+                    <not>
+                        <property>sim/model/f-14b/systems/gun/ready</property>
+                    </not>               
+                </and>
+            </or>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property></and>
 		</condition>
 	</animation>
 	<animation>
@@ -105,14 +122,25 @@
 	</animation>
 	<animation>
 		<type>select</type>
-		<object-name>arm-digit</object-name>
+		<object-name>gun-digit</object-name>
 		<condition>
-			<greater-than>
-				<property>sim/model/f-14b/controls/armament/stick-selector</property>
-				<value>0</value>
-			</greater-than>
+			<property>sim/model/f-14b/systems/gun/ready</property>
 			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
 		</condition>
+	</animation>
+	<animation>
+		<type>textranslate</type>
+		<object-name>gun-digit</object-name>
+		<property>sim/model/f-14b/systems/gun/rounds</property>
+		<factor>0.001</factor>
+		<offset>-100</offset>
+		<step>100</step>
+		<scroll>0.5</scroll>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
 	</animation>
 	<animation>
 		<type>select</type>
