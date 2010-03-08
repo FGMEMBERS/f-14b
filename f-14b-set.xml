@@ -265,7 +265,7 @@
 						<emerg-jettison-switch type="bool">0</emerg-jettison-switch>
 						<master-arm-lever type="bool">0</master-arm-lever>
 						<master-arm-switch type="int">1</master-arm-switch>
-                        <gun-rate-switch type="bool">true</gun-rate-switch>
+						<gun-rate-switch type="bool">true</gun-rate-switch>
 						<stick-selector type="int">0</stick-selector>
 						<system-on-off type="bool">false</system-on-off>
 						<tanks-ground-sound type="bool">0</tanks-ground-sound>
@@ -492,8 +492,8 @@
 					</fdm>
 					<gun>
 						<rounds type="int">675</rounds>
-                        <running type="bool">false</running>
-                        <ready type="bool">false</ready>
+						<running type="bool">false</running>
+						<ready type="bool">false</ready>
 					</gun>
 					<wing-sweep>
 						<mode>
@@ -813,9 +813,9 @@
 	</consumables>
 
 	<controls>
-        <armament>
-            <trigger type="bool">false</trigger>
-        </armament>
+		<armament>
+			<trigger type="bool">false</trigger>
+		</armament>
 		<lighting>
 			<instruments-norm type="double">0</instruments-norm>
 			<panel-norm type="double">0</panel-norm>
@@ -1000,17 +1000,17 @@
 				<name>e</name>
 				<desc>Fire GAU-8/A cannon</desc>
 				<binding>
-                    <command>property-assign</command>
-                    <property>controls/armament/trigger</property>
-                    <value>true</value>
+					<command>property-assign</command>
+					<property>controls/armament/trigger</property>
+					<value>true</value>
 					<!--<command>nasal</command>
 					<script>f14_weapons.fire_gun()</script>-->
 				</binding>
 				<mod-up>
 					<binding>
-                        <command>property-assign</command>
-                        <property>controls/armament/trigger</property>
-                        <value>false</value>
+						<command>property-assign</command>
+						<property>controls/armament/trigger</property>
+						<value>false</value>
 						<!--<command>nasal</command>
 						<script>f14_weapons.cfire_gun()</script>-->
 					</binding>
@@ -1114,14 +1114,14 @@
 		</tacan>
 		<radar>
 			<az-field type="double">120</az-field>
-			<enabled type="bool">true</enabled>			
+			<enabled type="bool">true</enabled>
 			<range type="double">120</range>
 			<radar2-range type="double">50</radar2-range>
 			<radar-standby type="int">0</radar-standby>
 			<symbols-enabled type="bool">true</symbols-enabled>
 		</radar>
 		<ecm>
-			<enabled type="bool">true</enabled>			
+			<enabled type="bool">true</enabled>
 			<on-off type="bool">true</on-off>
 		</ecm>
 		<nav>

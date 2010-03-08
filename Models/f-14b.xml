@@ -149,22 +149,22 @@
 		<object-name>Windshield_0</object-name>
 		<object-name>Canopy_0</object-name>
 	</animation>
-    <model>
-        <path>Aircraft/f-14b/Models/Fx/contrail1.xml</path>
-        <offsets>
-		    <x-m>50.0</x-m>
-		    <y-m>-2.5</y-m>
-		    <z-m>-1.5</z-m>
-        </offsets>
-    </model>
-    <model>
-        <path>Aircraft/f-14b/Models/Fx/contrail2.xml</path>
-        <offsets>
-		    <x-m>50.0</x-m>
-		    <y-m>2.5</y-m>
-		    <z-m>-1.5</z-m>
-        </offsets>
-    </model>
+	<model>
+		<path>Aircraft/f-14b/Models/Fx/contrail1.xml</path>
+		<offsets>
+			<x-m>50.0</x-m>
+			<y-m>-2.5</y-m>
+			<z-m>-1.5</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Fx/contrail2.xml</path>
+		<offsets>
+			<x-m>50.0</x-m>
+			<y-m>2.5</y-m>
+			<z-m>-1.5</z-m>
+		</offsets>
+	</model>
 
 <!-- ******************************************************************* -->
 <!-- Cockpit                                                             -->
@@ -778,76 +778,76 @@
 
 <!-- Rudders +++++++++++++++++++++ -->
 
- <animation>
-  <type>rotate</type>
-  <object-name>RudderL</object-name>
-  <property>surface-positions/rudder-pos-norm</property>
-  <factor>30</factor>
-  <center>
-   <x-m>7.531</x-m>
-   <y-m>-1.496</y-m>
-   <z-m>-0.481</z-m>
-  </center>
-  <axis>
-   <x>-1.328</x>
-   <y>0.212</y>
-   <z>-2.388</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>RudderL</object-name>
+		<property>surface-positions/rudder-pos-norm</property>
+		<factor>30</factor>
+		<center>
+			<x-m>7.531</x-m>
+			<y-m>-1.496</y-m>
+			<z-m>-0.481</z-m>
+		</center>
+		<axis>
+			<x>-1.328</x>
+			<y>0.212</y>
+			<z>-2.388</z>
+		</axis>
+	</animation>
 
- <animation>
-  <type>rotate</type>
-  <object-name>RudderR</object-name>
-  <property>surface-positions/rudder-pos-norm</property>
-  <factor>30</factor>
-  <center>
-   <x-m>7.531</x-m>
-   <y-m>1.496</y-m>
-   <z-m>-0.481</z-m>
-  </center>
-  <axis>
-   <x>-1.328</x>
-   <y>-0.212</y>
-   <z>-2.388</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>RudderR</object-name>
+		<property>surface-positions/rudder-pos-norm</property>
+		<factor>30</factor>
+		<center>
+			<x-m>7.531</x-m>
+			<y-m>1.496</y-m>
+			<z-m>-0.481</z-m>
+		</center>
+		<axis>
+			<x>-1.328</x>
+			<y>-0.212</y>
+			<z>-2.388</z>
+		</axis>
+	</animation>
 
 <!-- Stabilators +++++++++++++++++++++ -->
 
- <animation>
-  <type>rotate</type>
-  <object-name>StabilatorL</object-name>
-  <property>sim/multiplay/generic/float[4]</property>
-  <factor>19.0</factor>
-  <center>
-   <x-m>6.158</x-m>
-   <y-m>-2.325</y-m>
-   <z-m>-1.141</z-m>
-  </center>
-  <axis>
-   <x>0.0</x>
-   <y>1.0</y>
-   <z>0.0</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>StabilatorL</object-name>
+		<property>sim/multiplay/generic/float[4]</property>
+		<factor>19.0</factor>
+		<center>
+			<x-m>6.158</x-m>
+			<y-m>-2.325</y-m>
+			<z-m>-1.141</z-m>
+		</center>
+		<axis>
+			<x>0.0</x>
+			<y>1.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
 
- <animation>
-  <type>rotate</type>
-  <object-name>StabilatorR</object-name>
-  <property>sim/multiplay/generic/float[5]</property>
-  <factor>19.0</factor>
-  <center>
-   <x-m>6.158</x-m>
-   <y-m>2.325</y-m>
-   <z-m>-1.141</z-m>
-  </center>
-  <axis>
-   <x>0.0</x>
-   <y>1.0</y>
-   <z>0.0</z>
-  </axis>
- </animation>
- 
+	<animation>
+		<type>rotate</type>
+		<object-name>StabilatorR</object-name>
+		<property>sim/multiplay/generic/float[5]</property>
+		<factor>19.0</factor>
+		<center>
+			<x-m>6.158</x-m>
+			<y-m>2.325</y-m>
+			<z-m>-1.141</z-m>
+		</center>
+		<axis>
+			<x>0.0</x>
+			<y>1.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+
 	<!-- Flaps +++++++++++++++++++++ -->
 
 	<animation>
@@ -1198,194 +1198,194 @@
 		</axis>
 	</animation>
 
-  <!-- Slats +++++++++++++++++++++ -->
- 
- <animation>
-  <type>translate</type>
-  <object-name>Slat1L</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
-  <factor>0.12</factor>
-  <axis>
-   <x>-1</x>
-   <y>0.1</y>
-   <z>-0.1</z>
-  </axis>
- </animation>
- 
-<animation>
-  <type>rotate</type>
-  <object-name>Slat1L</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
-  <factor>12</factor>
-  <center>
-   <x-m>3.078</x-m>
-   <y-m>-8.797</y-m>
-   <z-m>-0.627</z-m>
-  </center>
-  <axis>
-   <x>1.085</x>
-   <y>-3.137</y>
-   <z>0.119</z>
-  </axis>
- </animation>
+<!-- Slats +++++++++++++++++++++ -->
 
- <animation>
-  <type>translate</type>
-  <object-name>Slat1R</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
-  <factor>0.12</factor>
-  <axis>
-   <x>-1</x>
-   <y>-0.1</y>
-   <z>-0.1</z>
-  </axis>
- </animation>
- 
-<animation>
-  <type>rotate</type>
-  <object-name>Slat1R</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
-  <factor>-12</factor>
-  <center>
-   <x-m>3.078</x-m>
-   <y-m>8.797</y-m>
-   <z-m>-0.627</z-m>
-  </center>
-  <axis>
-   <x>1.085</x>
-   <y>3.137</y>
-   <z>0.119</z>
-  </axis>
- </animation>
+	<animation>
+		<type>translate</type>
+		<object-name>Slat1L</object-name>
+		<property>sim/multiplay/generic/float[3]</property>
+		<factor>0.12</factor>
+		<axis>
+			<x>-1</x>
+			<y>0.1</y>
+			<z>-0.1</z>
+		</axis>
+	</animation>
 
-  <animation>
-  <type>translate</type>
-  <object-name>Slat2L</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
-  <factor>0.17</factor>
-  <axis>
-   <x>-1</x>
-   <y>0.1</y>
-   <z>-0.1</z>
-  </axis>
- </animation>
- 
-<animation>
-  <type>rotate</type>
-  <object-name>Slat2L</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
-  <factor>12</factor>
-  <center>
-   <x-m>2.145</x-m>
-   <y-m>-6.098</y-m>
-   <z-m>-0.525</z-m>
-  </center>
-  <axis>
-   <x>1.098</x>
-   <y>-3.206</y>
-   <z>0.121</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Slat1L</object-name>
+		<property>sim/multiplay/generic/float[3]</property>
+		<factor>12</factor>
+		<center>
+			<x-m>3.078</x-m>
+			<y-m>-8.797</y-m>
+			<z-m>-0.627</z-m>
+		</center>
+		<axis>
+			<x>1.085</x>
+			<y>-3.137</y>
+			<z>0.119</z>
+		</axis>
+	</animation>
 
-   <animation>
-  <type>translate</type>
-  <object-name>Slat2R</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
-  <factor>0.17</factor>
-  <axis>
-   <x>-1</x>
-   <y>0.1</y>
-   <z>-0.1</z>
-  </axis>
- </animation>
- 
+	<animation>
+		<type>translate</type>
+		<object-name>Slat1R</object-name>
+		<property>sim/multiplay/generic/float[3]</property>
+		<factor>0.12</factor>
+		<axis>
+			<x>-1</x>
+			<y>-0.1</y>
+			<z>-0.1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Slat1R</object-name>
+		<property>sim/multiplay/generic/float[3]</property>
+		<factor>-12</factor>
+		<center>
+			<x-m>3.078</x-m>
+			<y-m>8.797</y-m>
+			<z-m>-0.627</z-m>
+		</center>
+		<axis>
+			<x>1.085</x>
+			<y>3.137</y>
+			<z>0.119</z>
+		</axis>
+	</animation>
+
 <animation>
-  <type>rotate</type>
-  <object-name>Slat2R</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
-  <factor>-12</factor>
-  <center>
-   <x-m>2.145</x-m>
-   <y-m>6.098</y-m>
-   <z-m>-0.525</z-m>
-  </center>
-  <axis>
-   <x>1.098</x>
-   <y>3.206</y>
-   <z>0.121</z>
-  </axis>
- </animation>
+	<type>translate</type>
+	<object-name>Slat2L</object-name>
+	<property>sim/multiplay/generic/float[3]</property>
+	<factor>0.17</factor>
+	<axis>
+		<x>-1</x>
+		<y>0.1</y>
+		<z>-0.1</z>
+	</axis>
+</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Slat2L</object-name>
+		<property>sim/multiplay/generic/float[3]</property>
+		<factor>12</factor>
+		<center>
+			<x-m>2.145</x-m>
+			<y-m>-6.098</y-m>
+			<z-m>-0.525</z-m>
+		</center>
+		<axis>
+			<x>1.098</x>
+			<y>-3.206</y>
+			<z>0.121</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>Slat2R</object-name>
+		<property>sim/multiplay/generic/float[3]</property>
+		<factor>0.17</factor>
+		<axis>
+			<x>-1</x>
+			<y>0.1</y>
+			<z>-0.1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Slat2R</object-name>
+		<property>sim/multiplay/generic/float[3]</property>
+		<factor>-12</factor>
+		<center>
+			<x-m>2.145</x-m>
+			<y-m>6.098</y-m>
+			<z-m>-0.525</z-m>
+		</center>
+		<axis>
+			<x>1.098</x>
+			<y>3.206</y>
+			<z>0.121</z>
+		</axis>
+	</animation>
 
 <!-- speed brakes +++++++++++++++++++++ -->
 
-<animation>
-  <type>rotate</type>
-  <object-name>UpSpdBrk_1</object-name>
-  <object-name>UpSpdBrk_0</object-name>
-  <object-name>UpSpdBrkJack</object-name>
-  <object-name>UpSpdBrkJack.001</object-name>
-  <object-name>UpSpdBrkJack2</object-name>
-  <object-name>UpSpdBrkJack2.001</object-name>
-  <property>surface-positions/speedbrake-pos-norm</property>
-  <factor>-60</factor>
-  <center>
-   <x-m>6.786</x-m>
-   <y-m>0</y-m>
-   <z-m>-0.917</z-m>
-  </center>
-  <axis>
-   <x>0.0</x>
-   <y>1.0</y>
-   <z>0.0</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>UpSpdBrk_1</object-name>
+		<object-name>UpSpdBrk_0</object-name>
+		<object-name>UpSpdBrkJack</object-name>
+		<object-name>UpSpdBrkJack.001</object-name>
+		<object-name>UpSpdBrkJack2</object-name>
+		<object-name>UpSpdBrkJack2.001</object-name>
+		<property>surface-positions/speedbrake-pos-norm</property>
+		<factor>-60</factor>
+		<center>
+			<x-m>6.786</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.917</z-m>
+		</center>
+		<axis>
+			<x>0.0</x>
+			<y>1.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
 
- <animation>
-  <type>rotate</type>
-  <object-name>LoSpdBrk_0</object-name>
-  <object-name>LoSpdBrk_1</object-name>
-  <object-name>LoSpdBrkJack1</object-name>
-  <object-name>LoSpdBrkJack2</object-name>
-  <object-name>LoSpdBrkJack11</object-name>
-  <object-name>LoSpdBrkJack22</object-name>
-  <object-name>LoSpdBrkJack1.001</object-name>
-  <object-name>LoSpdBrkJack2.001</object-name>
-  <object-name>LoSpdBrkJack11.001</object-name>
-  <object-name>LoSpdBrkJack22.001</object-name>
-  <property>surface-positions/speedbrake-pos-norm</property>
-  <factor>60</factor>
-  <center>
-   <x-m>6.786</x-m>
-   <y-m>0</y-m>
-   <z-m>-1.262</z-m>
-  </center>
-  <axis>
-   <x>0.0</x>
-   <y>1.0</y>
-   <z>0.0</z>
-  </axis>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>LoSpdBrk_0</object-name>
+		<object-name>LoSpdBrk_1</object-name>
+		<object-name>LoSpdBrkJack1</object-name>
+		<object-name>LoSpdBrkJack2</object-name>
+		<object-name>LoSpdBrkJack11</object-name>
+		<object-name>LoSpdBrkJack22</object-name>
+		<object-name>LoSpdBrkJack1.001</object-name>
+		<object-name>LoSpdBrkJack2.001</object-name>
+		<object-name>LoSpdBrkJack11.001</object-name>
+		<object-name>LoSpdBrkJack22.001</object-name>
+		<property>surface-positions/speedbrake-pos-norm</property>
+		<factor>60</factor>
+		<center>
+			<x-m>6.786</x-m>
+			<y-m>0</y-m>
+			<z-m>-1.262</z-m>
+		</center>
+		<axis>
+			<x>0.0</x>
+			<y>1.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
 
-<!--<animation>
-  <type>rotate</type>
-  <object-name>LoSpdBrk.001</object-name>
-  <object-name>LoSpdBrkJack1.001</object-name>
-  <object-name>LoSpdBrkJack2.001</object-name>
-  <object-name>LoSpdBrkJack11.001</object-name>
-  <object-name>LoSpdBrkJack22.001</object-name>
-  <property>surface-positions/speedbrake-pos-norm</property>
-  <factor>60</factor>
-  <center>
-   <x-m>6.786</x-m>
-   <y-m>0</y-m>
-   <z-m>-1.262</z-m>
-  </center>
-  <axis>
-   <x>0.0</x>
-   <y>1.0</y>
-   <z>0.0</z>
-  </axis>
- </animation>-->
+	<!--<animation>
+		<type>rotate</type>
+		<object-name>LoSpdBrk.001</object-name>
+		<object-name>LoSpdBrkJack1.001</object-name>
+		<object-name>LoSpdBrkJack2.001</object-name>
+		<object-name>LoSpdBrkJack11.001</object-name>
+		<object-name>LoSpdBrkJack22.001</object-name>
+		<property>surface-positions/speedbrake-pos-norm</property>
+		<factor>60</factor>
+		<center>
+			<x-m>6.786</x-m>
+			<y-m>0</y-m>
+			<z-m>-1.262</z-m>
+		</center>
+		<axis>
+			<x>0.0</x>
+			<y>1.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>-->
 
 <!-- ******************************************************************* -->
 <!-- Nose Gear Animations                                                -->
@@ -2005,7 +2005,7 @@
 	</animation>
 
 
- <!-- Compression -->
+	<!-- Compression -->
 
 	<animation>
 		<type>translate</type>
