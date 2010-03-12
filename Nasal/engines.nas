@@ -1,7 +1,13 @@
 var egt_norm1 = props.globals.getNode("engines/engine[0]/egt-norm", 1);
 var egt_norm2 = props.globals.getNode("engines/engine[1]/egt-norm", 1);
-var egt1 = props.globals.getNode("engines/engine[0]/egt-degf");
-var egt2 = props.globals.getNode("engines/engine[1]/egt-degf");
+var egt1      = props.globals.getNode("engines/engine[0]/egt-degf");
+var egt2      = props.globals.getNode("engines/engine[1]/egt-degf");
+var Ramp1     = props.globals.getNode("engines/AICS/ramp1");
+var Ramp2     = props.globals.getNode("engines/AICS/ramp2");
+var Ramp3     = props.globals.getNode("engines/AICS/ramp3");
+var Engine1Burner = props.globals.initNode("engines/engine[0]/afterburner", 0, "DOUBLE");
+var Engine2Burner = props.globals.initNode("engines/engine[1]/afterburner", 0, "DOUBLE");
+var GearPos   = props.globals.getNode("gear/gear[0]/position-norm");
 
 #----------------------------------------------------------------------------
 # AICS (Air Inlet Control System)
@@ -14,11 +20,11 @@ var computeAICS = func {
 		ramp3 = 0.0;
 		ramp2 = 0.0;
 	} elsif (CurrentMach < 1.2) {
-		ramp1 = (CurrentMach - 0.5) * 0.3 / 0.7;
-		ramp3 = (CurrentMach - 0.5) * 0.2 / 0.7;
+		ramp1 = (CurrentMach - 0.5) * 0.4285;
+		ramp3 = (CurrentMach - 0.5) * 0.2857;
 		ramp2 = 0.0;
 	} elsif (CurrentMach < 2.0) {
-		ramp1 = (CurrentMach - 1.2) * 0.7 / 0.8 + 0.3;
+		ramp1 = (CurrentMach - 1.2) * 0.875 + 0.3;
 		ramp3 = (CurrentMach - 1.2) + 0.2;
 		ramp2 = (CurrentMach - 1.2) / 0.8;
 	} else {
@@ -26,9 +32,9 @@ var computeAICS = func {
 		ramp3 = 1.0;
 		ramp2 = 1.0;
 	}
-	setprop ("/engines/AICS/ramp1", ramp1);
-	setprop ("/engines/AICS/ramp2", ramp2);
-	setprop ("/engines/AICS/ramp3", ramp3);
+    Ramp1.setValue(ramp1);
+    Ramp2.setValue(ramp2);
+    Ramp3.setValue(ramp3);
 }
 
 #----------------------------------------------------------------------------
@@ -40,36 +46,35 @@ NozzleSpeed = 1.0;
 
 var computeNozzles = func {
 
+    var maxSeaLevelIdlenozzle = 0;
+    var idleNozzleTarget = 0;
+
+	var eng1_burner = Engine1Burner.getValue();
+	var eng2_burner = Engine1Burner.getValue();
+
 	egt_norm1.setValue(egt1.getValue()*0.000679348);
 	egt_norm2.setValue(egt2.getValue()*0.000679348);	
 
-	engine1Burner = getprop ("engines/engine[0]/afterburner");
-	if (engine1Burner == nil) {
-		engine1Burner = 0.0;
-	}
-	engine2Burner = getprop ("engines/engine[1]/afterburner");
-	if (engine2Burner == nil) {
-		engine2Burner = 0.0;
-	}
+
 	if (CurrentMach < 0.45) {
-		maxSeaLevelIdlenozzle = 1.0;
+		maxSeaLevelIdlenozzle = 1;
 	} elsif (CurrentMach >= 0.45 and CurrentMach < 0.8) {
-		maxSeaLevelIdlenozzle = 1.0 * (0.8 - CurrentMach) / 0.35;
-	} else {
-		maxSeaLevelIdlenozzle = 0.0;
+		maxSeaLevelIdlenozzle = (0.8 - CurrentMach) / 0.35;
 	}
+
 	if (Throttle < ThrottleIdle) {
-		if (getprop ("gear/gear[0]/position-norm") == 1.0) {
+        var gear_pos = GearPos.getValue();
+		if (gear_pos == 1.0) {
 		#gear down
 			if (wow) {
-				idleNozzleTarget = 1.0;
+				idleNozzleTarget = 1;
 			} else {
 				idleNozzleTarget = 0.26;
 			}
 		} else {
 		# gear not down
-			if (CurrentAlt <= 30000.0) {
-				idleNozzleTarget = 1.0 + (0.15 - maxSeaLevelIdlenozzle) * CurrentAlt / 30000.0;
+			if (CurrentAlt <= 30000) {
+				idleNozzleTarget = 1 + (0.15 - maxSeaLevelIdlenozzle) * CurrentAlt / 30000.0;
 			} else {
 				idleNozzleTarget = 0.15;
 			}
@@ -78,8 +83,8 @@ var computeNozzles = func {
 		Nozzle2Target = idleNozzleTarget;
 	} else {
 	# throttle idle
-		Nozzle1Target = engine1Burner;
-		Nozzle2Target = engine2Burner;
+		Nozzle1Target = eng1_burner;
+		Nozzle2Target = eng2_burner;
 	}
 }
 
