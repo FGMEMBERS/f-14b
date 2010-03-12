@@ -2,7 +2,7 @@ var ExtTanks = props.globals.getNode("sim/model/f-14b/systems/external-loads/ext
 var WeaponsSet = props.globals.getNode("sim/model/f-14b/systems/external-loads/external-load-set");
 var WeaponsWeight = props.globals.getNode("sim/model/f-14b/systems/external-loads/weapons-weight", 1);
 var PylonsWeight = props.globals.getNode("sim/model/f-14b/systems/external-loads/pylons-weight", 1);
-var WeaponsString = props.globals.getNode("sim/multiplay/generic/string[0]", 1);
+var WeaponsGenInt7 = props.globals.getNode("sim/multiplay/generic/int[7]", 1);
 var S0 = nil;
 var S1 = nil;
 var S2 = nil;
@@ -38,7 +38,10 @@ var ext_loads_init = func() {
 
 
 var ext_loads_set = func(s) {
-	# Clean, FAD, FAD light, FAD heavy, Bombcat
+	# Load sets: Clean, FAD, FAD light, FAD heavy, Bombcat
+	# Load set also define which weapons are mounted.
+	# It also define which pylons are mounted, a pylon may
+	# support several weapons.
 	WeaponsSet.setValue(s);
 	if ( s == "Clean" ) {
 		PylonsWeight.setValue(0);
@@ -160,24 +163,36 @@ var toggle_ext_tank_selected = func() {
 }
 
 var update_wpstring = func {
-	var wpstring = "";
+	var b_wpstring = "";
 	foreach (var S; Station.list) {
-		wpstring = wpstring ~ S.scode;
+		# Use 3 bits per weapon pylon (3 free for additional wps type).
+		# Use 1 bit per fuel tank.
+		# Use 3 bits per load sheme (3 free for additional sheme).
+		var b = "0";
+		var s = S.index;
+		if ( s != 2 and s != 7) {
+			b = bits.string(S.bcode,3);
+		} else {
+			b = S.bcode;
+		}
+		b_wpstring = b_wpstring ~ b;
 	}
 	var set = WeaponsSet.getValue();
+	var b_set = 0;
 	if ( set == "FAD" ) {
-		set = "fa";
+		b_set = 1;
 	} elsif ( set == "FAD light" ) {
-		set = "fl";
+		b_set = 2;
 	} elsif ( set == "FAD heavy" ) {
-		set = "fh";
+		b_set = 3;
 	} elsif ( set == "Bombcat" ) {
-		set = "bc";
-	} else {
-		set = "cl";
+		b_set = 4;
 	}
-	wpstring = wpstring ~ set;
-	WeaponsString.setValue(wpstring);
+	b_wpstring = b_wpstring ~ bits.string(b_set,3);
+	# Send the bits string as INT over MP.
+	var b_stores = bits.value(b_wpstring);
+	WeaponsGenInt7.setValue(b_stores);
+	f14_net.send_wps_state(b_stores);
 }
 
 # Emergency jettison:
@@ -221,34 +236,44 @@ var droptanks = func(n) {
 
 setlistener( "sim/ai/aircraft/impact/droptank", droptanks );
 
-
+var external_load_loop = func() {
+	# Whithout this periodic update the MP AI model wont have its external load
+	# uptodate before being manually updated by the pilot *when* in range of
+	# the observer.
+	var mp_nbr = size(props.globals.getNode("/ai/models").getChildren("multiplayer"));
+	if ( mp_nbr != nil ) {
+		if ( mp_nbr > 0 ) {
+			update_wpstring();
+		}
+	}
+	settimer(external_load_loop, 10);
+}
 
 Station = {
 	new : func (number, weight_number){
 		var obj = {parents : [Station] };
 		obj.prop = props.globals.getNode("sim/model/f-14b/systems/external-loads/").getChild ("station", number , 1);
+		obj.index = number;
 		obj.type = obj.prop.getNode("type", 1);
 		obj.weight = props.globals.getNode("sim").getChild ("weight", weight_number , 1);
 		obj.weight_lb = obj.weight.getNode("weight-lb");
-		obj.scode = "ep";
+		obj.bcode = 0;
 		append(Station.list, obj);
 		return obj;
 	},
 	set_type : func (t) {
 		me.type.setValue(t);
-		me.scode = "";
+		me.bcode = 0;
 		if ( t == "AIM-9" ) {
-			me.scode = "A9";
-		} elsif ( t == "AIM-54" ) {
-			me.scode = "A5";
+			me.bcode = 1;
 		} elsif ( t == "AIM-7" ) {
-			me.scode = "A7";
+			me.bcode = 2;
+		} elsif ( t == "AIM-54" ) {
+			me.bcode = 3;
 		} elsif ( t == "MK-83" ) {
-			me.scode = "L3";
+			me.bcode = 4;
 		} elsif ( t == "external tank" ) {
-			me.scode = "TK";
-		} else {
-			me.scode = "ep";
+			me.bcode = 1;
 		}
 	},
 	get_type : func () {

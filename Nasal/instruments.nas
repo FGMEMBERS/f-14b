@@ -429,6 +429,7 @@ var main_loop = func {
 var init = func {
 	print("Initializing F-14B Systems");
 	aircraft.data.load();
+	f14_net.mp_network_init(1);
 	f14.ext_loads_init();
 	f14.init_fuel_system();
 	f14_weapons.init();
@@ -446,6 +447,7 @@ var init = func {
 	}
 	# launch
 	settimer(main_loop, 0.5);
+	settimer(f14.external_load_loop, 3);
 }
 
 setlistener("sim/signals/fdm-initialized", init);

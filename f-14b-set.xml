@@ -551,7 +551,6 @@
 
 		<multiplay>
 			<generic>
-				
 				<float n="0">0</float><!-- wing-sweep     -->
 				<!-- <float n="1">0</float> free     -->
 				<float n="2">0</float><!-- aux flaps      -->
@@ -566,9 +565,10 @@
 				<int n="4" type="int">0</int>    <!-- position lights -->
 				<int n="5" type="int">0</int>    <!-- left wing torn -->
 				<int n="6" type="int">0</int>    <!-- right wing torn -->
-				<string n="0" type="string">epepepepepepepepepepcl</string>    <!-- external weapons -->
+				<int n="7" type="int">0</int>    <!-- external weapons layout and pylons details -->
+				<string n="0" type="string"></string>       <!-- mp-network -->
 				<string n="1" type="string">xxx</string>    <!-- instruments -->
-				<string n="2" type="string">50</string>    <!-- instruments -->
+				<string n="2" type="string">50</string>     <!-- instruments -->
 			</generic>
 		</multiplay>
 
@@ -1133,6 +1133,9 @@
 	</instrumentation>
 
 	<nasal>
+		<f14_net>
+			<file>Aircraft/f-14b/Systems/mp-network.nas</file>
+		</f14_net>
 		<dual_control_tools>
 			<file>Aircraft/ZLT-NT/DualControl/dual-control-tools.nas</file>
 		</dual_control_tools>
@@ -1165,9 +1168,6 @@
 			<file>Aircraft/f-14b/Nasal/f-14b.nas</file>
 			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
 			<file>Aircraft/f-14b/Nasal/fuel-system.nas</file>
-			<file>Aircraft/f-14b/Nasal/f14_radar.nas</file>
-			<!--
-			<file>Aircraft/f-14b/Nasal/display_props.nas</file>-->
 		</f14>
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>
