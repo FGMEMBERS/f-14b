@@ -1071,21 +1071,6 @@
 				</binding>
 			</key>
 
-			<key n="121">
-				<name>y</name>
-				<desc>Fire MG</desc>
-				<binding>
-				    <command>nasal</command>
-				    <script>f14_weapons.fire_MG();</script>
-				</binding>
-				<mod-up>
-				    <binding>
-				    <command>nasal</command>
-				    <script>f14_weapons.stop_MG();</script>
-				    </binding>
-				</mod-up>
-			</key>
-
 			<key n="362">
 				<name>Home</name>
 				<desc>Increase elevator trim</desc>
