@@ -18,6 +18,9 @@ var OurHdg            = props.globals.getNode("orientation/heading-deg");
 var OurRoll           = props.globals.getNode("orientation/roll-deg");
 var OurPitch          = props.globals.getNode("orientation/pitch-deg");
 var EcmOn             = props.globals.getNode("instrumentation/ecm/on-off", 1);
+#var Remote            = props.globals.getNode("/sim/remote/pilot-callsign");
+WcsMode = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode");
+
 
 var az_fld            = AzField.getValue();
 var l_az_fld          = 0;
@@ -47,6 +50,9 @@ var mp_count          = 0;
 var mp_list           = [];
 var tgts_list         = [];
 var cnt               = 0;
+# Dual-control vars: 
+var we_are_bs         = 0;
+var pilot_lock        = 0;
 
 # ECM warnings.
 var EcmAlert1 = props.globals.getNode("instrumentation/ecm/alert-type1", 1);
@@ -63,7 +69,7 @@ var u_ecm_type_num    = 0;
 init = func() {
 	var our_ac_name = getprop("sim/aircraft");
 	my_radarcorr = radardist.my_maxrange( our_ac_name ); # in kilometers
-
+	if (our_ac_name == "f-14b-bs") { we_are_bs = 1; }
 	}
 
 # Main loop ###############
@@ -73,12 +79,10 @@ var rdr_loop = func() {
 	if ( display_rdr ) {
 		az_scan();
 		our_radar_stanby = RadarStandby.getValue();
-		var bs = getprop("sim/aircraft");
-		if ( bs == "f-14b-bs") {
-			#our_radar_stanby = 1;  # Back seater's radar doesn't emit.
+		if ( we_are_bs == 0) {
+			RadarStandbyMP.setIntValue(our_radar_stanby); # Tell over MP if
+			# our radar is scaning or is in stanby. Don't if we are a back-seater.
 		}
-		RadarStandbyMP.setIntValue(our_radar_stanby); # Tell over MP if
-			# our radar is scaning or is in stanby.
 	} elsif ( size(tgts_list) > 0 ) {
 		foreach( u; tgts_list ) {
 			u.set_display(0);
@@ -209,7 +213,7 @@ var hud_nearest_tgt = func() {
 	# Computes nearest_u position in the HUD
 	if ( nearest_u != nil ) {
 		if ( wcs_mode == "tws-auto" and nearest_u.get_display() and nearest_u.deviation > l_az_fld  and  nearest_u.deviation < r_az_fld ) {
-			var u_target = nearest_u.type ~ "[" ~ nearest_u.index ~ "]";			
+			var u_target = nearest_u.type ~ "[" ~ nearest_u.index ~ "]";
 			var our_pitch = OurPitch.getValue();
 			var u_dev_rad = (90 - nearest_u.get_deviation(our_true_heading)) * D2R;
 			var u_elev_rad = (90 - nearest_u.get_total_elevation(our_pitch)) * D2R;
@@ -294,7 +298,7 @@ rwr = func(u) {
 	u.EcmTypeNum.setIntValue(u_ecm_type_num);
 }
 
-		
+
 # Utilities.
 var deviation_normdeg = func(our_heading, target_bearing) {
 	var dev_norm = our_heading - target_bearing;
@@ -313,9 +317,15 @@ var rounding1000 = func(n) {
 }
 
 # Controls
+# ---------------------------------------------------------------------
+var toggle_radar_standby = func() {
+	if ( pilot_lock and ! we_are_bs ) { return }
+	RadarStandby.setBoolValue(!RadarStandby.getBoolValue());
+}
 
 var range_control = func(n) {
 	# 1(+), -1(-), 5, 10, 20, 50, 100, 200
+	if ( pilot_lock and ! we_are_bs ) { return }
 	var range_radar = RangeRadar2.getValue();
 	if ( n == 1 ) {
 		if ( range_radar == 5 ) { range_radar = 10 }
@@ -327,7 +337,7 @@ var range_control = func(n) {
 		if ( range_radar == 200 ) { range_radar = 100 }
 		elsif ( range_radar == 100 ) { range_radar = 50 }
 		elsif ( range_radar == 50 ) { range_radar = 20 }
-		elsif ( range_radar == 20 ) { range_radar = 10 } 
+		elsif ( range_radar == 20 ) { range_radar = 10 }
 		else { range_radar = 5  }
 	} elsif (n == 5 ) { range_radar = 5 }
 	elsif (n == 10 ) { range_radar = 10 }
@@ -339,6 +349,7 @@ var range_control = func(n) {
 }
 
 wcs_mode_sel = func(mode) {
+	if ( pilot_lock and ! we_are_bs ) { return }
 	foreach (var n; props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode").getChildren()) {
 		n.setBoolValue(n.getName() == mode);
 		wcs_mode = mode;
@@ -354,26 +365,49 @@ wcs_mode_sel = func(mode) {
 
 wcs_mode_toggle = func() {
 	# Temporarely toggles between the first 2 available modes.
-	foreach (var n; props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode").getChildren()) {
+	#foreach (var n; props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode").getChildren()) {
+	if ( pilot_lock and ! we_are_bs ) { return }
+	foreach (var n; WcsMode.getChildren()) {
 		if ( n.getBoolValue() ) { wcs_mode = n.getName() }
 	}
 	if ( wcs_mode == "pulse-srch" ) {
-		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-srch", 0);
-		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-auto", 1);
+		WcsMode.getNode("pulse-srch").setBoolValue(0);
+		WcsMode.getNode("tws-auto").setBoolValue(1);
 		wcs_mode = "tws-auto";
 		AzField.setValue(60);
 		ddd_screen_width = 0.0422;
 	} elsif ( wcs_mode == "tws-auto" ) {
-		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/tws-auto", 0);
-		setprop("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode/pulse-srch", 1);
+		WcsMode.getNode("pulse-srch").setBoolValue(1);
+		WcsMode.getNode("tws-auto").setBoolValue(0);
 		wcs_mode = "pulse-srch";
 		AzField.setValue(120);
 		ddd_screen_width = 0.0844;
 	}
 }
 
+wcs_mode_update = func() {
+	# Used on pilot's side when WcsMode is updated by the back-seater.
+	foreach (var n; WcsMode.getChildren()) {
+		if ( n.getBoolValue() ) { wcs_mode = n.getName() }
+	}
+	if ( WcsMode.getNode("tws-auto").getBoolValue() ) {
+		wcs_mode = "tws-auto";
+		AzField.setValue(60);
+		ddd_screen_width = 0.0422;
+	} elsif ( WcsMode.getNode("pulse-srch").getBoolValue() ) {
+		wcs_mode = "pulse-srch";
+		AzField.setValue(120);
+		ddd_screen_width = 0.0844;
+	}
+
+}
+
+
+
+
 
 # Target class
+# ---------------------------------------------------------------------
 var Target = {
 	new : func (c) {
 		var obj = { parents : [Target]};
@@ -387,7 +421,7 @@ var Target = {
 		obj.string = "ai/models/" ~ obj.type ~ "[" ~ obj.index ~ "]";
 		obj.shortstring = obj.type ~ "[" ~ obj.index ~ "]";
 		
-		# Remote back-seater don't emit and are invisible. FIXME: This is going to be handled by radardist ASAP.		
+		# Remote back-seaters shall not emit and shall be invisible. FIXME: This is going to be handled by radardist ASAP.
 		obj.not_acting = 0;
 		var Remote_Bs_String = c.getNode("sim/multiplay/generic/string[1]");
 		if ( Remote_Bs_String != nil ) {
@@ -402,13 +436,14 @@ var Target = {
 			}
 		}
 
+		# Local back-seater has a different radar-awg-9 folder and shall not see its pilot's aircraft.
 		var bs = getprop("sim/aircraft");
 		obj.InstrTgts = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/targets", 1);
 		if ( bs == "f-14b-bs") {
 			if  ( BS_instruments.Pilot != nil ) {
-				# Local back-seater has a different radar-awg-9 folder.
+				# Use a different radar-awg-9 folder.
 				obj.InstrTgts = BS_instruments.Pilot.getNode("sim/model/f-14b/instrumentation/radar-awg-9/targets", 1);
-				# Local back-seater does not see its pilot's aircraft.
+				# Do not see our pilot's aircraft.
 				var target_callsign = obj.Callsign.getValue();
 				var p_callsign = BS_instruments.Pilot.getNode("callsign").getValue();
 				if ( target_callsign == p_callsign ) {
@@ -441,7 +476,7 @@ var Target = {
 
 		obj.TimeLast.setValue(ElapsedSec.getValue());
 		obj.RangeLast.setValue(obj.Range.getValue());
-
+		# Radar emission status for other uthers of radar2.nas.
 		obj.RadarStandby = c.getNode("sim/multiplay/generic/int[2]");
 
 		obj.deviation = nil;

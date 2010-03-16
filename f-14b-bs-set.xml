@@ -11,7 +11,6 @@
 
 
 
-
 	<input>
 		<keyboard n="0" include="../../Input/Keyboard/carrier-bindings.xml">
 			<!--<multikey include="Models/Cockpit/radios-multikey.xml"/>-->
@@ -52,14 +51,14 @@
 				</binding>
 			</key>
 
-			<!--<key n="113">
+			<key n="113">
 				<name>q</name>
 				<desc>Toggle radar standby mode</desc>
 				<binding>
-					<command>property-toggle</command>
-					<property>instrumentation/radar/radar-standby</property>
+					<command>nasal</command>
+					<script>awg_9.toggle_radar_standby();</script>
 				</binding>
-			</key>-->
+			</key>
 
 		</keyboard>
 	</input>
@@ -144,7 +143,7 @@
 				<menu n="50">
 					<label>Tomcat Controls</label>
 					<item>
-						<label>Select MP-pilot</label>
+						<label>Select MP pilot</label>
 						<binding>
 							<command>nasal</command>
 							<script>
@@ -207,8 +206,8 @@
 						<az-field type="double">120</az-field>
 						<enabled type="bool">true</enabled>
 						<range type="double">120</range>
-						<radar2-range type="double">50</radar2-range>
-						<radar-standby type="int">0</radar-standby>
+						<!--<radar2-range type="double">50</radar2-range>-->
+						<radar-standby type="bool">0</radar-standby>
 						<symbols-enabled type="bool">true</symbols-enabled>
 					</radar>
 
@@ -224,7 +223,6 @@
 					</tacan>
 
 					<rio-nav-display>
-						<standby-light type="bool">false</standby-light>
 						<ready-light type="bool">false</ready-light>
 						<track-hold-light type="bool">false</track-hold-light>
 						<clsn-light type="bool">false</clsn-light><!--Constant Angle Collision Steering enabled-->
@@ -267,15 +265,15 @@
 				<!-- <float n="4">0</float>left elevator  -->
 				<!-- <float n="5">0</float>right elevator -->
 				<!-- <float n="6">0</float>refuel probe   -->
-				<!-- <int n="0" type="int">0</int>    fuel dump      -->
+				<int n="0" type="int">0</int>    <!-- bs_switches1_mpp      -->
 				<!-- <int n="1" type="int">0</int>    formation slimmers -->
 				<int n="2" type="int">1</int>    <!-- force radar standby transmission over MP -->
 				<!-- <int n="3" type="int">0</int>    collision lights -->
 				<!-- <int n="4" type="int">0</int>    position lights -->
 				<!-- <int n="5" type="int">0</int>    left wing torn -->
 				<!-- <int n="6" type="int">0</int>    right wing torn -->
-				<!-- <string n="0" type="string">epepepepepepepepepepcl</string>    external weapons -->
-				<string n="1" type="string"></string>    <!-- instruments -->
+				<string n="0" type="string"></string>    <!-- bs_TDM1_mpp -->
+				<string n="1" type="string"></string>    <!-- pilot's instruments -->
 			</generic>
 		</multiplay>
 
@@ -413,6 +411,12 @@
 	</sim>
 
 	<nasal>
+		<radardist>
+			<file>Aircraft/Instruments-3d/radardist/radardist.nas</file>
+		</radardist>
+		<awg_9>
+			<file>Aircraft/f-14b/Nasal/awg_9.nas</file>
+		</awg_9>
 		<dual_control_tools>
 			<file>Aircraft/ZLT-NT/DualControl/dual-control-tools.nas</file>
 		</dual_control_tools>
@@ -425,12 +429,6 @@
 		<BS_instruments>
 			<file>Aircraft/f-14b/Nasal/back-seat-instruments.nas</file>
 		</BS_instruments>
-		<radardist>
-			<file>Aircraft/Instruments-3d/radardist/radardist.nas</file>
-		</radardist>
-		<awg_9>
-			<file>Aircraft/f-14b/Nasal/awg_9.nas</file>
-		</awg_9>
 	</nasal>
 
 

@@ -15,58 +15,105 @@ var DCT = dual_control_tools;
 var pilot_type   = "Aircraft/f-14b/Models/f-14b.xml";
 var copilot_type = "Aircraft/f-14b/Models/f-14b-bs.xml";
 
-var copilot_view = "Back-seat View";
-
 props.globals.initNode("/sim/remote/pilot-callsign", "", "STRING");
 
 
 # MP enabled properties.
 # NOTE: These must exist very early during startup - put them
 #       in the -set.xml file.
+var bs_switches1_mpp = "sim/multiplay/generic/int[0]";
+var bs_TDM1_mpp      = "sim/multiplay/generic/string[0]";
 
 
 # Useful local property paths.
+var WcsModeList = awg_9.WcsMode.getChildren();
+var RangeRadar2 = props.globals.getNode("instrumentation/radar/radar2-range");
 
 # Slow state properties for replication.
 
 
 # Pilot MP property mappings and specific copilot connect/disconnect actions.
+#---------------------------------------------------------------------------
 
 
 # Used by dual_control to set up the mappings for the pilot.
 var pilot_connect_copilot = func (copilot) {
+	print("######## pilot_connect_copilot() ########");
+	# Lock awg_9 controls for the pilot.
+	awg_9.pilot_lock = 1;
+	return [
+		# Process received properties.
+		DCT.SwitchDecoder.new (
+			copilot.getNode(bs_switches1_mpp),
+			[
+				func (b) {
+					awg_9.RadarStandby.setBoolValue(b);
+				},
+				func (b) {
+					awg_9.WcsMode.getNode("pulse-srch").setBoolValue(b);
+				},
+				func (b) {
+					awg_9.WcsMode.getNode("tws-auto").setBoolValue(b);
+					awg_9.wcs_mode_update();
+				}
+			]
+		),
+		DCT.TDMDecoder.new
+			(copilot.getNode(bs_TDM1_mpp),
+			[
+				func (b) {
+					RangeRadar2.setValue(b);
+				}
+			]
+		)
+	];
 
-	return 
-		[
-			# Process received properties.
-
-			# Process properties to send.
-		];
 }
 
-
 var pilot_disconnect_copilot = func {
+	print("######## pilot_disconnect_copilot() ########");
+	# Unlock awg_9 controls for the pilot.
+	awg_9.pilot_lock = 0;
 }
 
 # Copilot MP property mappings and specific pilot connect/disconnect actions.
-
+#---------------------------------------------------------------------------
 
 # Used by dual_control to set up the mappings for the copilot.
 var copilot_connect_pilot = func (pilot) {
+	print("######## copilot_connect_pilot() ########");
 	# Initialize Nasal wrappers for copilot pick anaimations.
 	set_copilot_wrappers(pilot);
 
-	return
-		[
-			# Process received properties.
+	return [
+		# Process received properties.
 
-			# Process properties to send.
-		];
+		# Process properties to send.
+		DCT.SwitchEncoder.new (
+			#  0 - 4: awg9 Controls
+			[
+				awg_9.RadarStandby,
+				awg_9.WcsMode.getNode("pulse-srch"),
+				awg_9.WcsMode.getNode("tws-auto")
+			],
+			props.globals.getNode(bs_switches1_mpp)
+		),
+		DCT.TDMEncoder.new (
+			#  0: awg9 Range
+			[
+				props.globals.getNode("instrumentation/radar/radar2-range")
+			],
+			props.globals.getNode(bs_TDM1_mpp)
+
+		)
+	];
 
 }
 
 var copilot_disconnect_pilot = func {
+	print("######## copilot_disconnect_pilot() ########");
 }
+
 
 # Copilot Nasal wrappers
 var set_copilot_wrappers = func (pilot) {
@@ -98,8 +145,6 @@ var set_copilot_wrappers = func (pilot) {
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 	p = "instrumentation/radar/az-field";
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
-	p = "instrumentation/radar/radar2-range";
-	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 	p = "instrumentation/ecm/on-off";
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 	p = "sim/model/f-14b/controls/rio-ecm-display/mode-ecm-nav";
@@ -112,6 +157,7 @@ var set_copilot_wrappers = func (pilot) {
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 	p = "instrumentation/radar/radar2-range";
 	pilot.getNode(p, 1).alias(props.globals.getNode(p));
-
+	p = "instrumentation/radar/radar-standby";
+	pilot.getNode(p, 1).alias(props.globals.getNode(p));
 }
 

@@ -2,7 +2,6 @@ var ExtTanks = props.globals.getNode("sim/model/f-14b/systems/external-loads/ext
 var WeaponsSet = props.globals.getNode("sim/model/f-14b/systems/external-loads/external-load-set");
 var WeaponsWeight = props.globals.getNode("sim/model/f-14b/systems/external-loads/weapons-weight", 1);
 var PylonsWeight = props.globals.getNode("sim/model/f-14b/systems/external-loads/pylons-weight", 1);
-var WeaponsGenInt7 = props.globals.getNode("sim/multiplay/generic/int[7]", 1);
 var S0 = nil;
 var S1 = nil;
 var S2 = nil;
@@ -31,7 +30,7 @@ var ext_loads_init = func() {
 	S9 = Station.new(9, 7);
 	setprop("sim/menubar/default/menu[5]/item[0]/enabled", 0);
 	foreach (var S; Station.list) {
-		S.set_type(S.get_type()); # initialize scode.
+		S.set_type(S.get_type()); # initialize bcode.
 	}
 	update_wpstring();
 }
@@ -39,8 +38,8 @@ var ext_loads_init = func() {
 
 var ext_loads_set = func(s) {
 	# Load sets: Clean, FAD, FAD light, FAD heavy, Bombcat
-	# Load set also define which weapons are mounted.
-	# It also define which pylons are mounted, a pylon may
+	# Load set defines which weapons are mounted.
+	# It also defines which pylons are mounted, a pylon may
 	# support several weapons.
 	WeaponsSet.setValue(s);
 	if ( s == "Clean" ) {
@@ -165,9 +164,9 @@ var toggle_ext_tank_selected = func() {
 var update_wpstring = func {
 	var b_wpstring = "";
 	foreach (var S; Station.list) {
-		# Use 3 bits per weapon pylon (3 free for additional wps type).
+		# Use 3 bits per weapon pylon (3 free additional wps types).
 		# Use 1 bit per fuel tank.
-		# Use 3 bits per load sheme (3 free for additional sheme).
+		# Use 3 bits for the load sheme (3 free additional shemes).
 		var b = "0";
 		var s = S.index;
 		if ( s != 2 and s != 7) {
@@ -191,7 +190,6 @@ var update_wpstring = func {
 	b_wpstring = b_wpstring ~ bits.string(b_set,3);
 	# Send the bits string as INT over MP.
 	var b_stores = bits.value(b_wpstring);
-	WeaponsGenInt7.setValue(b_stores);
 	f14_net.send_wps_state(b_stores);
 }
 

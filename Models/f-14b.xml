@@ -10,7 +10,7 @@
 	<nasal>
 		<load>
 			var self = cmdarg();
-			print("LOAD f-14b", self.getPath());
+			print("LOAD f-14b ", self.getPath());
 
 			self.getNode("sim/model/ac-type", 1).setValue("f-14b"); # Dual-control
 
@@ -1986,7 +1986,7 @@
 	</animation>
 
 
-	<!-- Compression -->
+ <!-- Compression -->
 
 	<animation>
 		<type>translate</type>

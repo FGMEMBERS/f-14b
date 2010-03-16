@@ -28,8 +28,7 @@ var send_wps_state = func (state) {
 ###############################################################################
 # MP broadcast message handler.
 var handle_message = func (sender, msg) {
-	print("Message from "~ sender.getNode("callsign").getValue() ~
-		" size: " ~ size(msg));
+	#print("Message from "~ sender.getNode("callsign").getValue() ~ " size: " ~ size(msg));
 #	debug.dump(msg);
 	var type = msg[0];
 	if (type == message_id["ext_load_state"][0]) {
@@ -86,7 +85,7 @@ var update_ext_load = func(sender, state) {
 			elsif ( str == "100") { o = "MK-83" }
 			elsif ( str == "000") { o = "-" }
 			Station = Wnode.getChild ("station", s , 1);
-			Station.getNode("type").setValue(o);
+			Station.getNode("type", 1).setValue(o);
 			c -= 3;
 			#print(str," ",s," ",o);
 		} else {
@@ -94,7 +93,7 @@ var update_ext_load = func(sender, state) {
 			str = chr(wpstr[c]);
 			if ( str == "1" ) { o = "external tank" }
 			Station = Wnode.getChild ("station", s , 1);
-			Station.getNode("type").setValue(o);
+			Station.getNode("type", 1).setValue(o);
 			c -= 1;
 			#print(str," ",s," ",o);
 		}

@@ -371,7 +371,7 @@ instruments_data_export = func {
 
 	InstrString.setValue(str);
 
-	InstrString2.setValue(sprintf( "%01.0f", RangeRadar2.getValue()));
+	#InstrString2.setValue(sprintf( "%01.0f", RangeRadar2.getValue()));
 
 }
 
