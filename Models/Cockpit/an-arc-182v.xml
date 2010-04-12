@@ -4,7 +4,7 @@
 <PropertyList>
 	<path>an-arc-182v.ac</path>
 
-	<animation>
+	<!--<animation>
 		<type>select</type>
 		<object-name>an-arc-182v</object-name>
 		<condition>
@@ -13,7 +13,7 @@
 				<value>RIO View</value>
 			</equals>
 		</condition>
-	</animation>
+	</animation>-->
 
 	<!-- Frequency Digital Display, ta-ta-ta da... -->
 	<animation>
@@ -256,8 +256,8 @@
 		<property>sim/model/f-14b/instrumentation/an-arc-182v/function</property>
 		<factor>30</factor>
 		<center>
-			<x-m>-0.0222</x-m>
-			<y-m>-0.0492</y-m>
+			<x-m>0.0142</x-m>
+			<y-m>-0.0491</y-m>
 			<z-m>0.0</z-m>
 		</center>
 		<axis>
@@ -317,8 +317,8 @@
 		<property>sim/model/f-14b/instrumentation/an-arc-182v/mode</property>
 		<factor>30</factor>
 		<center>
-			<x-m>-0.0228</x-m>
-			<y-m>0.0516</y-m>
+			<x-m>0.0135</x-m>
+			<y-m>0.0515</y-m>
 			<z-m>0.0</z-m>
 		</center>
 		<axis>
@@ -356,7 +356,7 @@
 		<property>sim/model/f-14b/instrumentation/an-arc-182v/volume</property>
 		<factor>225</factor>
 		<center>
-			<x-m>-0.0505</x-m>
+			<x-m>-0.0142</x-m>
 			<y-m>-0.0608</y-m>
 			<z-m>0.0</z-m>
 		</center>
@@ -367,6 +367,7 @@
 		</axis>
 	</animation>
 	<animation>
+		<name>toto</name>
 		<type>pick</type>
 		<visible>true</visible>
 		<object-name>hotspot-volume</object-name>

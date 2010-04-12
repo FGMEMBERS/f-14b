@@ -10,7 +10,7 @@ loc -0.00206094 0.0111978 -0.0389816
 kids 3
 OBJECT poly
 name "mount"
-loc 0.0599693 -0.00536775 0.0389816
+loc 0.0599693 -0.0205568 0.0389816
 texture "rio-ecm-display.png"
 crease 180.000000
 numvert 96
@@ -754,7 +754,7 @@ refs 3
 kids 0
 OBJECT poly
 name "mode-toggle"
-loc -0.06377 -0.00147083 -0.0567209
+loc -0.06377 -0.0166599 -0.0567209
 crease 45.000000
 numvert 4
 0.0661481 -1.86265e-09 0.0325983
@@ -776,7 +776,7 @@ loc 0.00380071 0.00683858 0.0177392
 kids 4
 OBJECT poly
 name "data-adf-switch"
-loc 0.0280207 0.00041382 -0.0350854
+loc 0.0280207 -0.0147752 -0.0350854
 texture "an-arc-182v.png"
 crease 45.000000
 numvert 17
@@ -905,7 +905,7 @@ refs 3
 kids 0
 OBJECT poly
 name "mode-switch"
-loc -0.00675775 -0.00124147 -0.0339605
+loc -0.0067577 -0.0164305 -0.0339605
 texture "an-arc-182v.png"
 crease 45.000000
 numvert 17
@@ -1034,7 +1034,7 @@ refs 4
 kids 0
 OBJECT poly
 name "ecm-oride-switch"
-loc -0.0107474 0.000413822 0.0111856
+loc -0.0107474 -0.0147752 0.0111856
 texture "an-arc-182v.png"
 crease 45.000000
 numvert 17
@@ -1163,7 +1163,7 @@ refs 3
 kids 0
 OBJECT poly
 name "ecm-corr-switch"
-loc -0.0105155 0.000413822 0.0564693
+loc -0.0105155 -0.0147752 0.0564693
 texture "an-arc-182v.png"
 crease 45.000000
 numvert 17
