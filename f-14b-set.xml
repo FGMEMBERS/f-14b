@@ -478,6 +478,9 @@
 					<position-tail-factor type="int">0</position-tail-factor>
 				</lighting>
 				<systems>
+					<armament>
+						<launch-light type="bool">false</launch-light>
+					</armament>
 					<afcs>
 						<engaged type="bool">false</engaged>
 						<target-roll-deg type="double">0</target-roll-deg>
