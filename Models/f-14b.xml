@@ -181,7 +181,7 @@
 		</bottom-right>
 	</panel>
 
-	<!-- Hotspots-Pilot's Main Panel Up Center -->
+	<!-- Hotspots-Pilot's Main Panel Up Center--> 
 	<panel>
 		<name>hotspot-pilot-main-panel-up-C</name>
 		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-main-panel-up-C.xml</path>
@@ -202,7 +202,7 @@
 		</bottom-right>
 	</panel>
 
-	<!-- Hotspots-Pilot's Main Panel Down Center -->
+	<!-- Hotspots-Pilot's Main Panel Down Center--> 
 	<panel>
 		<name>hotspot-pilot-main-panel-down-C</name>
 		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-main-panel-down-C.xml</path>
@@ -223,7 +223,7 @@
 		</bottom-right>
 	</panel>
 
-	<!-- Hotspots-Pilot's Main Panel Up Right -->
+	<!-- Hotspots-Pilot's Main Panel Up Right--> 
 	<panel>
 		<name>hotspot-pilot-main-panel-up-R</name>
 		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-main-panel-up-R.xml</path>
@@ -244,7 +244,7 @@
 		</bottom-right>
 	</panel>
 
-	<!-- Hotspots-Pilot's Main Panel Down Right -->
+	<!-- Hotspots-Pilot's Main Panel Down Right--> 
 	<panel>
 		<name>hotspot-pilot-main-panel-up-R</name>
 		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-main-panel-down-R.xml</path>
@@ -265,7 +265,7 @@
 		</bottom-right>
 	</panel>
 
-	<!-- Hotspots-Pilot's Vertical Console Right -->
+	<!-- Hotspots-Pilot's Vertical Console Right--> 
 	<panel>
 		<name>hotspot-pilot-vertical-console-R</name>
 		<path>Aircraft/f-14b/Models/Cockpit/hotspot-pilot-vertical-console-R.xml</path>
