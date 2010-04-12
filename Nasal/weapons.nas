@@ -68,7 +68,7 @@ var update_gun_ready = func() {
 }
 
 
-# Timers for weapons system sart ans stop animations.
+# Timers for weapons system start and stop animations.
 var system_start = func {
 	settimer (func { GunRateHighLight.setBoolValue(1); }, 0.3);
     update_gun_ready();
