@@ -29,32 +29,95 @@
 		</condition>
 	</animation>
 
-<!--	<animation>
+	<animation>
 		<type>rotate</type>
-		<object-name>mode-switch</object-name>
-		<property>sim/model/f-14b/controls/rio-ecm-display/mode-ecm-nav</property>
-		<factor>60</factor>
+		<object-name>sta-1-sw</object-name>
+		<property>sim/model/f-14b/controls/armament/station-selector[0]</property>
+		<factor>-35</factor>
 		<center>
-			<x-m>-0.0100</x-m>
+			<x-m>0.0027</x-m>
 			<y-m>0.0</y-m>
-			<z-m>0.0078</z-m>
+			<z-m>-0.0679</z-m>
 		</center>
 		<axis><y>-1</y></axis>
 	</animation>
 	<animation>
 		<type>pick</type>
 		<visible>true</visible>
-		<object-name>mode-toggle</object-name>
+		<object-name>hotspot-sta-1-up</object-name>
 		<action>
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<interval-sec>0.05</interval-sec>
 			<binding>
 				<command>nasal</command>
-				<script>BS_instruments.select_ecm_nav()</script>
+				<script>
+					f14.station_selector(0, -1);
+				</script>
 			</binding>
 		</action>
-	</animation> -->
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-sta-1-down</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<interval-sec>0.05</interval-sec>
+			<binding>
+				<command>nasal</command>
+				<script>
+					f14.station_selector(0, 1);
+				</script>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>sta-8-sw</object-name>
+		<property>sim/model/f-14b/controls/armament/station-selector[7]</property>
+		<factor>-35</factor>
+		<center>
+			<x-m>0.0027</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.0679</z-m>
+		</center>
+		<axis><y>-1</y></axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-sta-8-up</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<interval-sec>0.05</interval-sec>
+			<binding>
+				<command>nasal</command>
+				<script>
+					f14.station_selector(7, -1);
+				</script>
+			</binding>
+		</action>
+	</animation> 
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-sta-8-down</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<interval-sec>0.05</interval-sec>
+			<binding>
+				<command>nasal</command>
+				<script>
+					f14.station_selector(7, 1);
+				</script>
+			</binding>
+		</action>
+	</animation> 
 
 
 	<!-- Lightning -->

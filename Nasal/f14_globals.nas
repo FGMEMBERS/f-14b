@@ -73,7 +73,7 @@ var CurrentAlt = 0;
 var CurrentIAS = 0;
 var Alpha = 0;
 var Throttle = 0;
-var ElevatorTrim = 0;
+var e_trim = 0;
 
 
 

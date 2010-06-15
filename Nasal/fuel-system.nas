@@ -58,9 +58,9 @@ var Rw  = nil;
 var Le  = nil;
 var Re  = nil;
 
-var time = 0;
-var dt = 0;
-var last_time = 0.0;
+var fuel_time = 0;
+var fuel_dt = 0;
+var fuel_last_time = 0.0;
 
 var total = 0;
 var dump_valve = 0;
@@ -165,13 +165,13 @@ var fuel_update = func {
 
 	if ( getprop("/sim/freeze/fuel") ) { return }
 
-	time = props.globals.getNode("/sim/time/elapsed-sec", 1).getValue();
-	dt = time - last_time;
-	last_time = time;
+	fuel_time = props.globals.getNode("/sim/time/elapsed-sec", 1).getValue();
+	fuel_dt = fuel_time - fuel_last_time;
+	fuel_last_time = fuel_time;
 	neg_g.update();
 	calc_levels();
 
-	LBS_HOUR2GALS_PERIOD = LBS_HOUR2GALS_SEC * dt;
+	LBS_HOUR2GALS_PERIOD = LBS_HOUR2GALS_SEC * fuel_dt;
 	max_flow85000 = 85000 * LBS_HOUR2GALS_PERIOD; 
 	max_flow45000 = 45000 * LBS_HOUR2GALS_PERIOD;
 	max_flow36000 = 36000 * LBS_HOUR2GALS_PERIOD;
@@ -186,8 +186,8 @@ var fuel_update = func {
 	dump_valve = Valve.get("dump_valve");
 	if ( dump_valve and ( TotalFuelLbs.getValue() < 4300 ) ) { fuel_dump_off() }
 	if ( dump_valve ) {
-		Left_Proportioner.jettisonFuel(dt);
-		Right_Proportioner.jettisonFuel(dt);
+		Left_Proportioner.jettisonFuel(fuel_dt);
+		Right_Proportioner.jettisonFuel(fuel_dt);
 	} else {
 		Left_Proportioner.set_dumprate(0);
 		Right_Proportioner.set_dumprate(0);
@@ -214,7 +214,7 @@ var fuel_update = func {
 
 		# Refuel
 		if (refueling) {
-			max_refuel_flow = refuel_rate_gpm / 60 * dt / 2; # each side.
+			max_refuel_flow = refuel_rate_gpm / 60 * fuel_dt / 2; # each side.
 			# Refuel Left Beam Box. max 450 gpm.
 			# Overflow to AFT_Fuselage, then External, then, if selected, external and wing.
 			left_beam_box_ullage = Left_Beam_Box.get_ullage();
@@ -710,15 +710,15 @@ Tank = {
 	set_selected : func (sel){
 		me.selected.setBoolValue(sel);
 	},
-	get_amount : func (dt, ullage) {
-		var amount = (flowrate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt;
+	get_amount : func (fuel_dt, ullage) {
+		var amount = (flowrate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * fuel_dt;
 		if(amount > me.level_gal_us.getValue()) {
 			amount = me.level_gal_us.getValue();
 		} 
 		if(amount > ullage) {
 			amount = ullage;
 		} 
-		var flowrate_lbs = ((amount/dt) * 60 * 60) * me.ppg.getValue();
+		var flowrate_lbs = ((amount/fuel_dt) * 60 * 60) * me.ppg.getValue();
 		return amount
 	},
 	get_ullage : func () {
@@ -727,10 +727,10 @@ Tank = {
 	get_name : func () {
 		return me.name.getValue();
 	},
-	set_transfer_tank : func (dt, tank) {
+	set_transfer_tank : func (fuel_dt, tank) {
 		foreach (var t; Tank.list) {
 			if(t.get_name() == tank)  {
-				transfer = me.get_amount(dt, t.get_ullage());
+				transfer = me.get_amount(fuel_dt, t.get_ullage());
 				me.set_level(me.get_level() - transfer);
 				t.set_level(t.get_level() + transfer);
 			} 
@@ -801,35 +801,35 @@ Prop = {
 			return 0;
 		}
 	},
-	get_amount : func (dt, ullage) {
-		var amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt;
+	get_amount : func (fuel_dt, ullage) {
+		var amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * fuel_dt;
 		if(amount > me.level_gal_us.getValue()) {
 			amount = me.level_gal_us.getValue();
 		}
 		if(amount > ullage) {
 			amount = ullage;
 		}
-		var dumprate_lbs = ((amount/dt) * 60 * 60) * me.ppg.getValue();
+		var dumprate_lbs = ((amount/fuel_dt) * 60 * 60) * me.ppg.getValue();
 		return amount
 	},
-	set_transfer_tank : func (dt, tank) {
+	set_transfer_tank : func (fuel_dt, tank) {
 		foreach (var r; Recup.list) {
 			if(r.get_name() == tank and me.get_running()) {
-				transfer = me.get_amount(dt, r.get_ullage());
+				transfer = me.get_amount(fuel_dt, r.get_ullage());
 				me.set_level(me.get_level() - transfer);
 				r.set_level(r.get_level() + transfer);
 			}
 		}
 	},
-	jettisonFuel : func (dt) {
+	jettisonFuel : func (fuel_dt) {
 		var amount = 0;
 		if(me.get_level() > 0 and me.get_running()) {
-			amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * dt;			
+			amount = (dumprate_lbs_hr / (me.ppg.getValue() * 60 * 60)) * fuel_dt;			
 			if(amount > max_instant_dumprate_lbs) { # Deal with low frame rates.
 				amount = max_instant_dumprate_lbs;
 			}
 		}
-		var dumprate_lbs = ((amount/dt) * 60) * me.ppg.getValue();
+		var dumprate_lbs = ((amount/fuel_dt) * 60) * me.ppg.getValue();
 		me.set_dumprate(dumprate_lbs);
 		me.set_level(me.get_level() - amount);
 	},

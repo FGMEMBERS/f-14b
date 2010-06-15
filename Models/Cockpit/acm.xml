@@ -138,7 +138,7 @@
 			<interval-sec>0.1</interval-sec>
 			<binding>
 				<command>nasal</command>
-				<script>f14_weapons.master_arm_lever_toggle()</script>
+				<script>f14.master_arm_lever_toggle()</script>
 			</binding>
 		</action>
 	</animation>
@@ -185,7 +185,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>f14_weapons.master_arm_switch(1)</script>
+				<script>f14.master_arm_switch(1)</script>
 			</binding>
 		</action>
 	</animation>
@@ -198,7 +198,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>f14_weapons.master_arm_switch(0)</script>
+				<script>f14.master_arm_switch(0)</script>
 			</binding>
 		</action>
 	</animation>
@@ -286,6 +286,168 @@
 		</condition>
 	</animation>
 
+	<!-- station displays -->
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-sel-1a</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[0]/display</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-sel-1b</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[1]/display</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-sel-3</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[3]/display</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-sel-4</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[4]/display</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-sel-5</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[5]/display</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-sel-6</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[6]/display</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-sel-8b</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[8]/display</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-sel-8a</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[9]/display</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-rdy-1a</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[0]/display</property>
+				<value>2</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-rdy-1b</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[1]/display</property>
+				<value>2</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-rdy-3</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[3]/display</property>
+				<value>2</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-rdy-4</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[4]/display</property>
+				<value>2</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-rdy-5</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[5]/display</property>
+				<value>2</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-rdy-6</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[6]/display</property>
+				<value>2</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-rdy-8b</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[8]/display</property>
+				<value>2</value>
+			</equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sta-disp-rdy-8a</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/systems/external-loads/station[9]/display</property>
+				<value>2</value>
+			</equals>
+		</condition>
+	</animation>
 
 
 	<!-- lighting -->
@@ -301,6 +463,7 @@
 	</animation>
 	<animation> 
 		<object-name>switches-and-levers</object-name>
+		<object-name>sta-disp</object-name>
 		<type>material</type>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>

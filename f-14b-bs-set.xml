@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Id$ -->
+<!-- $Id: f-14b-bs-set.xml,v 1.8 2010/03/16 18:32:19 abory Exp $ -->
 <!--
 	F-14b multiplayer back-seater view and control.
 	This config is based on work by Anders.
@@ -82,7 +82,7 @@
 		<description>F-14b multiplayer back-seater</description>
 		<author>Anders Gidenstam (Dual Control System), Alexis Bory (Dual Navigation and Radar Systems)</author>
 		<status>alpha</status>
-		<aircraft-version>$Id$</aircraft-version>
+		<aircraft-version>$Id: f-14b-bs-set.xml,v 1.8 2010/03/16 18:32:19 abory Exp $</aircraft-version>
 
 		<startup>
 			<splash-texture>Aircraft/f-14b/f-14b-splash.rgb</splash-texture>

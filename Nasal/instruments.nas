@@ -378,6 +378,7 @@ instruments_data_export = func {
 
 # Main loop ###############
 var cnt = 0;
+var ArmSysRunning = props.globals.getNode("sim/model/f-14b/systems/armament/system-running");
 
 var main_loop = func {
 	cnt += 1;
@@ -411,6 +412,9 @@ var main_loop = func {
 		# done each 0.1 sec, cnt odd.
 		awg_9.hud_nearest_tgt();
 		instruments_data_export();
+		if ( ArmSysRunning.getBoolValue() ) {
+			f14.armament_update();
+		}
 		if (( cnt == 5 ) or ( cnt == 11 )) {
 			# done each 0.3 sec.
 			afcs_filters();
@@ -432,7 +436,7 @@ var init = func {
 	f14_net.mp_network_init(1);
 	f14.ext_loads_init();
 	f14.init_fuel_system();
-	f14_weapons.init();
+	f14.weapons_init();
 	ticker.setDoubleValue(0);
 	local_mag_deviation();
 	tacan_switch_init();

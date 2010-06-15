@@ -26,7 +26,7 @@
 		<type>rotate</type>
 		<object-name>needle</object-name>
 		<property>instrumentation/altimeter/indicated-altitude-ft</property>
-		<factor>3.6</factor>  
+		<factor>0.36</factor>  
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -42,7 +42,7 @@
 		<factor>0.001</factor>
 		<offset>-75</offset>
 		<step>100</step>
-		<scroll>10</scroll>
+		<scroll>100</scroll>
 		<axis>
 			<x>0</x>
 			<y>-1</y>
@@ -58,7 +58,7 @@
 		<factor>0.0001</factor>
 		<offset>-750</offset>
 		<step>1000</step>
-		<scroll>25</scroll>
+		<scroll>100</scroll>
 		<axis>
 			<x>0</x>
 			<y>-1</y>
@@ -74,7 +74,7 @@
 		<factor>0.00001</factor>
 		<offset>-7500</offset>
 		<step>10000</step>
-		<scroll>25</scroll>
+		<scroll>100</scroll>
 		<axis>
 			<x>0</x>
 			<y>-1</y>

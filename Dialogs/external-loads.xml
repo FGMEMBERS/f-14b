@@ -382,7 +382,7 @@
 			</group>
 
 			<empty>
-				<pref-height>12</pref-height>
+				<pref-height>86</pref-height>
 			</empty>
 
 		</group>
@@ -600,6 +600,46 @@
 				</group>
 
 			</group>
+
+			<group>
+				<layout>hbox</layout>
+
+				<text>
+					<label>AIM-9 MP messaging:</label>
+				</text>
+
+				<checkbox>
+					<property>sim/model/f-14b/systems/armament/mp-messaging</property>
+					<live>true</live>
+					<binding>
+						<command>property-toggle</command>
+						<property>sim/model/f-14b/systems/armament/mp-messaging</property>
+					</binding>
+				</checkbox>
+
+			</group>
+			<group>
+				<layout>hbox</layout>
+
+				<text>
+					<label>CAUTION: Please, don't use when in</label>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<text>
+					<label>100 NM range of a crowded airport like</label>
+				</text>
+			</group>
+			<group>
+				<layout>hbox</layout>
+				<text>
+					<label>KSFO.</label>
+				</text>
+			</group>
+
+
+
 
 			<empty>
 				<pref-height>12</pref-height>

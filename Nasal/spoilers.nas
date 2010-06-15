@@ -11,27 +11,8 @@
 var MaxFlightSpoilers = 0.7;
 var SpoilersMinima = 0;
 
-# Functions
 
-var toggleDLC = func {
-	if ( !DLCactive and ( FlapsCmd.getValue() >= 1 ) ) {
-		DLCactive = true;
-		DLC_Engaged.setBoolValue(1);
-		setprop("controls/flight/DLC", 0.3);
-	} else {
-		DLCactive = false;
-		DLC_Engaged.setBoolValue(0);
-		setprop("controls/flight/DLC", 0);
-	}
-}
 
-var toggleGroundSpoilers = func {
-	if (getprop ("controls/flight/ground-spoilers-armed")) {
-		setprop ("controls/flight/ground-spoilers-armed", false);
-	} else {
-		setprop ("controls/flight/ground-spoilers-armed", true);
-	}
-}
 
 var computeSpoilers = func {
 
@@ -110,3 +91,27 @@ var computeSpoilers = func {
 
 	}
 }
+
+
+# Controls
+
+var toggleDLC = func {
+	if ( !DLCactive and ( FlapsCmd.getValue() >= 1 ) ) {
+		DLCactive = true;
+		DLC_Engaged.setBoolValue(1);
+		setprop("controls/flight/DLC", 0.3);
+	} else {
+		DLCactive = false;
+		DLC_Engaged.setBoolValue(0);
+		setprop("controls/flight/DLC", 0);
+	}
+}
+
+var toggleGroundSpoilers = func {
+	if (getprop ("controls/flight/ground-spoilers-armed")) {
+		setprop ("controls/flight/ground-spoilers-armed", false);
+	} else {
+		setprop ("controls/flight/ground-spoilers-armed", true);
+	}
+}
+

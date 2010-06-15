@@ -70,7 +70,7 @@
 				<desc>Toggle ground spoilers armed</desc>
 			</key>
 			<key>
-				<name>e</name>
+				<name>c</name>
 				<desc>Toggle canopy and access ladder</desc>
 			</key>
 			<key>
@@ -116,23 +116,31 @@
 			</key>
 			<key>
 				<name>h</name>
-				<desc>Cycles through HSD modes: radar - compas - ECM (RWR)</desc>
+				<desc>Cycle through HSD modes: radar - compas - ECM (RWR)</desc>
 			</key>
 			<key>
 				<name>q</name>
-				<desc>Toggles Radar Standby Mode</desc>
+				<desc>Toggle Radar Standby Mode</desc>
 			</key>
 			<key>
-				<name>Ctrl-n</name>
-				<desc>Toggles Radar PULSE SRCH / TWS AUTO Mode</desc>
+				<name>m</name>
+				<desc>Cycle pylons selection</desc>
 			</key>
 			<key>
 				<name>w</name>
-				<desc>Cycles Pilot's Armament Selector</desc>
+				<desc>Cycle Stick Weapon Mode Selector</desc>
 			</key>
 			<key>
-				<name>y</name>
-				<desc>Fire M61A1 Vulcan</desc>
+				<name>Ctrl-w</name>
+				<desc>Cycle through MasterArm modes</desc>
+			</key>
+			<key>
+				<name>Ctrl-n</name>
+				<desc>Toggle Radar PULSE SRCH / TWS AUTO Mode</desc>
+			</key>
+			<key>
+				<name>e</name>
+				<desc>Trigger M61A1 Vulcan or AIM-9s</desc>
 			</key>
 			<key>
 				<name>Ctrl-v</name>
@@ -263,10 +271,18 @@
 							<mode-stp-brsit-light type="bool">false</mode-stp-brsit-light>
 						</acm-panel-lights>
 						<emerg-jettison-switch type="bool">0</emerg-jettison-switch>
+						<gun-rate-switch type="bool">true</gun-rate-switch>
 						<master-arm-lever type="bool">0</master-arm-lever>
 						<master-arm-switch type="int">1</master-arm-switch>
-						<gun-rate-switch type="bool">true</gun-rate-switch>
-						<stick-selector type="int">0</stick-selector>
+						<station-selector n="0" type="int">0</station-selector>
+						<station-selector n="1" type="int">0</station-selector>
+						<station-selector n="2" type="int">0</station-selector>
+						<station-selector n="3" type="int">0</station-selector>
+						<station-selector n="4" type="int">0</station-selector>
+						<station-selector n="5" type="int">0</station-selector>
+						<station-selector n="6" type="int">0</station-selector>
+						<station-selector n="7" type="int">0</station-selector>
+						<stick-selector type="int">0</stick-selector><!-- 0=OFF, 1=GUN, 2=SW, 3=SP-PH -->
 						<system-on-off type="bool">false</system-on-off>
 						<tanks-ground-sound type="bool">0</tanks-ground-sound>
 					</armament>
@@ -462,7 +478,7 @@
 					<rio-nav-display>
 						<ready-light type="bool">false</ready-light>
 						<track-hold-light type="bool">false</track-hold-light>
-						<clsn-light type="bool">false</clsn-light><!--Constant Angle Collision Steering enabled-->
+						<clsn-light type="bool">false</clsn-light><!--Constant Angle Collision Steering enabled -->
 					</rio-nav-display>
 					<uhf n="[0]">
 						<frequencies>
@@ -479,7 +495,25 @@
 				</lighting>
 				<systems>
 					<armament>
+						<aim9>
+							<count type="int">0</count>
+							<nearest-target type="int">-1</nearest-target>
+							<sound-on-off type="bool">false</sound-on-off>
+							<sound-volume type="double">0.12</sound-volume>
+							<!-- AIM-9L specs -->
+							<max-detection-rng-nm type="int">10</max-detection-rng-nm><!--FIXME: up to 10-16 MN with best conditions-->
+							<fov-deg type="int">25</fov-deg><!-- seeker optical FOV -->
+							<detection-fov-deg type="int">60</detection-fov-deg><!-- Search pattern diameter (rosette scan) -->
+							<track-max-deg type="int">110</track-max-deg><!-- Seeker max total angular rotation -->
+							<track-max-speed-degps type="int">30</track-max-speed-degps><!-- Seeker max angular rotation speed -->
+							<thrust-lbs type="double">230</thrust-lbs><!-- guess -->
+							<thrust-duration-sec type="int">30</thrust-duration-sec><!-- Mk.36 Mod.7,8 -->
+							<weight-launch-lbs>191</weight-launch-lbs>
+							<drag-coeff type="double">0.05</drag-coeff><!-- guess -->
+							<drag-area type="double">0.043</drag-area><!-- sq ft -->
+						</aim9>
 						<launch-light type="bool">false</launch-light>
+						<system-running type="bool">false</system-running>
 					</armament>
 					<afcs>
 						<engaged type="bool">false</engaged>
@@ -514,33 +548,93 @@
 						<external-tanks type="bool">false</external-tanks>
 						<station n="0">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0.4795</x-m>
+								<y-m>-3.6717</y-m>
+								<z-m>-1.0600</z-m>
+							</offsets>
 						</station>
 						<station n="1">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0.4795</x-m>
+								<y-m>-3.2800</y-m>
+								<z-m>-1.5700</z-m>
+							</offsets>
 						</station>
 						<station n="2">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0</x-m>
+								<y-m>0</y-m>
+								<z-m>0</z-m>
+							</offsets>
 						</station>
 						<station n="3">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0</x-m>
+								<y-m>0</y-m>
+								<z-m>0</z-m>
+							</offsets>
 						</station>
 						<station n="4">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0</x-m>
+								<y-m>0</y-m>
+								<z-m>0</z-m>
+							</offsets>
 						</station>
 						<station n="5">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0</x-m>
+								<y-m>0</y-m>
+								<z-m>0</z-m>
+							</offsets>
 						</station>
 						<station n="6">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0</x-m>
+								<y-m>0</y-m>
+								<z-m>0</z-m>
+							</offsets>
 						</station>
 						<station n="7">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0</x-m>
+								<y-m>0</y-m>
+								<z-m>0</z-m>
+							</offsets>
 						</station>
 						<station n="8">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0.4795</x-m>
+								<y-m>3.2800</y-m>
+								<z-m>-1.5700</z-m>
+							</offsets>
 						</station>
 						<station n="9">
 							<type type="string">-</type>
+							<selected type="bool">false</selected>
+							<offsets>
+								<x-m>0.4795</x-m>
+								<y-m>3.6717</y-m>
+								<z-m>-1.0600</z-m>
+							</offsets>
 						</station>
 					</external-loads>
 				</systems>
@@ -584,7 +678,8 @@
 					<blackout-onset-g>5.5</blackout-onset-g>
 				</parameters>
 			</redout>
-		</rendering>
+		</rendering>							<selected type="bool">false</selected>
+
 
 		<submodels>
 			<serviceable>true</serviceable>
@@ -852,7 +947,7 @@
 
 	<input>
 		<keyboard n="0" include="../../Input/Keyboard/carrier-bindings.xml">
-			<multikey include="Models/Cockpit/radios-multikey.xml"/>
+			<multikey include="Systems/instruments-multikey.xml"/>
 
 			<key n="1">
 				<name>CTRL-a</name>
@@ -881,9 +976,18 @@
 				</binding>
 			</key>
 
+			<key n="13">
+				<name>Ctrl-m</name>
+				<desc>Toggle AIM-9 selection</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14.station_selector_cycle()</script>
+				</binding>
+			</key>
+
 			<key n="14">
 				<name>Ctrl-n</name>
-				<desc>Toggles Radar PULSE SRCH / TWS AUTO Modes</desc>
+				<desc>Toggle Radar PULSE SRCH / TWS AUTO Modes</desc>
 				<binding>
 					<command>nasal</command>
 					<script>awg_9.wcs_mode_toggle()</script>
@@ -910,7 +1014,7 @@
 
 			<key n="20">
 				<name>Ctrl-t</name>
-				<desc>Toggle autopilot attitude mode.</desc>
+				<desc>Toggle autopilot attitude mode</desc>
 				<binding>
 					<command>nasal</command>
 					<script>f14_afcs.afcs_engage_toggle()</script>
@@ -923,6 +1027,15 @@
 				<binding>
 					<command>nasal</command>
 					<script>f14.toggle_cockpit_views();</script>
+				</binding>
+			</key>
+
+			<key n="23">
+				<name>Ctrl-w</name>
+				<desc>Cycle through MasterArm modes</desc>
+				<binding>
+					<command>nasal</command>
+					<script>f14.master_arm_cycle();</script>
 				</binding>
 			</key>
 
@@ -1009,21 +1122,17 @@
 
 			<key n="101">
 				<name>e</name>
-				<desc>Fire GAU-8/A cannon</desc>
+				<desc>Trigger M61A1 Vulcan or AIM-9s</desc>
 				<binding>
 					<command>property-assign</command>
 					<property>controls/armament/trigger</property>
 					<value>true</value>
-					<!--<command>nasal</command>
-					<script>f14_weapons.fire_gun()</script>-->
 				</binding>
 				<mod-up>
 					<binding>
 						<command>property-assign</command>
 						<property>controls/armament/trigger</property>
 						<value>false</value>
-						<!--<command>nasal</command>
-						<script>f14_weapons.cfire_gun()</script>-->
 					</binding>
 				</mod-up>
 			</key>
@@ -1057,7 +1166,7 @@
 
 			<key n="117">
 				<name>u</name>
-				<desc>Cycles through the 3 refuelling probe switch positions</desc>
+				<desc>Cycle through the 3 refuelling probe switch positions</desc>
 				<binding>
 					<command>nasal</command>
 					<script>f14.refuel_probe_switch_cycle();</script>
@@ -1066,7 +1175,7 @@
 
 			<key n="119">
 				<name>w</name>
-				<desc>Cycles through the Control Stick Weapons Selector</desc>
+				<desc>Cycle Stick Weapon Mode Selector</desc>
 				<binding>
 					<command>property-adjust</command>
 					<property>sim/model/f-14b/controls/armament/stick-selector</property>
@@ -1078,7 +1187,7 @@
 				</binding>
 				<binding>
 					<command>nasal</command>
-					<script>f14_weapons.arm_selector();</script>
+					<script>f14.arm_selector();</script>
 				</binding>
 			</key>
 
@@ -1167,6 +1276,7 @@
 			<file>Aircraft/f-14b/Nasal/f-14b.nas</file>
 			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
 			<file>Aircraft/f-14b/Nasal/fuel-system.nas</file>
+			<file>Aircraft/f-14b/Nasal/weapons.nas</file>
 		</f14>
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>
@@ -1180,9 +1290,12 @@
 		<f14_afcs>
 			<file>Aircraft/f-14b/Nasal/afcs.nas</file>
 		</f14_afcs>
-		<f14_weapons>
-			<file>Aircraft/f-14b/Nasal/weapons.nas</file>
-		</f14_weapons>
+		<fox2>
+			<file>Aircraft/f-14b/Nasal/fox2.nas</file>
+		</fox2>
+		<environment>
+			<file>Aircraft/f-14b/Nasal/environment.nas</file>
+		</environment>
 	</nasal>
 
 </PropertyList>

@@ -63,7 +63,8 @@
 		<!-- slats -->
 		<slat start="0.1" end="0.9" aoa="6" lift="1.2" drag="1.2"/>
 		<!-- spoilers -->
-		<spoiler start="0.2" end="0.8"  lift="10.0" drag="1.0"/>
+		<spoiler start="0.2" end="0.8"  lift="5.0" drag="1.0"/>
+		<!--<spoiler start="0.2" end="0.8"  lift="10.0" drag="1.0"/>-->
 		<control-input axis="/controls/flight/mainFlaps" control="FLAP0"/>
 		<control-input axis="/controls/flight/auxFlaps" control="FLAP1"/>
 		<control-input axis="/controls/flight/slats" control="SLAT"/>

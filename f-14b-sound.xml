@@ -412,6 +412,19 @@
 			<volume><factor>0.6</factor></volume>
 		</stall>
 
+		<!-- Weapons -->
+		<aim9-signal> 
+			<name>aim9-signal</name>
+			<mode>looped</mode>
+			<path>Aircraft/f-14b/Sounds/115hz-square.wav</path>
+			<condition>
+				<property>sim/model/f-14b/systems/armament/aim9/sound-on-off</property>
+			</condition>
+			<volume>
+				<property>sim/model/f-14b/systems/armament/aim9/sound-volume</property>
+			</volume>
+		</aim9-signal>
+
 		<!--ACM jettison lever -->
 		<acm-jett-lever-on>
 			<name>acm-jett-lever-on</name>

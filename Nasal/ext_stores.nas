@@ -253,9 +253,12 @@ Station = {
 		obj.prop = props.globals.getNode("sim/model/f-14b/systems/external-loads/").getChild ("station", number , 1);
 		obj.index = number;
 		obj.type = obj.prop.getNode("type", 1);
+		obj.display = obj.prop.initNode("display", 0, "INT");
 		obj.weight = props.globals.getNode("sim").getChild ("weight", weight_number , 1);
 		obj.weight_lb = obj.weight.getNode("weight-lb");
 		obj.bcode = 0;
+		obj.selected = obj.prop.getNode("selected");
+
 		append(Station.list, obj);
 		return obj;
 	},
@@ -277,6 +280,9 @@ Station = {
 	get_type : func () {
 		return me.type.getValue();	
 	},
+	set_display : func (n) {
+		me.display.setValue(n);
+	},
 	add_weight_lb : func (t) {
 		w = me.weight_lb.getValue();
 		me.weight_lb.setValue( w + t );
@@ -287,5 +293,22 @@ Station = {
 	get_weight_lb : func () {
 		return me.weight_lb.getValue();	
 	},
+	get_selected : func () {
+		return me.selected.getBoolValue();	
+	},
+	set_selected : func (n) {
+		me.selected.setBoolValue(n);
+	},
+	toggle_selected : func () {
+		me.selected.setBoolValue( !me.get_selected() );
+	},
 	list : [],
 };
+
+
+
+
+
+
+
+

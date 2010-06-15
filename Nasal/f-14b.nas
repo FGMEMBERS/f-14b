@@ -263,7 +263,7 @@ var updateFCS = func {
 	wow = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
 	Alpha = getprop ("/orientation/alpha-deg");
 	Throttle = getprop ("/controls/engines/engine/throttle");
-	ElevatorTrim = getprop ("/controls/flight/elevator-trim");
+	e_trim = getprop ("/controls/flight/elevator-trim");
 	deltaT = getprop ("sim/time/delta-sec");
 
 	#update functions

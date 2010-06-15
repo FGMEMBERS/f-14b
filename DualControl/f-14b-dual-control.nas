@@ -1,5 +1,5 @@
 ###############################################################################
-## $Id$
+## $Id: f-14b-dual-control.nas,v 1.7 2010/03/16 18:32:21 abory Exp $
 ##
 ##  Nasal for dual control of the f-14b over the multiplayer network.
 ##

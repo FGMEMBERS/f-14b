@@ -103,6 +103,15 @@
 <!-- ******************************************************************* -->
 <!-- FX                                                                  -->
 <!-- ******************************************************************* -->
+	<!--<model>
+		<path>Aircraft/f-14b/Models/Stores/aim-9/aim-9-0.xml</path>
+		<offsets>
+			<x-m>-11</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+			<pitch-deg>0</pitch-deg>
+		</offsets>
+	</model> Test purpose-->
 	<model>
 		<path>Aircraft/f-14b/Models/f14-fx.xml</path>
 		<offsets>

@@ -1,5 +1,6 @@
 # AWG-9 Radar routines.
 # RWR (Radar Warning Receiver) is computed in the radar loop for better performance
+# AWG-9 Radar computes the nearest target for AIM-9.
 
 var ElapsedSec        = props.globals.getNode("sim/time/elapsed-sec");
 var SwpFac            = props.globals.getNode("sim/model/f-14b/instrumentation/awg-9/sweep-factor", 1);
@@ -18,8 +19,8 @@ var OurHdg            = props.globals.getNode("orientation/heading-deg");
 var OurRoll           = props.globals.getNode("orientation/roll-deg");
 var OurPitch          = props.globals.getNode("orientation/pitch-deg");
 var EcmOn             = props.globals.getNode("instrumentation/ecm/on-off", 1);
-#var Remote            = props.globals.getNode("/sim/remote/pilot-callsign");
-WcsMode = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode");
+var WcsMode           = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode");
+var SwNearestTgt      = props.globals.getNode("sim/model/f-14b/systems/armament/aim9/nearest-target");
 
 
 var az_fld            = AzField.getValue();
@@ -212,12 +213,21 @@ var az_scan = func() {
 var hud_nearest_tgt = func() {
 	# Computes nearest_u position in the HUD
 	if ( nearest_u != nil ) {
-		if ( wcs_mode == "tws-auto" and nearest_u.get_display() and nearest_u.deviation > l_az_fld  and  nearest_u.deviation < r_az_fld ) {
+		SwNearestTgt.setValue(nearest_u.index);
+		var our_pitch = OurPitch.getValue();
+		var u_dev_deg = (90 - nearest_u.get_deviation(our_true_heading));
+		var u_elev_deg = (90 - nearest_u.get_total_elevation(our_pitch));
+		var u_dev_rad = u_dev_deg * D2R;
+		var u_elev_rad = u_elev_deg * D2R;
+		if (
+			wcs_mode == "tws-auto"
+			and nearest_u.get_display()
+			and nearest_u.deviation > l_az_fld
+			and nearest_u.deviation < r_az_fld
+		) {
 			var u_target = nearest_u.type ~ "[" ~ nearest_u.index ~ "]";
-			var our_pitch = OurPitch.getValue();
-			var u_dev_rad = (90 - nearest_u.get_deviation(our_true_heading)) * D2R;
-			var u_elev_rad = (90 - nearest_u.get_total_elevation(our_pitch)) * D2R;
-			# Deviation length on the HUD (at level flight), 0.6686m = distance eye <-> virtual HUD screen.
+			# Deviation length on the HUD (at level flight),
+			# 0.6686m = distance eye <-> virtual HUD screen.
 			var h_dev = 0.6686 / ( math.sin(u_dev_rad) / math.cos(u_dev_rad) );
 			var v_dev = 0.6686 / ( math.sin(u_elev_rad) / math.cos(u_elev_rad) );
 			# Angle between HUD center/top <-> HUD center/target position.
@@ -227,7 +237,6 @@ var hud_nearest_tgt = func() {
 			var combined_dev_deg = dev_deg - OurRoll.getValue();
 			# Lenght HUD center <-> target pos on the HUD:
 			var combined_dev_length = math.sqrt((h_dev*h_dev)+(v_dev*v_dev));
-
 			# clamp and squeeze the top of the display area so the target follow the egg shaped HUD limits.
 			var clamp = 0.105;
 			var abs_combined_dev_deg = math.abs( combined_dev_deg );
@@ -245,15 +254,15 @@ var hud_nearest_tgt = func() {
 			# Clamp closure rate from -200 to +1,000 Kts.
 			var cr = nearest_u.ClosureRate.getValue();
 			if (cr < -200) { cr = 200 } elsif (cr > 1000) { cr = 1000 }
-
 			HudTgtClosureRate.setValue(cr);
 			HudTgtTDeg.setValue(combined_dev_deg);
 			HudTgtTDev.setValue(combined_dev_length);
 			HudTgtHDisplay.setBoolValue(1);
 			HudTgt.setValue(u_target);
 			return;
-			######### TODO: offset sweep to follow the target ##########
 		}
+	} else {
+		SwNearestTgt.setValue(-1);
 	}
 	HudTgtClosureRate.setValue(0);
 	HudTgtTDeg.setValue(0);
@@ -416,6 +425,7 @@ var Target = {
 		obj.Alt = c.getNode("position/altitude-ft");
 		obj.AcType = c.getNode("sim/model/ac-type");
 		obj.type = c.getName();
+		obj.Valid = c.getNode("valid");
 		obj.Callsign = c.getNode("callsign");
 		obj.index = c.getIndex();
 		obj.string = "ai/models/" ~ obj.type ~ "[" ~ obj.index ~ "]";
@@ -457,6 +467,7 @@ var Target = {
 		obj.Range          = obj.RdrProp.getNode("range-nm");
 		obj.Bearing        = obj.RdrProp.getNode("bearing-deg");
 		obj.Elevation      = obj.RdrProp.getNode("elevation-deg");
+		obj.TotalElevation = obj.RdrProp.getNode("total-elevation-deg", 1);
 		obj.BBearing       = obj.TgtsFiles.getNode("bearing-deg", 1);
 		obj.BHeading       = obj.TgtsFiles.getNode("true-heading-deg", 1);
 		obj.RangeScore     = obj.TgtsFiles.getNode("range-score", 1);
@@ -507,6 +518,7 @@ var Target = {
 	},
 	get_total_elevation : func(own_pitch) {
 		me.deviation =  - deviation_normdeg(own_pitch, me.Elevation.getValue());
+		me.TotalElevation.setValue(me.deviation);
 		return me.deviation;
 	},
 	get_range : func {
