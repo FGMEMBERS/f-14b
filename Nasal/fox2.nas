@@ -9,7 +9,7 @@ var SwSoundOnOff   = AcModel.getNode("systems/armament/aim9/sound-on-off");
 var SwSoundVol     = AcModel.getNode("systems/armament/aim9/sound-volume");
 var vol_search     = 0.12;
 var vol_weak_track = 0.20;
-var vol_track      = 0.35;
+var vol_track      = 0.45;
 
 var slugs_to_lbs = 32.1740485564;
 
@@ -233,7 +233,7 @@ var AIM9 = {
 		var drag_acc = (cdm * 0.5 * rho * old_speed_fps * old_speed_fps * me.eda / mass);
 		var speed_fps = old_speed_fps - drag_acc + acc;
 
-		# Break down total speed to North, East and Down components.
+		# Break down total speed to North, East and Down componcarrier-bindings.xmlents.
 		var speed_down_fps = math.sin(pitch_deg * D2R) * speed_fps;
 		var speed_horizontal_fps = math.cos(pitch_deg * D2R) * speed_fps;
 		var speed_north_fps = math.cos(hdg_deg * D2R) * speed_horizontal_fps;
@@ -293,7 +293,7 @@ var AIM9 = {
 		if (me.status == 0) {
 			# Status = searching.
 			me.reset_seeker();
-			#print("TRACK: status = 0.");
+			print("TRACK: status = 0.");
 			SwSoundVol.setValue(vol_search);
 			settimer(func me.search(), 0.1);
 			return(1);
@@ -302,13 +302,13 @@ var AIM9 = {
 			# Status = stand-by.
 			me.reset_seeker();
 			SwSoundVol.setValue(0);
-			#print("TRACK: stand by.");
+			print("TRACK: stand by.");
 			return(1);
 		}
 		if (!me.Tgt.Valid.getValue()) {
 			me.status = 0;
 			me.reset_seeker();
-			#print("TRACK: lost lock : target invalid");
+			print("TRACK: lost lock : target invalid");
 			SwSoundVol.setValue(vol_search);
 			settimer(func me.search(), 0.1);
 			return(1);
@@ -405,6 +405,7 @@ var AIM9 = {
 			#print("curr_tgt_h: ", curr_tgt_h, " < ", border_h_l, " > ", border_h_r);
 			me.reset_seeker();
 			me.reset_steering();
+			settimer(func me.search(), 1.5);
 			return(1);
 		}
 		if ( me.status != 2 and me.status != -1 ) {

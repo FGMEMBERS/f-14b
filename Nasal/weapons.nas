@@ -30,6 +30,10 @@ aircraft.data.add( StickSelector, ArmLever, ArmSwitch );
 # Init
 var weapons_init = func() {
 	print("Initializing F-14B weapons system");
+	ArmSwitch.setValue(1);
+	ArmLever.setBoolValue(0);
+	system_stop();
+	SysRunning.setBoolValue(0);
 	update_gun_ready();
 	setlistener("controls/armament/trigger", func(Trig) {
 		# Check selected weapon type and set the trigger listeners.
@@ -106,7 +110,7 @@ var armament_update = func {
 		SWCoolOn.setBoolValue(0);
 		SWCoolOff.setBoolValue(1);
 		# Turn Current_aim9.status to stand by.
-		set_status_current_aim9(-1);
+		#set_status_current_aim9(-1);
 	}
 	SwCount.setValue(aim9_count);
 }
@@ -148,13 +152,13 @@ var fire_gun = func {
 
 var update_sw_ready = func() {
 	var sw_count = SwCount.getValue();
-	if (StickSelector.getValue() == 2 and ArmSwitch.getValue() == 2 and sw_count > 0 ) {
-		if (Current_aim9 == nil or Current_aim9.status == 2) {
-			#print("sw_count - 1 = ", sw_count - 1);
+	#print("SIDEWINDER: sw_count - 1 = ", sw_count - 1);
+	if (StickSelector.getValue() == 2 and ArmSwitch.getValue() == 2) {
+		if ((Current_aim9 == nil or Current_aim9.status == 2)  and sw_count > 0 ) {
 			var pylon = aim9_seq[sw_count - 1];
-			#print("FOX2 new !! ", pylon.index);
+			print("FOX2 new !! ", pylon.index, " sw_count - 1 = ", sw_count - 1);
 			Current_aim9 = fox2.AIM9.new(pylon.index);
-		} elsif (Current_aim9 == nil or Current_aim9.status == -1) {
+		} elsif (Current_aim9 != nil and Current_aim9.status == -1) {
 			Current_aim9.status = 0;	
 			Current_aim9.search();	
 		}

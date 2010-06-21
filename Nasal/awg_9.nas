@@ -131,7 +131,7 @@ var az_scan = func() {
 				continue;
 			}
 			var HaveRadarNode = c.getNode("radar");
-			if (type == "multiplayer" or type == "tanker" and HaveRadarNode != nil) {
+			if (type == "multiplayer" or type == "tanker" or type == "aircraft" and HaveRadarNode != nil) {
 				var u = Target.new(c);
 				u_ecm_signal      = 0;
 				u_ecm_signal_norm = 0;
@@ -180,6 +180,8 @@ var az_scan = func() {
 			u.get_heading();
 			var horizon = u.get_horizon( our_alt );
 			var u_rng = u.get_range();
+				#var nom = u.Callsign.getValue();
+				#print(nom, " ", u_rng, " ", radardist.radis(u.string, my_radarcorr));
 			if ( u_rng < horizon and radardist.radis(u.string, my_radarcorr)) {
 				# Compute mp position in our DDD display. (Bearing/horizontal + Range/Vertical).
 				u.set_relative_bearing( ddd_screen_width / az_fld * u.deviation );
