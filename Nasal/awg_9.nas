@@ -20,7 +20,6 @@ var OurRoll           = props.globals.getNode("orientation/roll-deg");
 var OurPitch          = props.globals.getNode("orientation/pitch-deg");
 var EcmOn             = props.globals.getNode("instrumentation/ecm/on-off", 1);
 var WcsMode           = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode");
-var SwNearestTgt      = props.globals.getNode("sim/model/f-14b/systems/armament/aim9/nearest-target");
 
 
 var az_fld            = AzField.getValue();
@@ -215,7 +214,6 @@ var az_scan = func() {
 var hud_nearest_tgt = func() {
 	# Computes nearest_u position in the HUD
 	if ( nearest_u != nil ) {
-		SwNearestTgt.setValue(nearest_u.index);
 		var our_pitch = OurPitch.getValue();
 		var u_dev_deg = (90 - nearest_u.get_deviation(our_true_heading));
 		var u_elev_deg = (90 - nearest_u.get_total_elevation(our_pitch));
@@ -263,8 +261,6 @@ var hud_nearest_tgt = func() {
 			HudTgt.setValue(u_target);
 			return;
 		}
-	} else {
-		SwNearestTgt.setValue(-1);
 	}
 	HudTgtClosureRate.setValue(0);
 	HudTgtTDeg.setValue(0);
@@ -549,6 +545,7 @@ var Target = {
 		return carrier;
 	},
 	get_rdr_standby : func {
+		# FIXME: this one shouldn't be part of Target
 		var s = 0;
 		if ( me.RadarStandby != nil ) {
 			s = me.RadarStandby.getValue();

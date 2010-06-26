@@ -164,6 +164,7 @@ var update_sw_ready = func() {
 		}
 	} elsif (Current_aim9 != nil) {
 		Current_aim9.status = -1;	
+		SwSoundVol.setValue(0);
 	}
 }
 
@@ -193,10 +194,12 @@ var set_status_current_aim9 = func(n) {
 	}
 }
 
-# Timers for weapons system start and stop animations.
+# System start and stop.
+# Timers for weapons system status lights.
 var system_start = func {
 	settimer (func { GunRateHighLight.setBoolValue(1); }, 0.3);
 	update_gun_ready();
+	SysRunning.setBoolValue(1);
 	settimer (func { SwCoolOffLight.setBoolValue(1); }, 0.6);
 	settimer (func { MslPrepOffLight.setBoolValue(1); }, 2);
 	settimer (func {
@@ -208,13 +211,14 @@ var system_start = func {
 }
 var system_stop = func {
 	GunRateHighLight.setBoolValue(0);
+	SysRunning.setBoolValue(0);
 	foreach (var S; Station.list) {
-		S.set_display(0); # initialize bcode.
+		S.set_display(0); # initialize bcode (showing weapons set over MP).
 	}
 	if (Current_aim9 != nil) {
-		SwSoundVol.setValue(0);
 		set_status_current_aim9(-1);	
 	}
+	SwSoundVol.setValue(0);
 	settimer (func { SwCoolOffLight.setBoolValue(0);SWCoolOn.setBoolValue(0); }, 0.6);
 	settimer (func { MslPrepOffLight.setBoolValue(0); }, 1.2);
 }
@@ -243,7 +247,6 @@ var master_arm_switch = func(a) {
 		} elsif (master_arm_switch == 1 and master_arm_lever) {
 			ArmSwitch.setValue(2);
 			system_start();
-			SysRunning.setBoolValue(1);
 		}
 	} else {
 		if (master_arm_switch == 1) {
@@ -251,7 +254,6 @@ var master_arm_switch = func(a) {
 		} elsif (master_arm_switch == 2) {
 			ArmSwitch.setValue(1);
 			system_stop();
-			SysRunning.setBoolValue(0);
 		}
 	}
 }

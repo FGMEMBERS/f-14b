@@ -417,11 +417,14 @@ var AIM9 = {
 	},
 	search: func {
 		if ( me.status == -1 ) {
-			#print("SEARCH: Stand by.");
+			# Stand by.
 			SwSoundVol.setValue(0);
 			return;
+		} elsif ( me.status > 0 ) {
+			# Locked or fired.
+			return;
 		}
-		#print("SEARCH: Start.");
+		# search.
 		if ( awg_9.nearest_u != nil and awg_9.nearest_u.Valid.getValue()) {
 			var tgt = awg_9.nearest_u; # In the AWG-9 radar range and horizontal field.
 			var rng = tgt.get_range();
@@ -444,9 +447,7 @@ var AIM9 = {
 			}
 		}
 		SwSoundVol.setValue(vol_search);
-		if ( me.status == 0 ) {
-			settimer(func me.search(), 0.1);
-		}
+		settimer(func me.search(), 0.1);
 	},
 	reset_steering: func {
 		me.track_signal_e = 0;
