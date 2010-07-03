@@ -25,7 +25,7 @@
 		<condition>
 			<property>sim/model/f-14b/instrumentation/radar-awg-9/hud/target-display</property>
 			<not><property>instrumentation/radar/radar-standby</property></not>
-			<property>sim/model/f-14b/lighting/warn-fast-lights-switch/state</property>
+			<property>sim/model/f-14b/lighting/hud-diamond-switch/state</property>
 		</condition>
 	</animation>
 	<animation>
@@ -43,7 +43,7 @@
 			<z>1</z>
 		</axis>
 	</animation>
-	<animation><!-- post-rotate in inverse direction to keep the diamond vertical -->
+	<animation><!-- post-rotate in inverse direction to keep the symbol vertical -->
 		<type>rotate</type>
 		<object-name>lock-1</object-name>
 		<property>sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-angle</property>
@@ -182,6 +182,132 @@
 			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
 		</condition>
 	</animation>
+
+	<!-- Sidewinder Range label -->
+	<animation>
+		<type>select</type>
+		<object-name>sw-rng-5</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/controls/armament/stick-selector</property>
+				<value>2</value>
+			</equals>
+			<equals>
+				<property>instrumentation/radar/radar2-range</property>
+				<value>5</value>
+			</equals>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>sw-rng-5-pointer</object-name>
+		<property>sim/model/f-14b/systems/armament/aim9/target-range-nm</property>
+		<factor>0.0148</factor>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sw-rng-10</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/controls/armament/stick-selector</property>
+				<value>2</value>
+			</equals>
+			<equals>
+				<property>instrumentation/radar/radar2-range</property>
+				<value>10</value>
+			</equals>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>sw-rng-10-pointer</object-name>
+		<property>sim/model/f-14b/systems/armament/aim9/target-range-nm</property>
+		<factor>0.0074</factor>
+		<axis><z>1</z></axis>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>sw-rng-20</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/controls/armament/stick-selector</property>
+				<value>2</value>
+			</equals>
+			<equals>
+				<property>instrumentation/radar/radar2-range</property>
+				<value>20</value>
+			</equals>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>sw-rng-20-pointer</object-name>
+		<property>sim/model/f-14b/systems/armament/aim9/target-range-nm</property>
+		<factor>0.0037</factor>
+		<axis><z>1</z></axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>sw-seeker</object-name>
+		<condition>
+			<equals>
+				<property>sim/model/f-14b/controls/armament/stick-selector</property>
+				<value>2</value>
+			</equals>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>sw-seeker</object-name>
+		<property>sim/model/f-14b/instrumentation/radar-awg-9/hud/reticle-total-angle</property>
+		<axis><x>-1</x></axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>sw-seeker</object-name>
+		<property>sim/model/f-14b/instrumentation/radar-awg-9/hud/reticle-total-deviation</property>
+		<factor>1</factor>
+		<axis>
+			<z>1</z>
+		</axis>
+	</animation>
+	<animation><!-- post-rotate in inverse direction to keep the symbol vertical -->
+		<type>rotate</type>
+		<object-name>sw-seeker</object-name>
+		<property>sim/model/f-14b/instrumentation/radar-awg-9/hud/reticle-total-angle</property>
+		<axis><x>1</x></axis>
+	</animation>
+
+	<!-- Closure Rate Scale -->
+	<animation>
+		<type>select</type>
+		<object-name>closure-rate</object-name>
+		<condition>
+			<not>
+				<equals>
+					<property>sim/model/f-14b/controls/armament/stick-selector</property>
+					<value>0</value>
+				</equals>
+			</not>
+			<property>sim/model/f-14b/controls/pilots-displays/mode/aa-bt</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>closure-rate-pointer</object-name>
+		<property>sim/model/f-14b/instrumentation/radar-awg-9/hud/closure-rate</property>
+		<factor>0.0000598</factor>
+		<min>-0.0123</min>
+		<max>0.0721</max>
+		<axis><z>1</z></axis>
+	</animation>
+
 
 	<!-- Tacan -->
 	<animation>

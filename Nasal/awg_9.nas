@@ -20,6 +20,7 @@ var OurRoll           = props.globals.getNode("orientation/roll-deg");
 var OurPitch          = props.globals.getNode("orientation/pitch-deg");
 var EcmOn             = props.globals.getNode("instrumentation/ecm/on-off", 1);
 var WcsMode           = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/wcs-mode");
+var SWTgtRange        = props.globals.getNode("sim/model/f-14b/systems/armament/aim9/target-range-nm");
 
 
 var az_fld            = AzField.getValue();
@@ -214,42 +215,26 @@ var az_scan = func() {
 var hud_nearest_tgt = func() {
 	# Computes nearest_u position in the HUD
 	if ( nearest_u != nil ) {
+		SWTgtRange.setValue(nearest_u.get_range());
 		var our_pitch = OurPitch.getValue();
-		var u_dev_deg = (90 - nearest_u.get_deviation(our_true_heading));
-		var u_elev_deg = (90 - nearest_u.get_total_elevation(our_pitch));
-		var u_dev_rad = u_dev_deg * D2R;
-		var u_elev_rad = u_elev_deg * D2R;
+		#var u_dev_deg = (90 - nearest_u.get_deviation(our_true_heading));
+		#var u_elev_deg = (90 - nearest_u.get_total_elevation(our_pitch));
+		var u_dev_rad = (90 - nearest_u.get_deviation(our_true_heading)) * D2R;
+		var u_elev_rad = (90 - nearest_u.get_total_elevation(our_pitch)) * D2R;
 		if (
 			wcs_mode == "tws-auto"
 			and nearest_u.get_display()
 			and nearest_u.deviation > l_az_fld
 			and nearest_u.deviation < r_az_fld
 		) {
-			var u_target = nearest_u.type ~ "[" ~ nearest_u.index ~ "]";
-			# Deviation length on the HUD (at level flight),
-			# 0.6686m = distance eye <-> virtual HUD screen.
-			var h_dev = 0.6686 / ( math.sin(u_dev_rad) / math.cos(u_dev_rad) );
-			var v_dev = 0.6686 / ( math.sin(u_elev_rad) / math.cos(u_elev_rad) );
-			# Angle between HUD center/top <-> HUD center/target position.
-			# -90° left, 0° up, 90° right, +/- 180° down. 
-			var dev_deg =  math.atan2( h_dev, v_dev ) * R2D;
-			# Correction with own a/c roll.
-			var combined_dev_deg = dev_deg - OurRoll.getValue();
-			# Lenght HUD center <-> target pos on the HUD:
-			var combined_dev_length = math.sqrt((h_dev*h_dev)+(v_dev*v_dev));
-			# clamp and squeeze the top of the display area so the target follow the egg shaped HUD limits.
-			var clamp = 0.105;
-			var abs_combined_dev_deg = math.abs( combined_dev_deg );
-			if ( abs_combined_dev_deg >= 0 and abs_combined_dev_deg < 90 ) {
-				var coef = ( 90 - abs_combined_dev_deg ) * 0.00075;
-				if ( coef > 0.050 ) { coef = 0.050 }
-				clamp -= coef; 
-			}
-			if ( combined_dev_length > clamp ) {
-				combined_dev_length = clamp;
-				Clamp_Blinker.blink();
+			var devs = f14_hud.develev_to_devroll(u_dev_rad, u_elev_rad);
+			var combined_dev_deg = devs[0];
+			var combined_dev_length =  devs[1];
+			var clamped = devs[2];
+			if ( clamped ) {
+				Diamond_Blinker.blink();
 			} else {
-				Clamp_Blinker.cont();
+				Diamond_Blinker.cont();
 			}
 			# Clamp closure rate from -200 to +1,000 Kts.
 			var cr = nearest_u.ClosureRate.getValue();
@@ -258,18 +243,20 @@ var hud_nearest_tgt = func() {
 			HudTgtTDeg.setValue(combined_dev_deg);
 			HudTgtTDev.setValue(combined_dev_length);
 			HudTgtHDisplay.setBoolValue(1);
+			var u_target = nearest_u.type ~ "[" ~ nearest_u.index ~ "]";
 			HudTgt.setValue(u_target);
 			return;
 		}
 	}
+	SWTgtRange.setValue(0);
 	HudTgtClosureRate.setValue(0);
 	HudTgtTDeg.setValue(0);
 	HudTgtTDev.setValue(0);
 	HudTgtHDisplay.setBoolValue(0);
 }
 # HUD clamped target blinker
-Clamp_Blinker = aircraft.light.new("sim/model/f-14b/lighting/warn-fast-lights-switch", [0.1, 0.1]);
-setprop("sim/model/f-14b/lighting/warn-fast-lights-switch/enabled", 1);
+Diamond_Blinker = aircraft.light.new("sim/model/f-14b/lighting/hud-diamond-switch", [0.1, 0.1]);
+setprop("sim/model/f-14b/lighting/hud-diamond-switch/enabled", 1);
 
 
 # ECM: Radar Warning Receiver

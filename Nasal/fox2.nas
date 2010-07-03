@@ -4,6 +4,8 @@ var AcModel        = props.globals.getNode("sim/model/f-14b");
 var OurHdg         = props.globals.getNode("orientation/heading-deg");
 var OurRoll        = props.globals.getNode("orientation/roll-deg");
 var OurPitch       = props.globals.getNode("orientation/pitch-deg");
+var HudReticleDev  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/reticle-total-deviation", 1);
+var HudReticleDeg  = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/reticle-total-angle", 1);
 var aim_9_model    = "Aircraft/f-14b/Models/Stores/aim-9/aim-9-";
 var SwSoundOnOff   = AcModel.getNode("systems/armament/aim9/sound-on-off");
 var SwSoundVol     = AcModel.getNode("systems/armament/aim9/sound-volume");
@@ -13,15 +15,14 @@ var vol_track      = 0.45;
 
 var slugs_to_lbs = 32.1740485564;
 
-var aim9_debug     = 0;
 
 var AIM9 = {
 	new : func (p) {
 		var m = { parents : [AIM9]};
-		# Args: Locked target, Pylon.
+		# Args: p = Pylon.
 
 		m.status            = 0; # -1 = stand-by, 0 = searching, 1 = locked, 2 = fired.
-		m.free              = 0; # 1 = fired but having lost lock.
+		m.free              = 0; # 0 = status fired with lock, 1 = status fired but having lost lock.
 
 		m.prop              = AcModel.getNode("systems/armament/aim9/").getChild("msl", 0 , 1);
 		m.PylonIndex        = m.prop.getNode("pylon-index", 1).setValue(p);
@@ -38,7 +39,7 @@ var AIM9 = {
 		m.target_dev_e      = 0; # Target elevation, deg.
 		m.target_dev_h      = 0; # Target horizon, deg.
 		m.track_signal_e    = 0; # Seeker deviation change to keep constant angle (proportional navigation),
-		m.track_signal_h    = 0; #   this is directly used as input signal for the steering commands.
+		m.track_signal_h    = 0; #   this is directly used as input signal for the steering command.
 		m.t_coord = geo.Coord.new().set_latlon(0, 0);
 		m.direct_dist_m     = nil;
 
@@ -47,20 +48,20 @@ var AIM9 = {
 		m.aim9_fov          = m.aim9_fov_diam / 2;
 		m.max_detect_rng    = getprop("sim/model/f-14b/systems/armament/aim9/max-detection-rng-nm");
 		m.max_seeker_dev    = getprop("sim/model/f-14b/systems/armament/aim9/track-max-deg") / 2;
-		m.max_track_speed   = getprop("sim/model/f-14b/systems/armament/aim9/track-max-speed-degps");
 		m.force_lbs         = getprop("sim/model/f-14b/systems/armament/aim9/thrust-lbs");
 		m.thrust_duration   = getprop("sim/model/f-14b/systems/armament/aim9/thrust-duration-sec");
 		m.weight_launch_lbs = getprop("sim/model/f-14b/systems/armament/aim9/weight-launch-lbs");
 		m.cd                = getprop("sim/model/f-14b/systems/armament/aim9/drag-coeff");
 		m.eda               = getprop("sim/model/f-14b/systems/armament/aim9/drag-area");
 
-		# Find the next index for "models/model" and create property.
+		# Find the next index for "models/model" and create property node.
+		# Find the next index for "ai/models/aim-9" and create property node.
+		# (M. Franz, see Nasal/tanker.nas)
 		var n = props.globals.getNode("models", 1);
 		for (var i = 0; 1; i += 1)
 			if (n.getChild("model", i, 0) == nil)
 				break;
 		m.model = n.getChild("model", i, 1);
-		# Find the next index for "ai/models/aim-9" and create property.
 		var n = props.globals.getNode("ai/models", 1);
 		for (var i = 0; 1; i += 1)
 			if (n.getChild("aim-9", i, 0) == nil)
@@ -110,8 +111,8 @@ var AIM9 = {
 		var ac_pitch = getprop("orientation/pitch-deg");
 		var ac_hdg   = getprop("orientation/heading-deg");
 
-		# Compute missile initial position relative to A/C center.
-		# (see AIModel/submodel.cxx)
+		# Compute missile initial position relative to A/C center,
+		# following Vivian's code in AIModel/submodel.cxx .
 		var in = [0,0,0];
 		var trans = [[0,0,0],[0,0,0],[0,0,0]];
 		var out = [0,0,0];
@@ -175,6 +176,8 @@ var AIM9 = {
 
 		me.smoke_prop.setBoolValue(1);
 		SwSoundVol.setValue(0);
+		settimer(func { HudReticleDeg.setValue(0) }, 2);
+		interpolate(HudReticleDev, 0, 2);
 		me.update();
 
 	},
@@ -223,7 +226,7 @@ var AIM9 = {
 			cdm = 0.2965 * math.pow(speed_m, -1.1506) + me.cd;
 		}
 
-		# Add drag to the toal speed using Standard Atmosphere (15C sealevel temperature);
+		# Add drag to the total speed using Standard Atmosphere (15C sealevel temperature);
 		# rho is adjusted for altitude in environment.rho_sndspeed(altitude),
 		# Acceleration = thrust/mass - drag/mass;
 		var mass = me.weight_launch_lbs / slugs_to_lbs;
@@ -261,9 +264,6 @@ var AIM9 = {
 		pitch_deg += me.track_signal_e;
 		hdg_deg += me.track_signal_h;
 
-		#print(me.ID, " ",print_life_time, " ---> speed_horizontal_fps = ", speed_horizontal_fps);
- 		#print("             Alt = ", alt_ft, " speed_down_fps = ", speed_down_fps, " pitch_deg = ", pitch_deg);
-
 		# Get horizontal distance and set position and orientation.
 		var dist_h_m = speed_horizontal_fps * dt * FT2M;
 		me.coord.apply_course_distance(hdg_deg, dist_h_m);
@@ -281,11 +281,6 @@ var AIM9 = {
 		me.pitch = pitch_deg;
 		me.hdg = hdg_deg;
 
-		#var print_speed_m = sprintf( "%01.4f", speed_m);
-		#print("Rho = ",rho, " Sndspeed = ",sound_fps);
-		#print(me.ID, " ",print_life_time, " ---> speed_horizontal_fps = ", speed_horizontal_fps);
- 		#print("             Alt = ", alt_ft, " speed_down_fps = ", speed_down_fps, " pitch_deg = ", pitch_deg);
-
 		settimer(func me.update(), 0);
 		
 	},
@@ -293,7 +288,6 @@ var AIM9 = {
 		if (me.status == 0) {
 			# Status = searching.
 			me.reset_seeker();
-			print("TRACK: status = 0.");
 			SwSoundVol.setValue(vol_search);
 			settimer(func me.search(), 0.1);
 			return(1);
@@ -302,13 +296,13 @@ var AIM9 = {
 			# Status = stand-by.
 			me.reset_seeker();
 			SwSoundVol.setValue(0);
-			print("TRACK: stand by.");
 			return(1);
 		}
 		if (!me.Tgt.Valid.getValue()) {
+			# Lost of lock due to target disapearing:
+			# return to search mode.
 			me.status = 0;
 			me.reset_seeker();
-			print("TRACK: lost lock : target invalid");
 			SwSoundVol.setValue(vol_search);
 			settimer(func me.search(), 0.1);
 			return(1);
@@ -337,25 +331,8 @@ var AIM9 = {
 			var curr_tgt_h = t_course - me.hdg;
 
 			var dir_dist_m = math.sqrt((t_dist_m*t_dist_m)+(t_alt_delta_m*t_alt_delta_m));
-
-			if ( aim9_debug ) {			
-				var print_life_time = sprintf( "%01.3f", me.life_time);
-				var print_dt = sprintf( "%01.3f", dt);
-				var print_t_dist_m = sprintf( "%01.2f", t_dist_m);
-				var print_t_alt_delta_m = sprintf( "%01.2f", t_alt_delta_m);
-				#var print_t_elev_deg = sprintf( "%01.2f", t_elev_deg);
-				var print_pitch = sprintf( "%01.2f", me.pitch);
-				var print_curr_tgt_e = sprintf( "%01.2f", curr_tgt_e);
-				var print_curr_tgt_h = sprintf( "%01.2f", curr_tgt_h);
-				var print_t_course = sprintf( "%01.2f", t_course);
-				var print_hdg = sprintf( "%01.2f", me.hdg);
-				var print_dir_dist_m = sprintf( "%01.2f", dir_dist_m);
-				print(me.ID, " ",print_life_time, " -->dt=", print_dt, " t_dist_m=", print_t_dist_m, " t_alt_delta_m= ", print_t_alt_delta_m, " me.pitch=", print_pitch, " curr_tgt_e=", print_curr_tgt_e, " curr_tgt_h=", print_curr_tgt_h, " t_course=", print_t_course, " hdg=", print_hdg, " direct_dist_m=", print_dir_dist_m);
-			}
-
 			if ( me.direct_dist_m != nil ) {
 				if ( dir_dist_m > me.direct_dist_m and me.direct_dist_m < 70 ) {
-					#print("      BOOOOOOM : ", me.direct_dist_m);
 					var phrase = sprintf( "%01.0f", me.direct_dist_m) ~ "meters";
 					if (getprop("sim/model/f-14b/systems/armament/mp-messaging")) {
 						setprop("/sim/multiplay/chat", phrase);
@@ -368,28 +345,38 @@ var AIM9 = {
 			}
 			me.direct_dist_m = dir_dist_m;
 		}
-		# Compute target deviation variation.
+		# Compute target deviation variation then  seeker move to keep this deviation constant..
 		me.target_dev_e = curr_tgt_e;
 		me.target_dev_h = curr_tgt_h;
-		var vari_tgt_e = curr_tgt_e - last_tgt_e;
-		var vari_tgt_h = curr_tgt_h - last_tgt_h;
-		# Compute seeker move to keep target deviation constant clamped to max tracking speed.
-		#var deg_dt = me.max_track_speed * dt;
-		#me.track_signal_e = me.clamp_min_max(vari_tgt_e, deg_dt);
-		#me.track_signal_h = me.clamp_min_maxd(vari_tgt_h, deg_dt);
-		me.track_signal_e = vari_tgt_e;
-		me.track_signal_h = vari_tgt_h;
+		me.track_signal_e = curr_tgt_e - last_tgt_e;
+		me.track_signal_h = curr_tgt_h - last_tgt_h;
 		# Compute seeker total angular position clamped to seeker max total angular rotation.
 		me.seeker_dev_e += me.track_signal_e;
 		me.seeker_dev_e = me.clamp_min_max(me.seeker_dev_e, me.max_seeker_dev);
 		me.seeker_dev_h += me.track_signal_h;
 		me.seeker_dev_h = me.clamp_min_max(me.seeker_dev_h, me.max_seeker_dev);
+		if ( me.status == 1 ) {
+			# Compute HUD reticle position.
+			var h_rad = (90 - curr_tgt_h) * D2R;
+			var e_rad = (90 - curr_tgt_e) * D2R; 
+			var devs = f14_hud.develev_to_devroll(h_rad, e_rad);
+			var combined_dev_deg = devs[0];
+			var combined_dev_length =  devs[1];
+			var clamped = devs[2];
+			if ( clamped ) {
+				SW_reticle_Blinker.blink();
+			} else {
+				SW_reticle_Blinker.cont();
+			}
+			HudReticleDeg.setValue(combined_dev_deg);
+			HudReticleDev.setValue(combined_dev_length);
+		}
 		# Check target signal inside seeker FOV.
-		var lim_e_d = me.seeker_dev_e - me.aim9_fov;
-		var lim_e_u = me.seeker_dev_e + me.aim9_fov;
-		var lim_h_l = me.seeker_dev_h - me.aim9_fov;
-		var lim_h_r = me.seeker_dev_h + me.aim9_fov;
-		if ( curr_tgt_e < lim_e_d or curr_tgt_e > lim_e_u or curr_tgt_h < lim_h_l or curr_tgt_h > lim_h_r ) {
+		var e_d = me.seeker_dev_e - me.aim9_fov;
+		var e_u = me.seeker_dev_e + me.aim9_fov;
+		var h_l = me.seeker_dev_h - me.aim9_fov;
+		var h_r = me.seeker_dev_h + me.aim9_fov;
+		if ( curr_tgt_e < e_d or curr_tgt_e > e_u or curr_tgt_h < h_l or curr_tgt_h > h_r ) {
 			if ( me.status == 1 ) {
 				me.status = 0;
 				me.Tgt = nil;# FIXME, move down when no more tests needed.
@@ -400,12 +387,9 @@ var AIM9 = {
 				return(1);
 			}		
 			# Target out of FOV, return to search loop.
-			#print(me.status, " Lock lost - Target out of FOV.");
-			#print("curr_tgt_e: ", curr_tgt_e, " < ", border_e_d, " > ", border_e_u);
-			#print("curr_tgt_h: ", curr_tgt_h, " < ", border_h_l, " > ", border_h_r);
 			me.reset_seeker();
 			me.reset_steering();
-			settimer(func me.search(), 1.5);
+			settimer(func me.search(), 2);
 			return(1);
 		}
 		if ( me.status != 2 and me.status != -1 ) {
@@ -434,7 +418,6 @@ var AIM9 = {
 			var abs_total_elev = math.abs(total_elev);
 			var abs_dev_deg = math.abs(total_horiz);
 			if (rng < me.max_detect_rng and abs_total_elev < me.aim9_fov_diam and abs_dev_deg < me.aim9_fov_diam ) {
-				#print("SEARCH: We *may* have a lock.");
 				me.status = 1;
 				SwSoundVol.setValue(vol_weak_track);
 				me.Tgt = tgt;
@@ -442,7 +425,7 @@ var AIM9 = {
 				me.TgtLon_prop       = props.globals.getNode(t_pos_str).getChild("longitude-deg");
 				me.TgtLat_prop       = props.globals.getNode(t_pos_str).getChild("latitude-deg");
 				me.TgtAlt_prop       = props.globals.getNode(t_pos_str).getChild("altitude-ft");
-				settimer(func me.update_track(), 0.1);
+				settimer(func me.update_track(), 2);
 				return;
 			}
 		}
@@ -460,6 +443,8 @@ var AIM9 = {
 		me.seeker_dev_h   = 0;
 		me.target_dev_e   = 0;
 		me.target_dev_h   = 0;
+		settimer(func { HudReticleDeg.setValue(0) }, 2);
+		interpolate(HudReticleDev, 0, 2);
 		me.reset_steering()
 	},
 	clamp_min_max: func (v, mm) {
@@ -492,6 +477,9 @@ var AIM9 = {
 	active: {},
 };
 
+# HUD clamped target blinker
+SW_reticle_Blinker = aircraft.light.new("sim/model/f-14b/lighting/hud-sw-reticle-switch", [0.1, 0.1]);
+setprop("sim/model/f-14b/lighting/hud-sw-reticle-switch/enabled", 1);
 
 
 

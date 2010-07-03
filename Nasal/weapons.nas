@@ -172,7 +172,6 @@ var release_aim9 = func() {
 	#print("RELEASE AIM-9 status: ", Current_aim9.status);
 	if (Current_aim9 != nil) {
 		if ( Current_aim9.status == 1 ) {
-			#print("RELEASE AIM-9 at: ", Current_aim9.Tgt.Callsign.getValue());
 			var phrase = "FOX2 at: " ~ Current_aim9.Tgt.Callsign.getValue();
 			if (getprop("sim/model/f-14b/systems/armament/mp-messaging")) {
 				setprop("/sim/multiplay/chat", phrase);
