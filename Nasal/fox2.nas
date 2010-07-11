@@ -337,10 +337,10 @@ var AIM9 = {
 
 			var dir_dist_m = math.sqrt((t_dist_m*t_dist_m)+(t_alt_delta_m*t_alt_delta_m));
 			if ( me.direct_dist_m != nil ) {
-				if ( dir_dist_m > me.direct_dist_m and me.direct_dist_m < 70 ) {
+				if ( dir_dist_m > me.direct_dist_m and me.direct_dist_m < 25 ) {
 					var wh_mass = me.weight_whead_lbs / slugs_to_lbs;
 					print("FOX2: me.direct_dist_m = ",  me.direct_dist_m, " time ",getprop("sim/time/elapsed-sec"));
-					impact_report(me.t_coord, me.alt * FT2M, wh_mass, "missile"); # pos, alt, mass_slug,(speed_mps)
+					impact_report(me.coord, me.alt * FT2M, wh_mass, "missile"); # pos, alt, mass_slug,(speed_mps)
 					var phrase = sprintf( "%01.0f", me.direct_dist_m) ~ "meters";
 					if (getprop("sim/model/f-14b/systems/armament/mp-messaging")) {
 						setprop("/sim/multiplay/chat", phrase);
