@@ -51,6 +51,7 @@ var AIM9 = {
 		m.force_lbs         = getprop("sim/model/f-14b/systems/armament/aim9/thrust-lbs");
 		m.thrust_duration   = getprop("sim/model/f-14b/systems/armament/aim9/thrust-duration-sec");
 		m.weight_launch_lbs = getprop("sim/model/f-14b/systems/armament/aim9/weight-launch-lbs");
+		m.weight_whead_lbs  = getprop("sim/model/f-14b/systems/armament/aim9/weight-warhead-lbs");
 		m.cd                = getprop("sim/model/f-14b/systems/armament/aim9/drag-coeff");
 		m.eda               = getprop("sim/model/f-14b/systems/armament/aim9/drag-area");
 
@@ -89,6 +90,8 @@ var AIM9 = {
 		m.alt     = nil;
 		m.pitch   = nil;
 		m.hdg     = nil;
+		#m.last_coord = nil; # used to keep record of impact.
+		#m.last_alt   = nil;
 
 		SwSoundOnOff.setValue(1);
 
@@ -266,6 +269,7 @@ var AIM9 = {
 
 		# Get horizontal distance and set position and orientation.
 		var dist_h_m = speed_horizontal_fps * dt * FT2M;
+		me.last_coord = me.coord;
 		me.coord.apply_course_distance(hdg_deg, dist_h_m);
 		me.latN.setDoubleValue(me.coord.lat());
 		me.lonN.setDoubleValue(me.coord.lon());
@@ -278,6 +282,7 @@ var AIM9 = {
 		me.s_east = speed_east_fps;
 		me.s_down = speed_down_fps;
 		me.alt = alt_ft;
+		#me.last_alt = me.alt;
 		me.pitch = pitch_deg;
 		me.hdg = hdg_deg;
 
@@ -333,6 +338,9 @@ var AIM9 = {
 			var dir_dist_m = math.sqrt((t_dist_m*t_dist_m)+(t_alt_delta_m*t_alt_delta_m));
 			if ( me.direct_dist_m != nil ) {
 				if ( dir_dist_m > me.direct_dist_m and me.direct_dist_m < 70 ) {
+					var wh_mass = me.weight_whead_lbs / slugs_to_lbs;
+					print("FOX2: me.direct_dist_m = ",  me.direct_dist_m, " time ",getprop("sim/time/elapsed-sec"));
+					impact_report(me.t_coord, me.alt * FT2M, wh_mass, "missile"); # pos, alt, mass_slug,(speed_mps)
 					var phrase = sprintf( "%01.0f", me.direct_dist_m) ~ "meters";
 					if (getprop("sim/model/f-14b/systems/armament/mp-messaging")) {
 						setprop("/sim/multiplay/chat", phrase);
@@ -476,6 +484,46 @@ var AIM9 = {
 	},
 	active: {},
 };
+
+
+# Create impact report.
+
+#altitde-agl-ft DOUBLE
+#impact
+#	elevation-m DOUBLE
+#	heading-deg DOUBLE
+#	latitude-deg DOUBLE
+#	longitude-deg DOUBLE
+#	pitch-deg DOUBLE
+#	roll-deg DOUBLE
+#	speed-mps DOUBLE
+#	type STRING
+#valid "true" BOOL
+
+
+var impact_report = func(pos, alt, mass_slug, string) {
+
+	# Find the next index for "ai/models/model-impact" and create property node.
+	var n = props.globals.getNode("ai/models", 1);
+	for (var i = 0; 1; i += 1)
+		if (n.getChild(string, i, 0) == nil)
+			break;
+	var impact = n.getChild(string, i, 1);
+
+	impact.getNode("impact/elevation-m", 1).setValue(alt);
+	impact.getNode("impact/latitude-deg", 1).setValue(pos.lat());
+	impact.getNode("impact/longitude-deg", 1).setValue(pos.lon());
+	impact.getNode("mass-slug", 1).setValue(mass_slug);
+	#impact.getNode("speed-mps", 1).setValue(speed_mps);
+	impact.getNode("valid", 1).setBoolValue(1);
+	impact.getNode("impact/type", 1).setValue("terrain");
+
+	var impact_str = "/ai/models/" ~ string ~ "[" ~ i ~ "]";
+	setprop("ai/models/model-impact", impact_str);
+
+}
+
+
 
 # HUD clamped target blinker
 SW_reticle_Blinker = aircraft.light.new("sim/model/f-14b/lighting/hud-sw-reticle-switch", [0.1, 0.1]);
