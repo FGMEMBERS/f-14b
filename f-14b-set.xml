@@ -503,15 +503,16 @@
 							<target-range-nm type="double">0</target-range-nm>
 							<!-- AIM-9L specs -->
 							<max-detection-rng-nm type="int">10</max-detection-rng-nm><!--FIXME: up to 10-16 MN with best conditions-->
-							<fov-deg type="int">25</fov-deg><!-- seeker optical FOV -->
-							<detection-fov-deg type="int">60</detection-fov-deg><!-- Search pattern diameter (rosette scan) -->
-							<track-max-deg type="int">110</track-max-deg><!-- Seeker max total angular rotation -->
-							<!--<track-max-speed-degps type="int">30</track-max-speed-degps> Seeker max angular rotation speed -->
-							<thrust-lbs type="double">230</thrust-lbs><!-- guess -->
+							<fov-deg type="int">25</fov-deg>                     <!-- seeker optical FOV -->
+							<detection-fov-deg type="int">60</detection-fov-deg> <!-- Search pattern diameter (rosette scan) -->
+							<track-max-deg type="int">110</track-max-deg>        <!-- Seeker max total angular rotation -->
+							<max-g type="int">21</max-g>                         <!-- In turn --> 
+							<thrust-lbs type="double">230</thrust-lbs>           <!-- guess -->
 							<thrust-duration-sec type="int">30</thrust-duration-sec><!-- Mk.36 Mod.7,8 -->
 							<weight-launch-lbs>191</weight-launch-lbs>
-							<drag-coeff type="double">0.05</drag-coeff><!-- guess -->
-							<drag-area type="double">0.043</drag-area><!-- sq ft -->
+							<weight-warhead-lbs>20.8</weight-warhead-lbs>
+							<drag-coeff type="double">0.05</drag-coeff>          <!-- guess -->
+							<drag-area type="double">0.043</drag-area>           <!-- sq ft -->
 						</aim9>
 						<launch-light type="bool">false</launch-light>
 						<system-running type="bool">false</system-running>

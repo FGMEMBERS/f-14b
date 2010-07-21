@@ -50,23 +50,23 @@
        <color>
          <red><value>   1.0 </value></red>
          <green><value> 1.0 </value></green>
-         <blue><value>  0.8 </value></blue>
-         <alpha><value> 1 </value></alpha>
+         <blue><value>  0.9 </value></blue>
+         <alpha><value> 0.5 </value></alpha>
        </color>
        <size>
-         <value>2</value>
+         <value>1.5</value>
        </size>
      </start>
 
      <end>
        <color>
-         <red><value>   1.0 </value></red>
-         <green><value> 1.0 </value></green>
-         <blue><value>  1.0 </value></blue>
-         <alpha><value> 0.4 </value></alpha>
+         <red><value>   0.9 </value></red>
+         <green><value> 0.9 </value></green>
+         <blue><value>  0.9 </value></blue>
+         <alpha><value> 0.1 </value></alpha>
        </color>
        <size>
-         <value>20</value>
+         <value>10</value>
        </size>
      </end>
 
