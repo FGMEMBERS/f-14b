@@ -65,7 +65,7 @@ var update_ext_load = func(sender, state) {
 	var wpstr = bits.string(state, 32);
 	var c = 31;
 	var o = "";
-	str = chr(wpstr[29]) ~ chr(wpstr[30]) ~ chr(wpstr[31]);
+	var str = chr(wpstr[29]) ~ chr(wpstr[30]) ~ chr(wpstr[31]);
 	if ( str == "000" ) { o = "Clean" }
 	elsif ( str == "001") { o = "FAD" }
 	elsif ( str == "010") { o = "FAD light" }
