@@ -418,13 +418,13 @@
 			<file>Aircraft/f-14b/Nasal/awg_9.nas</file>
 		</awg_9>
 		<dual_control_tools>
-			<file>Aircraft/ZLT-NT/DualControl/dual-control-tools.nas</file>
+			<file>Aircraft/Generic/DualControl/dual-control-tools.nas</file>
 		</dual_control_tools>
 		<aircraft_dual_control>
 			<file>Aircraft/f-14b/DualControl/f-14b-dual-control.nas</file>
 		</aircraft_dual_control>
 		<dual_control>
-			<file>Aircraft/ZLT-NT/DualControl/copilot-dual-control.nas</file>
+			<file>Aircraft/Generic/DualControl/copilot-dual-control.nas</file>
 		</dual_control>
 		<BS_instruments>
 			<file>Aircraft/f-14b/Nasal/back-seat-instruments.nas</file>
