@@ -527,7 +527,7 @@ var Target = {
 		var type = "none";
 		var carrier = 0;
 		if ( me.AcType != nil ) { type = me.AcType.getValue() }
-		if ( type == "MP-Nimitz" or type == "MP-Eisenhower" ) { carrier = 1 }
+		if ( type == "MP-Nimitz" or type == "MP-Eisenhower" or type == "MP-Vinson" ) { carrier = 1 }
 		me.Carrier.setBoolValue(carrier);
 		return carrier;
 	},
