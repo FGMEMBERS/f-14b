@@ -28,7 +28,8 @@ var ext_loads_init = func() {
 	S7 = Station.new(7, 6);
 	S8 = Station.new(8, 7);
 	S9 = Station.new(9, 7);
-	setprop("sim/menubar/default/menu[5]/item[2]/enabled", 0);
+# Disable the menu item "Equipment > Fuel & Payload" so we use our own gui: "Tomcat Controls > Fuel & Stores".
+	gui.menuEnable("fuel-and-payload", false);
 	foreach (var S; Station.list) {
 		S.set_type(S.get_type()); # initialize bcode.
 	}
