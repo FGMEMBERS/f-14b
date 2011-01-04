@@ -37,7 +37,7 @@ var Dlc           = props.globals.getNode("controls/flight/DLC", 1);
 var Flaps         = props.globals.getNode("surface-positions/aux-flap-pos-norm", 1);
 var WSweep        = props.globals.getNode("surface-positions/wing-pos-norm", 1);
 # Outputs
-var SasRoll       = props.globals.getNode("controls/flight/SAS-roll");
+var SasRoll       = props.globals.getNode("controls/flight/SAS-roll", 1);
 var SasPitch      = props.globals.getNode("controls/flight/SAS-pitch", 1);
 var SasYaw        = props.globals.getNode("controls/flight/SAS-yaw", 1);
 
