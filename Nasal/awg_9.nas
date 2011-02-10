@@ -569,8 +569,15 @@ var Target = {
 	get_closure_rate : func() {
 		var dt = ElapsedSec.getValue() - me.TimeLast.getValue();
 		var rng = me.Range.getValue();
-		var t_distance = me.RangeLast.getValue() - rng;
-		var cr = t_distance/dt*3600;
+		var lrng = me.RangeLast.getValue();
+		if ( debug.isnan(rng) or debug.isnan(lrng)) {
+			print("####### get_closure_rate(): rng or lrng = nan ########");
+			me.ClosureRate.setValue(0);
+			me.RangeLast.setValue(0);
+			return(0);
+		}
+		var t_distance = lrng - rng;
+		var	cr = (dt > 0) ? t_distance/dt*3600 : 0;
 		me.ClosureRate.setValue(cr);
 		me.RangeLast.setValue(rng);
 		return(cr);
