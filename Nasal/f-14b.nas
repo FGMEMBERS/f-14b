@@ -277,7 +277,7 @@ var updateFCS = func {
 	f14.computeAICS ();
 	f14.computeAPC ();
 	f14.timedMotions ();
-	f14.registerFCS ();
+	f14.registerFCS (); # loop, once per frame.
 }
 
 

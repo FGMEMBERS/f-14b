@@ -82,22 +82,25 @@
 
 <!-- central "pancake" with speed brakes +++++++++++++++++++++++++++++++++++++++++-->
 
-	<vstab x="2.879" y="-0.895" z="-0.819" length="1.790" chord="11.374" taper="1.0"
+	<mstab x="2.879" y="0" z="-0.819" length="0.895" chord="11.374" taper="1.0"
 		sweep="0" dihedral="0" camber="0.00" incidence="0.0" idrag="1.4">
 		<stall aoa="25" width="1.0" peak="1.2"/>
+
 		<!-- speed brakes -->
 		<flap0 start="0.1" end="0.9" lift="1.01" drag="5.0"/>
-		<flap1 start="0.1" end="0.9" lift="1.01" drag="5.0"/>
-		<!-- Drag correction -->
-		<spoiler start="0.1" end="0.9" lift="1.0" drag="25.0"/>
 		<control-input axis="/controls/flight/speedbrake" control="FLAP0"/>
-		<control-input axis="/controls/flight/speedbrake" src0="-1" src1="1" dst0="1" dst1="-1" control="FLAP1"/>
-		<control-input axis="sim/model/f-14b/systems/fdm/drag" control="SPOILER"/>
 		<control-output control="FLAP0" prop="/surface-positions/speedbrake-pos-norm"/>
 		<control-speed control="FLAP0" transition-time="2.0"/>
+
+		<flap1 start="0.1" end="0.9" lift="1.01" drag="5.0"/>
+		<control-input axis="/controls/flight/speedbrake" src0="-1" src1="1" dst0="1" dst1="-1" control="FLAP1"/>
 		<control-speed control="FLAP1" transition-time="2.0"/>
 
-	</vstab>
+		<!-- Drag correction -->
+		<spoiler start="0.1" end="0.9" lift="1.0" drag="25.0"/>
+		<control-input axis="sim/model/f-14b/systems/fdm/drag" control="SPOILER"/>
+
+	</mstab>
 
 	<!-- Horizontal stabilizer +++++++++++++++++++++++++++++++++++++++++++++++++++  -->
 
