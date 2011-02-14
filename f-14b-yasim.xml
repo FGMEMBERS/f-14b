@@ -83,7 +83,7 @@
 <!-- central "pancake" with speed brakes +++++++++++++++++++++++++++++++++++++++++-->
 
 	<mstab x="2.879" y="0" z="-0.819" length="0.895" chord="11.374" taper="1.0"
-		sweep="0" dihedral="0" camber="0.00" incidence="0.0" idrag="3">
+		sweep="0" dihedral="0" camber="0.00" incidence="0.0" idrag="3.5">
 		<stall aoa="25" width="1.0" peak="1.2"/>
 
 		<!-- speed brakes -->
@@ -97,7 +97,7 @@
 		<control-speed control="FLAP1" transition-time="2.0"/>
 
 		<!-- Drag correction -->
-		<spoiler start="0.1" end="0.9" lift="1.0" drag="31.25"/>
+		<spoiler start="0.1" end="0.9" lift="1.0" drag="34.3"/>
 		<control-input axis="sim/model/f-14b/systems/fdm/drag" control="SPOILER"/>
 
 	</mstab>
