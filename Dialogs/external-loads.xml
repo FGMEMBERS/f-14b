@@ -695,7 +695,7 @@
 					<label>xxxxxxxxxxxxxxxxxx</label>
 					<live>true</live>
 					<format>%.0f</format>
-					<property>consumables/fuel/total-fuel-lbs</property>
+					<property>sim/model/f-14b/instrumentation/fuel-gauges/total</property>
 				</text>
 			</group>
 

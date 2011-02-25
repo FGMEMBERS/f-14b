@@ -293,6 +293,8 @@ var SpeedBrake = props.globals.getNode("controls/flight/speedbrake", 1);
 var AB         = props.globals.getNode("engines/engine/afterburner", 1);
 
 var sb_i = 0.2;
+var alt_drag_factor = 25000;
+var alt_drag_factor2 = 20000;
 
 controls.stepSpoilers = func(s) {
 	var sb = SpeedBrake.getValue();
@@ -309,17 +311,26 @@ controls.stepSpoilers = func(s) {
 
 var compute_drag = func {
 	var gearpos = GearPos.getValue();
-	var ab = AB.getValue();
+	var ab = AB.getValue(); # Prevent supercruise when no afterburners
 	var gear_drag = 0;
 	if ( gearpos > 0.8 ) {
 		gear_drag = mach * 0.5;
 	}
+	# Additional drag based on altitude so we can't pass over sound speed without
+	# afterburners when altitude is above 30k ft.
+	var alt = getprop("position/altitude-ft");
+	var alt_drag = 0;
+	if ( alt > 30000 ) {
+		var alt_floor = alt - 30000;
+		alt_drag += (alt_floor / 50000);
+	}
+	#print(alt_drag);
 	if ( mach <= 1 ) {
-		Drag.setValue(mach);
-	} elsif (mach <= 1.3) {
-		Drag.setValue(((math.sin((mach * 11)-0.6) * 0.5) + 1 - ( ab * 2 )) + gear_drag );
+		Drag.setValue((mach * 0.5) + gear_drag + alt_drag);
+	} elsif (mach <= 1.175) {
+		Drag.setValue((math.sin((mach * 4.5) + 5.6) * 0.7) + 0.93 + gear_drag + alt_drag - (ab/2));
 	} else {
-		Drag.setValue((math.sin((mach * 0.7)+0.25) * 1.6) - ( ab * 1.5));
+		Drag.setValue((mach * 0.7) - 0.6 + gear_drag + alt_drag - (ab/2));
 	}
 }
 
@@ -419,10 +430,10 @@ var main_loop = func {
 			# done each 0.3 sec.
 			afcs_filters();
 			compute_drag();
-			#if ( cnt == 11 ) {
+			if ( cnt == 11 ) {
 				# done each 0.6 sec.
-
-			#}
+				compute_drag();
+			}
 		}
 	}
 	settimer(main_loop, UPDATE_PERIOD);
