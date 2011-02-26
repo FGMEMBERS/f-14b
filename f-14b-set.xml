@@ -253,6 +253,8 @@
 						<altitude type="bool">false</altitude>
 						<heading-gt type="int">0</heading-gt><!-- 1=HDG, 0=OFF, -1=GT -->
 						<altitude-enable type="bool">0</altitude-enable>
+						<dead-zone-pitch type="double">0.05</dead-zone-pitch>
+						<dead-zone-roll type="double">0.01</dead-zone-roll>
 					</AFCS>
 					<armament>
 						<acm-jettison-lever type="bool">0</acm-jettison-lever>
@@ -727,6 +729,13 @@
 							<script>
 								dual_control_tools.copilot_dialog.show(aircraft_dual_control.copilot_type);
 							</script>
+						</binding>
+					</item>
+					<item n="5">
+						<label>Auto Pilot steering dead zone</label>
+						<binding>
+							<command>nasal</command>
+							<script>f14.AP_steering_deadZ_dlg.open()</script>
 						</binding>
 					</item>
 				</menu>

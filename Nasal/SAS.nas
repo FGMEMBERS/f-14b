@@ -24,6 +24,8 @@ var AirSpeed   = props.globals.getNode("velocities/airspeed-kt");
 var SasPitchOn = props.globals.getNode("sim/model/f-14b/controls/SAS/pitch");
 var SasRollOn  = props.globals.getNode("sim/model/f-14b/controls/SAS/roll");
 var SasYawOn   = props.globals.getNode("sim/model/f-14b/controls/SAS/yaw");
+var DeadZPitch = props.globals.getNode("sim/model/f-14b/controls/AFCS/dead-zone-pitch");
+var DeadZRoll  = props.globals.getNode("sim/model/f-14b/controls/AFCS/dead-zone-roll");
 # Autopilot Locks
 var ap_alt_lock   = props.globals.getNode("autopilot/locks/altitude");
 var ap_hdg_lock   = props.globals.getNode("autopilot/locks/heading");
@@ -55,6 +57,19 @@ var steering       = 0;
 var dt_mva_vec     = [0,0,0,0,0,0,0];
 
 
+# Sets move qty for the stick to disengage the Autopilot Attitude Hold Mode.
+var deadZ_pitch    = DeadZPitch.getValue();
+var deadZ_roll     = DeadZRoll.getValue();
+aircraft.data.add(DeadZPitch,DeadZRoll);
+
+var AP_steering_deadZ_dlg = gui.Dialog.new("dialog[1]","Aircraft/f-14b/Dialogs/AP-steering-dead-zone.xml");
+
+var update_steering_deadZ = func {
+	deadZ_pitch = DeadZPitch.getValue();
+	deadZ_roll = DeadZRoll.getValue();
+}
+
+
 # Elevator Trim
 if ( ElevatorTrim.getValue() != nil ) { e_trim = ElevatorTrim.getValue() }
 
@@ -84,7 +99,7 @@ var computeSAS = func {
 	var w_sweep = WSweep.getValue();
 	var o_sweep = ( w_sweep != nil and w_sweep > 1.01 ) ? 1 : 0;
 	# Temporarly disengage Autopilot when control stick steering or when 7 frames average fps < 10.
-	steering = ((raw_e > 0.05 or -0.05 > raw_e) or (raw_a > 0.01 or -0.01 > raw_a)) ? 1 : 0;
+	steering = ((raw_e > deadZ_pitch or -deadZ_pitch > raw_e) or (raw_a > deadZ_roll or -deadZ_roll > raw_a)) ? 1 : 0;
 	var mvaf_dT = (dt_mva_vec[0]+dt_mva_vec[1]+dt_mva_vec[2]+dt_mva_vec[3]+dt_mva_vec[4]+dt_mva_vec[5]+dt_mva_vec[6])/7;
 	pop(dt_mva_vec);
 	dt_mva_vec = [deltaT] ~ dt_mva_vec;
@@ -117,7 +132,7 @@ var computeSAS = func {
 
 		# Roll Channel
 		var sas_roll = 0;
-		# Squares roll input, then applies quadratic law.		
+		# Squares roll input, then applies quadratic law.
 		if (SasRollOn.getValue()) {
 			sas_roll = (raw_a * raw_a);
 			if (raw_a < 0 ) { sas_roll *= -1 }
@@ -126,7 +141,7 @@ var computeSAS = func {
 				sas_roll *= roll_lo_speed_sqr / airspeed_sqr;
 			}
 		} else {
-			sas_roll = raw_a + a_trim;   
+			sas_roll = raw_a + a_trim;
 		}
 		SASroll = sas_roll; # Used by adverse.nas
 		SasRoll.setValue(sas_roll * ! o_sweep);
@@ -138,7 +153,7 @@ var computeSAS = func {
 		var smooth_e   = raw_e;
 		var dlc_trim   = 0;
 		if (SasPitchOn.getValue()) {
-			# Exponential Filter smoothing longitudinal input.		
+			# Exponential Filter smoothing longitudinal input.
 			smooth_e = last_e + ((raw_e - last_e) * e_smooth_factor);
 			last_e = smooth_e;
 			if ( deltaT < 0.06 ) {
