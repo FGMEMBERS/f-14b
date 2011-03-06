@@ -76,6 +76,37 @@
 		</axis>
 	</animation>
 
+	<animation>
+		<type>select</type>
+		<object-name>negativ-flag</object-name>
+		<condition>
+			<less-than>
+				<property>instrumentation/altimeter/indicated-altitude-ft</property>
+				<value>0</value>
+			</less-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>below-1000-flag</object-name>
+		<condition>
+			<less-than>
+				<property>instrumentation/altimeter/indicated-altitude-ft</property>
+				<value>1000</value>
+			</less-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>below-10000-flag</object-name>
+		<condition>
+			<less-than>
+				<property>instrumentation/altimeter/indicated-altitude-ft</property>
+				<value>10000</value>
+			</less-than>
+		</condition>
+	</animation>
+
 	<!-- barometer drum counter -->
 	<animation>
 		<type>textranslate</type>
