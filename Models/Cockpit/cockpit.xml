@@ -123,7 +123,7 @@
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/altimeter.xml</path>
 		<offsets>
-			<x-m>-5.8260</x-m>
+			<x-m>-5.8200</x-m>
 			<y-m>-0.1710</y-m>
 			<z-m>-0.0780</z-m>
 			<pitch-deg>-15</pitch-deg>
