@@ -1,10 +1,10 @@
 # Replacement for fuel.nas for the Grumman F-14b particular fuel system.
 
-
 fuel.update = func{}; # disable the generic fuel updater
 
 # Initialize internal values
 # --------------------------
+var fuel_system_initialized = 0; # Used to avoid spawning a bunch of new tanks each time we reset FG.
 var PPG = nil;
 var LBS_HOUR2GALS_SEC    = nil;
 var LBS_HOUR2GALS_PERIOD = nil;
@@ -122,24 +122,14 @@ var init_fuel_system = func {
 	l_ext_select_state = L_Ext_Select_State.getBoolValue();
 	r_ext_select_state = R_Ext_Select_State.getBoolValue();
 
-	#tanks ("name", number, initial connection status)
-	FWD_Fuselage   = Tank.new("FWD fuselage", 0, 1);   # 4700 lbs
-	AFT_Fuselage   = Tank.new("AFT fuselage", 1, 1);   # 4400 lbs
-	Left_Beam_Box  = Tank.new("L beam box", 2, 1);  # 1250 lbs
-	Left_Sump      = Tank.new("L sump", 3, 1);      #  300 lbs
-	Right_Beam_Box = Tank.new("R beam box", 4, 1); # 1250 lbs
-	Right_Sump     = Tank.new("R sump", 5, 1);     #  300 lbs
-	Left_Wing      = Tank.new("L wing", 6, 1);      # 2000 lbs
-	Right_Wing     = Tank.new("R wing", 7, 1);     # 2000 lbs
-	Left_External  = Tank.new("L external", 8, l_ext_select_state);  # 2000 lbs
-	Right_External = Tank.new("R external", 9, r_ext_select_state); # 2000 lbs
+	if ( ! fuel_system_initialized ) {
+		build_new_tanks();
+		build_new_proportioners();
+		fuel_system_initialized = 1;
+	}
 
 	if ( ! l_ext_select_state ) { Left_External.set_level(0) }
 	if ( ! r_ext_select_state ) { Right_External.set_level(0) }
-
-	#proportioners ("name", number, initial connection status, operational status)
-	Left_Proportioner	= Prop.new("L feed line", 10, 1, 1); # 10 lbs
-	Right_Proportioner	= Prop.new("R feed line", 11, 1, 1); # 10 lbs
 
 	#valves ("name",property, intitial status)
 	DumpValve = Valve.new("dump_valve","sim/model/f-14b/controls/fuel/dump-valve",0);
@@ -159,6 +149,25 @@ var init_fuel_system = func {
 }
 
 
+var build_new_tanks = func {
+	#tanks ("name", number, initial connection status)
+	FWD_Fuselage   = Tank.new("FWD fuselage", 0, 1);   # 4700 lbs
+	AFT_Fuselage   = Tank.new("AFT fuselage", 1, 1);   # 4400 lbs
+	Left_Beam_Box  = Tank.new("L beam box", 2, 1);  # 1250 lbs
+	Left_Sump      = Tank.new("L sump", 3, 1);      #  300 lbs
+	Right_Beam_Box = Tank.new("R beam box", 4, 1); # 1250 lbs
+	Right_Sump     = Tank.new("R sump", 5, 1);     #  300 lbs
+	Left_Wing      = Tank.new("L wing", 6, 1);      # 2000 lbs
+	Right_Wing     = Tank.new("R wing", 7, 1);     # 2000 lbs
+	Left_External  = Tank.new("L external", 8, l_ext_select_state);  # 2000 lbs
+	Right_External = Tank.new("R external", 9, r_ext_select_state); # 2000 lbs
+}
+
+var build_new_proportioners = func {
+	#proportioners ("name", number, initial connection status, operational status)
+	Left_Proportioner	= Prop.new("L feed line", 10, 1, 1); # 10 lbs
+	Right_Proportioner	= Prop.new("R feed line", 11, 1, 1); # 10 lbs
+}
 
 
 var fuel_update = func {
