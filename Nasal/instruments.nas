@@ -1,4 +1,5 @@
 var UPDATE_PERIOD = 0.05;
+var main_loop_launched = 0; # Used to avoid to start the main loop twice.
 
 
 # TACAN: nav[1]
@@ -461,8 +462,11 @@ var init = func {
 		aircraft.data.add(f_tc);
 	}
 	# launch
-	settimer(main_loop, 0.5);
-	settimer(f14.external_load_loop, 3);
+	if ( ! main_loop_launched ) {
+		settimer(main_loop, 0.5);
+		settimer(f14.external_load_loop, 3);
+		main_loop_launched = 1;
+	}
 }
 
 setlistener("sim/signals/fdm-initialized", init);
@@ -472,7 +476,7 @@ setlistener("sim/signals/reinit", func (reinit) {
 		f14.internal_save_fuel();
 	} else {
 		settimer(func { f14.internal_restore_fuel() }, 0.6);
-	}		
+	}
 });
 
 # Miscelaneous definitions and tools ############

@@ -93,25 +93,25 @@ var rdr_loop = func() {
 
 var az_scan = func() {
 
-	# Antena az scan.
-	var fld_frac = az_fld / 120;
-	var fswp_spd = swp_spd / fld_frac;
-	swp_fac = math.sin(cnt * fswp_spd) * fld_frac;
-	SwpFac.setValue(swp_fac);
-	swp_deg = az_fld / 2 * swp_fac;
-	swp_dir = swp_deg < swp_deg_last ? 0 : 1;
-	if ( az_fld == nil ) { az_fld = 74 }
+	# Antena az scan. Angular speed is constant but angle covered varies (120 or 60 deg ATM).
+	var fld_frac = az_fld / 120;                    # the screen (and the max scan angle) covers 120 deg, but we may use less (az_fld).
+	var fswp_spd = swp_spd / fld_frac;              # So the duration (fswp_spd) of a complete scan will depend on the fraction we use.
+	swp_fac = math.sin(cnt * fswp_spd) * fld_frac;  # Build a sinusoïde, each step based on a counter incremented by the main UPDATE_PERIOD
+	SwpFac.setValue(swp_fac);                       # Update this value on the property tree so we can use it for the sweep line animation.
+	swp_deg = az_fld / 2 * swp_fac;                 # Now get the actual deviation of the antenae in deg,
+	swp_dir = swp_deg < swp_deg_last ? 0 : 1;       # and the direction.
+	#if ( az_fld == nil ) { az_fld = 74 } # commented 20110911 if really needed it shouls had been on top of the func.
 	l_az_fld = - az_fld / 2;
 	r_az_fld = az_fld / 2;
 
-	var fading_speed = 0.015;
+	var fading_speed = 0.015;   # Used for the screen animation, dots get bright when the sweep line goes over, then fade.
 
 	our_true_heading = OurHdg.getValue();
 	our_alt = OurAlt.getValue();
 
 	if (swp_dir != swp_dir_last) {
-		# Antena scan direction change. Max every 2 seconds. Reads the whole MP_list.
-		# TODO: Transient when changing az scan field 
+		# Antena scan direction change (at max: more or less every 2 seconds). Reads the whole MP_list.
+		# TODO: Visual glitch on the screen: the sweep line jumps when changing az scan field.
 		az_fld = AzField.getValue();
 		range_radar2 = RangeRadar2.getValue();
 		if ( range_radar2 == 0 ) { range_radar2 = 0.00000001 }
@@ -208,7 +208,7 @@ var az_scan = func() {
 	}	
 	swp_deg_last = swp_deg;
 	swp_dir_last = swp_dir;
-	cnt += 0.05;
+	cnt += f14_instruments.UPDATE_PERIOD
 }
 
 
