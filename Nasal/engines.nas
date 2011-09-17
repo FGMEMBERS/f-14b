@@ -32,28 +32,28 @@ var computeAICS = func {
 		ramp3 = 1.0;
 		ramp2 = 1.0;
 	}
-    Ramp1.setValue(ramp1);
-    Ramp2.setValue(ramp2);
-    Ramp3.setValue(ramp3);
+	Ramp1.setValue(ramp1);
+	Ramp2.setValue(ramp2);
+	Ramp3.setValue(ramp3);
 }
 
-#----------------------------------------------------------------------------
-# Nozzle opening
-#----------------------------------------------------------------------------
+	#----------------------------------------------------------------------------
+	# Nozzle opening
+	#----------------------------------------------------------------------------
 
-# Constant
-NozzleSpeed = 1.0;
+	# Constant
+	NozzleSpeed = 1.0;
 
-var computeNozzles = func {
+	var computeNozzles = func {
 
-    var maxSeaLevelIdlenozzle = 0;
-    var idleNozzleTarget = 0;
+	var maxSeaLevelIdlenozzle = 0;
+	var idleNozzleTarget = 0;
 
 	var eng1_burner = Engine1Burner.getValue();
 	var eng2_burner = Engine1Burner.getValue();
 
 	egt_norm1.setValue(egt1.getValue()*0.000679348);
-	egt_norm2.setValue(egt2.getValue()*0.000679348);	
+	egt_norm2.setValue(egt2.getValue()*0.000679348);
 
 
 	if (CurrentMach < 0.45) {
@@ -63,7 +63,7 @@ var computeNozzles = func {
 	}
 
 	if (Throttle < ThrottleIdle) {
-        var gear_pos = GearPos.getValue();
+		var gear_pos = GearPos.getValue();
 		if (gear_pos == 1.0) {
 		#gear down
 			if (wow) {
@@ -110,7 +110,7 @@ var throttle_1 = props.globals.getNode("controls/engines/engine[1]/throttle");
 var computeAPC = func {
 	var t0 = throttle_0.getValue();
 	var t1 = throttle_1.getValue();
-	if (APCengaged.getBoolValue()) { 
+	if (APCengaged.getBoolValue()) {
 		# TODO override throttles
 		if ( wow or !gear_down.getBoolValue()
 		or t0 > 0.76 or t0 < 0.08
@@ -145,7 +145,7 @@ var APC_off = func {
 	setprop ("autopilot/internal/target-speed", 0.0);
 	APCengaged.setBoolValue(0);
 	disengaged_light.setBoolValue(1);
-	settimer(func { disengaged_light.setBoolValue(0); }, 10);	
+	settimer(func { disengaged_light.setBoolValue(0); }, 10);
 	setprop ("autopilot/locks/aoa", "");
 	setprop ("autopilot/locks/speed", "");
 	#print ("APC off()");
