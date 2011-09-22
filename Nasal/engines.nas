@@ -1,13 +1,13 @@
 var egt_norm1 = props.globals.getNode("engines/engine[0]/egt-norm", 1);
 var egt_norm2 = props.globals.getNode("engines/engine[1]/egt-norm", 1);
-var egt1      = props.globals.getNode("engines/engine[0]/egt-degf");
-var egt2      = props.globals.getNode("engines/engine[1]/egt-degf");
-var Ramp1     = props.globals.getNode("engines/AICS/ramp1");
-var Ramp2     = props.globals.getNode("engines/AICS/ramp2");
-var Ramp3     = props.globals.getNode("engines/AICS/ramp3");
+var egt1      = props.globals.getNode("engines/engine[0]/egt-degf", 1);
+var egt2      = props.globals.getNode("engines/engine[1]/egt-degf", 1);
+var Ramp1     = props.globals.getNode("engines/AICS/ramp1", 1);
+var Ramp2     = props.globals.getNode("engines/AICS/ramp2", 1);
+var Ramp3     = props.globals.getNode("engines/AICS/ramp3", 1);
 var Engine1Burner = props.globals.initNode("engines/engine[0]/afterburner", 0, "DOUBLE");
 var Engine2Burner = props.globals.initNode("engines/engine[1]/afterburner", 0, "DOUBLE");
-var GearPos   = props.globals.getNode("gear/gear[0]/position-norm");
+var GearPos   = props.globals.getNode("gear/gear[0]/position-norm", 1);
 
 #----------------------------------------------------------------------------
 # AICS (Air Inlet Control System)

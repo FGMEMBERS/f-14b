@@ -192,9 +192,9 @@ aircraft.data.add(	bingo,
 
 
 # Accelerometer ###########
-var g_curr  = props.globals.getNode("accelerations/pilot-g");
-var g_max   = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-max");
-var g_min   = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-min");
+var g_curr  = props.globals.getNode("accelerations/pilot-g", 1);
+var g_max   = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-max", 1);
+var g_min   = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-min", 1);
 aircraft.data.add( g_min, g_max );
 var GMaxMav = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-max-mooving-average", 1);
 GMaxMav.initNode(nil, 0);
@@ -288,8 +288,8 @@ var afcs_filters = func {
 
 
 # Drag Computation
-var Drag       = props.globals.getNode("sim/model/f-14b/systems/fdm/drag");
-var GearPos    = props.globals.getNode("gear/gear[1]/position-norm");
+var Drag       = props.globals.getNode("sim/model/f-14b/systems/fdm/drag", 1);
+var GearPos    = props.globals.getNode("gear/gear[1]/position-norm", 1);
 var SpeedBrake = props.globals.getNode("controls/flight/speedbrake", 1);
 var AB         = props.globals.getNode("engines/engine/afterburner", 1);
 
