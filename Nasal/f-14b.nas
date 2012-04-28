@@ -135,6 +135,9 @@ var right_wing_torn_generic    = props.globals.getNode("sim/multiplay/generic/in
 
 var timedMotions = func {
 
+	# disable if we are in replay mode
+	if ( getprop("sim/replay/time") > 0 ) { return }
+
 	if (deltaT == nil) deltaT = 0.0;
 
 	# Outboard Spoilers

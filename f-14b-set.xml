@@ -24,6 +24,37 @@
 			</autopilot>
 		</systems>
 
+		<flight-recorder>
+			<replay-config type="int">0</replay-config>
+			<config n="0" include="/Aircraft/Generic/flightrecorder/generic-jet.xml">
+				<name type="string">f-14b Flight Recorder</name>
+				<!-- Custom properties -->
+				<!-- Spoilers -->
+				<signal>
+					<type>float</type>
+					<property type="string">/surface-positions/left-spoilers</property>
+				</signal>
+				<signal>
+					<type>float</type>
+					<property type="string">/surface-positions/inner-left-spoilers</property>
+				</signal>
+				<signal>
+					<type>float</type>
+					<property type="string">/surface-positions/right-spoilers</property>
+				</signal>
+				<signal>
+					<type>float</type>
+					<property type="string">/surface-positions/inner-right-spoilers</property>
+				</signal>
+			<!-- Inner (aux) flaps -->
+				<signal>
+					<type>float</type>
+					<property type="string">/sim/multiplay/generic/float[2]</property>
+				</signal>
+			</config>
+		</flight-recorder>
+
+
 		<startup>
 			<splash-texture>Aircraft/f-14b/f-14b-splash.rgb</splash-texture>
 		</startup>

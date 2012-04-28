@@ -16,9 +16,12 @@ var SpoilersMinima = 0;
 
 var computeSpoilers = func {
 
-	var rollCommand = - getprop ("controls/flight/aileron");
+	# disable if we are in replay mode
+	if ( getprop("sim/replay/time") > 0 ) { return }
+
+	var rollCommand = - getprop("controls/flight/aileron");
 	var DLC = 0.0;
-	var groundSpoilersArmed = getprop ("controls/flight/ground-spoilers-armed");
+	var groundSpoilersArmed = getprop("controls/flight/ground-spoilers-armed");
 
 	# Compute a bias to reduce spoilers extension from full extension at sweep = 20deg
 	# to no extension past 56 deg

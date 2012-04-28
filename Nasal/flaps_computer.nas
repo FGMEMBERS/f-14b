@@ -48,6 +48,10 @@ var raiseFlaps = func {
 
 
 var computeFlaps = func {
+
+	# disable if we are in replay mode
+	if ( getprop("sim/replay/time") > 0 ) { return }
+
 	if (CurrentMach == nil) { CurrentMach = 0 } 
 	if (CurrentAlt == nil) { CurrentAlt = 0 }
 	if (Alpha == nil) { Alpha = 0 }
