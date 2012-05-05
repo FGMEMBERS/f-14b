@@ -15,6 +15,17 @@
 		</condition>
 	</animation>
 
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>digit-6</object-name>
+		<object-name>digit-5</object-name>
+		<object-name>digit-4</object-name>
+		<object-name>digit-3</object-name>
+		<object-name>digit-2</object-name>
+		<object-name>digit-1</object-name>
+		<object-name>dot</object-name>
+	</effect>
+
 	<!-- Frequency Digital Display, ta-ta-ta da... -->
 	<animation>
 		<type>textranslate</type>

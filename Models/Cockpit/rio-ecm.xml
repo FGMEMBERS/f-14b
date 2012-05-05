@@ -24,6 +24,24 @@
 		</condition>
 	</animation>
 
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>ecm-bkg</object-name>
+		<object-name>MP13-scan</object-name>
+		<object-name>MP12-scan</object-name>
+		<object-name>MP11-scan</object-name>
+		<object-name>MP10-scan</object-name>
+		<object-name>MP9-scan</object-name>
+		<object-name>MP8-scan</object-name>
+		<object-name>MP7-scan</object-name>
+		<object-name>MP6-scan</object-name>
+		<object-name>MP5-scan</object-name>
+		<object-name>MP4-scan</object-name>
+		<object-name>MP3-scan</object-name>
+		<object-name>MP2-scan</object-name>
+		<object-name>MP1-scan</object-name>
+	</effect>
+
 	<animation>
 		<type>rotate</type>
 		<object-name>tid</object-name>

@@ -16,6 +16,29 @@
 		</condition>
 	</animation>
 
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>ap-heading-lock</object-name>
+		<object-name>ap-altitude-lock</object-name>
+		<object-name>ap-attitude-lock</object-name>
+		<object-name>ap-altitude</object-name>
+		<object-name>ap-attitude</object-name>
+		<object-name>ap-heading</object-name>
+		<object-name>apc</object-name>
+		<object-name>dlc</object-name>
+		<object-name>ground</object-name>
+		<object-name>sky</object-name>
+		<object-name>compas</object-name>
+		<object-name>pitch-ladder</object-name>
+		<object-name>static-indexes</object-name>
+		<object-name>reticle</object-name>
+		<object-name>ref-bars</object-name>
+		<object-name>horizon-line</object-name>
+		<object-name>bank-index</object-name>
+		<object-name>compas-index</object-name>
+		<object-name>rudder-index</object-name>
+	</effect>
+
 	<!-- vdi on-off -->
 	<animation>
 		<type>select</type>

@@ -18,6 +18,27 @@
 		</condition>
 	</animation>
 
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>miles-drums-off</object-name>
+		<object-name>miles-drum-0</object-name>
+		<object-name>miles-drum-1</object-name>
+		<object-name>miles-drum-3</object-name>
+		<object-name>miles-drum-2</object-name>
+		<object-name>rng-label</object-name>
+		<object-name>crs-label</object-name>
+		<object-name>course-drum-3</object-name>
+		<object-name>course-drum-2</object-name>
+		<object-name>course-drum-1</object-name>
+		<object-name>crs-label</object-name>
+		<object-name>tacan-bearing</object-name>
+		<object-name>nav-lubber-line</object-name>
+		<object-name>aircraft-symbol</object-name>
+		<object-name>deviation-marks</object-name>
+		<object-name>course-needle</object-name>
+		<object-name>deviation-bar</object-name>
+		<object-name>compass-rose</object-name>
+	</effect>
 
 	<!-- mode selection -->
 	<animation>

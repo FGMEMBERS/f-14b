@@ -24,6 +24,50 @@
 		</condition>
 	</animation>
 
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>horizon-line</object-name>
+		<object-name>radar-sweep</object-name>
+		<object-name>mp1</object-name>
+		<object-name>mp2</object-name>
+		<object-name>mp3</object-name>
+		<object-name>mp4</object-name>
+		<object-name>mp5</object-name>
+		<object-name>mp6</object-name>
+		<object-name>mp7</object-name>
+		<object-name>mp8</object-name>
+		<object-name>mp9</object-name>
+		<object-name>mp10</object-name>
+		<object-name>mp11</object-name>
+		<object-name>mp12</object-name>
+		<object-name>mp13</object-name>
+		<object-name>mp14</object-name>
+		<object-name>mp15</object-name>
+		<object-name>mp16</object-name>
+		<object-name>mp17</object-name>
+		<object-name>mp18</object-name>
+		<object-name>mp19</object-name>
+		<object-name>tk1</object-name>
+		<object-name>tk2</object-name>
+		<object-name>tk3</object-name>
+		<object-name>tk4</object-name>
+		<object-name>tk5</object-name>
+		<object-name>AI1</object-name>
+		<object-name>AI2</object-name>
+		<object-name>AI3</object-name>
+		<object-name>AI4</object-name>
+		<object-name>AI5</object-name>
+		<object-name>AI6</object-name>
+		<object-name>AI7</object-name>
+		<object-name>AI8</object-name>
+		<object-name>AI9</object-name>
+		<object-name>AI10</object-name>
+		<object-name>AI11</object-name>
+		<object-name>AI12</object-name>
+		<object-name>AI13</object-name>
+		<object-name>frame</object-name>
+	</effect>
+
 	<!-- screen background -->
 	<animation>
 		<type>select</type>

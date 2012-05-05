@@ -112,6 +112,24 @@
 			<pitch-deg>0</pitch-deg>
 		</offsets>
 	</model> Test purpose-->
+
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>Canopy_0</object-name>
+		<object-name>Windshield_0</object-name>
+		<object-name>Windshield_0_inside</object-name>
+		<object-name>TCS_0</object-name>
+	</effect>
+
+	<animation>
+		<type>select</type>
+		<object-name>Windshield_0_inside</object-name>
+		<condition>
+			<not>
+				<property>sim/rendering/rembrandt</property>
+			</not>
+		</condition>
+	</animation>
 	<model>
 		<path>Aircraft/f-14b/Models/f14-fx.xml</path>
 		<offsets>
@@ -131,7 +149,7 @@
 			<pitch-deg>0</pitch-deg>
 			<heading-deg>0</heading-deg>
 		</offsets>
-	</model>  
+	</model>
 	<animation>
 		<type>shader</type>
 		<shader>chrome</shader>

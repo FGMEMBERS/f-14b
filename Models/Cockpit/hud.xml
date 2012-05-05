@@ -6,6 +6,36 @@
 
 	<path>hud.ac</path>
 
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>sw-seeker</object-name>
+		<object-name>piper</object-name>
+		<object-name>tacan-from</object-name>
+		<object-name>tacan-to</object-name>
+		<object-name>ac-reticle</object-name>
+		<object-name>g-label</object-name>
+		<object-name>sw-label</object-name>
+		<object-name>sp-label</object-name>
+		<object-name>lock-1</object-name>
+		<object-name>master-arm-locked</object-name>
+		<object-name>sw-digit</object-name>
+		<object-name>gun-digit</object-name>
+		<object-name>sw-rng-5-scale</object-name>
+		<object-name>sw-rng-5-pointer</object-name>
+		<object-name>sw-rng-5-max-tick</object-name>
+		<object-name>sw-rng-5-min-tick</object-name>
+		<object-name>sw-rng-10-scale</object-name>
+		<object-name>sw-rng-10-pointer</object-name>
+		<object-name>sw-rng-10-max-tick</object-name>
+		<object-name>sw-rng-10-min-tick</object-name>
+		<object-name>sw-rng-20-max-tick</object-name>
+		<object-name>sw-rng-20-pointer</object-name>
+		<object-name>sw-rng-20-scale</object-name>
+		<object-name>sw-rng-20-min-tick</object-name>
+		<object-name>closure-rate-scale</object-name>
+		<object-name>closure-rate-pointer</object-name>
+	</effect>
+
 	<animation>
 		<type>select</type>
 		<object-name>hud</object-name>

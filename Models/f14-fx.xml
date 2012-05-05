@@ -5,6 +5,22 @@
 	<!--<path>Aircraft/f-14b/Models/f14-fx.ac</path>-->
 	<path>f14-fx.ac</path>
 
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>ShockWave</object-name>
+		<object-name>ManeuverVortexR</object-name>
+		<object-name>ManeuverVortexL</object-name>
+		<object-name>HeatBlurR</object-name>
+		<object-name>HeatBlurL</object-name>
+		<object-name>InnerFlameR</object-name>
+		<object-name>InnerFlameL</object-name>
+		<object-name>outerFlame</object-name>
+		<object-name>outerFlame.001</object-name>
+		<object-name>ReheatL</object-name>
+		<object-name>ReheatR</object-name>
+</effect>
+
+
 	<!-- disable heat blur on demand for ATI cards -->
 	<animation>
 		<type>select</type>
