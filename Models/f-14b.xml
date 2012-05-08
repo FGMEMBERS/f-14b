@@ -126,7 +126,7 @@
 		<object-name>Windshield_0_inside</object-name>
 		<condition>
 			<not>
-				<property>sim/rendering/rembrandt</property>
+				<property>sim/rendering/rembrandt/enabled</property>
 			</not>
 		</condition>
 	</animation>
