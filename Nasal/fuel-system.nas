@@ -172,7 +172,7 @@ var build_new_proportioners = func {
 
 var fuel_update = func {
 
-	if ( getprop("/sim/freeze/fuel") ) { return }
+	if ( getprop("/sim/freeze/fuel") or getprop("sim/replay/time") > 0 ) { return }
 
 	fuel_time = props.globals.getNode("/sim/time/elapsed-sec", 1).getValue();
 	fuel_dt = fuel_time - fuel_last_time;
@@ -872,7 +872,7 @@ Neg_g = {
 	get_neg_g : func() {
 		return me.prop.getValue();
 	},
-};	
+};
 
 
 # Fuel valves
@@ -910,6 +910,4 @@ Valve = {
 	},
 	list : [],
 };
-	
 
-	
