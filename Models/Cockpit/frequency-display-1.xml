@@ -113,20 +113,11 @@
 
 
 
-	<animation>
-		<object-name>digits</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
-			<red>0.7</red>
-			<green>0.0</green>
-			<blue>0.0</blue>
-		</emission>
-	</animation>
-
+	<!-- lighting -->
 	<animation>
 		<object-name>mount</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>

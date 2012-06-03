@@ -448,16 +448,16 @@
 	</animation>
 
 	<animation>
-		<object-name>apc</object-name>
+		<object-name>display</object-name>
 		<type>material</type>
 		<emission>
 			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
 			<red>0.0</red>
-			<green>1.0</green>
+			<green>0.7</green>
 			<blue>0.0</blue>
 		</emission>
 	</animation>
-	<animation>
+	<!--<animation>
 		<object-name>dlc</object-name>
 		<type>material</type>
 		<emission>
@@ -608,49 +608,17 @@
 			<green>0.4</green>
 			<blue>0.0</blue>
 		</emission>
-	</animation>
+	</animation>-->
 
 	<animation>
-		<object-name>mount</object-name>
+		<object-name>casing</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
 			<blue>0.10</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>mount2</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-
-
-	<animation>
-		<object-name>filter-knob</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.132</red>
-			<green>0.057</green>
-			<blue>0.024</blue>
-		</emission>
-	</animation>
-
-	<animation>
-		<object-name>knobs</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.44</red>
-			<green>0.192</green>
-			<blue>0.08</blue>
 		</emission>
 	</animation>
 

@@ -221,6 +221,7 @@
 	<animation>
 		<object-name>hook-lamp-off</object-name> 
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.07</red>
@@ -231,6 +232,7 @@
 	<animation>
 		<object-name>hook-lamp-on</object-name> 
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission>
 			<factor-prop>sim/model/f-14b/systems/utilities/numeral-1</factor-prop>
 			<red>0.8</red>
@@ -242,6 +244,7 @@
 	<animation> 
 		<object-name>mounts</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
@@ -252,6 +255,7 @@
 	<animation> 
 		<object-name>switches-and-buttons</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
@@ -262,6 +266,7 @@
 	<animation> 
 		<object-name>rounds-drums</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.71</red>

@@ -1,8 +1,8 @@
 AC3Db
 MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0.2 0.2 0.2  shi 128  trans 0
-MATERIAL "ac3dmat12" rgb 0 0 0  amb 0 0 0  emis 0 0 0  spec 0 0 0  shi 128  trans 0
-MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0 0 0  shi 17  trans 0
 MATERIAL "ac3dmat1" rgb 0 0 0  amb 0 0 0  emis 0 0 0  spec 0 0 0  shi 0  trans 1
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0 0 0  shi 17  trans 0
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 1 1 1  spec 1 1 1  shi 0  trans 0
 OBJECT world
 kids 1
 OBJECT group
@@ -4784,7 +4784,7 @@ numvert 4
 0.00141612 0 -0.00145339
 numsurf 1
 SURF 0x30
-mat 1
+mat 3
 refs 4
 0 0.355142 0.0325446
 1 0.339371 0.0325446
@@ -4803,7 +4803,7 @@ numvert 4
 0.0757604 0.0223866 -0.00951035
 numsurf 1
 SURF 0x10
-mat 1
+mat 3
 refs 4
 1 0.0587054 0.804858
 3 0.933246 0.804858
@@ -4822,7 +4822,7 @@ numvert 4
 0.0637294 0.0222842 -0.00170542
 numsurf 1
 SURF 0x10
-mat 1
+mat 3
 refs 4
 2 0.0558266 0.804858
 0 0.950243 0.804858
@@ -4841,7 +4841,7 @@ numvert 4
 0.0757604 0.0223866 -0.00157359
 numsurf 1
 SURF 0x10
-mat 1
+mat 3
 refs 4
 1 0.0690576 0.804858
 3 0.950223 0.804858
@@ -4860,7 +4860,7 @@ numvert 4
 0.0637294 0.0222842 0.00567185
 numsurf 1
 SURF 0x10
-mat 1
+mat 3
 refs 4
 2 0.0547848 0.804858
 0 0.955826 0.804858
@@ -4879,7 +4879,7 @@ numvert 4
 0.0757604 0.0223866 -0.00303188
 numsurf 1
 SURF 0x10
-mat 1
+mat 3
 refs 4
 1 0.0769826 0.804858
 3 0.958148 0.804858
@@ -4898,7 +4898,7 @@ numvert 4
 0.0637294 0.0222842 0.00375967
 numsurf 1
 SURF 0x10
-mat 1
+mat 3
 refs 4
 2 0.0599204 0.804858
 0 0.934461 0.804858
@@ -6035,7 +6035,7 @@ numvert 4
 0.0559719 0 0.0334119
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 0 1 1
 1 0 1
@@ -6053,7 +6053,7 @@ numvert 4
 0.0367628 0 0.0334119
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 3 1 1
 2 0 1
@@ -6071,7 +6071,7 @@ numvert 4
 0.0559719 0 0.0334119
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 0 1 1
 1 0 1
@@ -6089,7 +6089,7 @@ numvert 4
 0.0367628 0 0.0334119
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 3 1 1
 2 0 1
@@ -6107,7 +6107,7 @@ numvert 4
 0.0367628 0 0.0334119
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 3 1 1
 2 0 1
@@ -6125,7 +6125,7 @@ numvert 4
 0.0790966 0 0.0553402
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 0 1 1
 1 0 1
@@ -6143,7 +6143,7 @@ numvert 4
 0.0519513 0 0.0553402
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 3 1 1
 2 0 1
@@ -6161,7 +6161,7 @@ numvert 4
 0.0760713 0 0.0532236
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 0 1 1
 1 0 1
@@ -6179,7 +6179,7 @@ numvert 4
 0.0339764 0 0.0275
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 3 1 1
 2 0 1
@@ -6197,7 +6197,7 @@ numvert 4
 0.0517295 0 0.0334038
 numsurf 1
 SURF 0x30
-mat 3
+mat 1
 refs 4
 0 1 1
 1 0 1
@@ -6220,7 +6220,7 @@ numvert 4
 0.07236 0.0223866 -0.0021331
 numsurf 1
 SURF 0x10
-mat 1
+mat 3
 refs 4
 1 0.0547848 0.804858
 3 0.955826 0.804858
@@ -6239,7 +6239,7 @@ numvert 4
 0.060329 0.0222842 0.00623135
 numsurf 1
 SURF 0x10
-mat 1
+mat 3
 refs 4
 2 0.0690576 0.804858
 0 0.950223 0.804858

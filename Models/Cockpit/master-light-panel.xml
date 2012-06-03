@@ -362,25 +362,30 @@
 
 
 	<!-- Taxi Twitch -->
-	<!--<animation>
-		<object-name>taxi-probe-switch</object-name>
+	<!-- not operational for versions before rembrandt -->
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>hotspot-taxi-toggle</object-name>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>property-toggle</command>
+				<property>controls/lighting/taxi-light</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<object-name>taxi-light-switch</object-name>
 		<type>rotate</type>
 		<property>controls/lighting/taxi-light</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>-10</dep></entry>
 			<entry><ind>1</ind><dep>25</dep></entry>
 		</interpolation>
-		<center>
-			<x-m>-0.0146</x-m>
-			<y-m>-0.0423</y-m>
-			<z-m>-0.0010</z-m>
-		</center>
-		<axis>
-			<x>0</x>
-			<y>-1</y>
-			<z>0</z>
-		</axis>
-	</animation>-->	
+		<center><x-m>-0.0191</x-m><z-m>0.0019</z-m></center>
+		<axis><y>-1</y></axis>
+	</animation>
 
 
 
@@ -429,20 +434,11 @@
 	</animation>-->
 
 
-
-
-
-
-
-
-
-
-
-
 	<!-- lighting -->
 	<animation> 
 		<object-name>mount</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
@@ -450,10 +446,10 @@
 			<blue>0.10</blue>
 		</emission>
 	</animation>
-
 	<animation>
 		<object-name>switches</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission> 
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>
@@ -461,10 +457,10 @@
 			<blue>0.10</blue>
 		</emission>
 	</animation>
-
 	<animation>
 		<object-name>wheels</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission> 
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>

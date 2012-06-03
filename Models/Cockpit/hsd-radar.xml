@@ -24,6 +24,17 @@
 
 	<effect>
 		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>az-field-60</object-name>
+		<object-name>az-field-120</object-name>
+		<object-name>own-ac</object-name>
+		<object-name>pulse-srch</object-name>
+		<object-name>tws-auto</object-name>
+		<object-name>stand-by</object-name>
+		<object-name>rng-label</object-name>
+		<object-name>miles-drum-0</object-name>
+		<object-name>miles-drum-1</object-name>
+		<object-name>miles-drum-3</object-name>
+		<object-name>miles-drum-2</object-name>
 		<object-name>AI1hdg</object-name>
 		<object-name>AI1symb</object-name>
 		<object-name>AI1alt0</object-name>
@@ -89,19 +100,6 @@
 		<object-name>AI13alt0</object-name>
 		<object-name>AI13alt1</object-name>
 		<object-name>AI13alt2</object-name>
-		<object-name>horizon-line</object-name>
-		<object-name>center-cross</object-name>
-		<object-name>az-field-60</object-name>
-		<object-name>az-field-120</object-name>
-		<object-name>own-ac</object-name>
-		<object-name>pulse-srch</object-name>
-		<object-name>tws-auto</object-name>
-		<object-name>stand-by</object-name>
-		<object-name>rng-label</object-name>
-		<object-name>miles-drum-0</object-name>
-		<object-name>miles-drum-1</object-name>
-		<object-name>miles-drum-3</object-name>
-		<object-name>miles-drum-2</object-name>
 		<object-name>MP1hdg</object-name>
 		<object-name>MP1symb</object-name>
 		<object-name>MP1symb-carrier</object-name>

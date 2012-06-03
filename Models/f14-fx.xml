@@ -4,6 +4,7 @@
 
 	<!--<path>Aircraft/f-14b/Models/f14-fx.ac</path>-->
 	<path>f14-fx.ac</path>
+	<nopreview/>
 
 	<effect>
 		<inherits-from>Effects/model-transparent</inherits-from>
