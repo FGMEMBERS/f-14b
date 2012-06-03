@@ -444,10 +444,10 @@ var main_loop = func {
 # Init ####################
 var init = func {
 	print("Initializing F-14B Systems");
-	aircraft.data.load();
-	f14_net.mp_network_init(1);
 	f14.ext_loads_init();
 	f14.init_fuel_system();
+	aircraft.data.load();
+	f14_net.mp_network_init(1);
 	f14.weapons_init();
 	ticker.setDoubleValue(0);
 	local_mag_deviation();

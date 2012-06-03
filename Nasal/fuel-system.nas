@@ -689,7 +689,9 @@ Tank = {
 		obj.capacity = obj.prop.getNode("capacity-gal_us", 1);
 		obj.ppg = obj.prop.getNode("density-ppg", 1);
 		obj.level_gal_us = obj.prop.getNode("level-gal_us", 1);
+		obj.level_gal_us.setValue(0);
 		obj.level_lbs = obj.prop.getNode("level-lbs", 1);
+		obj.level_lbs.setValue(0);
 		obj.transfering = obj.prop.getNode("transfering", 1);
 		obj.transfering.setBoolValue(0);
 		obj.selected = obj.prop.getNode("selected", 1);
@@ -697,16 +699,17 @@ Tank = {
 		obj.ppg.setDoubleValue(6.3);
 
 		append(Tank.list, obj);
+		#print("Tank.new[",number,"], ", obj.level_lbs.getValue());
 		return obj;
 	},
 	get_capacity : func {
 		return me.capacity.getValue(); 
 	},
 	get_level : func {
-		return me.level_gal_us.getValue();	
-	},	
+		return me.level_gal_us.getValue();
+	},
 	get_level_lbs : func {
-		return me.level_lbs.getValue();	
+		return me.level_lbs.getValue();
 	},
 	set_level : func (gals_us){
 		if(gals_us < 0) gals_us = 0;
