@@ -133,7 +133,8 @@
 		<type>rotate</type>
 		<object-name>chan-knob</object-name>
 		<property>instrumentation/tacan/frequencies/selected-channel</property>
-		<interpolation>
+		<interpolation>		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
+
 			<entry><ind>0</ind><dep>0</dep></entry>
 			<entry><ind>63</ind><dep>-120</dep></entry>
 			<entry><ind>126</ind><dep>-240</dep></entry>
@@ -216,8 +217,9 @@
 
 	<!-- lighting -->
 	<animation>
-		<object-name>mount</object-name>
+		<object-name>panel</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
@@ -226,117 +228,11 @@
 		</emission>
 	</animation>
 
-	<animation>
-		<object-name>xy-switch</object-name>
-		<type>material</type>
-		<emission> 
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
 
 	<animation>
-		<object-name>mode-switch</object-name>
+		<object-name>instrument</object-name>
 		<type>material</type>
-		<emission> 
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-
-	<animation>
-		<object-name>mode-knob</object-name>
-		<type>material</type>
-		<emission> 
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-
-	<animation>
-		<object-name>chan-knob</object-name>
-		<type>material</type>
-		<emission> 
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-
-	<animation>
-		<type>material</type>
-		<object-name>go-lamp-off</object-name>
-		<object-name>nogo-lamp-off</object-name>
-		<emission> 
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.11</red>
-			<green>0.07</green>
-			<blue>0.04</blue>
-		</emission>
-	</animation>
-
-	<animation>
-		<type>material</type>
-		<object-name>vol-knob</object-name>
-		<object-name>test-button</object-name>
-		<emission> 
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-
-	<animation>
-		<object-name>drum-1</object-name>
-		<type>material</type>
-		<emission> 
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.60</red>
-			<green>0.35</green>
-			<blue>0.23</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>drum-2</object-name>
-		<type>material</type>
-		<emission> 
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.60</red>
-			<green>0.35</green>
-			<blue>0.23</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>drum-3</object-name>
-		<type>material</type>
-		<emission> 
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.60</red>
-			<green>0.35</green>
-			<blue>0.23</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>X-sign</object-name>
-		<type>material</type>
-		<emission> 
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.60</red>
-			<green>0.35</green>
-			<blue>0.23</blue>
-		</emission>
-	</animation>
-		<animation>
-		<object-name>Y-sign</object-name>
-		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission> 
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.60</red>

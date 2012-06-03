@@ -25,20 +25,12 @@
 		</condition>
 	</animation>
 
-	<!--<animation> 
-		<object-name>mount</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>-->
+
 	<animation> 
 		<object-name>panels</object-name>
 		<object-name>checklists-rio</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.275</red>
@@ -46,28 +38,6 @@
 			<blue>0.05</blue>
 		</emission>
 	</animation>
-	<!--<animation> 
-		<object-name>pedals</object-name>
-		<object-name>bathtub-sides</object-name>
-		<object-name>fire-handles</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.1375</red>
-			<green>0.06</green>
-			<blue>0.025</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>floor</object-name>
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/panel-norm</factor-prop>
-			<red>0.0687</red>
-			<green>0.03</green>
-			<blue>0.0125</blue>
-		</emission>
-	</animation>-->
 
 	<animation>
 		<type>range</type>

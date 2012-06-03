@@ -126,7 +126,7 @@
 		<object-name>Windshield_0_inside</object-name>
 		<condition>
 			<not>
-				<property>sim/rendering/rembrandt</property>
+				<property>sim/rendering/rembrandt/enabled</property>
 			</not>
 		</condition>
 	</animation>
@@ -137,6 +137,14 @@
 			<y-m>0</y-m>
 			<z-m>0</z-m>
 			<pitch-deg>0</pitch-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/f14-lights.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
 		</offsets>
 	</model>
 	<model>
@@ -1442,7 +1450,8 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>NsGearStrut</object-name>
-		<object-name>LandingLight</object-name>
+		<object-name>LandingLight-on</object-name>
+		<object-name>LandingLight-off</object-name>
 		<object-name>NsGrRotatingSleeve</object-name>
 		<object-name>CatBar</object-name>
 		<object-name>CatBarLink</object-name>
@@ -1465,6 +1474,23 @@
 			<y>1.0</y>
 			<z>0.0</z>
 		</axis>
+	</animation>
+	<!-- Taxi light -->
+	<animation>
+		<type>select</type>
+		<object-name>LandingLight-on</object-name>
+		<condition>
+			<property>controls/lighting/taxi-light</property>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>LandingLight-off</object-name>
+		<condition>
+			<not>
+					<property>controls/lighting/taxi-light</property>
+			</not>
+		</condition>
 	</animation>
 
 	<animation>

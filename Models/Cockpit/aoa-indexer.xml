@@ -270,6 +270,7 @@
 
 
 	<!-- lighting -->
+	<!-- rembrandt change: keep the legacy emission so we can also keep controls/lighting/index-norm -->
 	<animation>
 		<object-name>aoa-too-slow</object-name>
 		<type>material</type>

@@ -58,6 +58,7 @@
 		<object-name>consoles</object-name>
 		<object-name>checklists-pilot</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.275</red>
@@ -70,6 +71,7 @@
 		<object-name>bathtub-sides</object-name>
 		<object-name>fire-handles</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.1375</red>
@@ -80,6 +82,7 @@
 	<animation>
 		<object-name>floor</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.0687</red>

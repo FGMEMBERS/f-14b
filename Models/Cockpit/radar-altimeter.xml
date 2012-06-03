@@ -280,6 +280,7 @@
 	<animation> 
 		<object-name>mount</object-name>
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		 <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
@@ -288,73 +289,14 @@
 		</emission>
 	</animation>
 	<animation>
-		<object-name>face</object-name> 
+		<object-name>instrument</object-name> 
 		<type>material</type>
+		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
 		<emission> 
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
 			<blue>0.10</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>needle</object-name> 
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>stowed-needle</object-name> 
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>off-flag</object-name> 
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>bug</object-name> 
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.55</red>
-			<green>0.24</green>
-			<blue>0.10</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>low-lamp-off</object-name> 
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.1375</red>
-			<green>0.06</green>
-			<blue>0.025</blue>
-		</emission>
-	</animation>
-	<animation>
-		<object-name>low-lamp</object-name> 
-		<type>material</type>
-		<emission>
-			<factor-prop>controls/lighting/instruments-norm</factor-prop>
-			<red>0.8</red>
-			<green>0.8</green>
-			<blue>0.8</blue>
 		</emission>
 	</animation>
 

@@ -26,6 +26,7 @@
 
 	<effect>
 		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>screen-bkg</object-name>
 		<object-name>horizon-line</object-name>
 		<object-name>radar-sweep</object-name>
 		<object-name>mp1</object-name>
@@ -1920,6 +1921,7 @@
 
 
 	<!-- lighting -->
+	<!-- rembrandt: no change for the time being -->
 	<animation>
 		<object-name>screen-bkg</object-name>
 		<type>material</type>

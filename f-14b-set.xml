@@ -32,40 +32,32 @@
 				<signals include="/Aircraft/Generic/flightrecorder/components/position.xml"/>
 				<signals include="/Aircraft/Generic/flightrecorder/components/controls.xml"/>
 				<signals include="/Aircraft/Generic/flightrecorder/components/surfaces.xml"/>
-				<signals include="/Aircraft/Generic/flightrecorder/components/engine-jet.xml">
-					<count type="int">2</count>
-				</signals>
-				<signals include="/Aircraft/Generic/flightrecorder/components/faults-engines.xml">
-					<count type="int">2</count>
-				</signals>
-				<signals include="/Aircraft/Generic/flightrecorder/components/tanks.xml">
-					<count type="int">12</count>
-				</signals>
-				<signals include="/Aircraft/Generic/flightrecorder/components/gear-retractable.xml">
-					<count type="int">3</count>
-				</signals>
+				<signals include="/Aircraft/Generic/flightrecorder/components/engine-jet.xml"><count type="int">2</count></signals>
+				<!-- Engine nozzles -->
+				<signal><type>float</type><property type="string">engines/engine[0]/nozzle-pos-norm</property></signal>
+				<signal><type>float</type><property type="string">engines/engine[1]/nozzle-pos-norm</property></signal>
+				<signals include="/Aircraft/Generic/flightrecorder/components/faults-engines.xml"><count type="int">2</count></signals>
+				<signals include="/Aircraft/Generic/flightrecorder/components/tanks.xml"><count type="int">12</count></signals>
+				<signals include="/Aircraft/Generic/flightrecorder/components/gear-retractable.xml"><count type="int">3</count></signals>
 				<!-- Spoilers -->
-				<signal>
-					<type>float</type>
-					<property type="string">/surface-positions/left-spoilers</property>
-				</signal>
-				<signal>
-					<type>float</type>
-					<property type="string">/surface-positions/inner-left-spoilers</property>
-				</signal>
-				<signal>
-					<type>float</type>
-					<property type="string">/surface-positions/right-spoilers</property>
-				</signal>
-				<signal>
-					<type>float</type>
-					<property type="string">/surface-positions/inner-right-spoilers</property>
-				</signal>
-			<!-- Inner (aux) flaps -->
-				<signal>
-					<type>float</type>
-					<property type="string">/sim/multiplay/generic/float[2]</property>
-				</signal>
+				<signal><type>float</type><property type="string">surface-positions/left-spoilers</property></signal>
+				<signal><type>float</type><property type="string">surface-positions/inner-left-spoilers</property></signal>
+				<signal><type>float</type><property type="string">surface-positions/right-spoilers</property></signal>
+				<signal><type>float</type><property type="string">surface-positions/inner-right-spoilers</property></signal>
+				<!-- Inner (aux) flaps -->
+				<signal><type>float</type><property type="string">sim/multiplay/generic/float[2]</property></signal>
+				<!-- Slats -->
+				<signal><type>float</type><property type="string">sim/multiplay/generic/float[3]</property></signal>
+				<!-- Wing Bend -->
+				<signal><type>float</type><property type="string">surface-positions/wing-fold-pos-norm</property></signal>
+				<!-- Wing Fold -->
+				<signal><type>float</type><property type="string">surface-positions/wing-pos-norm</property></signal>
+				<!-- Tail Hook -->
+				<signal><type>float</type><property type="string">gear/tailhook/position-norm</property></signal>
+				<!-- Stabilisator L -->
+				<signal><type>float</type><property type="string">sim/multiplay/generic/float[4]</property></signal>
+				<!-- Stabilisator R -->
+				<signal><type>float</type><property type="string">sim/multiplay/generic/float[5]</property></signal>
 			</config>
 		</flight-recorder>
 
@@ -990,6 +982,7 @@
 			<panel-norm type="double">0</panel-norm>
 			<strobe type="bool">false</strobe>
 			<nav-lights type="bool">true</nav-lights>
+			<taxi-light type="bool">false</taxi-light>
 		</lighting>
 		<flight>
 			<ground-spoilers-armed type="bool"> false </ground-spoilers-armed>
