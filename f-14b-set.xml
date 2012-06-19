@@ -1002,7 +1002,7 @@
 	</engines>
 
 	<input>
-		<keyboard n="0" include="../../Input/Keyboard/carrier-bindings.xml">
+		<keyboard n="0" include="/Input/Keyboard/carrier-bindings.xml">
 			<multikey include="Systems/instruments-multikey.xml"/>
 
 			<key n="1">

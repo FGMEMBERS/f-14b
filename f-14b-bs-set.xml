@@ -12,7 +12,7 @@
 
 
 	<input>
-		<keyboard n="0" include="../../Input/Keyboard/carrier-bindings.xml">
+		<keyboard n="0" include="/Input/Keyboard/carrier-bindings.xml">
 			<!--<multikey include="Models/Cockpit/radios-multikey.xml"/>-->
 
 			<key n="14">
