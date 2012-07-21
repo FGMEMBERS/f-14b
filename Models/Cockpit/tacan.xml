@@ -89,7 +89,7 @@
 			<entry><ind>2</ind><dep>-60</dep></entry>
 			<entry><ind>4</ind><dep>-120</dep></entry>
 		</interpolation>
-		<center><x-m>0.0210</x-m><y-m>0.0482</y-m></center>
+		<center><x-m>0.0196</x-m><y-m>0.0449</y-m></center>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation>
@@ -130,7 +130,7 @@
 			<entry><ind>63</ind><dep>-120</dep></entry>
 			<entry><ind>126</ind><dep>-240</dep></entry>
 		</interpolation>
-		<center><x-m>0.0186</x-m><y-m>-0.0399</y-m></center>
+		<center><x-m>0.0176</x-m><y-m>-0.0376</y-m></center>
 		<axis><z>1</z></axis>
 	</animation>
 	<animation>
@@ -171,7 +171,7 @@
 		<object-name>xy-switch</object-name>
 		<property>sim/model/f-14b/instrumentation/tacan/xy-switch</property>
 		<factor>40</factor>
-		<center><x-m>0.0158</x-m><z-m>-0.0041</z-m></center>
+		<center><x-m>0.0156</x-m><z-m>0.0041</z-m></center>
 		<axis><y>1</y></axis>
 	</animation>
 	<animation>
