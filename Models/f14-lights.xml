@@ -6,6 +6,19 @@
 	<path>f14-lights.ac</path>
 	<nopreview/>
 
+	<animation>
+		<type>select</type>
+		<condition><property>sim/rendering/rembrandt/enabled</property></condition>
+		<object-name>lgt-pilot-console-R</object-name>
+		<object-name>lgt-pilot-front-up-C</object-name>
+		<object-name>lgt-pilot-front-knee-L</object-name>
+		<object-name>lgt-pilot-front-L</object-name>
+		<object-name>lgt-pilot-front-C</object-name>
+		<object-name>lgt-rio</object-name>
+		<object-name>lgt-pilot-front-R</object-name>
+		<object-name>lgt-pilot-front-knee-R</object-name>
+		<object-name>lgt-pilot-console-L</object-name>
+	</animation>
 
 	<animation>
 		<type>select</type>
