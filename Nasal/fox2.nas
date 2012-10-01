@@ -621,7 +621,7 @@ var impact_report = func(pos, mass_slug, string) {
 
 }
 
-steering_speed_G = func(steering_e_deg, steering_h_deg, s_fps, mass, dt) {
+var steering_speed_G = func(steering_e_deg, steering_h_deg, s_fps, mass, dt) {
 	# Get G number from steering (e, h) in deg, speed in ft/s and mass in slugs.
 	var steer_deg = math.sqrt((steering_e_deg*steering_e_deg)+(steering_h_deg*steering_h_deg));
 	var radius_ft = math.abs(s_fps / math.cos(90 - steer_deg));
