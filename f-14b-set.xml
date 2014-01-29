@@ -3,7 +3,7 @@
 <PropertyList>
 
 	<sim>
-		
+
 		<description>Grumman F-14B </description>
 		<author>Enrique Laso - Alexis Bory</author>
 		<status>early production</status>
@@ -221,7 +221,7 @@
 			<line>The APC is a closed loop system that automaticaly regulates basic engine thrust to maintain the aircraft at an optimum approach angle of</line>
 			<line>attack for landing. Prior to engage APC, gear handle must be down with weight off wheels, and the throttles must be set between 98% and</line>
 			<line>68% rpm (as shown on the panel gauges). Type "a" to toggle the APC on/off. APC is also disengaged by setting the throttles to MIL (98% rpm)</line>
-			<line>or iddle (68% rpm) or raising the landig gear handle or when weight on wheels.</line> 
+			<line>or iddle (68% rpm) or raising the landig gear handle or when weight on wheels.</line>
 			<line>When disengaged the AUTO THROT caution light (on the left side of the HUD) illuminates for 10 seconds.</line>
 			<line>__________________________________________________</line>
 			<line>VHF: Located on the RIO's left console, 3 bands: 30-88 Mhz, 108-174 Mhz, 225-400 Mhz. Modes TR and TR-G set COMM1. Mode DF sets NAV1,</line>
@@ -412,7 +412,7 @@
 						</frequencies>
 						<preset type="int">0</preset>
 						<presets>
-							<frequency n="0" type="double">115.80</frequency><!-- KSFO ATIS VOR-DME--> 
+							<frequency n="0" type="double">115.80</frequency><!-- KSFO ATIS VOR-DME-->
 							<frequency n="1" type="double">120.50</frequency><!-- KSFO TWR -->
 							<frequency n="2" type="double">124.17</frequency><!-- KNUQ ATIS -->
 							<frequency n="3" type="double">119.55</frequency><!-- KNUQ TWR -->
@@ -552,7 +552,7 @@
 							<fov-deg type="int">25</fov-deg>                     <!-- seeker optical FOV -->
 							<detection-fov-deg type="int">60</detection-fov-deg> <!-- Search pattern diameter (rosette scan) -->
 							<track-max-deg type="int">110</track-max-deg>        <!-- Seeker max total angular rotation -->
-							<max-g type="int">21</max-g>                         <!-- In turn --> 
+							<max-g type="int">21</max-g>                         <!-- In turn -->
 							<thrust-lbs type="double">230</thrust-lbs>           <!-- guess -->
 							<thrust-duration-sec type="int">30</thrust-duration-sec><!-- Mk.36 Mod.7,8 -->
 							<weight-launch-lbs>191</weight-launch-lbs>
@@ -913,6 +913,11 @@
 		</electrical>
 		<refuel>
 			<type>probe</type>
+			<serviceable type="bool">true</serviceable>
+			<max-fuel-transfer-lbs-min>3230</max-fuel-transfer-lbs-min>	<!-- 475 gallons/min @ 6.8 lbs/gallon AVCAT density -->
+			<offset-x-m>-7.2</offset-x-m>
+			<offset-y-m>1.05</offset-y-m>
+			<offset-z-m>0.04</offset-z-m>
 		</refuel>
 	</systems>
 
@@ -1294,6 +1299,9 @@
 	</instrumentation>
 
 	<nasal>
+		<aar>
+			<file>Aircraft/Generic/aar.nas</file>
+		</aar>
 		<radardist>
 			<file>Aircraft/Instruments-3d/radardist/radardist.nas</file>
 		</radardist>
