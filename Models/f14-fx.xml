@@ -35,17 +35,17 @@
 	<animation>
 		<type>blend</type>
 		<object-name>ReheatL</object-name>
-		<property>engines/engine[0]/egt-norm</property>
-		<offset>1.1</offset>
-		<factor>-1</factor>
+		<property>engines/engine[0]/augmentation</property>
+		<offset>1</offset>
+		<factor>-1.4</factor>
 	</animation>
 
 	<animation>
 		<type>blend</type>
 		<object-name>ReheatR</object-name>
-		<property>engines/engine[0]/egt-norm</property>
-		<offset>1.1</offset>
-		<factor>-1</factor>
+		<property>engines/engine[1]/augmentation</property>
+		<offset>1</offset>
+		<factor>-1.4</factor>
 	</animation>
 
 	<!-- Burner Flame -->
@@ -62,6 +62,7 @@
 				<property>engines/engine[1]/n1</property>
 				<value>90.0</value>
 			</greater-than>
+			<property>engines/engine[1]/augmentation</property>
 		</condition>
 	</animation>
 	<animation>
@@ -111,6 +112,7 @@
 				<property>engines/engine[0]/n1</property>
 				<value>90.0</value>
 			</greater-than>
+			<property>engines/engine[0]/augmentation</property>
 		</condition>
 	</animation>
 	<animation>
@@ -161,6 +163,7 @@
 				<property>engines/engine[0]/n1</property>
 				<value>90.0</value>
 			</greater-than>
+			<property>engines/engine[0]/augmentation</property>
 		</condition>
 	</animation>
 	<animation>
@@ -210,6 +213,7 @@
 				<property>engines/engine[1]/n1</property>
 				<value>90.0</value>
 			</greater-than>
+        	<property>engines/engine[1]/augmentation</property>
 		</condition>
 	</animation>
 	<animation>
@@ -392,7 +396,8 @@
 		<object-name>ManeuverVortexL</object-name>
 		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
-			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>0.294117647</ind><dep>0</dep></entry>
+			<entry><ind>0.294117647</ind><dep>0</dep></entry>
 			<entry><ind>1</ind><dep>49</dep></entry>
 			<entry><ind>1.2</ind><dep>52</dep></entry>
 		</interpolation>
@@ -466,7 +471,8 @@
 		<object-name>ManeuverVortexR</object-name>
 		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
-			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>0.294117647</ind><dep>0</dep></entry>
+			<entry><ind>0.294117647</ind><dep>0</dep></entry>
 			<entry><ind>1</ind><dep>-49</dep></entry>
 			<entry><ind>1.2</ind><dep>-52</dep></entry>
 		</interpolation>

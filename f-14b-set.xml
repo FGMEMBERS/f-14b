@@ -4,8 +4,8 @@
 
 	<sim>
 
-		<description>Grumman F-14B </description>
-		<author>Enrique Laso - Alexis Bory</author>
+		<description>Grumman F-14B (yasim)</description>
+		<author>Enrique Laso, Alexis Bory, Richard Harrison</author>
 		<status>early production</status>
 		<rating>
 			<FDM type="int">3</FDM>
@@ -22,6 +22,9 @@
 			<autopilot>
 				<path>Aircraft/f-14b/f-14b-AFCS.xml</path>
 			</autopilot>
+            <autopilot>
+                <path>Aircraft/f-14b/Systems/canopy.xml</path>
+            </autopilot>
 		</systems>
 
 		<flight-recorder>
@@ -58,6 +61,8 @@
 				<signal><type>float</type><property type="string">sim/multiplay/generic/float[4]</property></signal>
 				<!-- Stabilisator R -->
 				<signal><type>float</type><property type="string">sim/multiplay/generic/float[5]</property></signal>
+                <!-- Canopy -->
+                <signal><type>float</type><property type="string">canopy/position-norm</property></signal>
 			</config>
 		</flight-recorder>
 
@@ -259,36 +264,50 @@
 					<blue type="float">0.0</blue>
 				</color>
 			</palette>
+            <extended-mode>1</extended-mode>
+            <font>
+                <size>7</size>
+            </font>
 			<clipping>
 				<left type="double">-80</left>
 				<right type="double">80</right>
-				<top type="double">30</top>
+				<top type="double">38</top>
 				<bottom type="double">-130</bottom>
 			</clipping>
 		</hud>
 
 		<model>
 			<path>Aircraft/f-14b/Models/f-14b.xml</path>
-			<livery>
-				<file type="string">checkmates</file>
-				<index type="int">0</index>
-			</livery>
-			<livery-side2>
-				<file type="string">checkmates</file>
-				<index type="int">0</index>
-			</livery-side2>
-			<livery-topbottom1>
-				<file type="string">checkmates</file>
-				<index type="int">0</index>
-			</livery-topbottom1>
-			<livery-topbottom2>
-				<file type="string">checkmates</file>
-				<index type="int">0</index>
-			</livery-topbottom2>
-			<livery-patch>
-				<file type="string">checkmates</file>
-				<index type="int">0</index>
-			</livery-patch>
+		<livery>
+			<name type="string">nasa</name>
+			<index type="int">0</index>
+			<texture>Liveries/side1.nasa.png</texture>
+		</livery>
+
+		<livery-side2>
+			<name type="string">nasa</name>
+			<index type="int">0</index>
+			<texture>Liveries/side2.nasa.png</texture>
+		</livery-side2>
+
+		<livery-topbottom1>
+			<name type="string">nasa</name>
+			<index type="int">0</index>
+			<texture>Liveries/topbottom1.nasa.png</texture>
+		</livery-topbottom1>
+
+		<livery-topbottom2>
+			<name type="string">nasa</name>
+			<index type="int">0</index>
+			<texture>Liveries/topbottom2.nasa.png</texture>
+		</livery-topbottom2>
+
+		<livery-patch>
+			<name type="string">nasa</name>
+			<index type="int">0</index>
+			<texture>Liveries/patch.nasa.png</texture>
+		</livery-patch>
+
 			<f-14b>
 				<controls>
 					<AFCS>
@@ -474,12 +493,16 @@
 						<!--<selected-channel type="int">1</selected-channel>-->
 					</an-arc-159v1>
 					<aoa-indexer>
-						<!-- target = 11.3 deg AoA -->
-						<too-slow-deg>13.7</too-slow-deg>	<!-- target +2.4 deg -->
-						<slow-deg>12.1</slow-deg>			<!-- target +0.8 deg -->
-						<target-deg>11.3</target-deg>		<!-- target -->
-						<fast-deg>10.5</fast-deg>			<!-- target -0.8 deg -->
-						<too-fast-deg>8.9</too-fast-deg>	<!-- target -2.4 deg -->
+						<!-- target was 11.3 deg AoA (indicated allowing for offset in AOA sensor-->
+                        <!-- F-14AAD-1 Figure 2-124; Angle-of-Attack Displays -->
+
+						<fast-deg-end>12</fast-deg-end>			
+						<optimum-deg-end>13.3</optimum-deg-end>		
+						<optimum-deg-start>11.3</optimum-deg-start>
+						<slow-deg-start>13.1</slow-deg-start>
+
+                        <target-deg>11.3</target-deg>		<!-- target (AFCS)-->
+
 					</aoa-indexer>
 					<acls>
 						<engaged type="bool">false</engaged>
@@ -762,7 +785,7 @@
 					<item n="3">
 						<label>Toggle Heat Blur</label>
 						<binding>
-							<command>toggle</command>
+							<command>property-toggle</command>
 							<property>sim/model/f-14b/fx/heat-blur-on</property>
 						</binding>
 					</item>
@@ -780,6 +803,20 @@
 						<binding>
 							<command>nasal</command>
 							<script>f14.AP_steering_deadZ_dlg.open()</script>
+						</binding>
+					</item>
+					<item n="6">
+						<label>Quickstart</label>
+						<binding>
+							<command>nasal</command>
+							<script>f14.quickstart()</script>
+						</binding>
+					</item>
+					<item n="7">
+						<label>Ground Services</label>
+						<binding>
+							<command>nasal</command>
+							<script>f14.dlg_ground_services.open()</script>
 						</binding>
 					</item>
 				</menu>
@@ -1330,6 +1367,7 @@
 			<file>Aircraft/f-14b/Nasal/liveries.nas</file>
 			<file>Aircraft/f-14b/Nasal/f14_globals.nas</file>
 			<file>Aircraft/f-14b/Nasal/flaps_computer.nas</file>
+			<file>Aircraft/f-14b/Nasal/cadc.nas</file>
 			<file>Aircraft/f-14b/Nasal/engines.nas</file>
 			<file>Aircraft/f-14b/Nasal/sweep_computer.nas</file>
 			<file>Aircraft/f-14b/Nasal/gear.nas</file>
@@ -1341,6 +1379,7 @@
 			<file>Aircraft/f-14b/Nasal/ext_stores.nas</file>
 			<file>Aircraft/f-14b/Nasal/fuel-system.nas</file>
 			<file>Aircraft/f-14b/Nasal/weapons.nas</file>
+			<file>Aircraft/f-14b/Nasal/electrics.nas</file>
 		</f14>
 		<f14_hud>
 			<file>Aircraft/f-14b/Nasal/hud.nas</file>

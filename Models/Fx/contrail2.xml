@@ -9,6 +9,7 @@
 
    <condition>
      <and>
+        <not><property>sim/model/f-14b/fx/smoke</property></not>
        <greater-than>
          <property>/engines/engine[1]/n2</property>
          <value>50</value>
@@ -51,7 +52,7 @@
 
    <counter>
      <particles-per-sec>
-       <value>35</value>
+       <value>55</value>
        <spread>0</spread>
      </particles-per-sec>
    </counter>
@@ -61,9 +62,9 @@
    <particle>
      <start>
        <color>
-         <red><value>   0.8 </value></red>
-         <green><value> 0.8 </value></green>
-         <blue><value>  0.8 </value></blue>
+         <red><expression><product><value>1.0</value><property>rendering/scene/diffuse/red</property></product></expression></red>
+         <green><expression><product><value>1.0</value><property>rendering/scene/diffuse/red</property></product></expression></green>
+         <blue><expression><product><value>1.0</value><property>rendering/scene/diffuse/red</property></product></expression></blue>
          <alpha><value> 0.2 </value></alpha>
        </color>
        <size>
@@ -73,13 +74,13 @@
 
      <end>
        <color>
-         <red><value>   1.0 </value></red>
-         <green><value> 1.0 </value></green>
-         <blue><value>  1.0 </value></blue>
-         <alpha><value> 0.8 </value></alpha>
+         <red><expression><product><value>1.0</value><property>rendering/scene/diffuse/red</property></product></expression></red>
+         <green><expression><product><value>1.0</value><property>rendering/scene/diffuse/red</property></product></expression></green>
+         <blue><expression><product><value>1.0</value><property>rendering/scene/diffuse/red</property></product></expression></blue>
+         <alpha><value> 0.6 </value></alpha>
        </color>
        <size>
-         <value>7</value>
+         <value>4</value>
        </size>
      </end>
 

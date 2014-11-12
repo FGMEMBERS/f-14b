@@ -30,7 +30,7 @@
 		<object-name>course-drum-3</object-name>
 		<object-name>course-drum-2</object-name>
 		<object-name>course-drum-1</object-name>
-		<object-name>crs-label</object-name>
+		<object-name>in-label</object-name>
 		<object-name>tacan-bearing</object-name>
 		<object-name>nav-lubber-line</object-name>
 		<object-name>aircraft-symbol</object-name>
@@ -50,6 +50,10 @@
 				<value>1</value>
 			</equals>
 			<property>sim/model/f-14b/controls/HSD/on-off</property>
+               <greater-than>
+                  <property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+                  <value>0</value>
+                </greater-than>
 		</condition>
 	</animation>
 
@@ -227,7 +231,13 @@
 	<animation>
 		<object-name>hsd-hsd</object-name>
 		<type>material</type>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+        <emission>
 			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
 			<red>0.0</red>
 			<green>0.7</green>
@@ -237,7 +247,13 @@
 	<animation>
 		<object-name>compass-rose</object-name>
 		<type>material</type>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+        <emission>
 			<factor-prop>sim/model/f-14b/controls/VDI/brightness</factor-prop>
 			<red>0.0</red>
 			<green>0.9</green>

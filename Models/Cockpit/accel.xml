@@ -19,7 +19,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>needle</object-name>
-		<property>accelerations/pilot-g</property>
+		<property>accelerations/pilot-gdamped</property>
 		<interpolation>
 			<entry><ind>-5</ind><dep>-202.5</dep></entry>
 			<entry><ind>-4</ind><dep>-112.5</dep></entry>
@@ -96,7 +96,13 @@
 	<animation>
 		<object-name>mount</object-name> 
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
+		<condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not><property>sim/rendering/rembrandt/enabled</property></not>
+        </condition>
 		<emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
@@ -108,8 +114,16 @@
 	<animation>
 		<object-name>instrument</object-name> 
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission> 
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission> 
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>

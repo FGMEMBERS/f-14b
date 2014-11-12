@@ -20,7 +20,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>L-rpm-tape</object-name>
-		<property>engines/engine[0]/n1</property>
+		<property>engines/engine[0]/n2</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
 			<entry><ind>30</ind><dep>-0.060</dep></entry>
@@ -40,7 +40,7 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>R-rpm-tape</object-name>
-		<property>engines/engine[1]/n1</property>
+		<property>engines/engine[1]/n2</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>0</dep></entry>
 			<entry><ind>30</ind><dep>-0.060</dep></entry>
@@ -57,21 +57,16 @@
 		</axis>
 	</animation>
 
-	<!-- EGT tapes -->
+  <!-- EGT tapes, egt in degrees Rankin -->
 	<animation>
 		<type>textranslate</type>
 		<object-name>L-egt-tape</object-name>
-		<property>engines/engine[0]/egt-degf</property>
+		<property>engines/engine[0]/egt-degR</property>
 		<interpolation>
-			<entry><ind>0</ind><dep>0</dep></entry>
-			<entry><ind>40</ind><dep>-0.110</dep></entry>
-			<entry><ind>150</ind><dep>-0.170</dep></entry>
-			<entry><ind>360</ind><dep>-0.210</dep></entry>
-			<entry><ind>680</ind><dep>-0.260</dep></entry>
-			<entry><ind>932</ind><dep>-0.325</dep></entry>
-			<entry><ind>1112</ind><dep>-0.360</dep></entry>
-			<entry><ind>1292</ind><dep>-0.435</dep></entry>
-			<entry><ind>1472</ind><dep>-0.498</dep></entry>
+			<entry><ind>  390</ind><dep>-0.01</dep></entry>
+			<entry><ind>  400</ind><dep>-0.02</dep></entry>
+			<entry><ind> 1258</ind><dep>-0.072</dep></entry>
+			<entry><ind> 2412</ind><dep>-0.498</dep></entry>
 		</interpolation>
 		<axis>
 			<x>0</x>
@@ -82,17 +77,12 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>R-egt-tape</object-name>
-		<property>engines/engine[1]/egt-degf</property>
+		<property>engines/engine[1]/egt-degR</property>
 		<interpolation>
-			<entry><ind>0</ind><dep>0</dep></entry>
-			<entry><ind>40</ind><dep>-0.110</dep></entry>
-			<entry><ind>150</ind><dep>-0.170</dep></entry>
-			<entry><ind>360</ind><dep>-0.210</dep></entry>
-			<entry><ind>680</ind><dep>-0.260</dep></entry>
-			<entry><ind>932</ind><dep>-0.325</dep></entry>
-			<entry><ind>1112</ind><dep>-0.360</dep></entry>
-			<entry><ind>1292</ind><dep>-0.435</dep></entry>
-			<entry><ind>1472</ind><dep>-0.498</dep></entry>
+			<entry><ind>  390</ind><dep>-0.01</dep></entry>
+			<entry><ind>  400</ind><dep>-0.02</dep></entry>
+			<entry><ind> 1258</ind><dep>-0.072</dep></entry>
+			<entry><ind> 2412</ind><dep>-0.498</dep></entry>
 		</interpolation>
 		<axis>
 			<x>0</x>
@@ -105,23 +95,12 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>L-ff-tape</object-name>
-		<property>engines/engine[0]/fuel-flow-gph</property>
+		<property>engines/engine[0]/fuel-flow_pph</property>
 		<interpolation>
-			<!-- 11600 yasim gph = full gauge deflection (-O.5) -->
-			<entry><ind>0</ind><dep>0</dep></entry><!-- 0 ppm on gauge -->
-			<entry><ind>892</ind><dep>-0.08</dep></entry><!-- 100 ppm on gauge (slightly boosted)-->
-			<entry><ind>1784</ind><dep>-0.128</dep></entry><!-- 200 ppm on gauge -->
-			<entry><ind>2677</ind><dep>-0.190</dep></entry><!-- 300 ppm on gauge -->
-			<entry><ind>3569</ind><dep>-0.251</dep></entry><!-- 400 ppm on gauge -->
-			<entry><ind>4461</ind><dep>-0.310</dep></entry><!-- 500 ppm on gauge -->
-			<entry><ind>5353</ind><dep>-0.336</dep></entry><!-- 600 ppm on gauge -->
-			<entry><ind>6246</ind><dep>-0.361</dep></entry><!-- 700 ppm on gauge -->
-			<entry><ind>7138</ind><dep>-0.383</dep></entry><!-- 800 ppm on gauge -->
-			<entry><ind>8030</ind><dep>-0.408</dep></entry><!-- 900 ppm on gauge -->
-			<entry><ind>8923</ind><dep>-0.430</dep></entry><!-- 1000 ppm on gauge -->
-			<entry><ind>9815</ind><dep>-0.453</dep></entry><!-- 1100 ppm on gauge -->
-			<entry><ind>10707</ind><dep>-0.475</dep></entry><!-- 1200 ppm on gauge -->
-			<entry><ind>11600</ind><dep>-0.498</dep></entry><!-- 1300 ppm on gauge -->
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>5000</ind><dep>-0.27</dep></entry>
+			<entry><ind>7000</ind><dep>-0.3</dep></entry>
+			<entry><ind>17000</ind><dep>-0.498</dep></entry>
 		</interpolation>
 		<axis>
 			<x>0</x>
@@ -131,23 +110,12 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>R-ff-tape</object-name>
-		<property>engines/engine[1]/fuel-flow-gph</property>
+		<property>engines/engine[1]/fuel-flow_pph</property>
 		<interpolation>
-			<!-- 11600 yasim gph = full deflection (-O.5) -->
-			<entry><ind>0</ind><dep>0</dep></entry><!-- 0 ppm on gauge -->
-			<entry><ind>892</ind><dep>-0.08</dep></entry><!-- 100 ppm on gauge (slightly boosted)-->
-			<entry><ind>1784</ind><dep>-0.128</dep></entry><!-- 200 ppm on gauge -->
-			<entry><ind>2677</ind><dep>-0.190</dep></entry><!-- 300 ppm on gauge -->
-			<entry><ind>3569</ind><dep>-0.251</dep></entry><!-- 400 ppm on gauge -->
-			<entry><ind>4461</ind><dep>-0.310</dep></entry><!-- 500 ppm on gauge -->
-			<entry><ind>5353</ind><dep>-0.336</dep></entry><!-- 600 ppm on gauge -->
-			<entry><ind>6246</ind><dep>-0.361</dep></entry><!-- 700 ppm on gauge -->
-			<entry><ind>7138</ind><dep>-0.383</dep></entry><!-- 800 ppm on gauge -->
-			<entry><ind>8030</ind><dep>-0.408</dep></entry><!-- 900 ppm on gauge -->
-			<entry><ind>8923</ind><dep>-0.430</dep></entry><!-- 1000 ppm on gauge -->
-			<entry><ind>9815</ind><dep>-0.453</dep></entry><!-- 1100 ppm on gauge -->
-			<entry><ind>10707</ind><dep>-0.475</dep></entry><!-- 1200 ppm on gauge -->
-			<entry><ind>11600</ind><dep>-0.498</dep></entry><!-- 1300 ppm on gauge -->
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>5000</ind><dep>-0.27</dep></entry>
+			<entry><ind>7000</ind><dep>-0.3</dep></entry>
+			<entry><ind>17000</ind><dep>-0.498</dep></entry>
 		</interpolation>
 		<axis>
 			<x>0</x>
@@ -161,8 +129,16 @@
 	<animation> 
 		<object-name>mount</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
@@ -173,8 +149,16 @@
 	<animation>
 		<object-name>instrument</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>

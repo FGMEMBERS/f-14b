@@ -24,6 +24,10 @@ var AirSpeed   = props.globals.getNode("velocities/airspeed-kt");
 var SasPitchOn = props.globals.getNode("sim/model/f-14b/controls/SAS/pitch");
 var SasRollOn  = props.globals.getNode("sim/model/f-14b/controls/SAS/roll");
 var SasYawOn   = props.globals.getNode("sim/model/f-14b/controls/SAS/yaw");
+var fdm_yawdamper   = props.globals.getNode("fdm/jsbsim/fcs/yaw-damper-enable",1);
+var fdm_pitchdamper   = props.globals.getNode("fdm/jsbsim/fcs/pitch-damper-enable",1);
+var fdm_roll_sas   = props.globals.getNode("fdm/jsbsim/fcs/roll-sas-enable",1);
+
 var DeadZPitch = props.globals.getNode("sim/model/f-14b/controls/AFCS/dead-zone-pitch");
 var DeadZRoll  = props.globals.getNode("sim/model/f-14b/controls/AFCS/dead-zone-roll");
 # Autopilot Locks
@@ -35,6 +39,7 @@ var RawAileron    = props.globals.getNode("controls/flight/aileron");
 var RawRudder     = props.globals.getNode("controls/flight/rudder");
 var AileronTrim   = props.globals.getNode("controls/flight/aileron-trim", 1);
 var ElevatorTrim  = props.globals.getNode("controls/flight/elevator-trim", 1);
+var RudderTrim    = props.globals.getNode("controls/flight/rudder-trim", 1);
 var Dlc           = props.globals.getNode("controls/flight/DLC", 1);
 var Flaps         = props.globals.getNode("surface-positions/aux-flap-pos-norm", 1);
 var WSweep        = props.globals.getNode("surface-positions/wing-pos-norm", 1);
@@ -72,6 +77,7 @@ var update_steering_deadZ = func {
 
 # Elevator Trim
 if ( ElevatorTrim.getValue() != nil ) { e_trim = ElevatorTrim.getValue() }
+if ( RudderTrim.getValue() != nil ) { rudder_trim = RudderTrim.getValue() }
 
 var trimUp = func {
 	e_trim += (airspeed < 120.0) ? t_increment : t_increment * 14400 / airspeed_sqr;
@@ -85,10 +91,21 @@ var trimDown = func {
 	ElevatorTrim.setValue(e_trim);
 }
 
+var econt_rudder_trim = func(n) {
+	rudder_trim += n * ((airspeed < 120.0) ? t_increment : t_increment * 14400 / airspeed_sqr);
+	if (rudder_trim > 0.33) rudder_trim = 0.33;
+	if (rudder_trim < -0.33) rudder_trim = -0.33;
+	RudderTrim.setValue(rudder_trim);
+}
 
 
 # Stability Augmentation System
 var computeSAS = func {
+    if (usingJSBSim)
+    {
+        return;
+    }
+
 	var roll     = Roll.getValue();
 	var roll_rad = roll * 0.017453293;
 	airspeed     = AirSpeed.getValue();
@@ -183,13 +200,24 @@ var computeSAS = func {
 
 	}
 
-	# Yaw Channel
-	var raw_r    = RawRudder.getValue();
-	var smooth_r = raw_r;
-	if (SasYawOn.getValue()) {
-		smooth_r = last_r + ((raw_r - last_r) * r_smooth_factor);
-		last_r = smooth_r;
-	}
-	SasYaw.setValue(smooth_r);
+  	# Yaw Channel
+   	var raw_r    = RawRudder.getValue();
+   	var smooth_r = raw_r;
+   	if (SasYawOn.getValue()) {
+    		smooth_r = last_r + ((raw_r - last_r) * r_smooth_factor);
+	    	last_r = smooth_r;
+    }
+   	SasYaw.setValue(smooth_r);
 
 }
+setlistener("sim/model/f-14b/controls/SAS/yaw", func {
+    if(usingJSBSim)        fdm_yawdamper.setValue(SasYawOn.getValue());
+}, 1, 0);
+
+setlistener("sim/model/f-14b/controls/SAS/roll", func {
+    if(usingJSBSim)        fdm_roll_sas.setValue(SasRollOn.getValue());
+}, 1, 0);
+
+setlistener("sim/model/f-14b/controls/SAS/pitch", func {
+    if(usingJSBSim)        fdm_pitchdamper.setValue(SasPitchOn.getValue());
+}, 1, 0);

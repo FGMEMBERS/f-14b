@@ -86,7 +86,11 @@
 		<object-name>digits</object-name>
 		<type>select</type>
 		<condition>
-			<not>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
 				<or>
 					<equals>
 						<property>sim/model/f-14b/instrumentation/an-arc-159v1/mode</property>
@@ -110,7 +114,11 @@
 		<object-name>digits-preset</object-name>
 		<type>select</type>
 		<condition>
-			<not>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
 				<or>
 					<equals>
 						<property>sim/model/f-14b/instrumentation/an-arc-159v1/mode</property>
@@ -435,8 +443,16 @@
 	<animation>
 		<object-name>mount</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission> 
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
@@ -446,8 +462,16 @@
 	<animation>
 		<object-name>switches-and-knobs</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission> 
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission> 
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>

@@ -5,6 +5,54 @@
 	<path>detail-inside-front.ac</path>
 
 	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>fire-handle-l</object-name>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>nasal</command>
+				<script>f14.fire_handle(0)</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>fire-handle-l</object-name>
+		<property>controls/engines/engine[0]/cutoff</property>
+		<factor>0.05</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<visible>true</visible>
+		<object-name>fire-handle-r</object-name>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>nasal</command>
+				<script>f14.fire_handle(1)</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>fire-handle-r</object-name>
+		<property>controls/engines/engine[1]/cutoff</property>
+		<factor>0.05</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>inside-front</object-name>
 		<condition>
@@ -58,8 +106,16 @@
 		<object-name>consoles</object-name>
 		<object-name>checklists-pilot</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.275</red>
 			<green>0.12</green>
@@ -69,10 +125,19 @@
 	<animation> 
 		<object-name>pedals</object-name>
 		<object-name>bathtub-sides</object-name>
-		<object-name>fire-handles</object-name>
+		<object-name>fire-handle-l</object-name>
+		<object-name>fire-handle-r</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.1375</red>
 			<green>0.06</green>
@@ -82,8 +147,16 @@
 	<animation>
 		<object-name>floor</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.0687</red>
 			<green>0.03</green>

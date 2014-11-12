@@ -5,7 +5,7 @@
 	<layout>vbox</layout>
 	<default-padding>1</default-padding>
 	<modal>false</modal>
-	<width>600</width>
+	<width>800</width>
 
 	<empty>
 		<pref-height>6</pref-height>
@@ -48,16 +48,53 @@
 						<script>f14.toggle_ext_tank_selected()</script>
 					</binding>
 				</checkbox>
-
 			</group>
 
-			<empty>
+      <empty>
 				<pref-height>2</pref-height>
 			</empty>
 
 			<hrule/>
 
-			<group>
+      <group>
+        <layout>hbox</layout>
+        <button>
+          <legend>Airshow fuel</legend>
+          <binding>
+            <command>nasal</command>
+            <script>f14.set_fuel(3000)</script>
+          </binding>
+        </button>
+        <button>
+          <legend>Full</legend>
+          <binding>
+            <command>nasal</command>
+            <script>f14.set_fuel(22000)</script> <!-- more than can be held will just be ignored by the set_fuel logic -->
+          </binding>
+        </button>
+        <button>
+          <legend>7000</legend>
+          <binding>
+            <command>nasal</command>
+            <script>f14.set_fuel(7000)</script>
+          </binding>
+        </button>
+        <button>
+          <legend>11000</legend>
+          <binding>
+            <command>nasal</command>
+            <script>f14.set_fuel(11000)</script>
+          </binding>
+        </button>
+        <button>
+          <legend>Quickstart</legend>
+          <binding>
+            <command>nasal</command>
+            <script>f14.quickstart()</script>
+          </binding>
+        </button>
+      </group>
+      <group>
 				<layout>hbox</layout>
 			
 				<group><!-- Labels -->
@@ -557,7 +594,18 @@
 					<height>300</height>
 					<valign>center</valign>
 					<default-padding>1</default-padding>
-					<button>
+                    <button>
+                        <legend>Reload gun</legend>
+                        <equal>true</equal>
+                        <binding>
+                            <command>nasal</command>
+                            <script>
+                                setprop("/ai/submodels/submodel[3]/count",135);
+                                setprop("/sim/model/f-14b/systems/gun/rounds",675);
+                            </script>
+                        </binding>
+                    </button>
+                    <button>
 						<legend>Clean</legend>
 						<equal>true</equal>
 						<binding>
@@ -588,18 +636,17 @@
 							<command>nasal</command>
 							<script>f14.ext_loads_set("FAD heavy")</script>
 						</binding>
-					</button>
-					<button>
-						<legend>Bombcat</legend>
-						<equal>true</equal>
-						<binding>
-							<command>nasal</command>
-							<script>f14.ext_loads_set("Bombcat")</script>
-						</binding>
-					</button>
-				</group>
-
-			</group>
+                    </button>
+                    <button>
+                        <legend>Bombcat</legend>
+                        <equal>true</equal>
+                        <binding>
+                            <command>nasal</command>
+                            <script>f14.ext_loads_set("Bombcat")</script>
+                        </binding>
+                    </button>
+                </group>
+            </group>
 
 			<group>
 				<layout>hbox</layout>
@@ -638,10 +685,10 @@
 				</text>
 			</group>
 
+            
 
 
-
-			<empty>
+            <empty>
 				<pref-height>12</pref-height>
 			</empty>
 
@@ -699,6 +746,36 @@
 				</text>
 			</group>
 
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<halign>left</halign>
+				<text>
+					<label>CG inches : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<format>%.1f</format>
+					<property>fdm/jsbsim/inertia/cg-x-in</property>
+				</text>
+			</group>
+
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<halign>left</halign>
+				<text>
+					<label>CG % MAC : </label>
+				</text>
+				<text>
+					<label>xxxxxxxxxxxxxxxxxx</label>
+					<live>true</live>
+					<format>%.4f</format>
+					<property>fdm/jsbsim/inertia/cg-x-mac-percent</property>
+				</text>
+			</group>
+
 
 			<group>
 				<layout>hbox</layout>
@@ -711,13 +788,30 @@
 					<label>xxxxxxxxxxxxxxxxxx</label>
 					<live>true</live>
 					<format>%.0f</format>
-					<property>yasim/gross-weight-lbs</property>
+					<property>fdm/jsbsim/inertia/weight-lbs</property>
+<!-- yasim/gross-weight-lbs -->
 				</text>
 			</group>
 
+            <group>
+                <layout>hbox</layout>
+                <layout>hbox</layout>
+                <default-padding>0</default-padding>
+                <text>
+                    <label>Fuel Freeze:</label>
+                </text>
+                <checkbox>
+                    <property>sim/freeze/fuel</property>
+                    <live>true</live>
+                    <binding>
+                        <command>nasal</command>
+                        <script>f14.toggle_fuel_freeze()</script>
+                    </binding>
+                </checkbox>
+            </group>
 
 
-			<empty>
+            <empty>
 				<pref-height>12</pref-height>
 			</empty>
 

@@ -3,7 +3,7 @@ var main_loop_launched = 0; # Used to avoid to start the main loop twice.
 
 
 # TACAN: nav[1]
-var nav1_back = 0;
+var nav1_as_selected = getprop( "instrumentation/nav[1]/frequencies/selected-mhz" );; # the selected frequency if overriden from the tacan
 
 var Tc               = props.globals.getNode("instrumentation/tacan");
 var Vtc              = props.globals.getNode("instrumentation/nav[1]");
@@ -45,15 +45,140 @@ var local_mag_deviation = func {
 
 
 # Set nav[1] so we can use radials from a TACAN station.
+
 var nav1_freq_update = func {
 	if ( tc_mode != 0 and tc_mode != 4 ) {
 		var tacan_freq = getprop( "instrumentation/tacan/frequencies/selected-mhz" );
-		var nav1_freq = getprop( "instrumentation/nav[1]/frequencies/selected-mhz" );
-		var nav1_back = nav1_freq;
+        nav1_as_selected = getprop( "instrumentation/nav[1]/frequencies/selected-mhz" );
 		setprop("instrumentation/nav[1]/frequencies/selected-mhz", tacan_freq);
 	} else {
-		setprop("instrumentation/nav[1]/frequencies/selected-mhz", nav1_back);
+		setprop("instrumentation/nav[1]/frequencies/selected-mhz", nav1_as_selected);
 	}
+}
+var FD_TAN3DEG = math.tan(3.0 / 57.29577950560105);
+
+#
+# ARA 63 (Military ILS type of system). This is a bit hardwired to
+# work with the tuned carrier based on the TACAN channel which isn't
+# right - but it is good enough.
+var ara_63_update = func {
+    if (f14.carrier_ara_63_position != nil and f14.carrier_ara_63_heading != nil)
+    {
+        var our_pos = geo.aircraft_position();
+        range = our_pos.distance_to(f14.carrier_ara_63_position);
+        var bearing_to = our_pos.course_to(f14.carrier_ara_63_position);
+        var deviation = bearing_to - f14.carrier_ara_63_heading;
+        deviation = deviation *0.1;
+
+        if(getprop("/instrumentation/nav/gs-in-range") and getprop("instrumentation/nav/gs-distance") < range)
+        {
+# Use the standard civilian ILS as it is closer.
+            setprop("sim/model/f-14b/instrumentation/nav/gs-in-range", getprop("instrumentation/nav/gs-in-range"));
+            setprop("sim/model/f-14b/instrumentation/nav/gs-distance", getprop("instrumentation/nav/gs-distance"));
+            setprop("sim/model/f-14b/instrumentation/nav/gs-needle-deflection-norm",getprop("instrumentation/nav/gs-needle-deflection-norm"));
+            setprop("sim/model/f-14b/instrumentation/nav/heading-needle-deflection-norm",getprop("instrumentation/nav/heading-needle-deflection-norm"));
+            setprop("sim/model/f-14b/instrumentation/nav/signal-quality-norm",getprop("instrumentation/nav/signal-quality-norm"));
+            setprop("sim/model/f-14b/lights/acl-ready-light", 0);
+            setprop("sim/model/f-14b/lights/ap-cplr-light",0);
+            setprop("sim/model/f-14b/lights/light-wave-off",0);
+            setprop("sim/model/f-14b/lights/light-10-seconds",0);
+            setprop("sim/model/f-14b/lights/landing-chk-light", 0);
+            return;
+        }
+        else if (range < 37000 and abs(deviation) < 3) # 20nm range F14-AAD-1 17.3.2
+        {
+            var deck_height=20; # the height of the MRC is included in the offset of the position + 2.93218; # 20 meters + height from MRC.
+
+            var gs_height = ((range*FD_TAN3DEG)) + deck_height;
+            var gs_deviation = (gs_height - our_pos.alt()) / 42.0; 
+
+            if (gs_deviation > 1) gs_deviation = 1;
+            else if (gs_deviation < -1) gs_deviation = -1;
+
+            setprop("sim/model/f-14b/instrumentation/nav/gs-in-range", 1);
+            setprop("sim/model/f-14b/instrumentation/nav/gs-needle-deflection-norm",gs_deviation);
+# VOR_FULL_ARC = 20.0
+# 17.3.2 localizer width 6 deg
+# factor = 3.33
+            setprop("sim/model/f-14b/instrumentation/nav/heading-needle-deflection-norm",deviation);
+            setprop("sim/model/f-14b/instrumentation/nav/signal-quality-norm",1);
+            setprop("sim/model/f-14b/instrumentation/nav/gs-distance", range);
+
+            var u_fps = getprop("/velocities/uBody-fps");
+            var eta = range / (u_fps / 3.281);
+
+#            print (" range ",range," bearing to ",deviation," eta ",eta," gsheight ", gs_height, "gsdev ",gs_deviation);
+
+            if(eta <= 10 and range < 800 and range > 150)
+            {
+                setprop("sim/model/f-14b/lights/light-10-seconds",1);
+                if(math.abs(deviation) > 0.2 or math.abs(gs_deviation) > 0.2)
+                {
+                    setprop("sim/model/f-14b/lights/light-wave-off",1);
+                }
+                else
+                {
+                    setprop("sim/model/f-14b/lights/light-wave-off",0);
+                }
+
+            }
+            else
+            {
+                setprop("sim/model/f-14b/lights/light-10-seconds",0);
+                setprop("sim/model/f-14b/lights/light-wave-off",0);
+            }
+            # Set these lights on when in range and within altitude.
+            # the lights come on but it is unspecified when they go off.
+            # Ref: F-14AAD-1 Figure 17-4, p17-11 (pdf p685)
+            if (range < 11000) 
+            {
+                if (our_pos.alt() > 300 and our_pos.alt() < 425 and abs(deviation) < 1 )
+                {
+                    setprop("sim/model/f-14b/lights/acl-ready-light", 1);
+                    setprop("sim/model/f-14b/lights/ap-cplr-light",1);
+                }
+                if (range > 8000)  # extinguish at roughly 4.5nm from fix.
+                {
+                    setprop("sim/model/f-14b/lights/landing-chk-light", 1);
+                }
+                else
+                {
+                    setprop("sim/model/f-14b/lights/landing-chk-light", 0);
+                }
+            }
+            else
+            {
+                setprop("sim/model/f-14b/lights/landing-chk-light", 0);
+                setprop("sim/model/f-14b/lights/acl-ready-light", 0);
+                setprop("sim/model/f-14b/lights/ap-cplr-light",0);
+                setprop("sim/model/f-14b/lights/light-10-seconds",0);
+                setprop("sim/model/f-14b/lights/light-wave-off",0);
+            }
+        }
+        else
+        {
+            setprop("sim/model/f-14b/lights/landing-chk-light", 0);
+            setprop("sim/model/f-14b/lights/light-10-seconds",0);
+            setprop("sim/model/f-14b/lights/light-wave-off",0);
+            setprop("sim/model/f-14b/lights/acl-ready-light", 0);
+            setprop("sim/model/f-14b/lights/ap-cplr-light",0);
+            setprop("sim/model/f-14b/instrumentation/nav/gs-in-range", 0);
+            setprop("sim/model/f-14b/instrumentation/nav/gs-needle-deflection-norm",1);
+            setprop("sim/model/f-14b/instrumentation/nav/heading-needle-deflection-norm",1);
+            setprop("sim/model/f-14b/instrumentation/nav/signal-quality-norm",0);
+            setprop("sim/model/f-14b/instrumentation/nav/gs-distance", 0);
+        }
+        return;
+    }
+#
+# Use the standard civilian ILS
+    setprop("sim/model/f-14b/instrumentation/nav/gs-in-range", getprop("instrumentation/nav/gs-in-range"));
+    setprop("sim/model/f-14b/instrumentation/nav/gs-needle-deflection-norm",getprop("instrumentation/nav/gs-needle-deflection-norm"));
+    setprop("sim/model/f-14b/instrumentation/nav/gs-distance", getprop("instrumentation/nav/gs-distance"));
+    setprop("sim/model/f-14b/instrumentation/nav/heading-needle-deflection-norm",getprop("instrumentation/nav/heading-needle-deflection-norm"));
+    setprop("sim/model/f-14b/instrumentation/nav/signal-quality-norm",getprop("instrumentation/nav/signal-quality-norm"));
+    setprop("sim/model/f-14b/lights/acl-ready-light", 0);
+    setprop("sim/model/f-14b/lights/ap-cplr-light",0);
 }
 
 var tacan_update = func {
@@ -191,8 +316,7 @@ aircraft.data.add(	bingo,
 
 
 
-# Accelerometer ###########
-var g_curr  = props.globals.getNode("accelerations/pilot-g", 1);
+
 var g_max   = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-max", 1);
 var g_min   = props.globals.getNode("sim/model/f-14b/instrumentation/g-meter/g-min", 1);
 aircraft.data.add( g_min, g_max );
@@ -203,7 +327,7 @@ var g_mva_vec     = [0,0,0,0,0];
 var g_min_max = func {
 	# Records g min, g max and 0.5 sec averaged max values. g_min_max(). Has to be
 	# fired every 0.1 sec.
-	var curr = g_curr.getValue();
+	var curr = f14.currentG;
 	var max = g_max.getValue();
 	var min = g_min.getValue();
 	if ( curr >= max ) {
@@ -224,6 +348,7 @@ aircraft.data.add("sim/model/f-14b/controls/VDI/brightness",
 	"sim/model/f-14b/controls/VDI/on-off",
 	"sim/hud/visibility[0]",
 	"sim/hud/visibility[1]",
+	"sim/model/f-14b/controls/hud/on-off",
 	"sim/model/f-14b/controls/HSD/on-off",
 	"sim/model/f-14b/controls/pilots-displays/mode/aa-bt",
 	"sim/model/f-14b/controls/pilots-displays/mode/ag-bt",
@@ -298,6 +423,18 @@ var alt_drag_factor = 25000;
 var alt_drag_factor2 = 20000;
 
 controls.stepSpoilers = func(s) {
+
+    if (f14.usingJSBSim){
+        var curval = getprop("controls/flight/speedbrake");
+
+        if (s < 0 and curval > 0)
+            setprop("controls/flight/speedbrake", curval+s/5);
+        else if (s > 0 and curval < 1)
+            setprop("controls/flight/speedbrake", curval+s/5);
+
+        return; 
+    }
+
 	var sb = SpeedBrake.getValue();
 	if ( s == 1 ) {
 		sb += sb_i;
@@ -311,6 +448,9 @@ controls.stepSpoilers = func(s) {
 }
 
 var compute_drag = func {
+
+    if (f14.usingJSBSim) return;  # in the FDM
+
 	var gearpos = GearPos.getValue();
 	var ab = AB.getValue(); # Prevent supercruise when no afterburners
 	var gear_drag = 0;
@@ -380,6 +520,12 @@ instruments_data_export = func {
 	foreach( s ; l_s ) {
 		str = str ~ s ~ ";";
 	}
+    #
+    # aircraft powered - for the back seater this is a yes/no
+    if ( getprop("/fdm/jsbsim/systems/electrics/ac-essential-bus1") > 0)
+        str = str ~ "1" ~ ";";
+    else
+        str = str ~ "0" ~ ";";
 
 	InstrString.setValue(str);
 
@@ -403,10 +549,21 @@ var main_loop = func {
 	if ( burner == 3 ) { burner = 0 }
 	BurnerN.setValue(burner);
 
+	if (f14.usingJSBSim)
+    {
+	    if ( getprop("sim/replay/time") > 0 ) 
+            setprop ("/orientation/alpha-indicated-deg", (getprop("/orientation/alpha-deg") - 0.797) / 0.8122);
+        else
+    		setprop ("/orientation/alpha-indicated-deg", getprop("fdm/jsbsim/aero/alpha-indicated-deg"));
+    }
+	else
+		setprop ("/orientation/alpha-indicated-deg", getprop("/orientation/alpha-deg"));
+
 	if ( ( a ) == int( a )) {
 		# done each 0.1 sec, cnt even.
 		inc_ticker();
 		tacan_update();
+ara_63_update();
 		f14_hud.update_hud();
 		g_min_max();
 		f14_chronograph.update_chrono();
@@ -440,6 +597,89 @@ var main_loop = func {
 	settimer(main_loop, UPDATE_PERIOD);
 }
 
+var common_init = func {
+    if(f14.usingJSBSim)
+    {
+print("Setting replay medium res to 50hz");
+setprop("sim/replay/buffer/medium-res-sample-dt", 0.02); 
+setprop("/controls/flight/SAS-roll",0);
+setprop("sim/model/f-14b/controls/AFCS/altitude",0);
+setprop("sim/model/f-14b/controls/AFCS/heading-gt",0);
+setprop("sim/model/f-14b/controls/AFCS/engage",0);
+if (getprop("/fdm/jsbsim/position/h-agl-ft") != nil)
+{
+        if (getprop("/fdm/jsbsim/position/h-agl-ft") < 500) 
+        {
+#            if(getprop("/fdm/jsbsim/fcs/gear/gear-pos-norm") == nil or getprop("/fdm/jsbsim/fcs/gear/gear-pos-norm") < 1)
+#            {
+                print("Starting with gear down as below 500 ft");
+                setprop("/controls/gear/gear-down", 1);
+#                setprop("/fdm/jsbsim/fcs/gear/gear-cmd-norm",1);
+#                setprop("/fdm/jsbsim/fcs/gear/gear-dmd-norm",1);
+#                setprop("/fdm/jsbsim/fcs/gear/gear-pos-norm",1);
+#                setprop("/fdm/jsbsim/fcs/gear/gear-pos-norm",1);
+#            }
+            if (getprop("/fdm/jsbsim/position/h-agl-ft") < 50) 
+            {
+                setprop("/controls/gear/brake-parking",1);
+                print("--> Set parking brake as below 50 ft");
+            }
+        }
+        else 
+        {
+#            if(getprop("/fdm/jsbsim/fcs/gear/gear-pos-norm") == nil or getprop("/fdm/jsbsim/fcs/gear/gear-pos-norm") > 0)
+#            {
+                print("Starting with gear up as above 500 ft");
+                setprop("/controls/gear/gear-down", 0);
+                setprop("/fdm/jsbsim/fcs/gear/gear-cmd-norm",0);
+                setprop("/fdm/jsbsim/fcs/gear/gear-dmd-norm",0);
+                setprop("/fdm/jsbsim/fcs/gear/gear-pos-norm",0);
+                setprop("/fdm/jsbsim/fcs/gear/gear-pos-norm",0);
+#            }
+            setprop("/controls/gear/brake-parking",0);
+        }
+}
+        if (f14.carrier_ara_63_position != nil and geo.aircraft_position() != nil)
+        {
+            if (geo.aircraft_position().distance_to(f14.carrier_ara_63_position) < 6000 and geo.aircraft_position().distance_to(f14.carrier_ara_63_position) > 400)
+            {
+                print("Starting with hook down as near carrier");
+                setprop("controls/gear/tailhook",1);
+                setprop("fdm/jsbsim/systems/hook/tailhook-cmd-norm",1);
+            }
+
+        }
+        var lat = getprop("/position/latitude-deg");
+        var lon = getprop("/position/longitude-deg");
+        var info = geodinfo(lat, lon);
+#        debug.dump(info);
+        if (info[1] == nil)
+        {
+# seems to be that we could be on a carrier
+
+            var carrier = getprop("/sim/presets/carrier");
+            if (carrier != nil and carrier != "" ) # and substr(getprop("/sim/presets/parkpos"),0,4) == "cat-")
+            {
+                if (f14.carrier_ara_63_position == nil or geo.aircraft_position().distance_to(f14.carrier_ara_63_position) < 200)
+                {
+                    print("Special init for Carrier cat launch");
+                    setprop("/fdm/jsbsim/systems/systems/holdback/holdback-cmd",1);
+                    setprop("gear/launchbar/position-norm",1);
+                    setprop("/fdm/jsbsim/position/h-agl-ft",    getprop("sim/alt"));
+                }
+            }
+
+#        var parkpos = getprop("/sim/presets/parkpos");
+#        if (getprop("/sim/presets/carrier") != "" and parkpos != nil and size(parkpos) > 4 and substr(parkpos,0,4) == "cat-")
+#        {
+#            print ("Special init for cat-");
+
+#    setprop("/fdm/jsbsim/position/h-sl-ft",10+getprop("/fdm/jsbsim/position/h-sl-ft"));
+#        setprop("/fdm/jsbsim/position/h-agl-ft",    getprop("sim/alt"));
+#        }
+        }
+    }
+}
 
 # Init ####################
 var init = func {
@@ -461,24 +701,41 @@ var init = func {
 	foreach (var f_tc; TcFreqs.getChildren()) {
 		aircraft.data.add(f_tc);
 	}
-	# launch
-	if ( ! main_loop_launched ) {
-		settimer(main_loop, 0.5);
-		settimer(f14.external_load_loop, 3);
-		main_loop_launched = 1;
-	}
+
+    common_init();
+    if (f14.usingJSBSim)
+    {
+        var carrier = getprop("/sim/presets/carrier");
+        if (carrier != nil and carrier != "" and getprop("/fdm/jsbsim/position/h-agl-ft") < 100) 
+        {
+            print ("Special launch init for cat-");
+            setprop("/fdm/jsbsim/position/h-agl-ft",    getprop("sim/alt"));
+            setprop("orientation/pitch-deg",0);
+        }
+    }
+    if ( ! main_loop_launched ) {
+        settimer(main_loop, 0.5);
+        settimer(f14.external_load_loop, 3);
+        main_loop_launched = 1;
+    }
 }
 
 setlistener("sim/signals/fdm-initialized", init);
+setprop("/sim/alt", 8.850329274);
+setprop("/sim/init-delay", 0.1);
 
 setlistener("sim/signals/reinit", func (reinit) {
-	if (reinit.getValue()) {
-		f14.internal_save_fuel();
-	} else {
-		settimer(func { f14.internal_restore_fuel() }, 0.6);
-	}
+    print("Reint ",reinit);
+    if (reinit.getValue()) {
+        f14.internal_save_fuel();
+        setprop("/fdm/jsbsim/position/h-agl-ft",    getprop("sim/alt"));
+    } else {
+        common_init();
+        settimer(func { f14.internal_restore_fuel() }, 0.6);
+        common_init();
+        settimer(func { common_init() }, getprop("/sim/init-delay"));
+    }
 });
-
 # Miscelaneous definitions and tools ############
 
 # warning lights medium speed flasher

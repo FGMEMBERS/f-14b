@@ -161,6 +161,37 @@
 		</offsets>
 	</model>
 
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/oil-pressure-gauge-L.xml</path>
+		<offsets>
+			<x-m>-5.8295</x-m>
+			<y-m>-0.320</y-m>
+			<z-m>-0.233</z-m>
+			<pitch-deg>-5.5</pitch-deg>
+			<heading-deg>5</heading-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/oil-pressure-gauge-R.xml</path>
+		<offsets>
+			<x-m>-5.8295</x-m>
+			<y-m>-0.282</y-m>
+			<z-m>-0.228</z-m>
+			<pitch-deg>-5.5</pitch-deg>
+			<heading-deg>10</heading-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/hyds-gauge.xml</path>
+		<offsets>
+			<x-m>-5.8303</x-m>
+			<y-m>-0.28300</y-m>
+			<z-m>-0.3533</z-m>
+			<pitch-deg>-2.5</pitch-deg>
+			<heading-deg>10</heading-deg>
+		</offsets>
+	</model>
 	<model>
 		<path>Aircraft/f-14b/Models/Cockpit/nozzles-gauges-L.xml</path>
 		<offsets>
@@ -224,6 +255,17 @@
 		<offsets>
 			<x-m>-5.3162</x-m>
 			<y-m>-0.5464</y-m>
+			<z-m>-0.4186</z-m>
+			<roll-deg>-28</roll-deg>
+		</offsets>
+	</model>
+
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/engine-control.xml</path>
+		<offsets>
+		<x-m>-5.5</x-m>
+			<y-m>-0.5394</y-m>
 			<z-m>-0.4186</z-m>
 			<roll-deg>-28</roll-deg>
 		</offsets>
@@ -412,13 +454,62 @@
 		</offsets>
 	</model>
 
-	<model>
-		<path>Aircraft/f-14b/Models/Cockpit/master-light-panel.xml</path>
+    <model>
+        <path>Aircraft/f-14b/Models/Cockpit/ara-63-panel.xml</path>
+        <offsets>
+            <x-m>-5.406</x-m>
+            <y-m>0.536</y-m>
+            <z-m>-0.4152</z-m>
+            <roll-deg>28</roll-deg>
+        </offsets>
+    </model>
+    <model>
+        <path>Aircraft/f-14b/Models/Cockpit/master-light-panel.xml</path>
+        <offsets>
+            <x-m>-5.3103</x-m>
+            <y-m>0.536</y-m>
+            <z-m>-0.4152</z-m>
+            <roll-deg>28</roll-deg>
+        </offsets>
+    </model>
+
+    <model>
+		<path>Aircraft/f-14b/Models/Cockpit/master-test-panel.xml</path>
 		<offsets>
-			<x-m>-5.3103</x-m>
-			<y-m>0.5441</y-m>
-			<z-m>-0.4270</z-m>
+			<x-m>-5.165</x-m>
+			<y-m>0.53</y-m>
+			<z-m>-0.4152</z-m>
 			<roll-deg>28</roll-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/warn-panel-pilot.xml</path>
+		<offsets>
+			<x-m>-5.4503</x-m>
+			<y-m>0.38</y-m>
+			<z-m>-0.4270</z-m>
+			<roll-deg>0</roll-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/master-gen.xml</path>
+		<offsets>
+			<x-m>-5.3033</x-m>
+			<y-m>0.38</y-m>
+			<z-m>-0.4370</z-m>
+			<roll-deg>0</roll-deg>
+		</offsets>
+	</model>
+
+
+	<model>
+		<path>Aircraft/f-14b/Models/Cockpit/hyd-transfer-pump.xml</path>
+		<offsets>
+			<x-m>-5.133</x-m>
+			<y-m>0.38</y-m>
+			<z-m>-0.4370</z-m>
+			<roll-deg>0</roll-deg>
 		</offsets>
 	</model>
 
@@ -598,8 +689,16 @@
 	<animation> 
 		<object-name>pilots-canopy-jett</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.1375</red>
 			<green>0.06</green>
@@ -610,8 +709,16 @@
 		<object-name>panel-front-cover-protection</object-name>
 		<object-name>bathtub-top-front</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.0687</red>
 			<green>0.03</green>

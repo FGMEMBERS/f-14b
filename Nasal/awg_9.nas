@@ -10,6 +10,7 @@ var HudTgt            = props.globals.getNode("sim/model/f-14b/instrumentation/r
 var HudTgtTDev        = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-deviation", 1);
 var HudTgtTDeg        = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/target-total-angle", 1);
 var HudTgtClosureRate = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/closure-rate", 1);
+var HudTgtDistance = props.globals.getNode("sim/model/f-14b/instrumentation/radar-awg-9/hud/distance", 1);
 var AzField           = props.globals.getNode("instrumentation/radar/az-field", 1);
 var RangeRadar2       = props.globals.getNode("instrumentation/radar/radar2-range");
 var RadarStandby      = props.globals.getNode("instrumentation/radar/radar-standby");
@@ -66,9 +67,11 @@ var u_ecm_signal      = 0;
 var u_ecm_signal_norm = 0;
 var u_radar_standby   = 0;
 var u_ecm_type_num    = 0;
+var FD_TAN3DEG = 0.052407779283; # tan(3)
 
 init = func() {
 	var our_ac_name = getprop("sim/aircraft");
+    if(our_ac_name == "f-14a") our_ac_name = "f-14b"; # RJH: We are an F14a - but internally we are an F14-B for compatibility with existing model so need to change the aircraft name here otherwise radar won't work
 	my_radarcorr = radardist.my_maxrange( our_ac_name ); # in kilometers
 	if (our_ac_name == "f-14b-bs") { we_are_bs = 1; }
 	}
@@ -80,6 +83,7 @@ var rdr_loop = func() {
 	if ( display_rdr ) {
 		az_scan();
 		our_radar_stanby = RadarStandby.getValue();
+#print ("Display radar ",our_radar_stanby, we_are_bs);
 		if ( we_are_bs == 0) {
 			RadarStandbyMP.setIntValue(our_radar_stanby); # Tell over MP if
 			# our radar is scaning or is in stanby. Don't if we are a back-seater.
@@ -123,14 +127,59 @@ var az_scan = func() {
 
 		tgts_list = [];
 		var raw_list = Mp.getChildren();
+        var carrier_located = 0;
+
 		foreach( var c; raw_list ) {
 			# FIXME: At that time a multiplayer node may have been deleted while still
 			# existing as a displayable target in the radar targets nodes.
 			var type = c.getName();
+
 			if (!c.getNode("valid", 1).getValue()) {
 				continue;
 			}
 			var HaveRadarNode = c.getNode("radar");
+
+            #
+            # ARA 63 (Carrier ILS) support.
+            # if this node has a tacan channel and we are
+            # tuned to it then get the position as it will be
+            # used in the ARA 63 calculations for glideslope and localizer.
+
+            var tchan = c.getNode("navaids/tacan/channel-ID");
+            if (tchan != nil and !we_are_bs)
+            {
+                tchan = tchan.getValue();
+                if (tchan == getprop("/instrumentation/tacan/display/channel"))
+                {
+                    # Tuned into this carrier (node) so use the offset.
+                    # Get the position of the glideslope; this is offset from the carrier position by
+                    # a smidgen. This is measured and is a point slightly in front of the TDZ where the
+                    # deck is marked with previous tyre marks (which seems as good a place as any to 
+                    # aim for).
+                    var x = c.getNode("position/global-x").getValue() + 88.7713542;
+                    var y = c.getNode("position/global-y").getValue() + 18.74631309;
+                    var z = c.getNode("position/global-z").getValue() + 115.6574875;
+
+                    f14.carrier_ara_63_position = geo.Coord.new().set_xyz(x, y, z);
+
+                    var carrier_heading = c.getNode("orientation/true-heading-deg");
+                    if (carrier_heading != nil)
+                    {
+                        # relative offset of the course to the tdz
+                        # according to my measurements the Nimitz class is 8.1362114 degrees (measured 178 vs carrier 200 allowing for local magvar -13.8637886)
+                        # (i.e. this value is from tuning rather than calculation)
+                        f14.carrier_heading = carrier_heading.getValue();
+                        f14.carrier_ara_63_heading = carrier_heading.getValue() - 8.1362114;
+                    }
+                    else
+                    {
+                        f14.carrier_ara_63_heading = 0;
+                        print("Carrier heading invalid");
+                    }
+                    carrier_located = 1;
+                }
+            }
+
 			if (type == "multiplayer" or type == "tanker" or type == "aircraft" and HaveRadarNode != nil) {
 				var u = Target.new(c);
 				u_ecm_signal      = 0;
@@ -139,8 +188,10 @@ var az_scan = func() {
 				u_ecm_type_num    = 0;
 				if ( u.Range != nil ) {
 					var u_rng = u.get_range();
-					if (u_rng < range_radar2  and u.not_acting == 0 ) {
+					if (u_rng < range_radar2  and u.not_acting == 0 )
+                    {
 						u.get_deviation(our_true_heading);
+
 						if ( u.deviation > l_az_fld  and  u.deviation < r_az_fld ) {
 							append(tgts_list, u);
 						} else {
@@ -158,7 +209,10 @@ var az_scan = func() {
 				}
 			}
 		}
-
+        #
+        # we do this after the loop to keep the old value valid whilst figuring out the new one.
+        if (!carrier_located and !we_are_bs) 
+            f14.carrier_ara_63_heading = nil;
 
 		# Summarize ECM alerts.
 		if ( ecm_alert1 == 0 and ecm_alert1_last == 0 ) { EcmAlert1.setBoolValue(0) }
@@ -173,31 +227,41 @@ var az_scan = func() {
 	foreach( u; tgts_list ) {
 		var u_display = 0;
 		var u_fading = u.get_fading() - fading_speed;
+
+
 		if ( u_fading < 0 ) { u_fading = 0 }
+
 		if (( swp_dir and swp_deg_last < u.deviation and u.deviation <= swp_deg )
-			or ( ! swp_dir and swp_deg <= u.deviation and u.deviation < swp_deg_last )) {
+			or ( ! swp_dir and swp_deg <= u.deviation and u.deviation < swp_deg_last ))
+        {
 			u.get_bearing();
 			u.get_heading();
 			var horizon = u.get_horizon( our_alt );
 			var u_rng = u.get_range();
-				#var nom = u.Callsign.getValue();
-				#print(nom, " ", u_rng, " ", radardist.radis(u.string, my_radarcorr));
-			if ( u_rng < horizon and radardist.radis(u.string, my_radarcorr)) {
+
+			if ( u_rng < horizon and radardist.radis(u.string, my_radarcorr))
+            {
+
 				# Compute mp position in our DDD display. (Bearing/horizontal + Range/Vertical).
 				u.set_relative_bearing( ddd_screen_width / az_fld * u.deviation );
 				var factor_range_radar = 0.0657 / range_radar2; # 0.0657m : length of the distance range on the DDD screen.
 				u.set_ddd_draw_range_nm( factor_range_radar * u_rng );
 				u_fading = 1;
 				u_display = 1;
+
 				# Compute mp position in our TID display. (PPI like display, normaly targets are displayed only when locked.)
 				factor_range_radar = 0.15 / range_radar2; # 0.15m : length of the radius range on the TID screen.
 				u.set_tid_draw_range_nm( factor_range_radar * u_rng );
+
 				# Compute first digit of mp altitude rounded to nearest thousand. (labels).
 				u.set_rounded_alt( rounding1000( u.get_altitude() ) / 1000 );
+
 				# Compute closure rate in Kts.
 				u.get_closure_rate();
+
 				# Check if u = nearest echo.
-				if ( tmp_nearest_rng == nil or u_rng < tmp_nearest_rng) {
+				if ( tmp_nearest_rng == nil or u_rng < tmp_nearest_rng)
+                {
 					tmp_nearest_u = u;
 					tmp_nearest_rng = u_rng;
 				}
@@ -208,7 +272,12 @@ var az_scan = func() {
 	}	
 	swp_deg_last = swp_deg;
 	swp_dir_last = swp_dir;
-	cnt += f14_instruments.UPDATE_PERIOD
+
+#    if (f14_instruments != nil)
+#        cnt += f14_instruments.UPDATE_PERIOD;
+#    else
+        cnt += 0.05;
+
 }
 
 
@@ -236,15 +305,35 @@ var hud_nearest_tgt = func() {
 			} else {
 				Diamond_Blinker.cont();
 			}
+
 			# Clamp closure rate from -200 to +1,000 Kts.
 			var cr = nearest_u.ClosureRate.getValue();
+
 			if (cr < -200) { cr = 200 } elsif (cr > 1000) { cr = 1000 }
+
 			HudTgtClosureRate.setValue(cr);
 			HudTgtTDeg.setValue(combined_dev_deg);
 			HudTgtTDev.setValue(combined_dev_length);
 			HudTgtHDisplay.setBoolValue(1);
+            HudTgtDistance.setValue(nearest_u.get_range());
+
 			var u_target = nearest_u.type ~ "[" ~ nearest_u.index ~ "]";
-			HudTgt.setValue(u_target);
+
+            var callsign = nearest_u.Callsign.getValue();
+            var model = "";
+
+            if (nearest_u.Model != nil)
+                model = nearest_u.Model.getValue();
+
+            var target_id = "";
+            if(callsign != nil)
+                target_id = callsign;
+            else
+                target_id = u_target;
+            if (model != nil and model != "")
+                target_id = target_id ~ " " ~ model;
+
+            HudTgt.setValue(target_id);
 			return;
 		}
 	}
@@ -412,9 +501,12 @@ var Target = {
 		obj.type = c.getName();
 		obj.Valid = c.getNode("valid");
 		obj.Callsign = c.getNode("callsign");
+        obj.Model = c.getNode("model-short");
 		obj.index = c.getIndex();
 		obj.string = "ai/models/" ~ obj.type ~ "[" ~ obj.index ~ "]";
 		obj.shortstring = obj.type ~ "[" ~ obj.index ~ "]";
+#		obj.Callsign = getprop(obj.string~"/callsign");
+#print("callsign ",obj.Callsign.getValue());
 		
 		# Remote back-seaters shall not emit and shall be invisible. FIXME: This is going to be handled by radardist ASAP.
 		obj.not_acting = 0;

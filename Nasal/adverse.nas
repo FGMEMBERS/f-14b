@@ -7,7 +7,8 @@ var MaxGreached = 0.0;
 var MinGreached = 0.0;
 var MaxG = 7.5;
 var MinG = -3.0;
-var UltimateFactor = 1.5;
+var UltimateFactor = 2; # f14 ok up until 11.5g - possible damage - so raise to 15g
+#var UltimateFactor = 1.5;
 var UltimateMaxG = MaxG * UltimateFactor;
 var UltimateMinG = MinG * UltimateFactor;
 
@@ -42,6 +43,7 @@ var fixAirframe = func {
 var computeWingBend = func {
 	# Tears one wing if ultimate limits are exceeded.
 	var av_currentG = getprop ("sim/model/f-14b/instrumentation/g-meter/g-max-mooving-average");   
+    if (av_currentG == nil) return;
 	if (av_currentG >= UltimateMaxG or av_currentG <= UltimateMinG) {
 		if (!RightWingTorn and !LeftWingTorn) {
 			whichWingToTear = rand();
@@ -56,7 +58,7 @@ var computeWingBend = func {
 		setprop ("sim/model/f-14b/wings/right-wing-torn", RightWingTorn);
 	}
 	#effects of normal acceleration
-	var currentG = getprop ("accelerations/pilot-g");   
+
 	if (currentG >= MaxGreached) MaxGreached = av_currentG;
 	if (currentG <= MinGreached) MinGreached = av_currentG;
 	if (MaxGreached > MaxG and MaxGreached < UltimateMaxG) {

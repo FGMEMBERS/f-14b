@@ -40,28 +40,28 @@
 		<object-name>tex-side1</object-name>
 		<property-base>sim/model/livery</property-base>
 		<texture-prop>texture</texture-prop>
-		<texture>side1.checkmates.rgb</texture>
+		<texture>side1.nasa.rgb</texture>
 	</animation>
 	<animation>
 		<type>material</type>
 		<object-name>tex-side2</object-name>
 		<property-base>sim/model/livery-side2</property-base>
 		<texture-prop>texture</texture-prop>
-		<texture>side2.checkmates.rgb</texture>
+		<texture>side2.nasa.rgb</texture>
 	</animation>
 	<animation>
 		<type>material</type>
 		<object-name>tex-topbottom1</object-name>
 		<property-base>sim/model/livery-topbottom1</property-base>
 		<texture-prop>texture</texture-prop>
-		<texture>topbottom1.checkmates.rgb</texture>
+		<texture>topbottom1.nasa.rgb</texture>
 	</animation>
 	<animation>
 		<type>material</type>
 		<object-name>tex-topbottom2</object-name>
 		<property-base>sim/model/livery-topbottom2</property-base>
 		<texture-prop>texture</texture-prop>
-		<texture>topbottom2.checkmates.rgb</texture>
+		<texture>topbottom2.nasa.rgb</texture>
 	</animation>
 
 	<!-- Pilot and Seat -->
@@ -181,6 +181,77 @@
 			<z-m>-1.5</z-m>
 		</offsets>
 	</model>
+ <model>
+  <path>Aircraft/f-14b/Models/Fx/vapour.xml</path>
+  <offsets>
+   <x-m>4.53</x-m>
+   <y-m>-9.6</y-m>
+   <z-m>-0.65</z-m>
+   <heading-deg>0</heading-deg>
+   <roll-deg>    0 </roll-deg>
+   <pitch-deg>   0 </pitch-deg>
+  </offsets>
+ </model>
+ 
+ <model>
+  <path>Aircraft/f-14b/Models/Fx/vapour.xml</path>
+  <offsets>
+   <x-m>4.53</x-m>
+   <y-m> 9.6</y-m>
+   <z-m>-0.65</z-m>
+   <heading-deg>0</heading-deg>
+   <roll-deg>    0 </roll-deg>
+   <pitch-deg>   0 </pitch-deg>
+  </offsets>
+ </model>
+<!--
+ <model>
+  <path>Aircraft/f-14b/Models/Fx/smoke-generator.xml</path>
+  <offsets>
+   <x-m>2.1</x-m>
+   <y-m>-3.6</y-m>
+   <z-m>-1.05</z-m>
+   <heading-deg>0</heading-deg>
+   <roll-deg>    0 </roll-deg>
+   <pitch-deg>   0 </pitch-deg>
+  </offsets>
+ </model>
+ 
+ <model>
+  <path>Aircraft/f-14b/Models/Fx/smoke-generator.xml</path>
+  <offsets>
+   <x-m>2.1</x-m>
+   <y-m> 3.6</y-m>
+   <z-m>-1.05</z-m>
+   <heading-deg>0</heading-deg>
+   <roll-deg>    0 </roll-deg>
+   <pitch-deg>   0 </pitch-deg>
+  </offsets>
+ </model>
+-->
+ <model>
+  <path>Aircraft/f-14b/Models/Fx/smoke-trail.xml</path>
+  <offsets>
+   <x-m>8.1</x-m>
+   <y-m>-3.6</y-m>
+   <z-m>-1.05</z-m>
+   <heading-deg>0</heading-deg>
+   <roll-deg>    0 </roll-deg>
+   <pitch-deg>   0 </pitch-deg>
+  </offsets>
+ </model>
+ 
+ <model>
+  <path>Aircraft/f-14b/Models/Fx/smoke-trail.xml</path>
+  <offsets>
+   <x-m>8.1</x-m>
+   <y-m> 3.6</y-m>
+   <z-m>-1.05</z-m>
+   <heading-deg>0</heading-deg>
+   <roll-deg>    0 </roll-deg>
+   <pitch-deg>   0 </pitch-deg>
+  </offsets>
+ </model>
 
 <!-- ******************************************************************* -->
 <!-- Cockpit                                                             -->
@@ -371,6 +442,12 @@
 	<animation>
 		<object-name>Slimmers</object-name>
 		<type>material</type>
+		<condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+		</condition>
 		<emission>
 			<factor-prop>sim/multiplay/generic/int[1]</factor-prop>
 				<red>0.091</red>
@@ -427,8 +504,9 @@
 		<object-name>LWingSlimmer</object-name>
 		<property>surface-positions/wing-pos-norm</property>
 		<interpolation>
-			<entry><ind>0</ind><dep>0</dep></entry>
-			<entry><ind>1</ind><dep>49</dep></entry>
+			<entry><ind>0.294117647</ind><dep>0</dep></entry>
+			<entry><ind>0.294117647</ind><dep>0</dep></entry>
+			<entry><ind>1</ind><dep>46</dep></entry>
 			<entry><ind>1.2</ind><dep>52</dep></entry>
 		</interpolation>
 		<center>
@@ -528,8 +606,9 @@
 		<object-name>RWingSlimmer</object-name>
 		<property>surface-positions/wing-pos-norm</property>
 		<interpolation>
-			<entry><ind>0</ind><dep>0</dep></entry>
-			<entry><ind>1</ind><dep>-49</dep></entry>
+			<entry><ind>0.294117647</ind><dep>0</dep></entry>
+			<entry><ind>0.294117647</ind><dep>0</dep></entry>
+			<entry><ind>1</ind><dep>-46</dep></entry>
 			<entry><ind>1.2</ind><dep>-52</dep></entry>
 		</interpolation>
 		<center>
@@ -2723,7 +2802,7 @@
 		<type>rotate</type>
 		<object-name>RampL1</object-name>
 		<object-name>RampL2</object-name>
-		<property>engines/AICS/ramp1</property>
+		<property>engines/AICS/ramp1l</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>-3.0</dep></entry>
 			<entry><ind>1.0</ind><dep>5.0</dep></entry>
@@ -2743,7 +2822,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>RampL2</object-name>
-		<property>engines/AICS/ramp2</property>
+		<property>engines/AICS/ramp2l</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>-5.0</dep></entry>
 			<entry><ind>1.0</ind><dep>5.0</dep></entry>
@@ -2764,7 +2843,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>RampL3</object-name>
-		<property>engines/AICS/ramp3</property>
+		<property>engines/AICS/ramp3l</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>15.0</dep></entry>
 			<entry><ind>1.0</ind><dep>-25.0</dep></entry>
@@ -2787,7 +2866,7 @@
 		<type>rotate</type>
 		<object-name>RampR1</object-name>
 		<object-name>RampR2</object-name>
-		<property>engines/AICS/ramp1</property>
+		<property>engines/AICS/ramp1r</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>3.0</dep></entry>
 			<entry><ind>1.0</ind><dep>-5.0</dep></entry>
@@ -2807,7 +2886,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>RampR2</object-name>
-		<property>engines/AICS/ramp2</property>
+		<property>engines/AICS/ramp2r</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>5.0</dep></entry>
 			<entry><ind>1.0</ind><dep>-5.0</dep></entry>
@@ -2827,7 +2906,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>RampR3</object-name>
-		<property>engines/AICS/ramp3</property>
+		<property>engines/AICS/ramp3r</property>
 		<interpolation>
 			<entry><ind>0.0</ind><dep>-15.0</dep></entry>
 			<entry><ind>1.0</ind><dep>25.0</dep></entry>

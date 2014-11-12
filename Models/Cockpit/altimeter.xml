@@ -18,6 +18,12 @@
 
 	<animation>
 		<type>rotate</type>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+				<value>0</value>
+			</greater-than>
+        </condition>
 		<object-name>needle</object-name>
 		<property>instrumentation/altimeter/indicated-altitude-ft</property>
 		<factor>0.36</factor>  
@@ -32,6 +38,12 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>drum-1</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+				<value>0</value>
+			</greater-than>
+        </condition>
 		<property>instrumentation/altimeter/indicated-altitude-ft</property>
 		<factor>0.001</factor>
 		<offset>-100</offset>
@@ -48,6 +60,12 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>drum-2</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+				<value>0</value>
+			</greater-than>
+        </condition>
 		<property>instrumentation/altimeter/indicated-altitude-ft</property>
 		<factor>0.0001</factor>
 		<offset>-1000</offset>
@@ -64,6 +82,12 @@
 	<animation>
 		<type>textranslate</type>
 		<object-name>drum-3</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+				<value>0</value>
+			</greater-than>
+        </condition>
 		<property>instrumentation/altimeter/indicated-altitude-ft</property>
 		<factor>0.00001</factor>
 		<offset>-10000</offset>
@@ -80,11 +104,18 @@
 		<type>select</type>
 		<object-name>negativ-flag</object-name>
 		<condition>
+            <or>
+<!-- use the negative flag to indicate no power -->
 			<less-than>
 				<property>instrumentation/altimeter/indicated-altitude-ft</property>
 				<value>0</value>
 			</less-than>
-		</condition>
+			<equals>
+				<property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+				<value>0</value>
+			</equals>
+            </or>
+        </condition>
 	</animation>
 	<animation>
 		<type>select</type>
@@ -251,8 +282,16 @@
 	<animation>
 		<object-name>mount</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
@@ -263,8 +302,16 @@
 	<animation> 
 		<object-name>knobs</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
@@ -275,8 +322,16 @@
 	<animation>
 		<object-name>face</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
@@ -287,8 +342,16 @@
 	<animation>
 		<object-name>drums</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
@@ -299,8 +362,16 @@
 	<animation>
 		<object-name>needle-w</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/instruments-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>

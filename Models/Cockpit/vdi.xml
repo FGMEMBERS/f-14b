@@ -44,6 +44,10 @@
 		<type>select</type>
 		<object-name>display</object-name>
 		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
 			<property>sim/model/f-14b/controls/VDI/on-off</property>
 		</condition>
 	</animation>
@@ -51,10 +55,16 @@
 		<type>select</type>
 		<object-name>screen-bkg-off</object-name>
 		<condition>
-			<not>
-				<property>sim/model/f-14b/controls/VDI/on-off</property>
-			</not>
-		</condition>
+            <or>
+                <less-than>
+                    <property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+                    <value>1</value>
+                </less-than>
+                <not>
+                    <property>sim/model/f-14b/controls/VDI/on-off</property>
+                </not>
+            </or>
+        </condition>
 	</animation>
 
 	<!-- sky -->
@@ -180,6 +190,70 @@
 		</axis>
 	</animation>
 
+<!-- flight director bars -->
+    <animation>
+        <type>select</type>
+        <object-name>gspointer</object-name>
+        <condition>
+            <property>sim/model/f-14b/instrumentation/nav/gs-in-range</property>
+            <and>
+                <not><property>sim/model/f-14b/controls/electrics/ara-63-power-off</property></not>
+                <greater-than>
+                    <property>sim/model/f-14b/instrumentation/nav/gs-needle-deflection-norm</property>
+                    <value>-0.976</value>
+                </greater-than>
+                <less-than>
+                    <property>sim/model/f-14b/instrumentation/nav/gs-needle-deflection-norm</property>
+                    <value>0.976</value>
+                </less-than>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>translate</type>
+        <object-name>gspointer</object-name>
+        <object-name>coarseGSPointer</object-name>
+        <property>sim/model/f-14b/instrumentation/nav/gs-needle-deflection-norm</property>
+        <factor>0.04</factor>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>locpointer</object-name>
+        <condition>
+            <and>
+                <not><property>sim/model/f-14b/controls/electrics/ara-63-power-off</property></not>
+                <greater-than>
+                    <property>sim/model/f-14b/instrumentation/nav/signal-quality-norm</property>
+                    <value>0.99</value>
+                </greater-than>
+                <less-than>
+                    <property>sim/model/f-14b/instrumentation/nav/heading-needle-deflection-norm</property>
+                    <value>0.92</value>
+                </less-than>
+                <greater-than>
+                    <property>sim/model/f-14b/instrumentation/nav/heading-needle-deflection-norm</property>
+                    <value>-0.92</value>
+                </greater-than>
+            </and>
+       </condition>
+    </animation>
+    <animation>
+        <type>translate</type>
+        <object-name>locpointer</object-name>
+        <property>sim/model/f-14b/instrumentation/nav/heading-needle-deflection-norm</property>
+        <factor>-0.04</factor>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
 	
 	<!-- heading tape -->	
 	<animation>
@@ -295,6 +369,17 @@
 		<type>select</type>
 		<object-name>reduce-speed</object-name>
 		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+				<value>0</value>
+			</greater-than>
+<or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+<and>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+				<value>0</value>
+			</greater-than>
 			<or>
 				<greater-than>
 					<property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
@@ -306,9 +391,11 @@
 						<value>225</value>
 					</greater-than>
 					<greater-than>
-						<property>surface-positions/main-flap-pos-norm</property>
+						<property>surface-positions/flap-pos-norm</property>
 						<value>0.5</value>
 					</greater-than>
+				</and>
+			</or>
 				</and>
 			</or>
 		</condition>
@@ -317,6 +404,13 @@
 		<type>select</type>
 		<object-name>alt-low</object-name>
 		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+				<value>0</value>
+			</greater-than>
+<or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+<and>
 			<less-than>
 				<property>orientation/roll-deg</property>
 				<value>45</value>
@@ -337,6 +431,155 @@
 				<property>position/altitude-agl-ft</property>
 				<property>sim/model/f-14b/instrumentation/radar-altimeter/limit-bug</property>
 			</less-than>
+</and>
+</or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-wave-off</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+                <property>sim/model/f-14b/lights/light-wave-off</property>
+            </or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-reduce-speed</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+            </or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-adj-ac</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+            </or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-landing-chk</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <or>
+                <property>sim/model/f-14b/lights/landing-chk-light</property>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+            </or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-acl-ready</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <not><property>sim/model/f-14b/controls/electrics/ara-63-power-off</property></not>
+            <or>
+                <property>sim/model/f-14b/lights/acl-ready-light</property>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+            </or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-ap-cplr</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <not><property>sim/model/f-14b/controls/electrics/ara-63-power-off</property></not>
+            <or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+                <property>sim/model/f-14b/lights/ap-cplr-light</property>
+            </or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-cmd-control</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+            </or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-10-seconds</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+                <property>sim/model/f-14b/lights/light-10-seconds</property>
+            </or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-tilt</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+            </or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>light-voice</object-name>
+		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+            <or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
+            </or>
 		</condition>
 	</animation>
 
@@ -359,10 +602,16 @@
 		<type>select</type>
 		<object-name>ap-heading</object-name>
 		<condition>
+<or>
 			<equals>
 				<property>sim/model/f-14b/controls/AFCS/heading-gt</property>
 				<value>1</value>
 			</equals>
+			<equals>
+				<property>sim/model/f-14b/controls/AFCS/heading-gt</property>
+				<value>-1</value>
+			</equals>
+</or>
 		</condition>
 	</animation>
 
@@ -392,7 +641,7 @@
 		<condition>
 			<equals>
 				<property>autopilot/locks/heading</property>
-				<value>dg-heading-hold</value>
+				<value>true-heading-hold</value>
 			</equals>
 		</condition>
 	</animation>
@@ -419,7 +668,14 @@
 		<type>select</type>
 		<object-name>ap-ref</object-name>
 		<condition>
+			<greater-than>
+				<property>/fdm/jsbsim/systems/electrics/ac-left-main-bus</property>
+				<value>0</value>
+			</greater-than>
+<or>
+                <property>sim/model/f-14b/lights/master-test-lights</property>
 			<property>sim/model/f-14b/controls/AFCS/altitude-enable</property>
+</or>
 		</condition>
 	</animation>
 
@@ -613,8 +869,16 @@
 	<animation>
 		<object-name>casing</object-name>
 		<type>material</type>
-		<condition><not><property>sim/rendering/rembrandt/enabled</property></not></condition>
-		<emission>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
 			<factor-prop>controls/lighting/panel-norm</factor-prop>
 			<red>0.55</red>
 			<green>0.24</green>
