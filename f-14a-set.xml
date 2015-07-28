@@ -3,7 +3,7 @@
 <PropertyList>
 
 	<sim>
-		
+
 		<description>Grumman F-14B GE JSBSim</description>
 		<author>Richard Harrison, Enrique Laso - Alexis Bory</author>
 		<status>production</status>
@@ -479,7 +479,7 @@
 						</frequencies>
 						<preset type="int">0</preset>
 						<presets>
-							<frequency n="0" type="double">115.80</frequency><!-- KSFO ATIS VOR-DME--> 
+							<frequency n="0" type="double">115.80</frequency><!-- KSFO ATIS VOR-DME-->
 							<frequency n="1" type="double">120.50</frequency><!-- KSFO TWR -->
 							<frequency n="2" type="double">124.17</frequency><!-- KNUQ ATIS -->
 							<frequency n="3" type="double">119.55</frequency><!-- KNUQ TWR -->
@@ -544,8 +544,8 @@
 						<!-- target = 11.3 deg AoA (indicated allowing for offset in AOA sensor-->
                         <!-- F-14AAD-1 Figure 2-124; Angle-of-Attack Displays -->
 
-						<fast-deg-end>14.5</fast-deg-end>			
-						<optimum-deg-end>15.5</optimum-deg-end>		
+						<fast-deg-end>14.5</fast-deg-end>
+						<optimum-deg-end>15.5</optimum-deg-end>
 						<optimum-deg-start>14.5</optimum-deg-start>
 						<slow-deg-start>15.5</slow-deg-start>
 
@@ -597,7 +597,7 @@
 						<track-hold-light type="bool">false</track-hold-light>
 						<clsn-light type="bool">false</clsn-light><!--Constant Angle Collision Steering enabled -->
 					</rio-nav-display>
-					<uhf n="[0]">
+					<uhf n="0">
 						<frequencies>
 							<selected-mhz type="int">225000</selected-mhz>
 						</frequencies>
@@ -623,7 +623,7 @@
 							<fov-deg type="int">25</fov-deg>                     <!-- seeker optical FOV -->
 							<detection-fov-deg type="int">60</detection-fov-deg> <!-- Search pattern diameter (rosette scan) -->
 							<track-max-deg type="int">110</track-max-deg>        <!-- Seeker max total angular rotation -->
-							<max-g type="int">21</max-g>                         <!-- In turn --> 
+							<max-g type="int">21</max-g>                         <!-- In turn -->
 							<thrust-lbs type="double">230</thrust-lbs>           <!-- guess -->
 							<thrust-duration-sec type="int">30</thrust-duration-sec><!-- Mk.36 Mod.7,8 -->
 							<weight-launch-lbs>191</weight-launch-lbs>
@@ -762,7 +762,7 @@
 					<right-wing-torn type="bool">false</right-wing-torn>
                     <damage-enabled type="bool">false</damage-enabled>
 				</wings>
-                <!-- values that may need to be changed in the future if the carrier handling is fixed 
+                <!-- values that may need to be changed in the future if the carrier handling is fixed
                      and/or the intialization procedure changes
                 -->
                 <overrides>
@@ -1150,7 +1150,7 @@
 			<!-- Start with the Parking Brake on -->
 <!--			<brake-parking type="double">1.0</brake-parking> -->
 		</gear>
-   
+
     </controls>
 
 	<engines>
