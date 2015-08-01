@@ -513,8 +513,8 @@
 						<!-- target was 11.3 deg AoA (indicated allowing for offset in AOA sensor-->
                         <!-- F-14AAD-1 Figure 2-124; Angle-of-Attack Displays -->
 
-						<fast-deg-end>12</fast-deg-end>			
-						<optimum-deg-end>13.3</optimum-deg-end>		
+						<fast-deg-end>12</fast-deg-end>
+						<optimum-deg-end>13.3</optimum-deg-end>
 						<optimum-deg-start>11.3</optimum-deg-start>
 						<slow-deg-start>13.1</slow-deg-start>
 
@@ -566,7 +566,7 @@
 						<track-hold-light type="bool">false</track-hold-light>
 						<clsn-light type="bool">false</clsn-light><!--Constant Angle Collision Steering enabled -->
 					</rio-nav-display>
-					<uhf n="[0]">
+					<uhf n="0">
 						<frequencies>
 							<selected-mhz type="int">225000</selected-mhz>
 						</frequencies>
@@ -730,7 +730,7 @@
 					<left-wing-torn type="bool">false</left-wing-torn>
 					<right-wing-torn type="bool">false</right-wing-torn>
 				</wings>
-                <!-- values that may need to be changed in the future if the carrier handling is fixed 
+                <!-- values that may need to be changed in the future if the carrier handling is fixed
                      and/or the intialization procedure changes
                 -->
                 <overrides>
