@@ -7,6 +7,7 @@
 		<description>Grumman F-14B GE JSBSim</description>
 		<author>Richard Harrison, Enrique Laso - Alexis Bory</author>
 		<status>production</status>
+    <variant-of>f-14b</variant-of>
 
 		<tags>
 		    <tag>fighter</tag>

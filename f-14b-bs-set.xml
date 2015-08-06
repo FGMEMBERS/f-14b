@@ -80,6 +80,7 @@
 
 	<sim>
 		<description>Grumman F-14B back-seater (multiplayer)</description>
+		<variant-of>f-14b</variant-of>
 		<author>Anders Gidenstam, Alexis Bory, Enrique Laso, Richard Harrison</author>
 		<status>production</status>
 		<aircraft-version>1.2.2</aircraft-version>
@@ -99,7 +100,7 @@
 			</colors>
 			</style>
 		</gui>
-		
+
 		<flight-model>null</flight-model>
 
 		<help>
@@ -178,18 +179,18 @@
 
 					<rio-ecm-display>
 						<mode-ecm-nav type="bool">false</mode-ecm-nav> <!-- false = NAV, true = ECM -->
-						<!-- steer-submode-code selected by the pilot--> 
+						<!-- steer-submode-code selected by the pilot-->
 					</rio-ecm-display>
-					
+
 					<TID>
 						<on-off type="bool">true</on-off>
 						<brightness type="double">1</brightness>
 					</TID>
-					
+
 					<VDI>
 						<brightness type="double">1</brightness>
 					</VDI>
-					
+
 				</controls>
 
 				<instrumentation>
