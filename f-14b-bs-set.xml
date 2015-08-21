@@ -100,7 +100,7 @@
 			</colors>
 			</style>
 		</gui>
-
+		
 		<flight-model>null</flight-model>
 
 		<help>
@@ -179,18 +179,18 @@
 
 					<rio-ecm-display>
 						<mode-ecm-nav type="bool">false</mode-ecm-nav> <!-- false = NAV, true = ECM -->
-						<!-- steer-submode-code selected by the pilot-->
+						<!-- steer-submode-code selected by the pilot--> 
 					</rio-ecm-display>
-
+					
 					<TID>
 						<on-off type="bool">true</on-off>
 						<brightness type="double">1</brightness>
 					</TID>
-
+					
 					<VDI>
 						<brightness type="double">1</brightness>
 					</VDI>
-
+					
 				</controls>
 
 				<instrumentation>
@@ -295,7 +295,7 @@
 					<blackout-onset-g>5.5</blackout-onset-g>
 				</parameters>
 			</redout>
-
+            <alpha type="double">0</alpha>
 		</rendering>
 
 		<sound>
