@@ -9,29 +9,39 @@
 <!-- ******************************************************************* -->
 	<nasal>
 		<load>
-			var self = cmdarg();
-			print("LOAD f-14b ", self.getPath());
+        <![CDATA[ 
+            var self = cmdarg();
+            print("LOAD f-14b ", self.getPath());
 
-			self.getNode("sim/model/ac-type", 1).setValue("f-14b"); # Dual-control
+            self.getNode("sim/model/ac-type", 1).setValue("f-14b"); # Dual-control
 
-			var livery_update = aircraft.livery_update.new(
-				"Aircraft/f-14b/Models/Liveries", 10 );
+            var livery_update = aircraft.livery_update.new(
+            "Aircraft/f-14b/Models/Liveries", 10 );
 
-			# Load the needed modules if it hasn't been done yet.
-			# f14_net handles broadcast of:
-			#   - external load set.
-			if (!contains(globals, "f14_net")) {
-				io.load_nasal(getprop("/sim/fg-root") ~
-					"/Aircraft/f-14b/Systems/mp-network.nas", "f14_net");
-				# Initialize network as observer.
-				f14_net.mp_network_init(0);
-			}
-		</load>
+            # Load the needed modules if it hasn't been done yet.
+            # f14_net handles broadcast of:
+            #   - external load set.
+            if (!contains(globals, "f14_net")) {
+            var fn_net = resolvepath("Nasal") ~ "/mp-network.nas";
 
-		<unload>
+            if (io.stat(fn_net) == nil)
+                fn_net = resolvepath("Aircraft/f-14b/Nasal") ~ "/mp-network.nas";
+
+            if (io.stat(fn_net) == nil)
+            fn_net = getprop("/sim/fg-root") ~ "/Aircraft/f-14b/Nasal/mp-network.nas";
+
+            print("Loading F-14 mp network from ",fn_net);
+            io.load_nasal(fn_net, "f14_net");
+            f14_net.mp_network_init(0);
+            }
+        ]]>
+        </load>
+        <unload>
+        <![CDATA[ 
 			print("UNLOAD f-14b ", self.getPath());
 			cmdarg().getNode("sim/model/ac-type", 1).setValue(""); # Dual-control
 			livery_update.stop();
+        ]]>
 		</unload>
 	</nasal>
 
