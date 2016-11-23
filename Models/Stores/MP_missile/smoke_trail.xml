@@ -7,15 +7,17 @@
    <emissive type="bool">false</emissive>
    <lighting type="bool">false</lighting>
 
-   <condition>
-         <property>payload/armament/aim-9/flags/smoke-id-9</property>
-   </condition>
-
    <attach>world</attach>
 
    <placer>
      <type>point</type> 
    </placer>
+
+   <offsets>
+      <x-m>7</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+   </offsets>
 
    <shooter>
      <theta-min-deg>-1.5</theta-min-deg>
@@ -48,30 +50,30 @@
    <particle>
      <start>
        <color>
-         <red><value>   1.0 </value></red>
-         <green><value> 1.0 </value></green>
-         <blue><value>  0.9 </value></blue>
+         <red><value>   0.4 </value></red>
+         <green><value> 0.5 </value></green>
+         <blue><value>  0.5 </value></blue>
          <alpha><value> 0.5 </value></alpha>
        </color>
        <size>
-         <value>1.5</value>
+         <value>1.0</value>
        </size>
      </start>
 
      <end>
        <color>
-         <red><value>   0.9 </value></red>
-         <green><value> 0.9 </value></green>
-         <blue><value>  0.9 </value></blue>
+         <red><value>   0.4 </value></red>
+         <green><value> 0.5 </value></green>
+         <blue><value>  0.5 </value></blue>
          <alpha><value> 0.1 </value></alpha>
        </color>
        <size>
-         <value>10</value>
+         <value>6</value>
        </size>
      </end>
 
      <life-sec>
-       <value>300</value>
+       <value>4</value>
      </life-sec>
         
      <mass-kg>  0.5 </mass-kg>
