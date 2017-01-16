@@ -135,7 +135,7 @@ var az_scan = func() {
 			# existing as a displayable target in the radar targets nodes.
 			var type = c.getName();
 
-			if (!c.getNode("valid", 1).getValue()) {
+			if (c.getNode("valid") == nil or !c.getNode("valid").getValue()) {
 				continue;
 			}
 			var HaveRadarNode = c.getNode("radar");
@@ -191,7 +191,7 @@ var az_scan = func() {
                 }
             }
 
-			if (type == "multiplayer" or type == "tanker" or type == "aircraft" and HaveRadarNode != nil) {
+			if ((type == "multiplayer" or type == "tanker" or type == "aircraft" or type == "ship" or type == "groundvehicle") and HaveRadarNode != nil) {
 				var u = Target.new(c);
 				u_ecm_signal      = 0;
 				u_ecm_signal_norm = 0;
@@ -603,6 +603,7 @@ var Target = {
 		obj.deviation = nil;
 
 		obj.unique = rand();
+		obj.propNode = c;
 
 		return obj;
 	},

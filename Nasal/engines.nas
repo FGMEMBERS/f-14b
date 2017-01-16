@@ -134,8 +134,8 @@ var computeNozzles = func {
         }
         else
         {
-# not in replay so copy the properties;
-# 
+            # not in replay so copy the properties;
+            # 
             setprop("engines/engine[0]/afterburner", getprop("/fdm/jsbsim/propulsion/engine[0]/augmentation-alight"));
             setprop("engines/engine[1]/afterburner", getprop("/fdm/jsbsim/propulsion/engine[1]/augmentation-alight"));
             setprop("engines/engine[0]/augmentation-burner", getprop("/fdm/jsbsim/propulsion/engine[0]/augmentation-burner"));
