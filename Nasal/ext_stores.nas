@@ -12,6 +12,7 @@ var S6 = nil;
 var S7 = nil;
 var S8 = nil;
 var S9 = nil;
+
 var droptank_node = props.globals.getNode("sim/ai/aircraft/impact/droptank", 1);
 
 var ext_loads_dlg = gui.Dialog.new("dialog","Aircraft/f-14b/Dialogs/external-loads.xml");
@@ -35,7 +36,7 @@ var ext_loads_init = func() {
     gui.menuEnable("fuel-and-payload", 1);
 	foreach (var S; Station.list) {
 		S.set_type(S.get_type()); # initialize bcode.
-	}
+    }
 	update_wpstring();
 }
 
@@ -131,7 +132,7 @@ var ext_loads_set = func(s) {
 		S8.set_type("AIM-7");
 		S9.set_type("AIM-9");
 		S9.set_weight_lb(53 + 340 + 191 + 510); # AIM-9rail, wing pylon, AIM-9M, AIM-7M 
-	}
+    } 
 	update_wpstring();
 }
 
@@ -203,7 +204,7 @@ var update_wpstring = func {
 	b_wpstring = b_wpstring ~ bits.string(b_set,3);
 	# Send the bits string as INT over MP.
 	var b_stores = bits.value(b_wpstring);
-	f14_net.send_wps_state(b_stores);
+        f14_net.send_wps_state(b_stores);
 }
 
 # Emergency jettison:
@@ -268,7 +269,7 @@ Station = {
 		obj.display = obj.prop.initNode("display", 0, "INT");
 
         if(usingJSBSim)
-        {
+    {
             # the jsb external loads from 0-9 match the indexes used here incremented by 1 as the first element
             # in jsb sim doesn't have [0]
             var propname = sprintf( "fdm/jsbsim/inertia/pointmass-weight-lbs[%d]",number);
@@ -279,7 +280,7 @@ Station = {
         {
 		    obj.weight = props.globals.getNode("sim").getChild ("weight", weight_number , 1);
     		obj.weight_lb = obj.weight.getNode("weight-lb");
-        }
+    }
 		obj.bcode = 0;
 		obj.selected = obj.prop.getNode("selected");
 
