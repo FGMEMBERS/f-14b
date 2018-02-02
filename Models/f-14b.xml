@@ -2736,6 +2736,7 @@
     <object-name>CanopyInside</object-name>
     <object-name>Canopy_0</object-name>
     <object-name>Canopy_0Inside</object-name>
+    <object-name>pilot-handle</object-name>
     <property>canopy/position-norm</property>
     <interpolation>
       <entry>
@@ -2765,6 +2766,7 @@
     <object-name>CanopyInside</object-name>
     <object-name>Canopy_0</object-name>
     <object-name>Canopy_0Inside</object-name>
+    <object-name>pilot-handle</object-name>
     <property>canopy/position-norm</property>
     <interpolation>
       <entry>
