@@ -2133,6 +2133,17 @@
     </rotors>
 
     <nasal>
+        <!--2016.1 compatibility fixes, include 2018.1 versions of core Emesary files--> 
+        <notifications>
+            <file>Aircraft/f-14b/Nasal/notifications.nas</file>
+        </notifications>
+        <emesary>
+            <file>Aircraft/f-14b/Nasal/emesary.nas</file>
+        </emesary>
+        <emesary_mp_bridge>
+            <file>Aircraft/f-14b/Nasal/emesary_mp_bridge.nas</file>
+        </emesary_mp_bridge>
+        <!--2016.1 compatibility fixes end. can be removed for 2018.1 or later -->
         <aar>
             <file>Aircraft/Generic/aar.nas</file>
         </aar>
@@ -2195,7 +2206,7 @@
             <file>Aircraft/f-14b/Nasal/chronograph.nas</file>
         </f14_chronograph>
         <f14_instruments>
-            <file>Aircraft/Generic/an_spn_46.nas</file>
+            <file>Aircraft/f-14b/Nasal/an_spn_46.nas</file>
             <file>Aircraft/f-14b/Nasal/instruments.nas</file>
         </f14_instruments>
         <f14_afcs>

@@ -24,6 +24,23 @@ setprop("sim/fdm/surface/override-level", 0);
 aircraft.tyresmoke_system.new(0, 1, 2);
 aircraft.rain.init();
 
+#
+# 2017.3 or earlier FG compatibility fixes
+# Remove after 2017.4
+string.truncateAt = func(src, match){
+    var rv = nil;
+    call(func {
+    if (src != nil and match !=nil){
+        var pos = find(match,src);
+        if (pos>=0)
+          src=substr(src,0,pos);
+    }
+},
+        nil, var err = []);
+    return src;
+
+}
+
 var position_switch = func(n) {
 	var sw_pos = sw_pos_prop.getValue();
 	if (n == 1) {
