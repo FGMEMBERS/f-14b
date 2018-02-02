@@ -26,6 +26,12 @@ Current_aim9   = nil;
 
 aircraft.data.add( StickSelector, ArmLever, ArmSwitch );
 
+var FALSE = 0;
+var TRUE  = 1;
+
+
+
+
 
 # Init
 var weapons_init = func() {
@@ -51,7 +57,6 @@ var weapons_init = func() {
 		}
 	}, 0, 1);
 }
-
 
 
 # Main loop
@@ -173,10 +178,9 @@ var armament_update = func {
 	# Turn sidewinder cooling lights On/Off.
 	if ( aim9_count > 0 ) {
 		if (stick_s == 2) {
-		SWCoolOn.setBoolValue(1);
-		SWCoolOff.setBoolValue(0);
+			SWCoolOn.setBoolValue(1);
+			SWCoolOff.setBoolValue(0);
 		}
-		update_sw_ready();
 	} else {
 		SWCoolOn.setBoolValue(0);
 		SWCoolOff.setBoolValue(1);
@@ -184,6 +188,32 @@ var armament_update = func {
 		#set_status_current_aim9(-1);
 	}
 	SwCount.setValue(aim9_count);
+	update_sw_ready();
+	setCockpitLights();
+}
+
+var getDLZ = func {
+    if (ArmSwitch.getValue() > 1 and Current_aim9 != nil) {
+        return Current_aim9.getDLZ();
+    }
+}
+
+var setCockpitLights = func {
+	if (ArmSwitch.getValue() > 1 and Current_aim9 != nil and Current_aim9.status == 1) {
+		setprop("sim/model/f-14b/systems/armament/lock-light", 1);
+	} else {
+		setprop("sim/model/f-14b/systems/armament/lock-light", 0);
+	}
+	var dlzArray = getDLZ();
+	if (dlzArray == nil or size(dlzArray) == 0) {
+	    setprop("sim/model/f-14b/systems/armament/launch-light", 0);
+	} else {
+		if (dlzArray[4] < dlzArray[1]) {
+			setprop("sim/model/f-14b/systems/armament/launch-light", 1);
+		} else {
+			setprop("sim/model/f-14b/systems/armament/launch-light", 0);
+		}
+	}
 }
 
 var update_gun_ready = func() {
@@ -241,18 +271,18 @@ var update_sw_ready = func() {
 			Current_aim9 = armament.AIM.new(pylon.index, "AIM-9", "Sidewinder");
 		} elsif (Current_aim9 != nil and Current_aim9.status == -1) {
 			Current_aim9.status = 0;	
-			Current_aim9.search();	
+			Current_aim9.search();
 		}
 	} elsif (StickSelector.getValue() == 3 and ArmSwitch.getValue() == 2) {
 		var pylon = nil;
 		if (sw_count > 0 and size(aim9_seq) >= sw_count) {
 			pylon = aim9_seq[sw_count - 1];
 		}
-		if (Current_aim9 != nil and pylon != nil and Current_aim9.type != pylon.get_type()) {
-		Current_aim9.status = -1;	
+		if (Current_aim9 != nil and (pylon == nil or (pylon != nil and Current_aim9.type != pylon.get_type()))) {
+			Current_aim9.status = -1;
 			Current_aim9.del();
 			Current_aim9 = nil;
-	}
+		}
 		if ((Current_aim9 == nil or Current_aim9.status == 2)  and sw_count > 0 ) {
 			var pylon = aim9_seq[sw_count - 1];
 			var name = "Phoenix";
@@ -280,11 +310,12 @@ var release_aim9 = func() {
 			} else {
 				setprop("/sim/messages/atc", phrase);
 			}
+			Current_aim9.release();
+			Current_aim9 = nil;
 			# Set the pylon empty:
 			var current_pylon = pop(aim9_seq);
 			current_pylon.set_type("-");
 			armament_update();
-			Current_aim9.release();
 		}
 	}
 }
@@ -357,6 +388,7 @@ var master_arm_switch = func(a) {
 			system_stop();
 		}
 	}
+	setCockpitLights();
 }
 
 var master_arm_cycle = func() {
@@ -380,10 +412,10 @@ var master_arm_cycle = func() {
 		system_stop();
 		SysRunning.setBoolValue(0);
 	}
+	setCockpitLights();
 }
 
 var arm_selector = func() {
-
 	# Checks to do when rotating the wheel on the stick.
 	update_gun_ready();
 	var stick_s = StickSelector.getValue();
@@ -393,23 +425,24 @@ var arm_selector = func() {
 	} elsif ( stick_s == 1 ) {
 		SwSoundVol.setValue(0);	armament_update();
 
-            set_status_current_aim9(-1);	
+		set_status_current_aim9(-1);	
 	} elsif ( stick_s == 2 ) {
 		# AIM-9:
 		if (Current_aim9 != nil and ArmSwitch.getValue() == 2 and aim9_count > 0) {
 			Current_aim9.status = 0;	
 			Current_aim9.search();	
-        }
+		}
 	} elsif ( stick_s == 3 ) {
 		# AIM-9:
 		if (Current_aim9 != nil and ArmSwitch.getValue() == 2 and aim9_count > 0) {
 			Current_aim9.status = 0;	
 			Current_aim9.search();	
-    }
+		}
 	} else {
 		SwSoundVol.setValue(0);
 		set_status_current_aim9(-1);	
 	}
+	setCockpitLights();
 }
 
 var station_selector = func(n, v) {
@@ -418,6 +451,10 @@ var station_selector = func(n, v) {
 		# Only up/neutral allowed.
 		var selector = "sim/model/f-14b/controls/armament/station-selector[" ~ n ~ "]";
 		var state = getprop(selector);
+		if (state == -1000){
+			# toggle value between 0 and -1
+			state = -(-state - 1);
+		}
 		if (state != -1) {
 			state = -1;
 		} else {
@@ -490,17 +527,15 @@ var station_selector_cycle = func() {
 	# Fast selector, selects with one keyb shorcut all AIM-9 or nothing.
 	# Only to choices ATM.
 	var s = 0;
-        var p0 = getprop("sim/model/f-14b/controls/armament/station-selector[0]");
-        var p7 = getprop("sim/model/f-14b/controls/armament/station-selector[7]");
+	var p0 = getprop("sim/model/f-14b/controls/armament/station-selector[0]");
+	var p7 = getprop("sim/model/f-14b/controls/armament/station-selector[7]");
 	if ( p0 < 1 or p7 < 1 ) { s = 1; }
-        setprop("sim/model/f-14b/controls/armament/station-selector[0]", s);
-        setprop("sim/model/f-14b/controls/armament/station-selector[7]", s);
-        f14.S0.set_selected(s);
-        f14.S1.set_selected(0);
-
-
-        f14.S8.set_selected(0);
-        f14.S9.set_selected(s);	
+	setprop("sim/model/f-14b/controls/armament/station-selector[0]", s);
+	setprop("sim/model/f-14b/controls/armament/station-selector[7]", s);
+	f14.S0.set_selected(s);
+	f14.S1.set_selected(0);
+	f14.S8.set_selected(0);
+	f14.S9.set_selected(s);	
 	armament_update();
 }
 
@@ -514,7 +549,7 @@ var impact_listener = func {
   if (awg_9.nearest_u != nil and (getprop("sim/time/elapsed-sec")-last_impact) > 1) {
     var ballistic_name = props.globals.getNode("/ai/models/model-impact3",1).getValue();
     var ballistic = props.globals.getNode(ballistic_name, 0);
-    if (ballistic != nil) {
+    if (ballistic != nil and ballistic.getName() != "munition") {
       var typeNode = ballistic.getNode("impact/type");
       if (typeNode != nil and typeNode.getValue() != "terrain") {
         var lat = ballistic.getNode("impact/latitude-deg").getValue();
@@ -547,3 +582,47 @@ var impact_listener = func {
 # setup impact listener
 setlistener("/ai/models/model-impact3", impact_listener, 0, 0);
 
+var flareCount = -1;
+var flareStart = -1;
+
+var flareLoop = func {
+  # Flare release
+  if (getprop("ai/submodels/submodel[4]/flare-release-snd") == nil) {
+    setprop("ai/submodels/submodel[4]/flare-release-snd", FALSE);
+    setprop("ai/submodels/submodel[4]/flare-release-out-snd", FALSE);
+  }
+  var flareOn = getprop("ai/submodels/submodel[4]/flare-release-cmd");
+  if (flareOn == TRUE and getprop("ai/submodels/submodel[4]/flare-release") == FALSE
+      and getprop("ai/submodels/submodel[4]/flare-release-out-snd") == FALSE
+      and getprop("ai/submodels/submodel[4]/flare-release-snd") == FALSE) {
+    flareCount = getprop("ai/submodels/submodel[4]/count");
+    flareStart = getprop("sim/time/elapsed-sec");
+    setprop("ai/submodels/submodel[4]/flare-release-cmd", FALSE);
+    if (flareCount > 0) {
+      # release a flare
+      setprop("ai/submodels/submodel[4]/flare-release-snd", TRUE);
+      setprop("ai/submodels/submodel[4]/flare-release", TRUE);
+      setprop("rotors/main/blade[3]/flap-deg", flareStart);
+      setprop("rotors/main/blade[3]/position-deg", flareStart);
+    } else {
+      # play the sound for out of flares
+      setprop("ai/submodels/submodel[4]/flare-release-out-snd", TRUE);
+    }
+  }
+  if (getprop("ai/submodels/submodel[4]/flare-release-snd") == TRUE and (flareStart + 1) < getprop("sim/time/elapsed-sec")) {
+    setprop("ai/submodels/submodel[4]/flare-release-snd", FALSE);
+    setprop("rotors/main/blade[3]/flap-deg", 0);
+    setprop("rotors/main/blade[3]/position-deg", 0);
+  }
+  if (getprop("ai/submodels/submodel[4]/flare-release-out-snd") == TRUE and (flareStart + 1) < getprop("sim/time/elapsed-sec")) {
+    setprop("ai/submodels/submodel[4]/flare-release-out-snd", FALSE);
+  }
+  if (flareCount > getprop("ai/submodels/submodel[4]/count")) {
+    # A flare was released in last loop, we stop releasing flares, so user have to press button again to release new.
+    setprop("ai/submodels/submodel[4]/flare-release", FALSE);
+    flareCount = -1;
+  }
+  settimer(flareLoop, 0.1);
+};
+
+flareLoop();
