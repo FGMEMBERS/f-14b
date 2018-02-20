@@ -1,4 +1,9 @@
 # Utilities #########
+# Version checking based on the work of Joshua Davidson
+if (num(string.replace(getprop("/sim/version/flightgear"),".","")) < 201610) {
+var error_mismatch = gui.Dialog.new("sim/gui/dialogs/fg-version/dialog", "Dialogs/fg-version.xml");
+error_mismatch.open();
+}
 
 # Lighting 
 #setprop("sim/model/path","data/Aircraft/f-14b/F-14B.xml");
@@ -30,15 +35,13 @@ aircraft.rain.init();
 string.truncateAt = func(src, match){
     var rv = nil;
     call(func {
-    if (src != nil and match !=nil){
-        var pos = find(match,src);
-        if (pos>=0)
-          src=substr(src,0,pos);
-    }
-},
-        nil, var err = []);
+        if (src != nil and match !=nil) {
+            var pos = find(match,src);
+            if (pos>=0)
+              src=substr(src,0,pos);
+        }
+    }, nil, var err = []);
     return src;
-
 }
 
 var position_switch = func(n) {
