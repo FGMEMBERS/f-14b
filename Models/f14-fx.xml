@@ -29,11 +29,11 @@
 		</condition>
 	</animation>
 
-    <model>
-        <path>Fx/Afterburners.xml</path>
-    </model>
-
-    <!-- Heat Blur -->
+  <model>
+    <path>Fx/Afterburners.xml</path>
+  </model>
+  
+	<!-- Heat Blur -->
 
 	<animation>
 		<type>select</type>

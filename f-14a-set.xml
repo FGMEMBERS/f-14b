@@ -172,6 +172,7 @@
             <splash-texture>Aircraft/f-14b/f-14a-splash.jpg</splash-texture>
             <splash-logo-image>Aircraft/f-14b/F-14A-splash-logo.png</splash-logo-image>
         </startup>
+
         <rating>
             <FDM type="int">5</FDM>
             <systems type="int">5</systems>

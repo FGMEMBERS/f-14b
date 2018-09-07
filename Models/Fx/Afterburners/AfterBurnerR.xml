@@ -17,7 +17,7 @@ ref: https://www.youtube.com/watch?v=ZC_DIf5SSmM
 -->
 <PropertyList>
 
-    <nopreview/>
+    <nopreview/> 
     <path>flame.ac</path>
 
     <params>
@@ -234,7 +234,7 @@ ref: https://www.youtube.com/watch?v=ZC_DIf5SSmM
             <blue>0.67</blue>
             <property alias="/params/augmentation-ignition"/>
         </emission>
-    </animation>
+   </animation>
 
     <animation>
         <type>material</type>
