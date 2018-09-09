@@ -498,7 +498,7 @@
 
         <model>
             <!--path>Aircraft/f-14b/Models/F-14-model.xml</path-->
-            <!--fallback-model-index type="int">514</fallback-model-index-->
+            <fallback-model-index type="int">514</fallback-model-index>
             <path>Aircraft/f-14b/Models/f-14b.xml</path>
             <livery>
                 <name type="string">nasa</name>
