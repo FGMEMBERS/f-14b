@@ -2201,7 +2201,7 @@
 
     <nasal>
         <notifications>
-            <file>Aircraft/f16/Nasal/M_frame_notification.nas</file>
+            <file>Aircraft/f-14b/Nasal/M_frame_notification.nas</file>
         </notifications>
       <aar>
             <file>Aircraft/Generic/aar.nas</file>
