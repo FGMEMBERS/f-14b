@@ -356,10 +356,47 @@ setprop("/sim/multiplay/generic/float[11]", getprop("/fdm/jsbsim/propulsion/engi
 var wow = 1;
 setprop("/fdm/jsbsim/fcs/roll-trim-actuator",0) ;
 setprop("/controls/flight/SAS-roll",0);
-var registerFCS = func {settimer (updateFCS, 0);}
 
-var updateFCS = func {
+var F14_exec = {
+	new : func (_ident){
+        print("F14_exec: init");
+        var obj = { parents: [F14_exec]};
+#        input = {
+#               name : "property",
+#        };
+#
+#        foreach (var name; keys(input)) {
+#            emesary.GlobalTransmitter.NotifyAll(notifications.FrameNotificationAddProperty.new(_ident, name, input[name]));
+#        }
+
+        #
+        # recipient that will be registered on the global transmitter and connect this
+        # subsystem to allow subsystem notifications to be received
+        obj.recipient = emesary.Recipient.new(_ident~".Subsystem");
+        obj.recipient.F14_exec = obj;
+
+        obj.recipient.Receive = func(notification)
+        {
+            if (notification.NotificationType == "FrameNotification")
+            {
+                me.F14_exec.update(notification);
+                return emesary.Transmitter.ReceiptStatus_OK;
+            }
+            return emesary.Transmitter.ReceiptStatus_NotProcessed;
+        };
+
+        emesary.GlobalTransmitter.Register(obj.recipient);
+
+		return obj;
+	},
+    update : func(notification) {
 	 aircraft.rain.update();
+
+        if(usingJSBSim){
+            if ( math.mod(notifications.frameNotification.FrameCount,2)){
+                setprop("environment/aircraft-effects/frost-level", getprop("/fdm/jsbsim/systems/ecs/windscreen-frost-amount"));
+            }
+        }
 
 	#Fectch most commonly used values
 	CurrentIAS = getprop ("/velocities/airspeed-kt");
@@ -372,8 +409,7 @@ var updateFCS = func {
 	e_trim = getprop ("/controls/flight/elevator-trim");
 	deltaT = getprop ("sim/time/delta-sec");
 
-    if(usingJSBSim)
-    {
+        if (usingJSBSim) {
         currentG = getprop ("accelerations/pilot-gdamped");
         # use interpolate to make it take 1.2seconds to affect the demand
 
@@ -382,8 +418,7 @@ var updateFCS = func {
 
         if(roll_mode != "dg-heading-hold" and roll_mode != "wing-leveler" and roll_mode != "true-heading-hold" )
             setprop("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",0);
-        else
-        {
+            else {
             var roll = getprop("orientation/roll-deg");
             if (dmd_afcs_roll < -0.11) dmd_afcs_roll = -0.11;
             else if (dmd_afcs_roll > 0.11) dmd_afcs_roll = 0.11;
@@ -394,9 +429,7 @@ var updateFCS = func {
 
             interpolate("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",dmd_afcs_roll,0.1);
         }
-    }
-    else
-    {
+        } else {
         currentG = getprop ("accelerations/pilot-g");
 		setprop("engines/engine[0]/augmentation", getprop("engines/engine[0]/afterburner"));
 		setprop("engines/engine[1]/augmentation", getprop("engines/engine[1]/afterburner"));
@@ -413,25 +446,20 @@ var updateFCS = func {
     if (!usingJSBSim){
 	    f14.computeSAS ();
     }
-	f14.computeAdverse ();
+#        f14.computeAdverse ();
 	f14.computeNWS ();
 	f14.computeAICS ();
 	f14.computeAPC ();
     f14.engineControls();
 	f14.timedMotions ();
     f14.electricsFrame();
-	f14.registerFCS (); # loop, once per frame.
-}
+    },
+};
 
+subsystem = F14_exec.new("F14_exec");
 
-var startProcess = func {
-	settimer (updateFCS, 1.0);
 	position_flash_init();
 slat_output.setDoubleValue(0);
-
-}
-
-setlistener("/sim/signals/fdm-initialized", startProcess);
 
 #----------------------------------------------------------------------------
 # View change: Ctrl-V switchback to view #0 but switch to Rio view when already
@@ -626,21 +654,6 @@ var splash_vec_loop = func
 
 splash_vec_loop();
 
-var rate4modules = func {
-	settimer (rate4modules, 0.20);
-}
-
-var rate2modules = func {
-	settimer (rate2modules, 0.04);
-    if(usingJSBSim)
-        setprop("environment/aircraft-effects/frost-level", getprop("/fdm/jsbsim/systems/ecs/windscreen-frost-amount"));
-}
-#
-# launch the timers; the time here isn't important as it will be rescheduled within the rate module exec
-settimer (rate4modules, 1); 
-settimer (rate2modules, 1);
-
-
 var resetView = func () {
   setprop("sim/current-view/field-of-view", getprop("sim/current-view/config/default-field-of-view-deg"));
   setprop("sim/current-view/heading-offset-deg", getprop("sim/current-view/config/heading-offset-deg"));
@@ -651,3 +664,18 @@ var resetView = func () {
 dynamic_view.register(func {
               me.default_plane(); 
    });
+
+var fixAirframe = func {
+    setprop ("fdm/jsbsim/systems/flyt/damage-reset", 1);
+    repairMe();
+}
+
+setlistener("sim/model/f-14b/wings/damage-enabled", func(v){
+print("Damage enabled ",v.getValue());
+    if (v.getValue())
+      setprop("fdm/jsbsim/systems/flyt/wing-damage-enabled",1);
+    else
+      setprop("fdm/jsbsim/systems/flyt/wing-damage-enabled",0);
+  },0,0);
+
+setprop("fdm/jsbsim/systems/flyt/wing-damage-enabled",getprop("sim/model/f-14b/wings/damage-enabled"));
