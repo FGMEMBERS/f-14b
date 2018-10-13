@@ -1571,3 +1571,25 @@ dump_tgt_list = func {
     }
 }
 
+#
+# This is the emesary recipient that will update the Radar when a FrameNotification is
+# received.
+
+var RadarRecipient = 
+{
+    new: func(_ident)
+    {
+        var new_class = emesary.Recipient.new(_ident~".RADAR");
+
+        new_class.Receive = func(notification)
+          {
+              rdr_loop(notification);
+              return emesary.Transmitter.ReceiptStatus_OK;
+          }
+        return new_class;
+    },
+};
+#print ("awg_9: ",this_model," intiialize *****************************************************************************");
+var aircraft_radar = RadarRecipient.new(this_model);
+emesary.GlobalTransmitter.Register(aircraft_radar );
+

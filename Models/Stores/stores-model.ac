@@ -9,7 +9,6 @@ data 10
 Circle.001
 texture "stores-model-atlas-0.png"
 crease 43.000000
-hidden
 numvert 312
 2.22627 -0.233457 -0.00118399
 2.23071 -0.151219 -0.099278
@@ -2610,7 +2609,6 @@ data 10
 Circle.001
 texture "stores-model-atlas-0.png"
 crease 43.000000
-hidden
 numvert 312
 2.22627 -0.233457 -0.00118399
 2.23071 -0.151219 -0.099278
@@ -5209,7 +5207,6 @@ name "aim-9-0"
 loc 0.479055 -1.061 3.67469
 texture "stores-model-atlas-0.png"
 crease 45.000000
-hidden
 numvert 188
 1.40956 -0.0661705 -0.0144248
 1.40957 -0.0561494 -0.0387545
@@ -6400,7 +6397,6 @@ name "aim-9-1"
 loc 0.479055 -1.5709 3.28309
 texture "stores-model-atlas-0.png"
 crease 45.000000
-hidden
 numvert 188
 -0.969665 -0.0561353 -0.038655
 -0.969665 -0.0375624 -0.0572948
@@ -7591,7 +7587,6 @@ name "aim-9-8"
 loc 0.479055 -1.57078 -3.27147
 texture "stores-model-atlas-0.png"
 crease 45.000000
-hidden
 numvert 188
 1.40956 -0.0661705 -0.0144246
 1.40957 -0.0561494 -0.0387545
@@ -8782,7 +8777,6 @@ name "mk-83-6"
 loc -1.07563 -1.84357 -0.518878
 texture "stores-model-atlas-0.png"
 crease 45.000000
-hidden
 numvert 187
 -1.48854 -0.000491858 -0.000897706
 -1.48469 0.0134046 -0.014699
@@ -10782,7 +10776,6 @@ name "mk-83-5"
 loc 3.26486 -1.84359 -0.518875
 texture "stores-model-atlas-0.png"
 crease 45.000000
-hidden
 numvert 187
 -1.26377 0.081582 -0.0813938
 -1.26377 0.0442668 -0.106336
@@ -12782,7 +12775,6 @@ name "mk-83-4"
 loc 3.26486 -1.84359 0.530849
 texture "stores-model-atlas-0.png"
 crease 45.000000
-hidden
 numvert 187
 -1.48854 -0.000491858 -0.000897706
 -1.48469 0.0134046 -0.014699
@@ -14782,7 +14774,6 @@ name "mk-83-3"
 loc -1.17563 -1.84359 0.530849
 texture "stores-model-atlas-0.png"
 crease 45.000000
-hidden
 numvert 187
 -1.26377 0.081582 -0.0813938
 -1.26377 0.0442668 -0.106336
@@ -16782,7 +16773,6 @@ name "aim-54-8"
 loc -0.174017 -3.76522 -0.0575953
 texture "stores-model-atlas-0.png"
 crease 44.000000
-hidden
 numvert 130
 2.91999 2.13574 -3.21902
 -0.994734 2.16307 -3.21902
@@ -22775,7 +22765,6 @@ name "aim-54-1"
 loc -0.174017 -3.76522 6.49686
 texture "stores-model-atlas-0.png"
 crease 44.000000
-hidden
 numvert 130
 2.90553 2.45969 -2.88625
 2.90559 2.46861 -2.89518
@@ -23722,7 +23711,6 @@ name "aim-54-3"
 loc 0 -4.26312 0.98011
 texture "stores-model-atlas-0.png"
 crease 44.000000
-hidden
 numvert 130
 0.585527 2.41255 -0.461557
 -3.3293 2.41255 -0.461558
@@ -24669,7 +24657,6 @@ name "aim-54-4"
 loc 4.42154 -4.28355 0.98782
 texture "stores-model-atlas-0.png"
 crease 44.000000
-hidden
 numvert 130
 0.568799 2.73639 -0.128788
 0.568799 2.74532 -0.137714
@@ -25616,7 +25603,6 @@ name "aim-54-6"
 loc 4.42154 -4.28355 -0.069207
 texture "stores-model-atlas-0.png"
 crease 44.000000
-hidden
 numvert 130
 0.585527 2.41255 -0.461557
 -3.3293 2.41255 -0.461558
@@ -26563,7 +26549,6 @@ name "aim-54-5"
 loc 0 -4.26312 -0.061497
 texture "stores-model-atlas-0.png"
 crease 44.000000
-hidden
 numvert 130
 0.568799 2.73639 -0.128788
 0.568799 2.74532 -0.137714
@@ -28250,7 +28235,6 @@ name "aim-54-1-launcher"
 loc 0.6743 -1.05878 3.13607
 texture "stores-model-atlas-0.png"
 crease 45.000000
-hidden
 numvert 20
 0.771834 -0.368276 0.0684104
 0.771834 -0.409006 0.00746012
@@ -28405,7 +28389,6 @@ name "aim-54-8-launcher"
 loc 0.6743 -1.05878 -3.13607
 texture "stores-model-atlas-0.png"
 crease 75.000000
-hidden
 numvert 20
 -0.748665 -0.368276 -0.212198
 -0.748665 -0.409006 -0.273148
@@ -28560,7 +28543,6 @@ name "aim-9-9"
 loc 0.47906 -1.061 -3.67172
 texture "stores-model-atlas-0.png"
 crease 45.000000
-hidden
 numvert 188
 -0.969665 -0.0561353 -0.038655
 -0.969665 -0.0375624 -0.0572948
@@ -29751,7 +29733,6 @@ name "central-pylons"
 loc 0.389018 -1.55729 0
 texture "stores-model-atlas-0.png"
 crease 26.000000
-hidden
 numvert 100
 4.88903 0.191055 -0.704939
 4.88903 0.191055 -0.339823
@@ -30844,7 +30825,6 @@ name "wings-pylons"
 loc 0.6743 -1.0465 1.66893e-005
 texture "stores-model-atlas-0.png"
 crease 78.000000
-hidden
 numvert 324
 0.152565 -0.373232 -3.2782
 0.152565 -0.330441 -3.2782

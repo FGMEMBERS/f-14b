@@ -970,8 +970,6 @@
 
         <multiplay>
             <!-- Starting with 2017.3 F-14 only transmit using Emesary -->
-            <transmit-only-generics type="int">0</transmit-only-generics>
-            <transmit-only-generics-available type="int">1</transmit-only-generics-available>
             <generic>
                 <float alias="/fdm/jsbsim/fcs/wing-sweep-norm" n="0">0</float>
                 <!-- wing-sweep     -->
@@ -1036,6 +1034,7 @@
             </camera-group>
             <redout>
                 <parameters>
+                    <locked-by-airframe type="bool">true</locked-by-airframe>
                     <blackout-complete-g>7.9</blackout-complete-g>
                     <blackout-onset-g>5.5</blackout-onset-g>
                 </parameters>
@@ -1750,6 +1749,15 @@
                 </binding>
             </key>
 
+            <key n="74">
+               <name>K</name>
+               <desc>Decrease speedbrak</desc>
+               <binding>
+                  <command>nasal</command>
+                  <script>controls.stepSpoilers(-1)</script>
+               </binding>
+            </key>
+
             <!-- map keys for launch-bar -->
             <key n="76">
                 <name>L</name>
@@ -2218,6 +2226,10 @@
         <rcs>
             <file>Aircraft/f-14b/Nasal/rcs.nas</file>
         </rcs>
+        <armament>
+            <file>Aircraft/f-14b/Nasal/fox2.nas</file>
+            <file>Aircraft/f-14b/Nasal/damage.nas</file>
+        </armament>
         <awg_9>
             <file>Aircraft/f-14b/Nasal/awg_9.nas</file>
             <file>Aircraft/f-14b/Nasal/M_nearest_carrier.nas</file>
@@ -2272,10 +2284,6 @@
         <f14_afcs>
             <file>Aircraft/f-14b/Nasal/afcs.nas</file>
         </f14_afcs>
-        <armament>
-            <file>Aircraft/f-14b/Nasal/fox2.nas</file>
-            <file>Aircraft/f-14b/Nasal/damage.nas</file>
-        </armament>
         <environment>
             <file>Aircraft/f-14b/Nasal/environment.nas</file>
         </environment>
