@@ -1307,10 +1307,10 @@
 
                 <ClDFM type="double">1.53</ClDFM>
                 <ClDAFM type="double">1.45</ClDAFM>
-                <CdDFM type="double">1.21</CdDFM>
-                <CdDAFM type="double">1.59</CdDAFM>
-                <CMDFM type="double">2.00</CMDFM>
-                <CMADFM type="double">0.89</CMADFM>
+                <CdDFM type="double">0.59</CdDFM>
+                <CdDAFM type="double">0.63</CdDAFM>
+                <CMDFM type="double">1.01</CMDFM>
+                <CMADFM type="double">1.02</CMADFM>
             </tuning>
             <systems>
                 <hook>
