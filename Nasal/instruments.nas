@@ -592,58 +592,58 @@ var instruments_exec = {
 	},
     update : func(notification) {
 #        print("Exec instruments: dT",notification.dT, " frame=",notification.FrameCount);        
-    aircraft.ownship_pos.set_latlon(getprop("position/latitude-deg"), getprop("position/longitude-deg"));
-
-	burner +=1;
-	if ( burner == 3 ) { burner = 0 }
-	BurnerN.setValue(burner);
+        aircraft.ownship_pos.set_latlon(getprop("position/latitude-deg"), getprop("position/longitude-deg"));
+        
+        burner +=1;
+        if ( burner == 3 ) { burner = 0 }
+        BurnerN.setValue(burner);
 
         if (f14.usingJSBSim) {
             if ( getprop("sim/replay/time") > 0 ) {
-#now recorded              setprop ("/orientation/alpha-indicated-deg", (getprop("/orientation/alpha-deg") - 0.797) / 0.8122);
+                #now recorded              setprop ("/orientation/alpha-indicated-deg", (getprop("/orientation/alpha-deg") - 0.797) / 0.8122);
             } else {
-              setprop ("/gear/gear[0]/compression-adjusted-ft", getprop("fdm/jsbsim/gear/unit[0]/compression-adjusted-ft"));
-#              setprop ("/orientation/alpha-indicated-deg", getprop("fdm/jsbsim/aero/alpha-indicated-deg"));
-          }
+                setprop ("/gear/gear[0]/compression-adjusted-ft", getprop("fdm/jsbsim/gear/unit[0]/compression-adjusted-ft"));
+                #              setprop ("/orientation/alpha-indicated-deg", getprop("fdm/jsbsim/aero/alpha-indicated-deg"));
+            }
         } else
-		setprop ("/orientation/alpha-indicated-deg", getprop("/orientation/alpha-deg"));
+          setprop ("/orientation/alpha-indicated-deg", getprop("/orientation/alpha-deg"));
 
         # every other frame
         if ( !math.mod(notifications.frameNotification.FrameCount,2)){
             # even frame
-		inc_ticker();
-		tacan_update();
-        ara_63_update();
-		f14_hud.update_hud();
-		g_min_max();
-		f14_chronograph.update_chrono();
+            inc_ticker();
+            tacan_update();
+            ara_63_update();
+            f14_hud.update_hud();
+            g_min_max();
+            f14_chronograph.update_chrono();
 
             if (notifications.frameNotification.FrameCount == 6 or notifications.frameNotification.FrameCount == 12 ) {
-			# done each 0.3 sec.
-			f14.fuel_update();
+                # done each 0.3 sec.
+                f14.fuel_update();
                 if ( notifications.frameNotification.FrameCount == 12 ) {
-				# done each 0.6 sec.
-				local_mag_deviation();
-				nav1_freq_update();
-			}
-		}
-	} else {
+                    # done each 0.6 sec.
+                    local_mag_deviation();
+                    nav1_freq_update();
+                }
+            }
+        } else {
             # odd frame
-		awg_9.hud_nearest_tgt();
-		instruments_data_export();
-		if ( ArmSysRunning.getBoolValue() ) {
-			f14.armament_update();
-		}
+            awg_9.hud_nearest_tgt();
+            instruments_data_export();
+            if ( ArmSysRunning.getBoolValue() ) {
+                f14.armament_update();
+            }
             if (notifications.frameNotification.FrameCount == 5 or notifications.frameNotification.FrameCount == 11 ) {
-			# done each 0.3 sec.
-			afcs_filters();
-			compute_drag();
+                # done each 0.3 sec.
+                afcs_filters();
+                compute_drag();
                 if ( notifications.frameNotification.FrameCount == 11 ) {
-				# done each 0.6 sec.
-				compute_drag();
-			}
-		}
-	}
+                    # done each 0.6 sec.
+                    compute_drag();
+                }
+            }
+        }
     },
 };
 subsystem = instruments_exec.new("instruments_exec");
@@ -682,7 +682,6 @@ var common_carrier_init = func {
 
     if(on_carrier)
     {
-
         var ground_elevation = getprop("/position/ground-elev-ft");
         if (ground_elevation == nil)
             ground_elevation = 65.2;
@@ -803,7 +802,7 @@ var common_init = func {
                 if (repos_gear_down)
                   print("Starting with gear down as repos_gear_down set to ",repos_gear_down);
                 else
-                print("Starting with gear down as below 500 ft");
+                  print("Starting with gear down as below 500 ft");
                 setprop("/controls/gear/gear-down", 1);
                 setprop("/fdm/jsbsim/fcs/gear/gear-cmd-norm",1);
                 setprop("/fdm/jsbsim/fcs/gear/gear-dmd-norm",1);

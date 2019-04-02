@@ -258,7 +258,6 @@ setlistener("/ai/models/model-added", func(v){
         scan_update_tgt_list = 1;
     }
 });
-
 setlistener("/ai/models/model-removed", func(v){
     if (!scan_update_tgt_list) {
         scan_update_tgt_list = 1;
@@ -280,11 +279,10 @@ init = func() {
 # Radar main processing entry point
 # Run at 20hz - invoked from main loop in instruments.nas
 var rdr_loop = func(notification) {
-if (notification["ownship_pos"] == nil)
-  {
-print("Radar: disabled as no ownship position");
-return;
-}
+    if (notification["ownship_pos"] == nil){
+        print("Radar: disabled as no ownship position");
+        return;
+    }
 
 #    if (noti.FrameCount != 0) {
 #        return;
@@ -381,7 +379,7 @@ var az_scan = func(notification) {
             {
                 if (active_u != nil)
                     active_u = nil;
-                armament.contact = active_u;
+                armament .contact = active_u;
             }
 
             foreach( var c; raw_list )
@@ -1922,15 +1920,16 @@ var RadarRecipient =
         foreach (var name; keys(input)) {
             emesary.GlobalTransmitter.NotifyAll(notifications.FrameNotificationAddProperty.new(_ident,name, input[name]));
         }
-        new_class.Receive = func(notification)
-          {
-              rdr_loop(notification);
-              return emesary.Transmitter.ReceiptStatus_OK;
-          }
+        new_class.Receive = func(notification) {
+              if (notification.NotificationType == "FrameNotification"){
+                  rdr_loop(notification);
+                  return emesary.Transmitter.ReceiptStatus_OK;
+              }
+              return emesary.Transmitter.ReceiptStatus_NotProcessed;
+        }
         return new_class;
     },
 };
 
 var aircraft_radar = RadarRecipient.new(this_model);
 emesary.GlobalTransmitter.Register(aircraft_radar );
-

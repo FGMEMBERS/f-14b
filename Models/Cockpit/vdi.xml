@@ -582,12 +582,9 @@
     <animation>
         <type>select</type>
         <object-name>apc</object-name>
-        <condition>
-            <equals>
-                <property>autopilot/locks/aoa</property>
-                <value>APC</value>
-            </equals>
-        </condition>
+      <condition>
+        <property>fdm/jsbsim/systems/apc/active</property>
+      </condition>
     </animation>
     <animation>
         <type>select</type>

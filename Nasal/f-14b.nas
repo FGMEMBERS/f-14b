@@ -395,6 +395,7 @@ var F14_exec = {
         {
             if (notification.NotificationType == "FrameNotification")
             {
+                # this needs to be executed before the radar.
                 me.F14_exec.update(notification);
                 ownship_pos.set_latlon(ownshipLat.getValue(), ownshipLon.getValue());
                 notification.ownship_pos = ownship_pos;
@@ -408,7 +409,7 @@ var F14_exec = {
 		return obj;
 	},
     update : func(notification) {
-	 aircraft.rain.update();
+        aircraft.rain.update();
 
         if(usingJSBSim){
             if ( math.mod(notifications.frameNotification.FrameCount,2)){
@@ -416,67 +417,67 @@ var F14_exec = {
             }
         }
 
-	#Fectch most commonly used values
-	CurrentIAS = getprop ("/velocities/airspeed-kt");
-	CurrentMach = getprop ("/velocities/mach");
-	CurrentAlt = getprop ("/position/altitude-ft");
-	wow = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
+        #Fectch most commonly used values
+        CurrentIAS = getprop ("/velocities/airspeed-kt");
+        CurrentMach = getprop ("/velocities/mach");
+        CurrentAlt = getprop ("/position/altitude-ft");
+        wow = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
 
-	Alpha = getprop ("/orientation/alpha-indicated-deg");
-	Throttle = getprop ("/controls/engines/engine/throttle");
-	e_trim = getprop ("/controls/flight/elevator-trim");
-	deltaT = getprop ("sim/time/delta-sec");
+        Alpha = getprop ("/orientation/alpha-indicated-deg");
+        Throttle = getprop ("/controls/engines/engine/throttle");
+        e_trim = getprop ("/controls/flight/elevator-trim");
+        deltaT = getprop ("sim/time/delta-sec");
 
         if (usingJSBSim) {
-        currentG = getprop ("accelerations/pilot-gdamped");
-        # use interpolate to make it take 1.2seconds to affect the demand
+            currentG = getprop ("accelerations/pilot-gdamped");
+            # use interpolate to make it take 1.2seconds to affect the demand
 
-        var dmd_afcs_roll = getprop("/controls/flight/SAS-roll");
-        var roll_mode = getprop("autopilot/locks/heading");
+            var dmd_afcs_roll = getprop("/controls/flight/SAS-roll");
+            var roll_mode = getprop("autopilot/locks/heading");
 
-        if(roll_mode != "dg-heading-hold" and roll_mode != "wing-leveler" and roll_mode != "true-heading-hold" )
-            setprop("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",0);
+            if (roll_mode != "dg-heading-hold" and roll_mode != "wing-leveler" and roll_mode != "true-heading-hold" )
+              setprop("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",0);
             else {
-            var roll = getprop("orientation/roll-deg");
-            if (dmd_afcs_roll < -0.11) dmd_afcs_roll = -0.11;
-            else if (dmd_afcs_roll > 0.11) dmd_afcs_roll = 0.11;
+                var roll = getprop("orientation/roll-deg");
+                if (dmd_afcs_roll < -0.11) dmd_afcs_roll = -0.11;
+                else if (dmd_afcs_roll > 0.11) dmd_afcs_roll = 0.11;
 
-#print("AFCS ",roll," DMD ",dmd_afcs_roll, " SAS=", getprop("/controls/flight/SAS-roll"), " cur=",getprop("fdm/jsbsim/fcs/roll-trim-cmd-norm"));
-            if (roll < -45 and dmd_afcs_roll < 0) dms_afcs_roll = 0;
-            if (roll > 45 and dmd_afcs_roll > 0) dms_afcs_roll = 0;
+                #print("AFCS ",roll," DMD ",dmd_afcs_roll, " SAS=", getprop("/controls/flight/SAS-roll"), " cur=",getprop("fdm/jsbsim/fcs/roll-trim-cmd-norm"));
+                if (roll < -45 and dmd_afcs_roll < 0) dms_afcs_roll = 0;
+                if (roll > 45 and dmd_afcs_roll > 0) dms_afcs_roll = 0;
 
-            interpolate("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",dmd_afcs_roll,0.1);
-        }
+                interpolate("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",dmd_afcs_roll,0.1);
+            }
         } else {
-        currentG = getprop ("accelerations/pilot-g");
-		setprop("engines/engine[0]/augmentation", getprop("engines/engine[0]/afterburner"));
-		setprop("engines/engine[1]/augmentation", getprop("engines/engine[1]/afterburner"));
-        setprop("engines/engine[0]/fuel-flow_pph",getprop("engines/engine[0]/fuel-flow-gph")*1.46551724137931);
-        setprop("engines/engine[1]/fuel-flow_pph",getprop("engines/engine[1]/fuel-flow-gph")*1.46551724137931);
+            currentG = getprop ("accelerations/pilot-g");
+            setprop("engines/engine[0]/augmentation", getprop("engines/engine[0]/afterburner"));
+            setprop("engines/engine[1]/augmentation", getprop("engines/engine[1]/afterburner"));
+            setprop("engines/engine[0]/fuel-flow_pph",getprop("engines/engine[0]/fuel-flow-gph")*1.46551724137931);
+            setprop("engines/engine[1]/fuel-flow_pph",getprop("engines/engine[1]/fuel-flow-gph")*1.46551724137931);
 
-    }
+        }
 
-	#update functions
-	f14.computeSweep ();
-	f14.computeFlaps ();
-	f14.computeSpoilers ();
-	f14.computeNozzles ();
-    if (!usingJSBSim){
-	    f14.computeSAS ();
-    }
+        #update functions
+        f14.computeSweep ();
+        f14.computeFlaps ();
+        f14.computeSpoilers ();
+        f14.computeNozzles ();
+        if (!usingJSBSim) {
+            f14.computeSAS ();
+        }
 #        f14.computeAdverse ();
-	f14.computeNWS ();
-	f14.computeAICS ();
-	f14.computeAPC ();
-    f14.engineControls();
-	f14.timedMotions ();
-    f14.electricsFrame();
+        f14.computeNWS ();
+        f14.computeAICS ();
+        f14.computeAPC ();
+        f14.engineControls();
+        f14.timedMotions ();
+        f14.electricsFrame();
     },
 };
 
 subsystem = F14_exec.new("F14_exec");
 
-	position_flash_init();
+position_flash_init();
 slat_output.setDoubleValue(0);
 
 #----------------------------------------------------------------------------

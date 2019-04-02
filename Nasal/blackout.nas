@@ -192,6 +192,7 @@ var blackout_init = func {
         z_accel = props.getNode("/accelerations/pilot-g[0]");
         z_accel_factor=1
     }
+
 	if (getprop("sim/rendering/redout/internal/log/g-force") == nil) {
         redoutTimer.stop();
         blackoutTimer.start();
@@ -203,8 +204,6 @@ var blackout_init = func {
     blackoutTimer.stop();
 	}
 }
-
-
 
 var blackout_init_listener = setlistener("sim/signals/fdm-initialized", func {
 	blackout_init();
