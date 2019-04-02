@@ -1,13 +1,9 @@
-debug_fixup = func(u) {
-#u.Bearing.setValue(u.get_rel_bearing());
-#dump_tgt(0,u);
-};
  #---------------------------------------------------------------------------
-#
+ #
  #	Title                : Radar simulation.
-#
+ #
  #	File Type            : Implementation File
-# 
+ # 
  #	Description          : A not very complex simulation of an AA or AG radar
  #                       : loosely based on the AN/APG-63 but doesn't use any sort of 
  #                       : actual radar beam processing instead
@@ -627,7 +623,6 @@ if(awg9_trace)
                   # Compute mp position in our DDD display. (Bearing/horizontal + Range/Vertical).
                   u.set_relative_bearing( ddd_screen_width / az_fld * u.deviationA );
                   u.BBearing.setValue(u.get_bearing());#awg_9.ddd_screen_width*awg_9.az_fld /  u.deviationA);
-debug_fixup(u);
                   var factor_range_radar = 0.0657 / range_radar2; # 0.0657m : length of the distance range on the DDD screen.
                   u.set_ddd_draw_range_nm( factor_range_radar * u_rng );
                   u_fading = 1;
