@@ -583,14 +583,14 @@
             <mode>looped</mode>
             <condition>
                 <property>sim/current-view/internal-canopy-closed</property>
-                <property>engines/engine[0]/afterburner</property>
+                <property>engines/engine[0]/augmentation</property>
                 <property>engines/engine[0]/running</property>
                 <not>
                     <property>sim/model/f-14b/engine-sound-freeze</property>
                 </not>
             </condition>
             <volume>
-                <property>engines/engine[0]/afterburner</property>
+                <property>engines/engine[0]/augmentation</property>
                 <factor>0.8</factor>
             </volume>
             <position>
@@ -616,14 +616,14 @@
             <mode>looped</mode>
             <condition>
                 <property>sim/current-view/internal-canopy-closed</property>
-                <property>engines/engine[1]/afterburner</property>
+                <property>engines/engine[1]/augmentation</property>
                 <not>
                     <property>sim/model/f-14b/engine-sound-freeze</property>
                 </not>
                 <property>engines/engine[1]/running</property>
             </condition>
             <volume>
-                <property>engines/engine[1]/afterburner</property>
+                <property>engines/engine[1]/augmentation</property>
                 <factor>0.8</factor>
             </volume>
             <position>
@@ -651,14 +651,14 @@
                 <not>
                     <property>sim/current-view/internal-canopy-closed</property>
                 </not>
-                <property>engines/engine[0]/afterburner</property>
+                <property>engines/engine[0]/augmentation</property>
                 <not>
                     <property>sim/model/f-14b/engine-sound-freeze</property>
                 </not>
                 <property>engines/engine[0]/running</property>
             </condition>
             <volume>
-                <property>engines/engine[0]/afterburner</property>
+                <property>engines/engine[0]/augmentation</property>
                 <factor>0.5</factor>
             </volume>
 <!--
@@ -693,14 +693,14 @@
                 <not>
                     <property>sim/current-view/internal-canopy-closed</property>
                 </not>
-                <property>engines/engine[1]/afterburner</property>
+                <property>engines/engine[1]/augmentation</property>
                 <not>
                     <property>sim/model/f-14b/engine-sound-freeze</property>
                 </not>
                 <property>engines/engine[1]/running</property>
             </condition>
             <volume>
-                <property>engines/engine[1]/afterburner</property>
+                <property>engines/engine[1]/augmentation</property>
                 <factor>0.5</factor>
             </volume>
             <position>
@@ -2033,6 +2033,36 @@
                 <max>1</max>
             </volume>
         </nearby-explode>
+
+        <flare>
+            <name>flare</name>
+            <mode>once</mode>
+            <type>avionics</type>
+            <path>Aircraft/f-14b/Sounds/flare.wav</path>
+            <condition>
+                <property>ai/submodels/submodel[4]/flare-release-snd</property>
+                <property>sim/current-view/internal</property>
+            </condition>
+            <volume>
+                <factor>1</factor>
+                <max>1</max>
+            </volume>
+        </flare>
+
+        <flare>
+            <name>flareOut</name>
+            <mode>once</mode>
+            <type>avionics</type>
+            <path>Aircraft/f-14b/Sounds/flareOut.wav</path>
+            <condition>
+                <property>ai/submodels/submodel[4]/flare-release-out-snd</property>
+                <property>sim/current-view/internal</property>
+            </condition>
+            <volume>
+                <factor>1</factor>
+                <max>1</max>
+            </volume>
+        </flare>
     </fx>
 </PropertyList>
 <!--

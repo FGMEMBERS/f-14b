@@ -1,4 +1,9 @@
 # Utilities #########
+# Version checking based on the work of Joshua Davidson
+if (num(string.replace(getprop("/sim/version/flightgear"),".","")) < 201620) {
+var error_mismatch = gui.Dialog.new("sim/gui/dialogs/fg-version/dialog", "Dialogs/fg-version.xml");
+error_mismatch.open();
+}
 
 # Lighting 
 #setprop("sim/model/path","data/Aircraft/f-14b/F-14B.xml");
@@ -23,6 +28,21 @@ setprop("sim/fdm/surface/override-level", 0);
 
 aircraft.tyresmoke_system.new(0, 1, 2);
 aircraft.rain.init();
+
+#
+# 2017.3 or earlier FG compatibility fixes
+# Remove after 2017.4
+string.truncateAt = func(src, match){
+    var rv = nil;
+    call(func {
+        if (src != nil and match !=nil) {
+            var pos = find(match,src);
+            if (pos>=0)
+              src=substr(src,0,pos);
+        }
+    }, nil, var err = []);
+    return src;
+}
 
 var position_switch = func(n) {
 	var sw_pos = sw_pos_prop.getValue();
@@ -123,8 +143,6 @@ var SweepSpeed = 0.3;
 var main_flap_output   = props.globals.getNode("surface-positions/main-flap-pos-norm", 1);
 var aux_flap_output    = props.globals.getNode("surface-positions/aux-flap-pos-norm", 1);
 var slat_output        = props.globals.getNode("surface-positions/slats-pos-norm", 1);
-var usingJSBSim = getprop("/sim/flight-model") == "jsb";
-#print ("F-14 Using jsbsim = ",usingJSBSim);
 
 if (usingJSBSim){
     aux_flap_output    = props.globals.getNode("/fdm/jsbsim/fcs/aux-flap-pos-norm", 1);
@@ -148,7 +166,7 @@ var lighting_position  = props.globals.getNode("sim/model/f-14b/lighting/positio
 var left_wing_torn     = props.globals.getNode("sim/model/f-14b/wings/left-wing-torn");
 var right_wing_torn    = props.globals.getNode("sim/model/f-14b/wings/right-wing-torn");
 
-var wing_sweep_generic  = props.globals.getNode("sim/multiplay/generic/float[0]",1);
+#var wing_sweep_generic  = props.globals.getNode("sim/multiplay/generic/float[0]",1);
 var main_flap_generic  = props.globals.getNode("sim/multiplay/generic/float[1]",1);
 var aux_flap_generic   = props.globals.getNode("sim/multiplay/generic/float[2]",1);
 var slat_generic       = props.globals.getNode("sim/multiplay/generic/float[3]",1);
@@ -284,7 +302,7 @@ var timedMotions = func {
     {
         if (main_flap_generic != nil)
         {    
-    	    main_flap_generic.setDoubleValue(getprop("fdm/jsbsim/fcs/flap-pos-norm"));
+    	    #main_flap_generic.setDoubleValue(getprop("fdm/jsbsim/fcs/flap-pos-norm"));
         } 
 
         if (aux_flap_generic != nil)
@@ -314,7 +332,7 @@ var timedMotions = func {
     	right_elev_generic.setDoubleValue(right_elev_output.getValue());
     }
 	slat_generic.setDoubleValue(slat_output.getValue());
-    wing_sweep_generic.setDoubleValue(currentSweep);
+    #wing_sweep_generic.setDoubleValue(currentSweep);
 	lighting_collision_generic.setIntValue(lighting_collision.getValue());
 	lighting_position_generic.setIntValue(lighting_position.getValue() * position_intens);
 	left_wing_torn_generic.setIntValue(left_wing_torn.getValue());
@@ -338,85 +356,129 @@ setprop("/sim/multiplay/generic/float[11]", getprop("/fdm/jsbsim/propulsion/engi
 var wow = 1;
 setprop("/fdm/jsbsim/fcs/roll-trim-actuator",0) ;
 setprop("/controls/flight/SAS-roll",0);
-var registerFCS = func {settimer (updateFCS, 0);}
 
-var updateFCS = func {
-	 aircraft.rain.update();
+var ownship_pos = geo.Coord.new();
+var ownshipLat = props.globals.getNode("position/latitude-deg");
+var ownshipLon = props.globals.getNode("position/longitude-deg");
+var ownshipAlt = props.globals.getNode("position/altitude-ft");
 
-	#Fectch most commonly used values
-	CurrentIAS = getprop ("/velocities/airspeed-kt");
-	CurrentMach = getprop ("/velocities/mach");
-	CurrentAlt = getprop ("/position/altitude-ft");
-	wow = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
-
-	Alpha = getprop ("/orientation/alpha-indicated-deg");
-	Throttle = getprop ("/controls/engines/engine/throttle");
-	e_trim = getprop ("/controls/flight/elevator-trim");
-	deltaT = getprop ("sim/time/delta-sec");
-
-    if(usingJSBSim)
-    {
-        currentG = getprop ("accelerations/pilot-gdamped");
-        # use interpolate to make it take 1.2seconds to affect the demand
-
-        var dmd_afcs_roll = getprop("/controls/flight/SAS-roll");
-        var roll_mode = getprop("autopilot/locks/heading");
-
-        if(roll_mode != "dg-heading-hold" and roll_mode != "wing-leveler" and roll_mode != "true-heading-hold" )
-            setprop("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",0);
-        else
-        {
-            var roll = getprop("orientation/roll-deg");
-            if (dmd_afcs_roll < -0.11) dmd_afcs_roll = -0.11;
-            else if (dmd_afcs_roll > 0.11) dmd_afcs_roll = 0.11;
-
-#print("AFCS ",roll," DMD ",dmd_afcs_roll, " SAS=", getprop("/controls/flight/SAS-roll"), " cur=",getprop("fdm/jsbsim/fcs/roll-trim-cmd-norm"));
-            if (roll < -45 and dmd_afcs_roll < 0) dms_afcs_roll = 0;
-            if (roll > 45 and dmd_afcs_roll > 0) dms_afcs_roll = 0;
-
-            interpolate("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",dmd_afcs_roll,0.1);
-        }
-    }
-    else
-    {
-        currentG = getprop ("accelerations/pilot-g");
-		setprop("engines/engine[0]/augmentation", getprop("engines/engine[0]/afterburner"));
-		setprop("engines/engine[1]/augmentation", getprop("engines/engine[1]/afterburner"));
-        setprop("engines/engine[0]/fuel-flow_pph",getprop("engines/engine[0]/fuel-flow-gph")*1.46551724137931);
-        setprop("engines/engine[1]/fuel-flow_pph",getprop("engines/engine[1]/fuel-flow-gph")*1.46551724137931);
-
-    }
-
-	#update functions
-	f14.computeSweep ();
-	f14.computeFlaps ();
-	f14.computeSpoilers ();
-	f14.computeNozzles ();
-    if (!usingJSBSim){
-	    f14.computeSAS ();
-    }
-	f14.computeAdverse ();
-	f14.computeNWS ();
-	f14.computeAICS ();
-	f14.computeAPC ();
-    f14.engineControls();
-	f14.timedMotions ();
-    f14.electricsFrame();
+var F14_exec = {
+	new : func (_ident){
+        print("F14_exec: init");
+        var obj = { parents: [F14_exec]};
+#        input = {
+#               name : "property",
+#        };
 #
-# slower rate
-    f14.update_wpstring();
-	f14.registerFCS (); # loop, once per frame.
-}
+#        foreach (var name; keys(input)) {
+#            emesary.GlobalTransmitter.NotifyAll(notifications.FrameNotificationAddProperty.new(_ident, name, input[name]));
+#        }
 
+        #
+        # recipient that will be registered on the global transmitter and connect this
+        # subsystem to allow subsystem notifications to be received
+        obj.recipient = emesary.Recipient.new(_ident~".Subsystem");
+        obj.recipient.F14_exec = obj;
 
-var startProcess = func {
-	settimer (updateFCS, 1.0);
-	position_flash_init();
+        input = {
+                 FrameRate                 : "/sim/frame-rate",
+                 frame_rate                : "/sim/frame-rate",
+                 frame_rate_worst          : "/sim/frame-rate-worst",
+                 ElapsedSeconds            : "/sim/time/elapsed-sec",
+                };
+
+        foreach (var name; keys(input)) {
+            emesary.GlobalTransmitter.NotifyAll(notifications.FrameNotificationAddProperty.new(_ident,name, input[name]));
+        }
+
+        obj.recipient.Receive = func(notification)
+        {
+            if (notification.NotificationType == "FrameNotification")
+            {
+                # this needs to be executed before the radar.
+                me.F14_exec.update(notification);
+                ownship_pos.set_latlon(ownshipLat.getValue(), ownshipLon.getValue());
+                notification.ownship_pos = ownship_pos;
+                return emesary.Transmitter.ReceiptStatus_OK;
+            }
+            return emesary.Transmitter.ReceiptStatus_NotProcessed;
+        };
+
+        emesary.GlobalTransmitter.Register(obj.recipient);
+
+		return obj;
+	},
+    update : func(notification) {
+        aircraft.rain.update();
+
+        if(usingJSBSim){
+            if ( math.mod(notifications.frameNotification.FrameCount,2)){
+                setprop("environment/aircraft-effects/frost-level", getprop("/fdm/jsbsim/systems/ecs/windscreen-frost-amount"));
+            }
+        }
+
+        #Fectch most commonly used values
+        CurrentIAS = getprop ("/velocities/airspeed-kt");
+        CurrentMach = getprop ("/velocities/mach");
+        CurrentAlt = getprop ("/position/altitude-ft");
+        wow = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
+
+        Alpha = getprop ("/orientation/alpha-indicated-deg");
+        Throttle = getprop ("/controls/engines/engine/throttle");
+        e_trim = getprop ("/controls/flight/elevator-trim");
+        deltaT = getprop ("sim/time/delta-sec");
+
+        if (usingJSBSim) {
+            currentG = getprop ("accelerations/pilot-gdamped");
+            # use interpolate to make it take 1.2seconds to affect the demand
+
+            var dmd_afcs_roll = getprop("/controls/flight/SAS-roll");
+            var roll_mode = getprop("autopilot/locks/heading");
+
+            if (roll_mode != "dg-heading-hold" and roll_mode != "wing-leveler" and roll_mode != "true-heading-hold" )
+              setprop("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",0);
+            else {
+                var roll = getprop("orientation/roll-deg");
+                if (dmd_afcs_roll < -0.11) dmd_afcs_roll = -0.11;
+                else if (dmd_afcs_roll > 0.11) dmd_afcs_roll = 0.11;
+
+                #print("AFCS ",roll," DMD ",dmd_afcs_roll, " SAS=", getprop("/controls/flight/SAS-roll"), " cur=",getprop("fdm/jsbsim/fcs/roll-trim-cmd-norm"));
+                if (roll < -45 and dmd_afcs_roll < 0) dms_afcs_roll = 0;
+                if (roll > 45 and dmd_afcs_roll > 0) dms_afcs_roll = 0;
+
+                interpolate("fdm/jsbsim/fcs/roll-trim-sas-cmd-norm",dmd_afcs_roll,0.1);
+            }
+        } else {
+            currentG = getprop ("accelerations/pilot-g");
+            setprop("engines/engine[0]/augmentation", getprop("engines/engine[0]/afterburner"));
+            setprop("engines/engine[1]/augmentation", getprop("engines/engine[1]/afterburner"));
+            setprop("engines/engine[0]/fuel-flow_pph",getprop("engines/engine[0]/fuel-flow-gph")*1.46551724137931);
+            setprop("engines/engine[1]/fuel-flow_pph",getprop("engines/engine[1]/fuel-flow-gph")*1.46551724137931);
+
+        }
+
+        #update functions
+        f14.computeSweep ();
+        f14.computeFlaps ();
+        f14.computeSpoilers ();
+        f14.computeNozzles ();
+        if (!usingJSBSim) {
+            f14.computeSAS ();
+        }
+#        f14.computeAdverse ();
+        f14.computeNWS ();
+        f14.computeAICS ();
+        f14.computeAPC ();
+        f14.engineControls();
+        f14.timedMotions ();
+        f14.electricsFrame();
+    },
+};
+
+subsystem = F14_exec.new("F14_exec");
+
+position_flash_init();
 slat_output.setDoubleValue(0);
-
-}
-
-setlistener("/sim/signals/fdm-initialized", startProcess);
 
 #----------------------------------------------------------------------------
 # View change: Ctrl-V switchback to view #0 but switch to Rio view when already
@@ -446,6 +508,8 @@ var quickstart = func() {
     if(total_lbs < 400)
         set_fuel(5500);
 
+    set_sweep(0);
+
     setprop("sim/model/f-14b/controls/hud/on-off",1);
     setprop("sim/model/f-14b/controls/VDI/on-off",1);
     setprop("sim/model/f-14b/controls/HSD/on-off",1);
@@ -457,6 +521,11 @@ var quickstart = func() {
     setprop("sim/model/f-14b/controls/electrics/master-test-switch",0);
 	setprop("sim/model/f-14b/controls/electrics/r-gen-switch",1);
 
+    setprop("sim/model/f-14b/controls/SAS/yaw", 1);
+    setprop("sim/model/f-14b/controls/SAS/roll", 1);
+    setprop("sim/model/f-14b/controls/SAS/pitch", 1);
+#
+# Richard's quickstart method
     setprop("controls/engines/engine[0]/cutoff",0);
     setprop("controls/engines/engine[1]/cutoff",0);
     setprop("engines/engine[0]/out-of-fuel",0);
@@ -464,13 +533,89 @@ var quickstart = func() {
     setprop("engines/engine[1]/run",1);
     setprop("engines/engine[1]/run",1);
 
-setprop("/engines/engine[1]/cutoff",0);
-setprop("/engines/engine[0]/cutoff",0);
+    setprop("/engines/engine[1]/cutoff",0);
+    setprop("/engines/engine[0]/cutoff",0);
 
-setprop("/fdm/jsbsim/propulsion/starter_cmd",1);
-setprop("/fdm/jsbsim/propulsion/cutoff_cmd",1);
-setprop("/fdm/jsbsim/propulsion/set-running",1);
-setprop("/fdm/jsbsim/propulsion/set-running",0);
+    setprop("/fdm/jsbsim/propulsion/starter_cmd",1);
+    setprop("/fdm/jsbsim/propulsion/cutoff_cmd",1);
+    setprop("/fdm/jsbsim/propulsion/set-running",1);
+    setprop("/fdm/jsbsim/propulsion/set-running",0);
+
+}
+var cold_and_dark = func()
+{
+    set_sweep(4);
+    setprop("sim/model/f-14b/controls/hud/on-off",0);
+    setprop("sim/model/f-14b/controls/VDI/on-off",0);
+    setprop("sim/model/f-14b/controls/HSD/on-off",0);
+
+    setprop("sim/model/f-14b/controls/electrics/emerg-flt-hyd-switch",0);
+    setprop("sim/model/f-14b/controls/electrics/emerg-gen-guard-lever",0);
+	setprop("sim/model/f-14b/controls/electrics/emerg-gen-switch",0);
+    setprop("sim/model/f-14b/controls/electrics/l-gen-switch",0);
+    setprop("sim/model/f-14b/controls/electrics/master-test-switch",0);
+	setprop("sim/model/f-14b/controls/electrics/r-gen-switch",0);
+	setprop("sim/model/f-14b/controls/electrics/emerg-gen-switch",0);
+	setprop("sim/model/f-14b/controls/electrics/r-gen-switch",0);
+
+    setprop("controls/engines/engine[0]/cutoff",1-getprop("controls/engines/engine[0]/cutoff"));
+    setprop("controls/engines/engine[1]/cutoff",1-getprop("controls/engines/engine[1]/cutoff"));
+    
+    setprop("controls/lighting/aux-inst", 0);
+    setprop("controls/lighting/eng-inst", 0);
+    setprop("controls/lighting/flt-inst", 0);
+    setprop("controls/lighting/instruments-norm",0);
+    setprop("controls/lighting/l-console", 0);
+    setprop("controls/lighting/panel-norm", 0);
+    setprop("controls/lighting/panel-norm",0);
+    setprop("controls/lighting/r-console", 0);
+    setprop("controls/lighting/stby-inst", 0);
+    setprop("controls/lighting/warn-caution", 0);
+
+    setprop("sim/model/f-14b/controls/lighting/hook-bypass",0);
+    setprop("controls/lighting/instruments-norm",0);
+    setprop("controls/lighting/panel-norm",0);
+    setprop("sim/model/f-14b/controls/lighting/anti-collision-switch",0);
+    setprop("sim/model/f-14b/controls/lighting/position-flash-switch",0);
+    setprop("sim/model/f-14b/controls/lighting/position-wing-switch",0);
+    setprop("controls/lighting/taxi-light",0);
+    setprop("sim/model/f-14b/controls/SAS/yaw", 0);
+    setprop("sim/model/f-14b/controls/SAS/roll", 0);
+    setprop("sim/model/f-14b/controls/SAS/pitch", 0);
+
+
+    setprop("/controls/gear/brake-parking",1);
+    setprop("sim/model/f-14b/controls/HUD/brightness",0);
+    setprop("sim/model/f-14b/controls/HUD/on-off",false);
+    setprop("sim/model/f-14b/controls/MPCD/brightness",0);
+    setprop("sim/model/f-14b/controls/MPCD/on-off",0);
+    setprop("sim/model/f-14b/controls/TEWS/brightness",0);
+    setprop("sim/model/f-14b/controls/VSD/on-off",false);
+    setprop("sim/model/f-14b/controls/VSD/brightness",0);
+
+    setprop("sim/model/f-14b/controls/electrics/emerg-flt-hyd-switch",0);
+    setprop("sim/model/f-14b/controls/electrics/emerg-gen-guard-lever",0);
+    setprop("sim/model/f-14b/controls/electrics/l-gen-switch",0);
+    setprop("sim/model/f-14b/controls/electrics/master-test-switch",0);
+
+    setprop("sim/model/f-14b/lights/master-test-lights", 0);
+    setprop("sim/model/f-14b/lights/radio2-brightness",0);
+
+    setprop("sim/model/f-14b/controls/windshield-heat",0);
+
+    setprop("sim/model/f-14b/controls/fuel/dump-switch",0);
+    setprop("sim/model/f-14b/controls/fuel/refuel-probe-switch",0);
+    refuel_probe_switch_down();
+    refuel_probe_switch_down();
+
+    setprop("sim/model/f-14b/controls/engines/l-eec-switch",0);
+    setprop("sim/model/f-14b/controls/engines/r-eec-switch",0);
+    setprop("sim/model/f-14b/controls/electrics/emerg-gen-switch",0);
+    setprop("sim/model/f-14b/controls/engs/l-eng-master-guard",1);
+    setprop("sim/model/f-14b/controls/engs/r-eng-master-guard",1);
+    setprop("sim/model/f-14b/controls/electrics/jfs-starter",0);
+
+    setprop("fdm/jsbsim/systems/electrics/ground-power",0);
 
 }
 
@@ -528,24 +673,28 @@ var splash_vec_loop = func
 
 splash_vec_loop();
 
-var rate4modules = func {
-	settimer (rate4modules, 0.20);
-}
-
-var rate2modules = func {
-	settimer (rate2modules, 0.04);
-    if(usingJSBSim)
-        setprop("environment/aircraft-effects/frost-level", getprop("/fdm/jsbsim/systems/ecs/windscreen-frost-amount"));
-}
-#
-# launch the timers; the time here isn't important as it will be rescheduled within the rate module exec
-settimer (rate4modules, 1); 
-settimer (rate2modules, 1);
-
-
 var resetView = func () {
   setprop("sim/current-view/field-of-view", getprop("sim/current-view/config/default-field-of-view-deg"));
   setprop("sim/current-view/heading-offset-deg", getprop("sim/current-view/config/heading-offset-deg"));
   setprop("sim/current-view/pitch-offset-deg", getprop("sim/current-view/config/pitch-offset-deg"));
   setprop("sim/current-view/roll-offset-deg", getprop("sim/current-view/config/roll-offset-deg"));
 }
+
+dynamic_view.register(func {
+              me.default_plane(); 
+   });
+
+var fixAirframe = func {
+    setprop ("fdm/jsbsim/systems/flyt/damage-reset", 1);
+    repairMe();
+}
+
+setlistener("sim/model/f-14b/wings/damage-enabled", func(v){
+print("Damage enabled ",v.getValue());
+    if (v.getValue())
+      setprop("fdm/jsbsim/systems/flyt/wing-damage-enabled",1);
+    else
+      setprop("fdm/jsbsim/systems/flyt/wing-damage-enabled",0);
+  },0,0);
+
+setprop("fdm/jsbsim/systems/flyt/wing-damage-enabled",getprop("sim/model/f-14b/wings/damage-enabled"));

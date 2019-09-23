@@ -50,7 +50,7 @@ var r_n1_prop = props.globals.getNode("engines/engine[1]/n1",1);
 var l_starter_prop = props.globals.getNode("controls/engines/engine[0]/starter");
 var r_starter_prop = props.globals.getNode("controls/engines/engine[1]/starter");
 
-var engine_crank_switch_pos_prop = props.globals.getNode("sim/model/f-14b/controls/engine/engine-crank");
+var engine_crank_switch_pos_prop = props.globals.getNode("sim/model/f-14b/controls/engine/engine-crank",1);
 engine_crank_switch_pos_prop.setValue(0);
 var engine_start_initiated = 0;
 
@@ -146,6 +146,7 @@ var computeNozzles = func {
             #
             # engine stall is detected in the engines system.
             var comp_stall_message="";
+        if (getprop("fdm/jsbsim/propulsion/engine[0]/P0-stall") != nil and getprop("fdm/jsbsim/propulsion/engine[1]/P0-stall") != nil) {
             if (getprop("fdm/jsbsim/propulsion/engine[0]/P0-stall") > 0.98 and !getprop("fdm/jsbsim/propulsion/engine[0]/stalled"))
             {
 #        print("Compressor stall left engine");
@@ -159,7 +160,7 @@ var computeNozzles = func {
             }
             setprop("engines/engine[0]/stalled", getprop("fdm/jsbsim/propulsion/engine[0]/stalled"));
             setprop("engines/engine[1]/stalled", getprop("fdm/jsbsim/propulsion/engine[1]/stalled"));
-
+        }
 # there will be a pop/bang when the compressor stalls; I did have a popup message but that
 # spoils the realism as if the pilot misses the sound they should still notice the gauges in their
 # scan and if they don't notice that's when there's likely to be a MIR.
@@ -354,7 +355,11 @@ var jfs_starting = 0;
 var jfs_shutdown_timer = 0;
 
 var shutdownTimer = maketimer(6, jfs_invoke_shutdown);
+shutdownTimer.simulatedTime = 1;
+
 var startupTimer = maketimer(11, jfs_set_running);
+startupTimer.simulatedTime = 1;
+
 #startupTimer.singleShot=1;
 var jfsShutdownTime = 55; # time after crank switch set to centre that the JFS will turn off.
 var jfsStartupTime = 10; # amount of time it takes JFS to be ready - before the start will be able to turn the engine (i.e. how long before starter_cmd is set)
@@ -546,3 +551,8 @@ var econt_temp = func(n) {
     setprop("sim/model/f-14b/controls/switch-temp", n);
 }
 
+setlistener("/fdm/jsbsim/systems/apc/milthrust", func {
+	if (getprop("/fdm/jsbsim/systems/apc/milthrust") == 1) {
+		f14.econt_throttle_mode(0); # Kill APC
+	}
+}, 0, 0); # the 2 zeros make this not update unless the value actually changes

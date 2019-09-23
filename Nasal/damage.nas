@@ -12,6 +12,7 @@ var cannon_types = {
     " GAU-8/A hit":           0.10, # 30mm
     " BK27 cannon hit":       0.07, # 27mm
     " GSh-30 hit":            0.10, # 30mm
+    " GSh-23 hit":            0.065,# 23mm
     " 7.62 hit":              0.005,# 7.62mm
     " 50 BMG hit":            0.015,# 12.7mm
 };
@@ -37,13 +38,17 @@ var warhead_lbs = {
     "Meteor":               55.00,
     "AIM-54":              135.00,
     "Matra R550 Magic 2":   27.00,
+    "MatraR550Magic2":      27.00,
     "Matra MICA":           30.00,
+    "MatraMica":            30.00,
+    "MatraMicaIR":          30.00,
     "RB-15F":              440.92,
     "SCALP":               992.00,
     "KN-06":               315.00,
     "GBU12":               190.00,
     "GBU16":               450.00,
     "Sea Eagle":           505.00,
+    "SeaEagle":            505.00,
     "AGM65":               200.00,
     "RB-04E":              661.00,
     "RB-05A":              353.00,
@@ -62,6 +67,7 @@ var warhead_lbs = {
     "R-27R1":               85.98,
     "R-27T1":               85.98,
     "FAB-500":             564.00,
+    "Exocet":              364.00,
 };
 
 var fireMsgs = {
@@ -97,6 +103,7 @@ var incoming_listener = func {
     var last_vector = split(":", last);
     var author = last_vector[0];
     var callsign = getprop("sim/multiplay/callsign");
+    callsign = size(callsign) < 8 ? callsign : left(callsign,7);
     if (size(last_vector) > 1 and author != callsign) {
       # not myself
       #print("not me");
@@ -215,6 +222,11 @@ var incoming_listener = func {
           } 
         } elsif (cannon_types[last_vector[1]] != nil) {
           if (size(last_vector) > 2 and last_vector[2] == " "~callsign) {
+            if (size(last_vector) < 4) {
+              # msg is either missing number of hits, or has no trailing dots from spam filter.
+              print('"'~last~'"   is not a legal hit message, tell the shooter to upgrade his OPRF plane :)');
+              return;
+            }
             var last3 = split(" ", last_vector[3]);
             if(size(last3) > 2 and size(last3[2]) > 2 and last3[2] == "hits" ) {
               var probability = cannon_types[last_vector[1]];
@@ -228,19 +240,19 @@ var incoming_listener = func {
 
                 printf("Took %.1f%% x %2d damage from cannon! %s systems was hit.", probability*100, hit_count, damaged_sys);
                 nearby_explosion();
-            }
+              }
             } else {
               var probability = cannon_types[last_vector[1]];
               #print("probability: " ~ probability);
               
               var failed = fail_systems(probability * 3);# Old messages is assumed to be 3 hits
               printf("Took %.1f%% x 3 damage from cannon! %s systems was hit.", probability*100, failed);
-            nearby_explosion();
+              nearby_explosion();
+            }
           }
         }
       }
     }
-  }
   }
 }
 
@@ -302,10 +314,10 @@ var processCallsigns = func () {
       callsign_struct[callsign] = player;
     }
   }
-  settimer(processCallsigns, 1.5);
 }
-
-processCallsigns();
+processCallsignsTimer = maketimer(1.5, processCallsigns);
+processCallsignsTimer.simulatedTime = 1;
+processCallsignsTimer.start();
 
 
 #f14b
@@ -328,9 +340,9 @@ var sendMis = func () {
     }
   }
   setprop("sim/multiplay/generic/string[13]", str);
-  settimer(sendMis,0.05);
 }
-
+sendMisTimer = maketimer(0.05, sendMis);
+sendMisTimer.simulatedTime = 1;
 
 var logTime = func{
   #log time and date for outputing ucsv files for converting into KML files for google earth.
@@ -343,7 +355,7 @@ var logTime = func{
   }
 }
 
-#sendMis(); use emmisary for this
+#sendMisTimer.start(); ; use emesary for this
 
 var ct = func (type) {
   if (type == "c-u") {
@@ -453,9 +465,10 @@ var code_ct = func () {
     ifa = 0;
   }
   var final = "ct"~cu~ff~rl~rf~rp~a~dm~tm~rd~ml~sf~ifa;
-#  setprop("sim/multiplay/generic/string[15]", final);
-  settimer(code_ct, 2);
+  setprop("sim/multiplay/generic/string[15]", final);
 }
+code_ctTimer = maketimer(2, code_ct);
+code_ctTimer.simulatedTime = 1;
 
 var not = func {
   if (getprop("payload/armament/msg") == TRUE and getprop("fdm/jsbsim/gear/unit[0]/WOW") != TRUE) {
@@ -468,7 +481,6 @@ var not = func {
         var bits = spl[1];
         msg = "I ";
         if (bits == "000000000000") {
-          settimer(not, 60);
           return;
         }
         if (substr(bits,0,1) == "1") {
@@ -511,8 +523,9 @@ var not = func {
     }
     setprop("/sim/multiplay/chat", msg);
   }
-  settimer(not, 60);
 }
+notTimer = maketimer(60, not);
+notTimer.simulatedTime = 1;
 
 var changeGuiLoad = func()
 {#return;
@@ -569,8 +582,8 @@ setlistener("/sim/multiplay/chat-history", incoming_listener, 0, 0);
 setprop("/sim/failure-manager/display-on-screen", FALSE);
 
 changeGuiLoad();
-settimer(code_ct, 5);
-settimer(not, 11);
+code_ctTimer.start();
+notTimer.start();
 
 var re_init = func {
   # repair the aircraft
@@ -581,6 +594,8 @@ var re_init = func {
   foreach(var failure_mode_id; mode_list) {
     FailureMgr.set_failure_level(failure_mode_id, 0);
   }
+  setprop("ai/submodels/submodel[4]/count", 100);
+  setprop("ai/submodels/submodel[5]/count", 100);
 }
 
 setlistener("/sim/signals/reinit", re_init, 0, 0);
